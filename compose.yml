@@ -1,0 +1,77 @@
+version: '3'
+services:
+  mkdocs:
+    image: squidfunk/mkdocs-material
+    ports:
+      - "8005:8000"
+    volumes:
+      - ./documentation:/docs
+    stdin_open: true
+    tty: true
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./drupal:/var/www/html
+      - ./docker/dev/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - drupal-network
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/dev/php/Dockerfile
+    ports:
+      - "9003:9003" # Xdebug 3.x
+    volumes:
+      - ./drupal:/var/www/html
+      - ./docker/dev/php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - db
+    networks:
+      - drupal-network
+
+  db:
+    image: postgres:latest
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=drupal
+      - POSTGRES_USER=drupal
+      - POSTGRES_PASSWORD=drupal
+    networks:
+      - drupal-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./drupal/elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - drupal-network
+
+  node:
+    image: node:16
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./11ty:/usr/app/11ty
+    restart: on-failure
+    entrypoint: "tail -f /dev/null"
+    working_dir: "/usr/app"
+
+
+volumes:
+  db-data:
+
+networks:
+  drupal-network:

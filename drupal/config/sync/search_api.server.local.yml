@@ -1,0 +1,21 @@
+uuid: 3ea9c4b7-10ed-49ec-bf37-0a621bf131a8
+langcode: fr
+status: true
+dependencies:
+  module:
+    - elasticsearch_connector
+id: local
+name: Local
+description: ''
+backend: elasticsearch
+backend_config:
+  connector: standard
+  connector_config:
+    url: 'http://elasticsearch:9200'
+    enable_debug_logging: true
+  advanced:
+    fuzziness: auto
+    prefix: ''
+    suffix: ''
+    synonyms:
+      - ''

@@ -1,0 +1,22 @@
+uuid: 26984fe8-00e0-4c35-a80c-dbb259064fee
+langcode: fr
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ui_suite_dsfr
+_core:
+  default_config_hash: lpZ4GMeUmSuH8aB11ZW1QepYmeUUK7CWajpXwlPf6k8
+id: ui_suite_dsfr_messages
+theme: ui_suite_dsfr
+region: content
+weight: -3
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Messages de statut'
+  label_display: '0'
+  provider: system
+visibility: {  }

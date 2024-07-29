@@ -1,0 +1,26 @@
+uuid: 56a0b176-5441-4e6b-bfe8-651ac2e55e6d
+langcode: fr
+status: true
+dependencies:
+  enforced:
+    module:
+      - media_library
+_core:
+  default_config_hash: FxMdscEA4aDH0KPM73HIZtVn3zIAgC1kQ3CkBw26HYs
+name: media_library
+label: 'Vignette de la médiathèque (220x220)'
+effects:
+  75b076a8-1234-4b42-85db-bf377c4d8d5f:
+    uuid: 75b076a8-1234-4b42-85db-bf377c4d8d5f
+    id: image_scale
+    weight: 0
+    data:
+      width: 220
+      height: 220
+      upscale: false
+  1021da71-fc2a-43d0-be5d-efaf1c79e2ea:
+    uuid: 1021da71-fc2a-43d0-be5d-efaf1c79e2ea
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

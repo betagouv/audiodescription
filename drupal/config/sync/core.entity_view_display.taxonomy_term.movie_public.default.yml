@@ -1,0 +1,31 @@
+uuid: 4d318f19-d41b-4008-8d9e-8ea7bb6d353a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.movie_public.field_taxo_code
+    - taxonomy.vocabulary.movie_public
+  module:
+    - text
+id: taxonomy_term.movie_public.default
+targetEntityType: taxonomy_term
+bundle: movie_public
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_taxo_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true

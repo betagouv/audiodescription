@@ -1,0 +1,23 @@
+uuid: e66c1bcb-998a-4ba9-83ca-73fb67c0fe01
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ct_cnc_nb
+    - node.type.movie
+id: node.movie.field_ct_cnc_nb
+field_name: field_ct_cnc_nb
+entity_type: node
+bundle: movie
+label: 'Numéro CNC'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

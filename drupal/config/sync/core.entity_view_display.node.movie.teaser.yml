@@ -1,0 +1,31 @@
+uuid: cce4d9ca-b4db-4349-87e3-25ae4b460e4f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.movie.field_ct_cnc_nb
+    - field.field.node.movie.field_ct_has_ad
+    - field.field.node.movie.field_ct_taxo_movie_public
+    - field.field.node.movie.field_ct_taxo_movie_type
+    - field.field.node.movie.field_ct_visa_nb
+    - node.type.movie
+  module:
+    - user
+id: node.movie.teaser
+targetEntityType: node
+bundle: movie
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_ct_cnc_nb: true
+  field_ct_has_ad: true
+  field_ct_taxo_movie_public: true
+  field_ct_taxo_movie_type: true
+  field_ct_visa_nb: true
+  langcode: true

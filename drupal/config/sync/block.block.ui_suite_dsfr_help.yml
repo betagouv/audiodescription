@@ -1,0 +1,22 @@
+uuid: 073cfcbf-7784-428d-8ebd-f7d9f4617417
+langcode: fr
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - ui_suite_dsfr
+_core:
+  default_config_hash: Uo8cmapIRt8BLMHeyCLoqDd72Zk7juS2MBb0lbKWs0I
+id: ui_suite_dsfr_help
+theme: ui_suite_dsfr
+region: content
+weight: -4
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Aide
+  label_display: '0'
+  provider: help
+visibility: {  }

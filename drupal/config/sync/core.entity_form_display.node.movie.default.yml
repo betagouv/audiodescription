@@ -1,0 +1,86 @@
+uuid: 2eb35ec6-8754-4307-8f3b-77befbd0d318
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.node.movie.field_ct_cnc_nb
+    - field.field.node.movie.field_ct_has_ad
+    - field.field.node.movie.field_ct_taxo_movie_public
+    - field.field.node.movie.field_ct_taxo_movie_type
+    - field.field.node.movie.field_ct_visa_nb
+    - node.type.movie
+  module:
+    - path
+id: node.movie.default
+targetEntityType: node
+bundle: movie
+mode: default
+content:
+  field_ct_cnc_nb:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_ct_has_ad:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_ct_taxo_movie_public:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_ct_taxo_movie_type:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_ct_visa_nb:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  promote: true
+  sticky: true
+  uid: true

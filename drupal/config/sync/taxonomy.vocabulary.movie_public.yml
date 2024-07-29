@@ -1,0 +1,9 @@
+uuid: 7533d870-12bf-4f21-b14a-b13133cee00d
+langcode: fr
+status: true
+dependencies: {  }
+name: 'Public de film'
+vid: movie_public
+description: 'Interdiction prononcée par la commission de classification'
+weight: 0
+new_revision: false

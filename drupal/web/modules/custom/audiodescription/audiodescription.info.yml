@@ -1,0 +1,11 @@
+name: Audiodescription
+description: Custom features about audiodescription project.
+package: Audiodescription
+
+type: module
+core_version_requirement: ^10
+
+dependencies:
+  - drupal:migrate
+  - migrate_source_csv:migrate_source_csv
+  - drupal:node

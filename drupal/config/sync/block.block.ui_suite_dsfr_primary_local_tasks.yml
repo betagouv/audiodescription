@@ -1,0 +1,22 @@
+uuid: fff02b1a-bbe3-4699-aaae-2008d670d8de
+langcode: fr
+status: true
+dependencies:
+  theme:
+    - ui_suite_dsfr
+_core:
+  default_config_hash: lka0mOnwMXvMlHdQuGqfjyw4Ts0PKmqz8eMKAnRoWS0
+id: ui_suite_dsfr_primary_local_tasks
+theme: ui_suite_dsfr
+region: content
+weight: -2
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Onglets principaux'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

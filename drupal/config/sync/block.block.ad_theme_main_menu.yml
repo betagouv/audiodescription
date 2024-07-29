@@ -1,0 +1,27 @@
+uuid: 997e928c-2d03-4674-b96b-17998757b5b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - ad_theme
+_core:
+  default_config_hash: iA6AWFFbOzlvbtXR9q-eBzvPIpMbmYYpsic2MF3VxBo
+id: ad_theme_main_menu
+theme: ad_theme
+region: header_navbar
+weight: -6
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: true
+visibility: {  }

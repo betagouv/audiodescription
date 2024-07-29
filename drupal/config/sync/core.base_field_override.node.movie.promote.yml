@@ -1,0 +1,22 @@
+uuid: 3d0f2b84-ded9-4573-b960-3aa8758d6db2
+langcode: fr
+status: true
+dependencies:
+  config:
+    - node.type.movie
+id: node.movie.promote
+field_name: promote
+entity_type: node
+bundle: movie
+label: "Promu en page d'accueil"
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

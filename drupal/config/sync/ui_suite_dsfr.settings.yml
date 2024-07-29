@@ -1,0 +1,35 @@
+_core:
+  default_config_hash: 7mwkpJwjto3IBAfyyQqp2tDLfV5bplsnuuXS1qAk6h4
+langcode: fr
+favicon:
+  use_default: true
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  node_user_picture: true
+logo:
+  path: 'public://Capture d’écran 2024-07-25 à 11.17.21.png'
+  use_default: true
+ui_skins_theme: system
+container: fr-container--fluid
+available_colors:
+  green-tilleul-verveine: green-tilleul-verveine
+  green-bourgeon: green-bourgeon
+  green-emeraude: green-emeraude
+  green-menthe: green-menthe
+  green-archipel: green-archipel
+  blue-ecume: blue-ecume
+  blue-cumulus: blue-cumulus
+  purple-glycine: purple-glycine
+  pink-macaron: pink-macaron
+  pink-tuile: pink-tuile
+  yellow-tournesol: yellow-tournesol
+  yellow-moutarde: yellow-moutarde
+  orange-terre-battue: orange-terre-battue
+  brown-cafe-creme: brown-cafe-creme
+  brown-caramel: brown-caramel
+  brown-opera: brown-opera
+  beige-gris-galet: beige-gris-galet
+logo_text: 'Ministère de la Culture'
+dsfr_footer_top: ''

@@ -1,0 +1,11 @@
+uuid: fbfcc0d6-bb79-4bf9-8278-9c6b64b000d5
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+id: config_pages.token
+label: 'Jeton (token)'
+description: ''
+targetEntityType: config_pages
+cache: true

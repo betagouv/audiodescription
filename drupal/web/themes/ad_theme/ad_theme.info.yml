@@ -1,0 +1,25 @@
+name: Audiodescription
+type: theme
+base theme: ui_suite_dsfr
+description: Audiodescription platform theme
+package: audiodescription
+core_version_requirement: ^10
+libraries:
+  - ad_theme/global
+  - ad_theme/fix
+regions:
+  header_operator_logo: Header - Operator logo
+  header_tools_links: Header - Tools links
+  header_tools_search: Header - Tools search
+  header_navbar: Header - Navbar
+  top: Top
+  content: Content
+  sidebar_first: Sidebar - First
+  sidebar_second: Sidebar - Second
+  bottom: Bottom
+  footer_operator_logo: Footer - Operator logo
+  footer_content: Footer - Content
+  footer_content_desc: Footer - Content description
+  footer_partners: Footer - Partners
+  footer_bottom: Footer - Bottom
+  footer_bottom_copy: Footer - Bottom copy

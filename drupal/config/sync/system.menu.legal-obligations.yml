@@ -1,0 +1,8 @@
+uuid: d2bce0be-fbd4-4ce8-88c5-f70c0d384ff0
+langcode: en
+status: true
+dependencies: {  }
+id: legal-obligations
+label: 'Obligations légales'
+description: ''
+locked: false

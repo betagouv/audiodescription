@@ -1,0 +1,22 @@
+uuid: 886a3ddf-9d89-4741-8376-91d776feb888
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ad_theme
+_core:
+  default_config_hash: lka0mOnwMXvMlHdQuGqfjyw4Ts0PKmqz8eMKAnRoWS0
+id: ad_theme_primary_local_tasks
+theme: ad_theme
+region: content
+weight: -2
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

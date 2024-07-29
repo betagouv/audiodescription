@@ -1,0 +1,25 @@
+uuid: 222c3948-e699-4457-b6c6-bd510b6e472e
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ad_theme
+_core:
+  default_config_hash: Qdc4m0lFAY0oO76aCuAGrZP_VdNhgecsKpflGjTP_qI
+id: ad_theme_sitebranding
+theme: ad_theme
+region: footer_operator_logo
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

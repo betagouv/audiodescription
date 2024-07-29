@@ -1,0 +1,22 @@
+uuid: e040ac7d-7795-4be5-84df-db4c58974bca
+langcode: fr
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ui_suite_dsfr
+_core:
+  default_config_hash: jitEpwOpF5Lm78N8RHZ3twXehMuEiAGVJfQRIJaPmI8
+id: ui_suite_dsfr_content
+theme: ui_suite_dsfr
+region: content
+weight: 1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Contenu de la page principale'
+  label_display: '0'
+  provider: system
+visibility: {  }

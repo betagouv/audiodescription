@@ -1,0 +1,20 @@
+uuid: b6e46c5a-f870-4e11-97bd-d70bd39d2a0a
+langcode: fr
+status: true
+dependencies:
+  theme:
+    - ui_suite_dsfr
+_core:
+  default_config_hash: 5rDnjEZUT5GrevFMTzhqjiWHkTiU7uJcgLl5OrG25tw
+id: ui_suite_dsfr_page_title
+theme: ui_suite_dsfr
+region: content
+weight: -5
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Titre de la page'
+  label_display: '0'
+  provider: core
+visibility: {  }

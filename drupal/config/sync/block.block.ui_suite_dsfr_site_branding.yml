@@ -1,0 +1,25 @@
+uuid: c0402a83-202c-48f5-a965-526a38bbfa2a
+langcode: fr
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ui_suite_dsfr
+_core:
+  default_config_hash: tUqLj1O9t69kCKExIDHcHTIoh6s5PzaSMgtGyvb0M_w
+id: ui_suite_dsfr_site_branding
+theme: ui_suite_dsfr
+region: header_operator_logo
+weight: -6
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Identité du site'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

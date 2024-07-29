@@ -1,0 +1,32 @@
+uuid: 4a7d3702-43a5-4428-a700-a1013d15db93
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.collection.field_taxo_movies
+    - taxonomy.vocabulary.collection
+  module:
+    - text
+id: taxonomy_term.collection.default
+targetEntityType: taxonomy_term
+bundle: collection
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_taxo_movies:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

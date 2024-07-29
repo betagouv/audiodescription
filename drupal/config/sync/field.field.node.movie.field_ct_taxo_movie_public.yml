@@ -1,0 +1,29 @@
+uuid: 68cdff16-0e37-4fca-934e-d2e1316c01b5
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ct_taxo_movie_public
+    - node.type.movie
+    - taxonomy.vocabulary.movie_public
+id: node.movie.field_ct_taxo_movie_public
+field_name: field_ct_taxo_movie_public
+entity_type: node
+bundle: movie
+label: Public
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      movie_public: movie_public
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

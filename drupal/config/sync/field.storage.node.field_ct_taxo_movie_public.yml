@@ -1,0 +1,20 @@
+uuid: b28f9094-45af-4ef6-91c1-af8d387c3a34
+langcode: fr
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_ct_taxo_movie_public
+field_name: field_ct_taxo_movie_public
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

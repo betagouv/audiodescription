@@ -1,0 +1,9 @@
+uuid: 5fc08586-98dc-4627-99a7-60fd8f2c3d88
+langcode: fr
+status: true
+dependencies: {  }
+name: Collection
+vid: collection
+description: null
+weight: 0
+new_revision: false

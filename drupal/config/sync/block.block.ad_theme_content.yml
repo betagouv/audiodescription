@@ -1,0 +1,22 @@
+uuid: 8710f951-c40b-493d-a7c6-5c88ed72d350
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ad_theme
+_core:
+  default_config_hash: jitEpwOpF5Lm78N8RHZ3twXehMuEiAGVJfQRIJaPmI8
+id: ad_theme_content
+theme: ad_theme
+region: content
+weight: 1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }
