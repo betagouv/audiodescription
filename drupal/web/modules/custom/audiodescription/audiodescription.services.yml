@@ -1,0 +1,11 @@
+services:
+  audiodescription.cnc_csv_importer:
+    class: Drupal\audiodescription\Importer\Movie\CncCsvImporter
+
+  audiodescription.importer_factory:
+    class: Drupal\audiodescription\Importer\Movie\ImporterFactory
+    arguments:
+      - '@audiodescription.cnc_csv_importer'
+
+parameters:
+  cnc.csv.path: ''
