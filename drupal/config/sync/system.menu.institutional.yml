@@ -1,8 +1,0 @@
-uuid: 12611095-c940-414e-857f-c7214f79f89e
-langcode: fr
-status: true
-dependencies: {  }
-id: institutional
-label: 'Écosystème institutionnel'
-description: "4 liens de références de l'écosystème institutionnel (obligatoires)"
-locked: false

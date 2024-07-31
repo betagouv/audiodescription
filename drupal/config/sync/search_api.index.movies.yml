@@ -3,9 +3,6 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ct_taxo_movie_type
-    - field.storage.node.field_ct_cnc_nb
-    - field.storage.node.field_ct_visa_nb
     - search_api.server.local
   module:
     - node
@@ -16,30 +13,6 @@ name: Movies
 description: ''
 read_only: false
 field_settings:
-  field_ct_cnc_nb:
-    label: 'Numéro CNC'
-    datasource_id: 'entity:node'
-    property_path: field_ct_cnc_nb
-    type: elasticsearch_connector_search_as_you_type
-    dependencies:
-      config:
-        - field.storage.node.field_ct_cnc_nb
-  field_ct_taxo_movie_type:
-    label: Genre
-    datasource_id: 'entity:node'
-    property_path: field_ct_taxo_movie_type
-    type: integer
-    dependencies:
-      config:
-        - field.storage.node.field_ct_taxo_movie_type
-  field_ct_visa_nb:
-    label: 'Numéro de visa'
-    datasource_id: 'entity:node'
-    property_path: field_ct_visa_nb
-    type: elasticsearch_connector_search_as_you_type
-    dependencies:
-      config:
-        - field.storage.node.field_ct_visa_nb
   node_grants:
     label: "Information d'accès du nœud."
     property_path: search_api_node_grants

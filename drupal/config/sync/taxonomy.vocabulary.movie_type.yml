@@ -1,9 +1,0 @@
-uuid: 8865bcc4-5344-4657-949e-b18275fe5e7d
-langcode: fr
-status: true
-dependencies: {  }
-name: 'Genre de film'
-vid: movie_type
-description: null
-weight: 0
-new_revision: false

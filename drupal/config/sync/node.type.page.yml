@@ -1,10 +1,17 @@
 uuid: 44f6eb2d-760d-4450-99d9-9b2d070069d7
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
 _core:
   default_config_hash: i0snV8Wj--OkRW12UdachUiYiz3FbeMwHu_pZYfzKLc
-name: 'Page de base'
+name: Page
 type: page
 description: "Utilisez les <em>pages de base</em> pour votre contenu statique, tel que la page 'Qui sommes-nous'."
 help: null

@@ -5,14 +5,12 @@ dependencies:
   config:
     - node.type.article
     - node.type.page
-    - taxonomy.vocabulary.tags
   module:
     - contextual
     - file
     - node
     - path
     - system
-    - taxonomy
 _core:
   default_config_hash: e_wG1u7SrGaJbY2-Szgbgl-c8T3kdirU3uTNq2c_QJQ
 id: content_editor
@@ -27,7 +25,6 @@ permissions:
   - 'administer url aliases'
   - 'create article content'
   - 'create page content'
-  - 'create terms in tags'
   - 'create url aliases'
   - 'delete article revisions'
   - 'delete own article content'
@@ -36,7 +33,6 @@ permissions:
   - 'delete page revisions'
   - 'edit own article content'
   - 'edit own page content'
-  - 'edit terms in tags'
   - 'revert all revisions'
   - 'view all revisions'
   - 'view own unpublished content'
