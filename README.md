@@ -8,7 +8,3 @@ Le catalogue est doublé d’un **centre de ressources informatives sur l’audi
 
 ## En cas de difficultés
 Dans le cas où vous rencontrez une difficulté, n'hésitez pas à ouvrir une issue sur GitHub, nous vous répondrons dans les plus brefs délais !
-
-https://github.com/betagouv/audiodescription.wiki.git
-
-git@github.com:betagouv/audiodescription.wiki.git
