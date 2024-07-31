@@ -1,9 +1,41 @@
 uuid: 3aee11b6-b2d5-4ec8-a08c-dad755ffa63a
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.article
+    - node.type.page
+  module:
+    - config_pages
+    - contextual
+    - file
+    - media
+    - navigation
+    - node
+    - path
+    - system
 id: super_contrib
 label: 'Super Contributeur'
 weight: 5
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access administration pages'
+  - 'access config_pages overview'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access media overview'
+  - 'access navigation'
+  - 'administer url aliases'
+  - 'create article content'
+  - 'create url aliases'
+  - 'delete any file'
+  - 'delete article revisions'
+  - 'delete own article content'
+  - 'delete own page content'
+  - 'delete page revisions'
+  - 'edit own article content'
+  - 'edit own page content'
+  - 'view config_pages entity'
+  - 'view own unpublished content'
+  - 'view the administration theme'

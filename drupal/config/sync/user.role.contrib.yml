@@ -1,9 +1,38 @@
 uuid: 34f7034e-dd2d-4826-857f-184d6c948811
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.article
+    - node.type.page
+  module:
+    - contextual
+    - file
+    - media
+    - navigation
+    - node
+    - path
+    - system
 id: contrib
 label: Contributeur
 weight: 4
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access media overview'
+  - 'access navigation'
+  - 'administer url aliases'
+  - 'create article content'
+  - 'create page content'
+  - 'create url aliases'
+  - 'delete article revisions'
+  - 'delete own article content'
+  - 'delete own page content'
+  - 'delete page revisions'
+  - 'edit own article content'
+  - 'edit own page content'
+  - 'view own unpublished content'
+  - 'view the administration theme'
