@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - media.type.document
     - media.type.image
     - node.type.article
     - node.type.page
@@ -34,6 +35,7 @@ permissions:
   - 'access taxonomy overview'
   - 'administer url aliases'
   - 'create article content'
+  - 'create document media'
   - 'create image media'
   - 'create terms in actor'
   - 'create terms in director'
@@ -41,11 +43,14 @@ permissions:
   - 'create terms in nationality'
   - 'create terms in public'
   - 'create url aliases'
+  - 'delete any document media'
+  - 'delete any document media revisions'
   - 'delete any file'
   - 'delete any image media'
   - 'delete any image media revisions'
   - 'delete article revisions'
   - 'delete own article content'
+  - 'delete own document media'
   - 'delete own image media'
   - 'delete own page content'
   - 'delete page revisions'
@@ -59,8 +64,10 @@ permissions:
   - 'delete terms in genre'
   - 'delete terms in nationality'
   - 'delete terms in public'
+  - 'edit any document media'
   - 'edit any image media'
   - 'edit own article content'
+  - 'edit own document media'
   - 'edit own image media'
   - 'edit own page content'
   - 'edit terms in actor'
@@ -68,12 +75,14 @@ permissions:
   - 'edit terms in genre'
   - 'edit terms in nationality'
   - 'edit terms in public'
+  - 'revert any document media revisions'
   - 'revert any image media revisions'
   - 'revert term revisions in actor'
   - 'revert term revisions in director'
   - 'revert term revisions in genre'
   - 'revert term revisions in nationality'
   - 'revert term revisions in public'
+  - 'view any document media revisions'
   - 'view any image media revisions'
   - 'view own unpublished content'
   - 'view term revisions in actor'

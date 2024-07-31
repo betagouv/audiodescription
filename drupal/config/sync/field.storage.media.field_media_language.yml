@@ -1,0 +1,33 @@
+uuid: 65f7a599-a52b-44e5-8090-6c201068bd94
+langcode: fr
+status: true
+dependencies:
+  module:
+    - media
+    - options
+id: media.field_media_language
+field_name: field_media_language
+entity_type: media
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: french
+      label: Français
+    -
+      value: english
+      label: English
+    -
+      value: german
+      label: Deutsch
+    -
+      value: spanish
+      label: Español
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

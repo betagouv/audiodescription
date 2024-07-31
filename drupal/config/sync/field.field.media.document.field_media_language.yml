@@ -1,0 +1,23 @@
+uuid: 0870ae78-46e1-49ae-9d30-0ab308327160
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_language
+    - media.type.document
+  module:
+    - options
+id: media.document.field_media_language
+field_name: field_media_language
+entity_type: media
+bundle: document
+label: 'Langue du document'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: french
+default_value_callback: ''
+settings: {  }
+field_type: list_string
