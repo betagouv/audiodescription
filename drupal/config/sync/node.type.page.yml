@@ -1,4 +1,4 @@
-uuid: 44f6eb2d-760d-4450-99d9-9b2d070069d7
+uuid: 01ab9c46-aef6-49a8-8707-0467603dc81c
 langcode: fr
 status: true
 dependencies:
@@ -9,11 +9,9 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
-_core:
-  default_config_hash: i0snV8Wj--OkRW12UdachUiYiz3FbeMwHu_pZYfzKLc
 name: Page
 type: page
-description: "Utilisez les <em>pages de base</em> pour votre contenu statique, tel que la page 'Qui sommes-nous'."
+description: null
 help: null
 new_revision: true
 preview_mode: 1

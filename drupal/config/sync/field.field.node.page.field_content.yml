@@ -1,0 +1,37 @@
+uuid: 162f65d3-e31e-4841-8ba8-9af5587077aa
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.page
+    - paragraphs.paragraphs_type.pg_paragraph
+  module:
+    - entity_reference_revisions
+id: node.page.field_content
+field_name: field_content
+entity_type: node
+bundle: page
+label: Contenu
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_paragraph: pg_paragraph
+    negate: 0
+    target_bundles_drag_drop:
+      pg_cta:
+        weight: 5
+        enabled: false
+      pg_documents:
+        weight: 5
+        enabled: false
+      pg_paragraph:
+        weight: 6
+        enabled: true
+field_type: entity_reference_revisions

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - node.type.article
-    - node.type.page
   module:
     - contextual
     - file
@@ -24,15 +23,11 @@ permissions:
   - 'access files overview'
   - 'administer url aliases'
   - 'create article content'
-  - 'create page content'
   - 'create url aliases'
   - 'delete article revisions'
   - 'delete own article content'
   - 'delete own files'
-  - 'delete own page content'
-  - 'delete page revisions'
   - 'edit own article content'
-  - 'edit own page content'
   - 'revert all revisions'
   - 'view all revisions'
   - 'view own unpublished content'

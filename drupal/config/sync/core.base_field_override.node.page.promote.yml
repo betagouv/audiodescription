@@ -1,11 +1,9 @@
-uuid: fa9e083b-4a5f-4f14-92fb-e028fd0d1e53
+uuid: 2eb29f7e-50b5-499e-8168-96bd509246ee
 langcode: fr
 status: true
 dependencies:
   config:
     - node.type.page
-_core:
-  default_config_hash: fPUEnm4T5zfZRr3ttDUqq7yCDd2uW3clWD-pvos4tlQ
 id: node.page.promote
 field_name: promote
 entity_type: node
@@ -13,7 +11,7 @@ bundle: page
 label: "Promu en page d'accueil"
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     value: 0
