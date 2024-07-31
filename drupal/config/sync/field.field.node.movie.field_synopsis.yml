@@ -1,24 +1,22 @@
-uuid: 72d2ad10-2e50-4993-b311-de6f22c2a621
+uuid: 4b644d02-c91e-4cf9-9ebd-2dee936f6c68
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.body
+    - field.storage.node.field_synopsis
     - node.type.movie
   module:
     - text
-id: node.movie.body
-field_name: body
+id: node.movie.field_synopsis
+field_name: field_synopsis
 entity_type: node
 bundle: movie
-label: Body
+label: Synopsis
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  display_summary: true
-  required_summary: false
   allowed_formats: {  }
-field_type: text_with_summary
+field_type: text_long

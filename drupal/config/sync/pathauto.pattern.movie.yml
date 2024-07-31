@@ -1,22 +1,22 @@
-uuid: fa3a36cc-5ec4-4b4a-87d6-00ae13c813f3
+uuid: 6eddfec1-ec6c-48c0-80a5-3e8bbe785413
 langcode: fr
 status: true
 dependencies:
   module:
     - node
-id: article
-label: Article
+id: movie
+label: Film
 type: 'canonical_entities:node'
-pattern: '/articles/[node:title]'
+pattern: '/oeuvres/films/[node:title]'
 selection_criteria:
-  62eeb1e9-377f-43a4-82a9-901b328c9f98:
+  4bc95d89-6ffc-41cd-b5a9-fd8039456699:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 62eeb1e9-377f-43a4-82a9-901b328c9f98
+    uuid: 4bc95d89-6ffc-41cd-b5a9-fd8039456699
     context_mapping:
       node: node
     bundles:
-      article: article
+      movie: movie
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -1,0 +1,23 @@
+uuid: f0bc4bd6-2c90-414e-ad70-fd29cbadef3b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_duration
+    - node.type.movie
+id: node.movie.field_duration
+field_name: field_duration
+entity_type: node
+bundle: movie
+label: Durée
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: minute|minutes
+field_type: integer

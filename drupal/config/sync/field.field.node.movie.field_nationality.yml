@@ -1,0 +1,29 @@
+uuid: 34fd2c25-aea6-4844-9518-6707dc5c3cd2
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nationality
+    - node.type.movie
+    - taxonomy.vocabulary.nationality
+id: node.movie.field_nationality
+field_name: field_nationality
+entity_type: node
+bundle: movie
+label: Nationalité
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      nationality: nationality
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

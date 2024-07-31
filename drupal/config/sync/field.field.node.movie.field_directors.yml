@@ -1,0 +1,29 @@
+uuid: 5cda6e00-4ff8-44f0-9e5e-aa85770019e8
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_directors
+    - node.type.movie
+    - taxonomy.vocabulary.director
+id: node.movie.field_directors
+field_name: field_directors
+entity_type: node
+bundle: movie
+label: Réalisateurs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      director: director
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -6,6 +6,7 @@ dependencies:
     - media.type.document
     - media.type.image
     - node.type.article
+    - node.type.movie
     - node.type.page
     - taxonomy.vocabulary.actor
     - taxonomy.vocabulary.collection
@@ -39,6 +40,7 @@ permissions:
   - 'create article content'
   - 'create document media'
   - 'create image media'
+  - 'create movie content'
   - 'create page content'
   - 'create terms in actor'
   - 'create terms in collection'
@@ -53,11 +55,14 @@ permissions:
   - 'delete any file'
   - 'delete any image media'
   - 'delete any image media revisions'
+  - 'delete any movie content'
   - 'delete any page content'
   - 'delete article revisions'
+  - 'delete movie revisions'
   - 'delete own article content'
   - 'delete own document media'
   - 'delete own image media'
+  - 'delete own movie content'
   - 'delete own page content'
   - 'delete page revisions'
   - 'delete term revisions in actor'
@@ -75,10 +80,12 @@ permissions:
   - 'edit any article content'
   - 'edit any document media'
   - 'edit any image media'
+  - 'edit any movie content'
   - 'edit any page content'
   - 'edit own article content'
   - 'edit own document media'
   - 'edit own image media'
+  - 'edit own movie content'
   - 'edit own page content'
   - 'edit terms in actor'
   - 'edit terms in collection'
@@ -89,6 +96,7 @@ permissions:
   - 'revert any document media revisions'
   - 'revert any image media revisions'
   - 'revert article revisions'
+  - 'revert movie revisions'
   - 'revert page revisions'
   - 'revert term revisions in actor'
   - 'revert term revisions in collection'
@@ -99,6 +107,7 @@ permissions:
   - 'view any document media revisions'
   - 'view any image media revisions'
   - 'view article revisions'
+  - 'view movie revisions'
   - 'view own unpublished content'
   - 'view page revisions'
   - 'view term revisions in actor'

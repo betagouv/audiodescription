@@ -1,0 +1,21 @@
+uuid: 54420fa5-ed3f-4ddd-9e3a-296b98b0f742
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_has_ad
+    - node.type.movie
+id: node.movie.field_has_ad
+field_name: field_has_ad
+entity_type: node
+bundle: movie
+label: 'A une audiodescription'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Oui
+  off_label: Non
+field_type: boolean
