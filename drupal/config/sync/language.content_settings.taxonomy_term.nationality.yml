@@ -1,0 +1,11 @@
+uuid: a23f6af0-f8eb-44ea-ac81-fd5fa27f72c6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.nationality
+id: taxonomy_term.nationality
+target_entity_type_id: taxonomy_term
+target_bundle: nationality
+default_langcode: site_default
+language_alterable: false

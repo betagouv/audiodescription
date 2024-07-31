@@ -1,0 +1,9 @@
+uuid: c60c76bc-3f0d-40eb-a973-4f86cf06db3c
+langcode: fr
+status: true
+dependencies: {  }
+name: Nationalité
+vid: nationality
+description: 'La taxonomie "Nationalité" est utilisée pour classer les films.'
+weight: 0
+new_revision: false

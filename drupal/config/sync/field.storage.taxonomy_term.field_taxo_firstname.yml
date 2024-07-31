@@ -1,14 +1,12 @@
-uuid: da251a20-d408-4fd4-9bc0-ac6f084042a4
-langcode: en
+uuid: 09f38069-8e99-4112-8ff3-19475f189d17
+langcode: fr
 status: true
 dependencies:
   module:
-    - media
-_core:
-  default_config_hash: cNf_852Dq-fNnSaMI4LxL-J6N7bLkHuDbD9EUqOn4_U
-id: media.field_media_oembed_video
-field_name: field_media_oembed_video
-entity_type: media
+    - taxonomy
+id: taxonomy_term.field_taxo_firstname
+field_name: field_taxo_firstname
+entity_type: taxonomy_term
 type: string
 settings:
   max_length: 255

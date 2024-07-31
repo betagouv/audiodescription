@@ -1,0 +1,9 @@
+uuid: d9b9e3e9-99ba-49cb-8636-170973a6f764
+langcode: fr
+status: true
+dependencies: {  }
+name: Acteur
+vid: actor
+description: null
+weight: 0
+new_revision: false

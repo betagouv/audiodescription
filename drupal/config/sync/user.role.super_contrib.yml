@@ -5,8 +5,12 @@ dependencies:
   config:
     - node.type.article
     - node.type.page
+    - taxonomy.vocabulary.actor
+    - taxonomy.vocabulary.director
+    - taxonomy.vocabulary.genre
+    - taxonomy.vocabulary.nationality
+    - taxonomy.vocabulary.public
   module:
-    - config_pages
     - contextual
     - file
     - media
@@ -14,28 +18,58 @@ dependencies:
     - node
     - path
     - system
+    - taxonomy
 id: super_contrib
 label: 'Super Contributeur'
 weight: 5
 is_admin: null
 permissions:
   - 'access administration pages'
-  - 'access config_pages overview'
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
   - 'access media overview'
   - 'access navigation'
+  - 'access taxonomy overview'
   - 'administer url aliases'
   - 'create article content'
+  - 'create terms in actor'
+  - 'create terms in director'
+  - 'create terms in genre'
+  - 'create terms in nationality'
+  - 'create terms in public'
   - 'create url aliases'
   - 'delete any file'
   - 'delete article revisions'
   - 'delete own article content'
   - 'delete own page content'
   - 'delete page revisions'
+  - 'delete term revisions in actor'
+  - 'delete term revisions in director'
+  - 'delete term revisions in genre'
+  - 'delete term revisions in nationality'
+  - 'delete term revisions in public'
+  - 'delete terms in actor'
+  - 'delete terms in director'
+  - 'delete terms in genre'
+  - 'delete terms in nationality'
+  - 'delete terms in public'
   - 'edit own article content'
   - 'edit own page content'
-  - 'view config_pages entity'
+  - 'edit terms in actor'
+  - 'edit terms in director'
+  - 'edit terms in genre'
+  - 'edit terms in nationality'
+  - 'edit terms in public'
+  - 'revert term revisions in actor'
+  - 'revert term revisions in director'
+  - 'revert term revisions in genre'
+  - 'revert term revisions in nationality'
+  - 'revert term revisions in public'
   - 'view own unpublished content'
+  - 'view term revisions in actor'
+  - 'view term revisions in director'
+  - 'view term revisions in genre'
+  - 'view term revisions in nationality'
+  - 'view term revisions in public'
   - 'view the administration theme'

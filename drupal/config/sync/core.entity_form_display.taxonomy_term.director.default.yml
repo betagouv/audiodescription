@@ -1,0 +1,40 @@
+uuid: 92fb70ee-366a-4674-87ba-80703d703b29
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.director.field_taxo_firstname
+    - taxonomy.vocabulary.director
+  module:
+    - path
+id: taxonomy_term.director.default
+targetEntityType: taxonomy_term
+bundle: director
+mode: default
+content:
+  field_taxo_firstname:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  status: true

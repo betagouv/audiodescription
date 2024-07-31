@@ -5,6 +5,8 @@ dependencies:
   config:
     - node.type.article
     - node.type.page
+    - taxonomy.vocabulary.actor
+    - taxonomy.vocabulary.director
   module:
     - contextual
     - file
@@ -13,6 +15,7 @@ dependencies:
     - node
     - path
     - system
+    - taxonomy
 id: contrib
 label: Contributeur
 weight: 4
@@ -24,9 +27,12 @@ permissions:
   - 'access files overview'
   - 'access media overview'
   - 'access navigation'
+  - 'access taxonomy overview'
   - 'administer url aliases'
   - 'create article content'
   - 'create page content'
+  - 'create terms in actor'
+  - 'create terms in director'
   - 'create url aliases'
   - 'delete article revisions'
   - 'delete own article content'
@@ -34,5 +40,11 @@ permissions:
   - 'delete page revisions'
   - 'edit own article content'
   - 'edit own page content'
+  - 'edit terms in actor'
+  - 'edit terms in director'
+  - 'revert term revisions in actor'
+  - 'revert term revisions in director'
   - 'view own unpublished content'
+  - 'view term revisions in actor'
+  - 'view term revisions in director'
   - 'view the administration theme'

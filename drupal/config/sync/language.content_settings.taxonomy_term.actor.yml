@@ -1,0 +1,11 @@
+uuid: ef4cf853-c28c-4f1c-926c-b769a3712b2a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.actor
+id: taxonomy_term.actor
+target_entity_type_id: taxonomy_term
+target_bundle: actor
+default_langcode: site_default
+language_alterable: false

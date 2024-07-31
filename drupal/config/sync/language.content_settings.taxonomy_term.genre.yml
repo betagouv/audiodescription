@@ -1,0 +1,11 @@
+uuid: 6fc81ca7-3acf-4998-bb1a-4b328e30db3c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.genre
+id: taxonomy_term.genre
+target_entity_type_id: taxonomy_term
+target_bundle: genre
+default_langcode: site_default
+language_alterable: false

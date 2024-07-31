@@ -1,0 +1,31 @@
+uuid: 84d7adf3-9e19-484c-a0e4-65dfb5a4512c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.nationality
+  module:
+    - path
+id: taxonomy_term.nationality.default
+targetEntityType: taxonomy_term
+bundle: nationality
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  status: true

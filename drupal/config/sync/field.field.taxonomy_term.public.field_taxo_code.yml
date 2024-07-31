@@ -1,0 +1,19 @@
+uuid: 128fb9ab-f6fc-4628-84fe-e5c3055ef063
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_code
+    - taxonomy.vocabulary.public
+id: taxonomy_term.public.field_taxo_code
+field_name: field_taxo_code
+entity_type: taxonomy_term
+bundle: public
+label: Code
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

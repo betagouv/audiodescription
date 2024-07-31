@@ -1,0 +1,9 @@
+uuid: c5e92004-e3d9-4cbc-a800-bf1434061677
+langcode: fr
+status: true
+dependencies: {  }
+name: Public
+vid: public
+description: null
+weight: 0
+new_revision: false

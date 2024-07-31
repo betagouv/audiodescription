@@ -1,0 +1,32 @@
+uuid: feea9e57-e9e9-4ed0-a143-36950d254d48
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.director.field_taxo_firstname
+    - taxonomy.vocabulary.director
+  module:
+    - text
+id: taxonomy_term.director.default
+targetEntityType: taxonomy_term
+bundle: director
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_taxo_firstname:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

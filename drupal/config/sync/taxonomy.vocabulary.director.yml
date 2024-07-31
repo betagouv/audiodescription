@@ -1,0 +1,9 @@
+uuid: 97c37cd6-997f-49f0-9c4d-7471ea2e8724
+langcode: fr
+status: true
+dependencies: {  }
+name: Réalisateur
+vid: director
+description: null
+weight: 0
+new_revision: false
