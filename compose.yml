@@ -1,14 +1,5 @@
 version: '3'
 services:
-  mkdocs:
-    image: squidfunk/mkdocs-material
-    ports:
-      - "8005:8000"
-    volumes:
-      - ./documentation:/docs
-    stdin_open: true
-    tty: true
-
   nginx:
     image: nginx:latest
     ports:
@@ -60,17 +51,6 @@ services:
       - ./drupal/elasticsearch:/usr/share/elasticsearch/data
     networks:
       - drupal-network
-
-  node:
-    image: node:16
-    ports:
-      - "8081:8080"
-    volumes:
-      - ./11ty:/usr/app/11ty
-    restart: on-failure
-    entrypoint: "tail -f /dev/null"
-    working_dir: "/usr/app"
-
 
 volumes:
   db-data:
