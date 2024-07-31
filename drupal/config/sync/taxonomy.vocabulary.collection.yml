@@ -1,0 +1,9 @@
+uuid: 82d3713d-b1f0-4030-b72b-6d423f7f2361
+langcode: fr
+status: true
+dependencies: {  }
+name: Collection
+vid: collection
+description: 'Les collections permettent de mettre en avant certains films.'
+weight: 0
+new_revision: false

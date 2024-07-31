@@ -1,0 +1,29 @@
+uuid: 5ed46c4a-8560-4f81-aa3b-d0df88fe4799
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_movies
+    - node.type.movie
+    - taxonomy.vocabulary.collection
+id: taxonomy_term.collection.field_taxo_movies
+field_name: field_taxo_movies
+entity_type: taxonomy_term
+bundle: collection
+label: Films
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      movie: movie
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

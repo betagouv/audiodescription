@@ -8,6 +8,7 @@ dependencies:
     - node.type.article
     - node.type.page
     - taxonomy.vocabulary.actor
+    - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.director
     - taxonomy.vocabulary.genre
     - taxonomy.vocabulary.nationality
@@ -40,6 +41,7 @@ permissions:
   - 'create image media'
   - 'create page content'
   - 'create terms in actor'
+  - 'create terms in collection'
   - 'create terms in director'
   - 'create terms in genre'
   - 'create terms in nationality'
@@ -59,11 +61,13 @@ permissions:
   - 'delete own page content'
   - 'delete page revisions'
   - 'delete term revisions in actor'
+  - 'delete term revisions in collection'
   - 'delete term revisions in director'
   - 'delete term revisions in genre'
   - 'delete term revisions in nationality'
   - 'delete term revisions in public'
   - 'delete terms in actor'
+  - 'delete terms in collection'
   - 'delete terms in director'
   - 'delete terms in genre'
   - 'delete terms in nationality'
@@ -77,6 +81,7 @@ permissions:
   - 'edit own image media'
   - 'edit own page content'
   - 'edit terms in actor'
+  - 'edit terms in collection'
   - 'edit terms in director'
   - 'edit terms in genre'
   - 'edit terms in nationality'
@@ -86,6 +91,7 @@ permissions:
   - 'revert article revisions'
   - 'revert page revisions'
   - 'revert term revisions in actor'
+  - 'revert term revisions in collection'
   - 'revert term revisions in director'
   - 'revert term revisions in genre'
   - 'revert term revisions in nationality'
@@ -96,6 +102,7 @@ permissions:
   - 'view own unpublished content'
   - 'view page revisions'
   - 'view term revisions in actor'
+  - 'view term revisions in collection'
   - 'view term revisions in director'
   - 'view term revisions in genre'
   - 'view term revisions in nationality'
