@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - media.type.image
     - node.type.article
     - node.type.page
     - taxonomy.vocabulary.actor
@@ -33,6 +34,7 @@ permissions:
   - 'access taxonomy overview'
   - 'administer url aliases'
   - 'create article content'
+  - 'create image media'
   - 'create terms in actor'
   - 'create terms in director'
   - 'create terms in genre'
@@ -40,8 +42,11 @@ permissions:
   - 'create terms in public'
   - 'create url aliases'
   - 'delete any file'
+  - 'delete any image media'
+  - 'delete any image media revisions'
   - 'delete article revisions'
   - 'delete own article content'
+  - 'delete own image media'
   - 'delete own page content'
   - 'delete page revisions'
   - 'delete term revisions in actor'
@@ -54,18 +59,22 @@ permissions:
   - 'delete terms in genre'
   - 'delete terms in nationality'
   - 'delete terms in public'
+  - 'edit any image media'
   - 'edit own article content'
+  - 'edit own image media'
   - 'edit own page content'
   - 'edit terms in actor'
   - 'edit terms in director'
   - 'edit terms in genre'
   - 'edit terms in nationality'
   - 'edit terms in public'
+  - 'revert any image media revisions'
   - 'revert term revisions in actor'
   - 'revert term revisions in director'
   - 'revert term revisions in genre'
   - 'revert term revisions in nationality'
   - 'revert term revisions in public'
+  - 'view any image media revisions'
   - 'view own unpublished content'
   - 'view term revisions in actor'
   - 'view term revisions in director'
