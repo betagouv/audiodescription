@@ -12,7 +12,7 @@ id: paragraph.pg_paragraph.field_pg_cta
 field_name: field_pg_cta
 entity_type: paragraph
 bundle: pg_paragraph
-label: CTA
+label: "Appel à l'action"
 description: ''
 required: false
 translatable: false
@@ -28,6 +28,9 @@ settings:
       pg_cta:
         weight: 3
         enabled: true
+      pg_documents:
+        weight: 5
+        enabled: false
       pg_paragraph:
         weight: 4
         enabled: false
