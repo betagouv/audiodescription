@@ -15,6 +15,7 @@ dependencies:
     - media
     - navigation
     - node
+    - paragraphs
     - path
     - system
     - taxonomy
@@ -46,6 +47,7 @@ permissions:
   - 'delete own image media'
   - 'delete own page content'
   - 'delete page revisions'
+  - 'edit any article content'
   - 'edit any document media'
   - 'edit any image media'
   - 'edit own article content'
@@ -56,11 +58,14 @@ permissions:
   - 'edit terms in director'
   - 'revert any document media revisions'
   - 'revert any image media revisions'
+  - 'revert article revisions'
   - 'revert term revisions in actor'
   - 'revert term revisions in director'
   - 'view any document media revisions'
   - 'view any image media revisions'
+  - 'view article revisions'
   - 'view own unpublished content'
   - 'view term revisions in actor'
   - 'view term revisions in director'
   - 'view the administration theme'
+  - 'view unpublished paragraphs'

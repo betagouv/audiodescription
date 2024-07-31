@@ -18,6 +18,7 @@ dependencies:
     - media
     - navigation
     - node
+    - paragraphs
     - path
     - system
     - taxonomy
@@ -43,6 +44,7 @@ permissions:
   - 'create terms in nationality'
   - 'create terms in public'
   - 'create url aliases'
+  - 'delete any article content'
   - 'delete any document media'
   - 'delete any document media revisions'
   - 'delete any file'
@@ -64,6 +66,7 @@ permissions:
   - 'delete terms in genre'
   - 'delete terms in nationality'
   - 'delete terms in public'
+  - 'edit any article content'
   - 'edit any document media'
   - 'edit any image media'
   - 'edit own article content'
@@ -77,6 +80,7 @@ permissions:
   - 'edit terms in public'
   - 'revert any document media revisions'
   - 'revert any image media revisions'
+  - 'revert article revisions'
   - 'revert term revisions in actor'
   - 'revert term revisions in director'
   - 'revert term revisions in genre'
@@ -84,6 +88,7 @@ permissions:
   - 'revert term revisions in public'
   - 'view any document media revisions'
   - 'view any image media revisions'
+  - 'view article revisions'
   - 'view own unpublished content'
   - 'view term revisions in actor'
   - 'view term revisions in director'
@@ -91,3 +96,4 @@ permissions:
   - 'view term revisions in nationality'
   - 'view term revisions in public'
   - 'view the administration theme'
+  - 'view unpublished paragraphs'

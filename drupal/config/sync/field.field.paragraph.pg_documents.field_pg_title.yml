@@ -1,0 +1,19 @@
+uuid: e5455308-3e2a-417a-a854-23f3c21662aa
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_title
+    - paragraphs.paragraphs_type.pg_documents
+id: paragraph.pg_documents.field_pg_title
+field_name: field_pg_title
+entity_type: paragraph
+bundle: pg_documents
+label: 'Titre du paragraphe'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

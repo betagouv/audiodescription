@@ -1,0 +1,10 @@
+uuid: 76c25cf7-ebd0-4305-bc33-5946b4b68201
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_paragraph
+label: Paragraphe
+icon_uuid: null
+icon_default: null
+description: "Ce paragraphe est composé d'un titre, d'un texte, d'une image et d'un appel à l'action."
+behavior_plugins: {  }

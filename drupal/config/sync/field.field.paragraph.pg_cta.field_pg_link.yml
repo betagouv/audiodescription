@@ -1,0 +1,23 @@
+uuid: 35ca5a11-2b64-45ed-bf01-e9022d684c97
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_link
+    - paragraphs.paragraphs_type.pg_cta
+  module:
+    - link
+id: paragraph.pg_cta.field_pg_link
+field_name: field_pg_link
+entity_type: paragraph
+bundle: pg_cta
+label: Lien
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

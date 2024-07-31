@@ -3,14 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.body
-    - field.field.node.article.field_image
-    - field.field.node.article.field_tags
-    - image.style.wide
+    - field.field.node.article.field_content
     - node.type.article
   module:
-    - image
-    - text
+    - entity_reference_revisions
     - user
 _core:
   default_config_hash: br6izr-iGEu--JvNbCJNtOBpRnxpFLXfoV5y61U9Nqc
@@ -19,31 +15,14 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
-  body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_image:
-    type: image
-    label: hidden
-    settings:
-      image_link: ''
-      image_style: wide
-      image_loading:
-        attribute: eager
-    third_party_settings: {  }
-    weight: -1
-    region: content
-  field_tags:
-    type: entity_reference_label
+  field_content:
+    type: entity_reference_revisions_entity_view
     label: above
     settings:
-      link: true
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 101
     region: content
   links:
     settings: {  }
@@ -52,3 +31,4 @@ content:
     region: content
 hidden:
   langcode: true
+  search_api_excerpt: true

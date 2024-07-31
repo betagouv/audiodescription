@@ -8,7 +8,6 @@ dependencies:
     - media.type.image
   module:
     - image
-    - path
 _core:
   default_config_hash: JSY4-JPyNZBiYYo6imdRYF6_SdtWQexPndrLvn3-vw4
 id: media.image.default
@@ -24,15 +23,10 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
   langcode: true
   name: true
+  path: true
   status: true
   uid: true

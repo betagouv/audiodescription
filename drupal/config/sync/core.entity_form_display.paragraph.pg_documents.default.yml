@@ -1,0 +1,33 @@
+uuid: 21bc032c-0407-4f3e-b739-65f7832fd21c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_documents.field_pg_documents
+    - field.field.paragraph.pg_documents.field_pg_title
+    - paragraphs.paragraphs_type.pg_documents
+  module:
+    - media_library
+id: paragraph.pg_documents.default
+targetEntityType: paragraph
+bundle: pg_documents
+mode: default
+content:
+  field_pg_documents:
+    type: media_library_widget
+    weight: 1
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_pg_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

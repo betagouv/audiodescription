@@ -1,0 +1,10 @@
+uuid: ea61d9d3-8be4-453b-9a40-32640844930f
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_cta
+label: "Appel à l'action"
+icon_uuid: null
+icon_default: null
+description: 'Attention, ce type de paragraph ne peut pas être contribué directement dans un contenu.'
+behavior_plugins: {  }

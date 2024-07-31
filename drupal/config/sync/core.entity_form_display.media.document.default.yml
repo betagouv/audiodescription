@@ -8,7 +8,6 @@ dependencies:
     - media.type.document
   module:
     - file
-    - path
 _core:
   default_config_hash: aewrRkePgJzdD5kPOq8JeMcKHs6yat49nE7ZeCQzQZg
 id: media.document.default
@@ -37,14 +36,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   created: true
   langcode: true
+  path: true
   status: true
   uid: true

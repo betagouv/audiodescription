@@ -1,0 +1,32 @@
+uuid: a07ccd22-70d2-422b-9830-7b78d9351ea5
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_documents.field_pg_documents
+    - field.field.paragraph.pg_documents.field_pg_title
+    - paragraphs.paragraphs_type.pg_documents
+id: paragraph.pg_documents.default
+targetEntityType: paragraph
+bundle: pg_documents
+mode: default
+content:
+  field_pg_documents:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_pg_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  search_api_excerpt: true

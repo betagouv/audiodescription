@@ -1,0 +1,10 @@
+uuid: 98e057fd-2191-4dfd-acea-05e7be96fa3e
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_documents
+label: Documents
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

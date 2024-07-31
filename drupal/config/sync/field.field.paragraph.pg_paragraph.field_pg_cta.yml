@@ -1,0 +1,34 @@
+uuid: ba824575-f21f-4ddb-8ec2-93b000ff5fff
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_cta
+    - paragraphs.paragraphs_type.pg_cta
+    - paragraphs.paragraphs_type.pg_paragraph
+  module:
+    - entity_reference_revisions
+id: paragraph.pg_paragraph.field_pg_cta
+field_name: field_pg_cta
+entity_type: paragraph
+bundle: pg_paragraph
+label: CTA
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_cta: pg_cta
+    negate: 0
+    target_bundles_drag_drop:
+      pg_cta:
+        weight: 3
+        enabled: true
+      pg_paragraph:
+        weight: 4
+        enabled: false
+field_type: entity_reference_revisions

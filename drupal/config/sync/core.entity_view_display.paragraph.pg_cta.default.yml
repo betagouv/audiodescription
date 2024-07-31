@@ -1,0 +1,39 @@
+uuid: 90a09bda-d299-408f-bd89-25a7dd80d053
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_cta.field_pg_is_external
+    - field.field.paragraph.pg_cta.field_pg_link
+    - paragraphs.paragraphs_type.pg_cta
+  module:
+    - link
+id: paragraph.pg_cta.default
+targetEntityType: paragraph
+bundle: pg_cta
+mode: default
+content:
+  field_pg_is_external:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_pg_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,33 @@
+uuid: 4dd4477c-2c6e-40d8-8754-cca8343bae36
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_cta.field_pg_is_external
+    - field.field.paragraph.pg_cta.field_pg_link
+    - paragraphs.paragraphs_type.pg_cta
+  module:
+    - link
+id: paragraph.pg_cta.default
+targetEntityType: paragraph
+bundle: pg_cta
+mode: default
+content:
+  field_pg_is_external:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_pg_link:
+    type: link_default
+    weight: 1
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

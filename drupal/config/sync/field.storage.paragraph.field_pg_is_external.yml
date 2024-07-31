@@ -1,0 +1,18 @@
+uuid: 75b74305-60a2-4184-be23-9011f396e8f4
+langcode: fr
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_pg_is_external
+field_name: field_pg_is_external
+entity_type: paragraph
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
