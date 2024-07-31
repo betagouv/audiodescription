@@ -1,0 +1,48 @@
+<?php
+
+use Drupal\user\Entity\User;
+
+function audiodescription_update_10001() {
+  $datas = [
+    [
+      'username' => 'contrib',
+      'password' => 'contrib',
+      'email' => 'contrib@ad.fr',
+      'roles' => [
+        'contrib'
+      ]
+    ],
+    [
+      'username' => 'super_contrib',
+      'password' => 'super_contrib',
+      'email' => 'supercontrib@ad.fr',
+      'roles' => [
+        'super_contrib'
+      ]
+    ]
+  ];
+
+  foreach ($datas as $data) {
+    $user = User::create();
+
+    $user->setPassword($data['password']);
+    $user->enforceIsNew();
+    $user->setEmail($data['email']);
+    $user->setUsername($data['username']);
+
+    foreach ($data['roles'] as $role) {
+      $user->addRole($role);
+    }
+
+    $user->set('status', 1);
+
+    try {
+      $user->save();
+      \Drupal::messenger()->addMessage(t('The user has been created.'));
+    }
+    catch (Exception $e) {
+      \Drupal::messenger()->addMessage(t('Failed to create the user. Exception: @message', ['@message' => $e->getMessage()]), 'error');
+    }
+  }
+
+}

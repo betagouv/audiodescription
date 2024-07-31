@@ -1,0 +1,14 @@
+uuid: b690b3b5-418b-4d99-871a-96de77721993
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.super_contrib
+  module:
+    - user
+id: user_remove_role_action.super_contrib
+label: 'Enlever le rôle Super Contributeur des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: super_contrib

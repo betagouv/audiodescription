@@ -1,0 +1,14 @@
+uuid: d7c41b50-5446-4cd9-96f8-0c471dd9fe97
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.super_contrib
+  module:
+    - user
+id: user_add_role_action.super_contrib
+label: 'Ajouter le rôle Super Contributeur aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: super_contrib

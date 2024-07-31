@@ -1,0 +1,9 @@
+uuid: 3aee11b6-b2d5-4ec8-a08c-dad755ffa63a
+langcode: fr
+status: true
+dependencies: {  }
+id: super_contrib
+label: 'Super Contributeur'
+weight: 5
+is_admin: null
+permissions: {  }

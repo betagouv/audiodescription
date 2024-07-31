@@ -43,6 +43,8 @@ services:
       - POSTGRES_DB=drupal
       - POSTGRES_USER=drupal
       - POSTGRES_PASSWORD=drupal
+    ports:
+      - '5432:5432'
     networks:
       - drupal-network
 
