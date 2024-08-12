@@ -1,0 +1,19 @@
+uuid: 78471135-71c1-49e1-9748-c99a3950fac4
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_visa_number
+    - node.type.movie
+id: node.movie.field_visa_number
+field_name: field_visa_number
+entity_type: node
+bundle: movie
+label: 'Numéro de visa'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

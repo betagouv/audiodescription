@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.movie.field_actors
+    - field.field.node.movie.field_cnc_number
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
@@ -11,6 +12,7 @@ dependencies:
     - field.field.node.movie.field_nationality
     - field.field.node.movie.field_public
     - field.field.node.movie.field_synopsis
+    - field.field.node.movie.field_visa_number
     - node.type.movie
   module:
     - path
@@ -27,6 +29,14 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_cnc_number:
+    type: string_textfield
+    weight: 26
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -90,6 +100,14 @@ content:
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_visa_number:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   path:

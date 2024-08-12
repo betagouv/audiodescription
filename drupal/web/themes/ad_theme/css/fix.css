@@ -5,3 +5,7 @@
   transition: none;
   background-size: initial;
 }
+
+.admin-toolbar {
+  z-index: 1000;
+}

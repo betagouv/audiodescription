@@ -1,0 +1,42 @@
+uuid: e91cf749-5bfd-42b0-ab77-516f881bddbc
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.wordings
+    - field.field.config_pages.wordings.field_taxo_genres_description
+  module:
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_taxo_genres:
+      children:
+        - field_taxo_genres_description
+      label: Genres
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+id: config_pages.wordings.default
+targetEntityType: config_pages
+bundle: wordings
+mode: default
+content:
+  field_taxo_genres_description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  label: true

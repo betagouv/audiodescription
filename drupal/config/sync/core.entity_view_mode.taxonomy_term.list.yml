@@ -1,0 +1,11 @@
+uuid: 6c3928e6-b5e5-4b01-89a7-caed4c3f3ba0
+langcode: fr
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.list
+label: Liste
+description: ''
+targetEntityType: taxonomy_term
+cache: true

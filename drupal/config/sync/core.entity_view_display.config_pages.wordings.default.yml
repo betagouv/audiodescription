@@ -1,0 +1,23 @@
+uuid: 8259396b-ca76-4d77-8fd7-8112c41168d8
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.wordings
+    - field.field.config_pages.wordings.field_taxo_genres_description
+  module:
+    - text
+id: config_pages.wordings.default
+targetEntityType: config_pages
+bundle: wordings
+mode: default
+content:
+  field_taxo_genres_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,17 @@
+uuid: abbe5455-18af-436a-8306-474fff1b053f
+langcode: fr
+status: true
+dependencies: {  }
+id: wordings
+label: Wordings
+token: false
+context:
+  show_warning: true
+  group:
+    language: false
+  fallback:
+    language: ''
+menu:
+  path: ''
+  weight: 0
+  description: ''

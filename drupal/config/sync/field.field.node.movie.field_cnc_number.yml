@@ -1,0 +1,19 @@
+uuid: 8d5f68ae-0881-4496-8ea7-a025674c111f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cnc_number
+    - node.type.movie
+id: node.movie.field_cnc_number
+field_name: field_cnc_number
+entity_type: node
+bundle: movie
+label: 'Numéro CNC'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

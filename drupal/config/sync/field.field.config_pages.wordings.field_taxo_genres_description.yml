@@ -1,0 +1,22 @@
+uuid: c0b658bf-8ea8-403f-9a99-6ba61430fdc6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.wordings
+    - field.storage.config_pages.field_taxo_genres_description
+  module:
+    - text
+id: config_pages.wordings.field_taxo_genres_description
+field_name: field_taxo_genres_description
+entity_type: config_pages
+bundle: wordings
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

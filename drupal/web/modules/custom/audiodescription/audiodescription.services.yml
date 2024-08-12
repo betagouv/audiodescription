@@ -1,11 +1,50 @@
 services:
   audiodescription.cnc_csv_importer:
     class: Drupal\audiodescription\Importer\Movie\CncCsvImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.parser.csv'
+      - '@audiodescription.manager.director'
+      - '@audiodescription.manager.genre'
+      - '@audiodescription.manager.movie'
+      - '@audiodescription.manager.nationality'
+      - '@audiodescription.manager.public'
+      - '%cnc_movies_file%'
+      - '%cnc_publics_file%'
 
   audiodescription.importer_factory:
     class: Drupal\audiodescription\Importer\Movie\ImporterFactory
     arguments:
       - '@audiodescription.cnc_csv_importer'
 
+  audiodescription.manager.director:
+    class: Drupal\audiodescription\Manager\DirectorManager
+    arguments:
+      - '@entity_type.manager'
+
+  audiodescription.manager.genre:
+    class: Drupal\audiodescription\Manager\GenreManager
+    arguments:
+      - '@entity_type.manager'
+
+  audiodescription.manager.movie:
+    class: Drupal\audiodescription\Manager\MovieManager
+    arguments:
+      - '@entity_type.manager'
+
+  audiodescription.manager.nationality:
+    class: Drupal\audiodescription\Manager\NationalityManager
+    arguments:
+      - '@entity_type.manager'
+
+  audiodescription.manager.public:
+    class: Drupal\audiodescription\Manager\PublicManager
+    arguments:
+      - '@entity_type.manager'
+
+  audiodescription.parser.csv:
+    class: Drupal\audiodescription\Parser\CsvParser
+
 parameters:
-  cnc.csv.path: ''
+  cnc_movies_file: 'modules/custom/audiodescription/files/full-movies.csv'
+  cnc_publics_file: 'modules/custom/audiodescription/files/publics.csv'

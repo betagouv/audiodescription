@@ -38,6 +38,7 @@
         "drupal/devel": "^5.0",
         "drupal/elasticsearch_connector": "^8.0@alpha",
         "drupal/facets": "^2.0",
+        "drupal/field_group": "^3.6",
         "drupal/layout_paragraphs": "^2.0",
         "drupal/linkit": "^6.1",
         "drupal/migrate_plus": "^6.0",

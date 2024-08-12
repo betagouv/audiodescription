@@ -1,0 +1,22 @@
+uuid: e1a9ae49-f59c-4afe-858c-e1a326332ba6
+langcode: fr
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: genre
+label: Genre
+type: 'canonical_entities:taxonomy_term'
+pattern: '/genres/[term:name]'
+selection_criteria:
+  9cfddf4e-5ede-4ea4-a86e-0ef903685c19:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 9cfddf4e-5ede-4ea4-a86e-0ef903685c19
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      genre: genre
+selection_logic: and
+weight: -5
+relationships: {  }

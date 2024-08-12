@@ -1,4 +1,4 @@
-uuid: c3c9b944-ef66-4484-adca-043dafe91485
+uuid: f76e0bce-3414-43a8-b1ce-40a8ad952c1d
 langcode: fr
 status: true
 dependencies:
@@ -6,35 +6,27 @@ dependencies:
     - field.field.taxonomy_term.genre.field_taxo_code
     - taxonomy.vocabulary.genre
   module:
-    - path
+    - text
 id: taxonomy_term.genre.default
 targetEntityType: taxonomy_term
 bundle: genre
 mode: default
 content:
-  field_taxo_code:
-    type: string_textfield
-    weight: 1
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  name:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 1
-    region: content
+  description:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
+  field_taxo_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
-  description: true
   langcode: true
-  status: true
+  search_api_excerpt: true

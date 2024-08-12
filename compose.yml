@@ -16,8 +16,6 @@ services:
     build:
       context: .
       dockerfile: docker/dev/php/Dockerfile
-    ports:
-      - "9003:9003" # Xdebug 3.x
     volumes:
       - ./drupal:/var/www/html
       - ./docker/dev/php/php.ini:/usr/local/etc/php/php.ini

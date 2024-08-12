@@ -4,7 +4,6 @@ namespace Drupal\audiodescription\Importer\Movie;
 
 use Drupal\audiodescription\Enum\ImportSourceType;
 use Drupal\Core\DependencyInjection\AutowireTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ImporterFactory
 {

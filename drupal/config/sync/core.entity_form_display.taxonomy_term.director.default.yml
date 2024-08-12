@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.director.field_taxo_code
     - field.field.taxonomy_term.director.field_taxo_firstname
     - taxonomy.vocabulary.director
   module:
@@ -12,6 +13,14 @@ targetEntityType: taxonomy_term
 bundle: director
 mode: default
 content:
+  field_taxo_code:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_taxo_firstname:
     type: string_textfield
     weight: 1
