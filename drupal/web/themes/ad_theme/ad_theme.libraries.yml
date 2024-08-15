@@ -22,7 +22,10 @@ global:
       css/layout/layout.css: {}
     theme:
       css/theme/print.css: { media: print }
-
+ad:
+  css:
+    component:
+      css/ad/movies.css: {}
 fix:
   version: VERSION
   css:

@@ -21,12 +21,7 @@ id: node.movie.teaser
 targetEntityType: node
 bundle: movie
 mode: teaser
-content:
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
-    region: content
+content: {  }
 hidden:
   field_actors: true
   field_cnc_number: true
@@ -39,4 +34,5 @@ hidden:
   field_synopsis: true
   field_visa_number: true
   langcode: true
+  links: true
   search_api_excerpt: true

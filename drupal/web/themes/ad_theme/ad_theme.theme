@@ -53,3 +53,13 @@ function ad_theme_preprocess_views_view__genres__page(&$variables)
   $field_value = $config_pages->getValue('wordings', 'field_taxo_genres_description');
   $variables['genres']['description'] = $field_value[0]['value'];
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ad_theme_preprocess_node__movie__teaser(&$variables)
+{
+  $t = null;
+
+  $node = $variables['elements']['#node'];
+}

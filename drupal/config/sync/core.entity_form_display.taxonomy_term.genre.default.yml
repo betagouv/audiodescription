@@ -7,17 +7,18 @@ dependencies:
     - taxonomy.vocabulary.genre
   module:
     - path
+    - text
 id: taxonomy_term.genre.default
 targetEntityType: taxonomy_term
 bundle: genre
 mode: default
 content:
-  field_taxo_code:
-    type: string_textfield
-    weight: 1
+  description:
+    type: text_textarea
+    weight: 2
     region: content
     settings:
-      size: 60
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
   name:
@@ -30,11 +31,11 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 1
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
-  description: true
+  field_taxo_code: true
   langcode: true
   status: true

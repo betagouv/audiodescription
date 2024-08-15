@@ -7,6 +7,7 @@ core_version_requirement: ^10
 libraries:
   - ad_theme/global
   - ad_theme/fix
+  - ad_theme/ad
 regions:
   header_operator_logo: Header - Operator logo
   header_tools_links: Header - Tools links

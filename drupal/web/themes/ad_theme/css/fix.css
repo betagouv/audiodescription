@@ -1,3 +1,4 @@
+.top-bar [href],
 #admin-toolbar [href] {
   background-image: none;
   background-position: initial;
@@ -6,6 +7,10 @@
   background-size: initial;
 }
 
-.admin-toolbar {
+.top-bar {
   z-index: 1000;
+}
+
+.admin-toolbar {
+  z-index: 1001;
 }
