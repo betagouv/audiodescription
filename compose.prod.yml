@@ -11,6 +11,7 @@ services:
       - php
     networks:
       - drupal-network
+      - web
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.audiodescription.rule=Host(`audiodescription.corfm.at`)"
@@ -54,3 +55,5 @@ volumes:
 
 networks:
   drupal-network:
+  web:
+    external: true
