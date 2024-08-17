@@ -46,12 +46,13 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false
     volumes:
-      - ./drupal/elasticsearch:/usr/share/elasticsearch/data
+      - elastic-data:/usr/share/elasticsearch/data
     networks:
       - drupal-network
 
 volumes:
   db-data:
+  elastic-data:
 
 networks:
   drupal-network:
