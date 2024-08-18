@@ -1,0 +1,19 @@
+uuid: 80390b30-f614-45de-819c-5b5c356ed537
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_infos_title
+id: config_pages.homepage.field_infos_title
+field_name: field_infos_title
+entity_type: config_pages
+bundle: homepage
+label: Titre
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

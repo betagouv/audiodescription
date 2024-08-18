@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.pg_cta.field_pg_is_external
     - field.field.paragraph.pg_cta.field_pg_link
+    - field.field.paragraph.pg_cta.field_pg_style
     - paragraphs.paragraphs_type.pg_cta
   module:
     - link
@@ -27,6 +28,12 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_pg_style:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

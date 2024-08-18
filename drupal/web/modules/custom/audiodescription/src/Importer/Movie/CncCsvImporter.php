@@ -53,14 +53,19 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
           'director' => null,
           'public' => null,
           'genre' => null,
-          'nationality' => null
+          'nationalities' => null
         ];
 
-        $directorName = $line['Nom_Realisateur'];
-        if (!empty($directorName)) {
-          $director = $this->directorManager->provide($directorName);
+        $directors = json_decode($line['Nom_Realisateur'], true);
 
-          $data['director'] = $director;
+        if (!empty($directors)) {
+          $data['directors'] = [];
+
+          foreach ($directors as $director) {
+            $director = $this->directorManager->provide($director);
+
+            $data['directors'][] = $director->tid->value;
+          }
         }
 
         $publicCode = $line['INTERDICTION'];
@@ -77,10 +82,15 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
           $data['genre'] = $genre;
         }
 
-        $nationalityName = $line['PAYS'];
-        if (!empty($nationalityName)) {
-          $nationality = $this->nationalityManager->provide($nationalityName);
-          $data['nationality'] = $nationality;
+        $nationalities = json_decode($line['PAYS'], true);
+
+        if (!empty($nationalities)) {
+          $data['nationalities'] = [];
+
+          foreach ($nationalities as $nationality) {
+            $nationality = $this->nationalityManager->provide($nationality);
+            $data['nationalities'][] = $nationality->tid->value;
+          }
         }
 
         // Complete data.

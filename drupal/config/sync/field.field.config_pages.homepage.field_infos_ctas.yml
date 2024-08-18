@@ -1,0 +1,37 @@
+uuid: a6797106-6c2c-407a-896d-9abafff46d32
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_infos_ctas
+    - paragraphs.paragraphs_type.pg_cta
+  module:
+    - entity_reference_revisions
+id: config_pages.homepage.field_infos_ctas
+field_name: field_infos_ctas
+entity_type: config_pages
+bundle: homepage
+label: "Appels à l'action"
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_cta: pg_cta
+    negate: 0
+    target_bundles_drag_drop:
+      pg_cta:
+        weight: 4
+        enabled: true
+      pg_documents:
+        weight: 5
+        enabled: false
+      pg_paragraph:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

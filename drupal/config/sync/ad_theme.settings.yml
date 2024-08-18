@@ -12,4 +12,4 @@ container: fr-container
 available_colors: {  }
 logo_text: 'Ministère de la Culture'
 dsfr_footer_top: ''
-ui_skins_theme: system
+ui_skins_theme: light

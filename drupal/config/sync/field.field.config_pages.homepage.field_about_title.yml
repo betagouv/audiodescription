@@ -1,0 +1,21 @@
+uuid: 23e6bbbc-6892-4c90-a123-77e29d20169c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_about_title
+id: config_pages.homepage.field_about_title
+field_name: field_about_title
+entity_type: config_pages
+bundle: homepage
+label: Titre
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'À propos de la plateforme Audiodescription'
+default_value_callback: ''
+settings: {  }
+field_type: string

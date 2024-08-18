@@ -1,0 +1,22 @@
+uuid: cf5456b4-59d0-4e01-900b-789677ac5f91
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_header_chapo
+  module:
+    - text
+id: config_pages.homepage.field_header_chapo
+field_name: field_header_chapo
+entity_type: config_pages
+bundle: homepage
+label: Chapô
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

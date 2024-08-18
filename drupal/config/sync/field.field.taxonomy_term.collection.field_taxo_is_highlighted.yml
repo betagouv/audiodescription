@@ -1,0 +1,21 @@
+uuid: 14c4b7b0-9d63-4e0d-895a-3a0ebd9971fc
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_is_highlighted
+    - taxonomy.vocabulary.collection
+id: taxonomy_term.collection.field_taxo_is_highlighted
+field_name: field_taxo_is_highlighted
+entity_type: taxonomy_term
+bundle: collection
+label: 'Collection mise en avant'
+description: "Les collections mises en avant sont affichées sur la page d'accueil."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Oui
+  off_label: Non
+field_type: boolean

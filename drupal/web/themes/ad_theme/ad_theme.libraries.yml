@@ -25,6 +25,7 @@ global:
 ad:
   css:
     component:
+      css/ad/homepage.css: {}
       css/ad/movies.css: {}
 fix:
   version: VERSION

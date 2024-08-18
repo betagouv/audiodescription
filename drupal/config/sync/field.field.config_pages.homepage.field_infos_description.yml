@@ -1,0 +1,22 @@
+uuid: 42b38622-b856-4d8c-8387-11bf32252bd4
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_infos_description
+  module:
+    - text
+id: config_pages.homepage.field_infos_description
+field_name: field_infos_description
+entity_type: config_pages
+bundle: homepage
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

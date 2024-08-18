@@ -1,0 +1,7 @@
+audiodescription.homepage:
+  path: '/homepage'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\AudiodescriptionController:homepage'
+    _title: 'Home'
+  requirements:
+    _permission: 'access content'

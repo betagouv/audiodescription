@@ -1,0 +1,23 @@
+uuid: 65200e1a-d9ee-48e9-87fc-38b8c3241886
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_style
+    - paragraphs.paragraphs_type.pg_cta
+  module:
+    - options
+id: paragraph.pg_cta.field_pg_style
+field_name: field_pg_style
+entity_type: paragraph
+bundle: pg_cta
+label: Style
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: primary
+default_value_callback: ''
+settings: {  }
+field_type: list_string

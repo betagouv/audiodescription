@@ -40,10 +40,8 @@ class MovieManager
         $properties['field_visa_number'] = $data['visa_number'];
       }
 
-      if (!is_null($data['director'])) {
-        $properties['field_directors'] = [
-          ['target_id' => $data['director']->tid->value]
-        ];
+      if (!is_null($data['directors'])) {
+        $properties['field_directors'] = $data['directors'];
       }
 
       if (!is_null($data['public'])) {
@@ -56,8 +54,8 @@ class MovieManager
         ];
       }
 
-      if (!is_null($data['nationality'])) {
-        $properties['field_nationality'] = ['target_id' => $data['nationality']->tid->value];
+      if (!is_null($data['nationalities'])) {
+        $properties['field_nationalities'] = $data['nationalities'];
       }
 
       $movie = Node::create($properties);

@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function audiodescription_theme($existing, $type, $theme, $path)
+{
+  return [
+    'homepage' => [
+      'render element' => 'children',
+      'template' => 'homepage',
+      'path' => $path . '/templates',
+      'variables' => [
+        'header' => null,
+        'infos' => null,
+        'about' => null,
+        'highlighted_collections' => null,
+      ],
+    ],
+    'highlighted_collections_block' => [
+      'render element' => 'children',
+      'template' => 'highlighted_collections_block',
+      'path' => $path . '/templates',
+      'variables' => [
+        'collections' => null,
+      ],
+    ]
+  ];
+
+}

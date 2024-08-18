@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_movies
     - taxonomy.vocabulary.collection
   module:
@@ -15,15 +16,22 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 1
+    weight: 2
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_taxo_is_highlighted:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_taxo_movies:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -41,7 +49,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }

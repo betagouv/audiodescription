@@ -1,0 +1,27 @@
+uuid: 9128fd3d-c24d-4261-bd02-461082c933b7
+langcode: fr
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_pg_style
+field_name: field_pg_style
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: primary
+      label: Primaire
+    -
+      value: secondary
+      label: Secondaire
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

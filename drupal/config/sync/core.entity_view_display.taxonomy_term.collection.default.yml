@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_movies
     - taxonomy.vocabulary.collection
   module:
@@ -18,6 +19,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_taxo_is_highlighted:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_taxo_movies:
     type: entity_reference_label

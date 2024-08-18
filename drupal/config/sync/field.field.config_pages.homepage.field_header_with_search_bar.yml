@@ -1,0 +1,21 @@
+uuid: cec5088a-146e-4b10-88e9-042e11216b6d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_header_with_search_bar
+id: config_pages.homepage.field_header_with_search_bar
+field_name: field_header_with_search_bar
+entity_type: config_pages
+bundle: homepage
+label: 'Affiché le moteur de recherche'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Oui
+  off_label: Non
+field_type: boolean

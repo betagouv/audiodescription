@@ -1,0 +1,19 @@
+uuid: c50cc92f-a821-4af6-a8e8-67e2690999bb
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_about_email
+id: config_pages.homepage.field_about_email
+field_name: field_about_email
+entity_type: config_pages
+bundle: homepage
+label: Courriel
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

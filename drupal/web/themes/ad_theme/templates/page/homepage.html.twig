@@ -1,0 +1,45 @@
+<div class="ad-hp">
+  <div class="ad-hp-header fr-mt-3w fr-mb-3w">
+    <h1>{{ header.title }}</h1>
+    {{ header.chapo|raw }}
+  </div>
+
+  {# @Todo : Search bar #}
+  {# @Todo : Collections mises en avant #}
+  {% if highlighted_collections is not empty %}
+    {{ highlighted_collections }}
+  {% endif %}
+
+  {# @Todo : Collections moins mises en avant, mais un peu quand même #}
+
+
+  <div class="ad-hp-infos">
+    <h2>{{ infos.title }}</h2>
+    {{ infos.description|raw }}
+
+    {% set buttons = [] %}
+
+    {% for cta in infos.ctas %}
+
+      {% set button = pattern('button', {
+        label: cta.text,
+        url: cta.url,
+        target: cta.target,
+        external: cta.external
+      }, cta.style) %}
+
+      {% set buttons = buttons | merge([button]) %}
+
+    {% endfor %}
+
+    {{ pattern('button_group', {
+      buttons: buttons
+    }, 'vertical') }}
+  </div>
+
+  <div class="ad-hp-about">
+    <h2>{{ about.title }}</h2>
+    {{ about.description|raw }}
+    <a href="{{ 'mailto:' ~ about.email }}">{{ about.email }}</a>
+  </div>
+</div>

@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.paragraph.pg_cta.field_pg_is_external
     - field.field.paragraph.pg_cta.field_pg_link
+    - field.field.paragraph.pg_cta.field_pg_style
     - paragraphs.paragraphs_type.pg_cta
   module:
     - link
+    - options
 id: paragraph.pg_cta.default
 targetEntityType: paragraph
 bundle: pg_cta
@@ -34,6 +36,13 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_pg_style:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
 hidden:
   search_api_excerpt: true
