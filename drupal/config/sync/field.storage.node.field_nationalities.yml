@@ -1,19 +1,19 @@
-uuid: 4557485c-931f-4465-8746-6fba2c1ea6ef
+uuid: e0ac34c7-1439-440b-bd0f-e92e20c559e0
 langcode: fr
 status: true
 dependencies:
   module:
     - node
     - taxonomy
-id: node.field_nationality
-field_name: field_nationality
+id: node.field_nationalities
+field_name: field_nationalities
 entity_type: node
 type: entity_reference
 settings:
   target_type: taxonomy_term
 module: core
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

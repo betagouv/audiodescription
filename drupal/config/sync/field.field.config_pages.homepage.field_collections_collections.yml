@@ -1,0 +1,29 @@
+uuid: 5628d207-f2de-41e7-9479-1038f73f4ff5
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_collections_collections
+    - taxonomy.vocabulary.collection
+id: config_pages.homepage.field_collections_collections
+field_name: field_collections_collections
+entity_type: config_pages
+bundle: homepage
+label: Collections
+description: 'Liste des collections à mettre en avant sur la page d''accueil dans le bloc "Toutes nos collections de films audiodécrits"'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      collection: collection
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

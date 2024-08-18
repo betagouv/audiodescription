@@ -41,13 +41,18 @@ class AudiodescriptionController extends ControllerBase
       'email' => $homepage->get('field_about_email')->value,
     ];
 
-    $collections_highlighted = [];
+    $block = Block::load('ad_hp_highlighted_collections_block');
 
-    $block = Block::load('highlighted_collections');
-
-    // Si le bloc existe, on le rend et on l'ajoute aux variables Twig.
     if ($block) {
       $highlightedCollections = \Drupal::entityTypeManager()
+        ->getViewBuilder('block')
+        ->view($block);
+    }
+
+    $block = Block::load('ad_hp_collections_block');
+
+    if ($block) {
+      $collections = \Drupal::entityTypeManager()
         ->getViewBuilder('block')
         ->view($block);
     }
@@ -57,7 +62,8 @@ class AudiodescriptionController extends ControllerBase
       '#header' => $header,
       '#infos' => $infos,
       '#about' => $about,
-      '#highlighted_collections' => $highlightedCollections
+      '#highlighted_collections' => $highlightedCollections,
+      '#collections' => $collections,
     ];
   }
 }

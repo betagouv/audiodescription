@@ -13,13 +13,11 @@ use Drupal\taxonomy\Entity\Term;
   admin_label: new TranslatableMarkup("Collections mises en avant"),
   category: new TranslatableMarkup("Audiodescription")
 )]
-class HighlightedCollectionsBlock extends BlockBase
+class HpHighlightedCollectionsBlock extends BlockBase
 {
 
     public function build()
     {
-      // TODO: Implement build() method.
-      $t = null;
       $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
       $query = $term_storage->getQuery()
         ->condition('field_taxo_is_highlighted', true)
@@ -38,7 +36,7 @@ class HighlightedCollectionsBlock extends BlockBase
       }
 
       return [
-        '#theme' => 'highlighted_collections_block',
+        '#theme' => 'hp_highlighted_collections_block',
         '#collections' => $collections
       ];
     }

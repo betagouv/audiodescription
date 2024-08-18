@@ -1,0 +1,28 @@
+uuid: 49593cb3-ed8d-469f-914f-4b8b1cb77495
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.highlighted
+    - field.field.taxonomy_term.collection.field_taxo_is_highlighted
+    - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
+    - field.field.taxonomy_term.collection.field_taxo_movies
+    - taxonomy.vocabulary.collection
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: taxonomy_term.collection.highlighted
+targetEntityType: taxonomy_term
+bundle: collection
+mode: highlighted
+content: {  }
+hidden:
+  description: true
+  field_taxo_is_highlighted: true
+  field_taxo_label_button_see_all: true
+  field_taxo_movies: true
+  langcode: true
+  search_api_excerpt: true

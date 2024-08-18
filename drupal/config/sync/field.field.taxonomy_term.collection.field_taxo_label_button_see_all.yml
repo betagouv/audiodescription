@@ -1,0 +1,21 @@
+uuid: a896a172-4b5a-47d8-8d9a-04bc530f8dfb
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_label_button_see_all
+    - taxonomy.vocabulary.collection
+id: taxonomy_term.collection.field_taxo_label_button_see_all
+field_name: field_taxo_label_button_see_all
+entity_type: taxonomy_term
+bundle: collection
+label: 'Libellé du bouton "Voir tout"'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Voir tous les films'
+default_value_callback: ''
+settings: {  }
+field_type: string

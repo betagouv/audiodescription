@@ -7,6 +7,9 @@ dependencies:
     - field.field.config_pages.homepage.field_about_description
     - field.field.config_pages.homepage.field_about_email
     - field.field.config_pages.homepage.field_about_title
+    - field.field.config_pages.homepage.field_collections_collections
+    - field.field.config_pages.homepage.field_collections_title
+    - field.field.config_pages.homepage.field_collections_with_genres
     - field.field.config_pages.homepage.field_header_chapo
     - field.field.config_pages.homepage.field_header_title
     - field.field.config_pages.homepage.field_header_with_search_bar
@@ -42,6 +45,32 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_collections_collections:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_collections_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_collections_with_genres:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_header_chapo:
     type: text_default

@@ -15,16 +15,27 @@ function audiodescription_theme($existing, $type, $theme, $path)
         'infos' => null,
         'about' => null,
         'highlighted_collections' => null,
+        'collections' => null,
       ],
     ],
-    'highlighted_collections_block' => [
+    'hp_highlighted_collections_block' => [
       'render element' => 'children',
-      'template' => 'highlighted_collections_block',
+      'template' => 'hp-highlighted-collections-block',
       'path' => $path . '/templates',
       'variables' => [
         'collections' => null,
       ],
-    ]
+    ],
+    'hp_collections_block' => [
+      'render element' => 'children',
+      'template' => 'hp-collections-block',
+      'path' => $path . '/templates',
+      'variables' => [
+        'collections' => null,
+        'collection_genres' => null,
+        'title' => null
+      ],
+    ],
   ];
 
 }

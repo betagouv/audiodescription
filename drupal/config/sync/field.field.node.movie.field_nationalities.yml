@@ -1,16 +1,16 @@
-uuid: 34fd2c25-aea6-4844-9518-6707dc5c3cd2
+uuid: 4be522dd-b7ab-416d-9a05-a974e367f6d4
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_nationality
+    - field.storage.node.field_nationalities
     - node.type.movie
     - taxonomy.vocabulary.nationality
-id: node.movie.field_nationality
-field_name: field_nationality
+id: node.movie.field_nationalities
+field_name: field_nationalities
 entity_type: node
 bundle: movie
-label: Nationalité
+label: Nationalités
 description: ''
 required: false
 translatable: false

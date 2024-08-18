@@ -1,0 +1,21 @@
+uuid: bc49c46d-5c48-4871-a11d-b19fd8b8eb78
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_collections_title
+id: config_pages.homepage.field_collections_title
+field_name: field_collections_title
+entity_type: config_pages
+bundle: homepage
+label: Titre
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Toutes nos collections de films audiodécrits'
+default_value_callback: ''
+settings: {  }
+field_type: string

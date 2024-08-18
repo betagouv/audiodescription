@@ -1,0 +1,11 @@
+uuid: 74d0c9f6-ea90-4a1a-9d07-c4cebe15d201
+langcode: fr
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.highlighted
+label: 'Mise en avant'
+description: ''
+targetEntityType: taxonomy_term
+cache: true

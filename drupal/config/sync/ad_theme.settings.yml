@@ -8,7 +8,7 @@ logo:
   path: 'public://logo-betagouvfr.svg'
 favicon:
   use_default: 1
-container: fr-container
+container: fr-container--fluid
 available_colors: {  }
 logo_text: 'Ministère de la Culture'
 dsfr_footer_top: ''

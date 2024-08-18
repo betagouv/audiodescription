@@ -1,0 +1,28 @@
+uuid: 7eece510-421a-43d4-9ee9-da37e4c103a5
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.tile
+    - field.field.taxonomy_term.collection.field_taxo_is_highlighted
+    - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
+    - field.field.taxonomy_term.collection.field_taxo_movies
+    - taxonomy.vocabulary.collection
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: taxonomy_term.collection.tile
+targetEntityType: taxonomy_term
+bundle: collection
+mode: tile
+content: {  }
+hidden:
+  description: true
+  field_taxo_is_highlighted: true
+  field_taxo_label_button_see_all: true
+  field_taxo_movies: true
+  langcode: true
+  search_api_excerpt: true

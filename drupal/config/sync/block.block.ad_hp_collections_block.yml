@@ -1,0 +1,20 @@
+uuid: 53332afc-2d11-4281-860e-2ab3a996d7bf
+langcode: fr
+status: false
+dependencies:
+  module:
+    - audiodescription
+  theme:
+    - ad_theme
+id: ad_hp_collections_block
+theme: ad_theme
+region: not_displayed
+weight: -5
+provider: null
+plugin: hp_collections_block
+settings:
+  id: hp_collections_block
+  label: '[HP] Collections'
+  label_display: '0'
+  provider: audiodescription
+visibility: {  }

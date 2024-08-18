@@ -50,7 +50,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
           'cnc_number' => $line['N°CNC'],
           'visa_number' => null,
           'has_ad' => false,
-          'director' => null,
+          'directors' => null,
           'public' => null,
           'genre' => null,
           'nationalities' => null

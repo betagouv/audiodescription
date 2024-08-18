@@ -1,43 +1,47 @@
-<div class="ad-hp">
-  <div class="ad-hp-header fr-mt-3w fr-mb-3w">
+<div class="block">
+  <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
     <h1>{{ header.title }}</h1>
     {{ header.chapo|raw }}
   </div>
-
+</div>
   {# @Todo : Search bar #}
-  {# @Todo : Collections mises en avant #}
-  {% if highlighted_collections is not empty %}
-    {{ highlighted_collections }}
-  {% endif %}
 
-  {# @Todo : Collections moins mises en avant, mais un peu quand même #}
+{% if highlighted_collections is not empty %}
+  {{ highlighted_collections }}
+{% endif %}
 
+{% if collections is not empty %}
+  {{ collections }}
+{% endif %}
 
-  <div class="ad-hp-infos">
-    <h2>{{ infos.title }}</h2>
-    {{ infos.description|raw }}
+<div class="block">
+  <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
+      <h2>{{ infos.title }}</h2>
+      {{ infos.description|raw }}
 
-    {% set buttons = [] %}
+      {% set buttons = [] %}
 
-    {% for cta in infos.ctas %}
+      {% for cta in infos.ctas %}
 
-      {% set button = pattern('button', {
-        label: cta.text,
-        url: cta.url,
-        target: cta.target,
-        external: cta.external
-      }, cta.style) %}
+        {% set button = pattern('button', {
+          label: cta.text,
+          url: cta.url,
+          target: cta.target,
+          external: cta.external
+        }, cta.style) %}
 
-      {% set buttons = buttons | merge([button]) %}
+        {% set buttons = buttons | merge([button]) %}
 
-    {% endfor %}
+      {% endfor %}
 
-    {{ pattern('button_group', {
-      buttons: buttons
-    }, 'vertical') }}
-  </div>
+      {{ pattern('button_group', {
+        buttons: buttons
+      }, 'vertical') }}
+    </div>
+</div>
 
-  <div class="ad-hp-about">
+<div class="block">
+  <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
     <h2>{{ about.title }}</h2>
     {{ about.description|raw }}
     <a href="{{ 'mailto:' ~ about.email }}">{{ about.email }}</a>

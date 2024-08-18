@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
+    - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
     - field.field.taxonomy_term.collection.field_taxo_movies
     - taxonomy.vocabulary.collection
   module:
@@ -29,6 +30,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_taxo_label_button_see_all:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_taxo_movies:
     type: entity_reference_label
