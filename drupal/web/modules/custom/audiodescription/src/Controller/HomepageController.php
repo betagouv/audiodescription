@@ -5,9 +5,9 @@ namespace Drupal\audiodescription\Controller;
 use Drupal\block\Entity\Block;
 use Drupal\Core\Controller\ControllerBase;
 
-class AudiodescriptionController extends ControllerBase
+class HomepageController extends ControllerBase
 {
-  public function homepage() {
+  public function build() {
     $config_pages = \Drupal::service('config_pages.loader');
     $homepage = $config_pages->load('homepage');
 

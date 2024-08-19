@@ -1,7 +1,15 @@
 audiodescription.homepage:
   path: '/homepage'
   defaults:
-    _controller: '\Drupal\audiodescription\Controller\AudiodescriptionController:homepage'
+    _controller: '\Drupal\audiodescription\Controller\HomepageController:build'
     _title: 'Home'
+  requirements:
+    _permission: 'access content'
+
+audiodescription.poc.movie:
+  path: '/poc/oeuvres/films/regne-animal'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\PocController:movie'
+    _title: 'REGNE ANIMAL'
   requirements:
     _permission: 'access content'

@@ -1,0 +1,17 @@
+uuid: 5d98b5f2-64e2-4b78-a7f7-834860bb74d1
+langcode: fr
+status: true
+dependencies: {  }
+id: movies
+label: Films
+token: false
+context:
+  show_warning: true
+  group:
+    language: false
+  fallback:
+    language: ''
+menu:
+  path: ''
+  weight: 0
+  description: ''

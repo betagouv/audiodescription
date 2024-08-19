@@ -1,0 +1,49 @@
+<article{{ attributes }}>
+  <div{{ content_attributes }}>
+    <div class="fr-container">
+      <div class="fr-mb-3w fr-mb-md-7w">
+        {% if node.field_directors|length > 0 %}
+          {% set directors = [] %}
+          {% for director in node.field_directors %}
+            {% set entity = director.entity %}
+            {% set directors = directors|merge([entity.name.value]) %}
+          {% endfor %}
+
+          <p class="ad-movies-infos-title">
+            <strong>Réalisation : </strong> {{ directors|join(', ') }}
+          </p>
+        {% endif %}
+
+        {% if (node.field_genres|length > 0) %}
+          <p class="ad-movies-infos-title">
+            <strong>Genres</strong>
+          </p>
+          {% for genre in node.field_genres %}
+            {% set term = genre.entity %}
+            {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
+
+            {{ pattern('tag', {
+              label: term.name.value,
+              url: term_path,
+              color_schema: 'blue-ecume'
+            }) }}
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="fr-mb-3w fr-mb-md-7w">
+        <h2>{{ config.block_ad.title }}</h2>
+        <ul>
+          {% if node.field_has_ad.value %}
+            <li>Film audiodécrit</li>
+          {% else %}
+            <li>Film non audiodécrit</li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+    </div>
+  </div>
+  {{ block_contact }}
+</article>

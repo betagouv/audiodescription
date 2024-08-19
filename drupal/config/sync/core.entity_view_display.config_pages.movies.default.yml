@@ -1,0 +1,58 @@
+uuid: 2ed3ecd5-9cca-4db0-9e22-c4ab9e023e64
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.movies
+    - field.field.config_pages.movies.field_block_ad_title
+    - field.field.config_pages.movies.field_block_contact_description
+    - field.field.config_pages.movies.field_block_contact_email
+    - field.field.config_pages.movies.field_block_contact_title
+    - field.field.config_pages.movies.field_block_infos_title
+  module:
+    - text
+id: config_pages.movies.default
+targetEntityType: config_pages
+bundle: movies
+mode: default
+content:
+  field_block_ad_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_block_contact_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_block_contact_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_block_contact_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_block_infos_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

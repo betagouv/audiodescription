@@ -36,6 +36,26 @@ function audiodescription_theme($existing, $type, $theme, $path)
         'title' => null
       ],
     ],
+    'movies_contact_block' => [
+      'render element' => 'children',
+      'template' => 'movies-contact-block',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => null,
+        'description' => null,
+        'email' => null,
+      ],
+    ],
+    'poc_movie' => [
+      'render element' => 'children',
+      'template' => 'poc-movie',
+      'path' => $path . '/templates',
+      'variables' => [
+        'node' => null,
+        'config' => null,
+        'block_contact' => null,
+      ],
+    ],
   ];
 
 }

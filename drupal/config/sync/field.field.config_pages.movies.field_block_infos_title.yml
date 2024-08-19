@@ -1,0 +1,21 @@
+uuid: 3ff64c0c-7875-473b-b7aa-65062ec93bfe
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.movies
+    - field.storage.config_pages.field_block_infos_title
+id: config_pages.movies.field_block_infos_title
+field_name: field_block_infos_title
+entity_type: config_pages
+bundle: movies
+label: 'Titre du bloc "Informations sur le film"'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Informations sur le film'
+default_value_callback: ''
+settings: {  }
+field_type: string

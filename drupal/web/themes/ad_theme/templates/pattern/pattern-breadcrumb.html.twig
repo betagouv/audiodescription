@@ -1,0 +1,24 @@
+<div class="fr-container">
+  {% if items %}
+    {% set breadcrumb_id = breadcrumb_id|default('breadcrumb-' ~ random()) %}
+    <nav{{ attributes.addClass('fr-breadcrumb').setAttribute('role', 'navigation').setAttribute('aria-label', 'you are here:'|t) }}>
+      <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="{{ breadcrumb_id }}">{{ 'See breadcrumbs'|t }}</button>
+      <div class="fr-collapse" id="{{ breadcrumb_id }}">
+        <ol class="fr-breadcrumb__list">
+          {% for item in items %}
+            <li>
+              {% set item_attributes = item.attributes|default({}) %}
+              {% set item_attributes = create_attribute(item_attributes) %}
+              {% set item_attributes = loop.last ? item_attributes.setAttribute('aria-current', 'page') : item_attributes %}
+              {% set url = item.url|default(item_attributes.href) %}
+              <a{{ item_attributes.addClass('fr-breadcrumb__link').setAttribute('href', url) }}>
+                {{ item.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ol>
+      </div>
+    </nav>
+  {% endif %}
+
+</div>
