@@ -2,12 +2,9 @@
 
 namespace Drupal\audiodescription\Plugin\Block;
 
-
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\views\Entity\View;
-use Drupal\Core\Url;
 
 #[Block(
   id: "movies_contact_block",

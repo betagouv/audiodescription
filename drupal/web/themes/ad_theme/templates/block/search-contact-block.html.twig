@@ -1,0 +1,15 @@
+<div class="ad-search__block-contact">
+  <div class="fr-container fr-pb-3w fr-pb-md-7w fr-pt-3w fr-pt-md-7w">
+    <h2>{{ title }}</h2>
+    {{ description|raw }}
+
+    {{ pattern('button', {
+      label: cta.text,
+      url: cta.url,
+      target: cta.target,
+      external: cta.external,
+      title: cta.text
+    }, cta.style) }}
+  </div>
+
+</div>

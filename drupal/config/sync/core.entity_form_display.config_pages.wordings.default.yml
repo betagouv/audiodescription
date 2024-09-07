@@ -4,9 +4,13 @@ status: true
 dependencies:
   config:
     - config_pages.type.wordings
+    - field.field.config_pages.wordings.field_search_bk_contact_cta
+    - field.field.config_pages.wordings.field_search_bk_contact_desc
+    - field.field.config_pages.wordings.field_search_bk_contact_title
     - field.field.config_pages.wordings.field_taxo_genres_description
   module:
     - field_group
+    - paragraphs
     - text
 third_party_settings:
   field_group:
@@ -25,11 +29,62 @@ third_party_settings:
         label_as_html: false
         description: ''
         required_fields: true
+    group_search_page:
+      children:
+        - field_search_bk_contact_title
+        - field_search_bk_contact_desc
+        - field_search_bk_contact_cta
+      label: Recherche
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
 id: config_pages.wordings.default
 targetEntityType: config_pages
 bundle: wordings
 mode: default
 content:
+  field_search_bk_contact_cta:
+    type: paragraphs
+    weight: 4
+    region: content
+    settings:
+      title: Paragraphe
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_search_bk_contact_desc:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_search_bk_contact_title:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_taxo_genres_description:
     type: text_textarea
     weight: 1

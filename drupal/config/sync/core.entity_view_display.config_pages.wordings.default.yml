@@ -4,14 +4,42 @@ status: true
 dependencies:
   config:
     - config_pages.type.wordings
+    - field.field.config_pages.wordings.field_search_bk_contact_cta
+    - field.field.config_pages.wordings.field_search_bk_contact_desc
+    - field.field.config_pages.wordings.field_search_bk_contact_title
     - field.field.config_pages.wordings.field_taxo_genres_description
   module:
+    - entity_reference_revisions
     - text
 id: config_pages.wordings.default
 targetEntityType: config_pages
 bundle: wordings
 mode: default
 content:
+  field_search_bk_contact_cta:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_search_bk_contact_desc:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_search_bk_contact_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_taxo_genres_description:
     type: text_default
     label: above

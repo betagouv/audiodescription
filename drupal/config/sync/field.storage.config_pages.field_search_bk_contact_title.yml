@@ -1,0 +1,21 @@
+uuid: a726d029-0a65-4c34-ad1b-6e3a6329ca83
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+id: config_pages.field_search_bk_contact_title
+field_name: field_search_bk_contact_title
+entity_type: config_pages
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

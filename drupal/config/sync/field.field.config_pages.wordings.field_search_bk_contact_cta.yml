@@ -1,0 +1,37 @@
+uuid: afc5e534-3670-4a89-96cc-e813247cf90f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.wordings
+    - field.storage.config_pages.field_search_bk_contact_cta
+    - paragraphs.paragraphs_type.pg_cta
+  module:
+    - entity_reference_revisions
+id: config_pages.wordings.field_search_bk_contact_cta
+field_name: field_search_bk_contact_cta
+entity_type: config_pages
+bundle: wordings
+label: "Appel à l'action"
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_cta: pg_cta
+    negate: 0
+    target_bundles_drag_drop:
+      pg_cta:
+        weight: 4
+        enabled: true
+      pg_documents:
+        weight: 5
+        enabled: false
+      pg_paragraph:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

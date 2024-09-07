@@ -1,3 +1,7 @@
 .ad-search-page .fr-pagination__list {
   justify-content: center;
 }
+
+.ad-search__block-contact {
+  background: var(--background-alt-blue-france);
+}

@@ -1,0 +1,22 @@
+uuid: b24d77ff-a47a-411d-b10e-692b1ee4ecb0
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.wordings
+    - field.storage.config_pages.field_search_bk_contact_desc
+  module:
+    - text
+id: config_pages.wordings.field_search_bk_contact_desc
+field_name: field_search_bk_contact_desc
+entity_type: config_pages
+bundle: wordings
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
