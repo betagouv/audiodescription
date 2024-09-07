@@ -61,11 +61,20 @@ function audiodescription_theme($existing, $type, $theme, $path)
     'poc_movie' => [
       'render element' => 'children',
       'template' => 'poc-movie',
-      'path' => $path . '/templates',
+      'path' => $path . '/templates/poc',
       'variables' => [
         'node' => null,
         'config' => null,
         'block_contact' => null,
+      ],
+    ],
+    'poc_search' => [
+      'render element' => 'children',
+      'template' => 'poc-search',
+      'path' => $path . '/templates/poc',
+      'variables' => [
+        'has_ad' => null,
+        'no_ad' => null,
       ],
     ],
   ];

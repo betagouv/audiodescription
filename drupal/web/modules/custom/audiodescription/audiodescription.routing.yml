@@ -13,3 +13,11 @@ audiodescription.poc.movie:
     _title: 'LE REGNE ANIMAL'
   requirements:
     _permission: 'access content'
+
+audiodescription.poc.search:
+  path: '/poc/recherche'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\PocSearchController:search'
+    _title: 'Recherche v2'
+  requirements:
+    _permission: 'access content'
