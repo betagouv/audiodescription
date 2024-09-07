@@ -9,7 +9,7 @@ _core:
 id: ad_theme_secondary_local_tasks
 theme: ad_theme
 region: content
-weight: -1
+weight: -2
 provider: null
 plugin: local_tasks_block
 settings:

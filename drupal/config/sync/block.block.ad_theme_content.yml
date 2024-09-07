@@ -11,7 +11,7 @@ _core:
 id: ad_theme_content
 theme: ad_theme
 region: content
-weight: 2
+weight: 1
 provider: null
 plugin: system_main_block
 settings:

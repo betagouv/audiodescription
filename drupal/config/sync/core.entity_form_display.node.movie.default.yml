@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.movie.field_actors
+    - field.field.node.movie.field_clean_title
     - field.field.node.movie.field_cnc_number
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
@@ -32,9 +33,17 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_clean_title:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_cnc_number:
     type: string_textfield
-    weight: 26
+    weight: 10
     region: content
     settings:
       size: 60
@@ -76,7 +85,7 @@ content:
     third_party_settings: {  }
   field_nationalities:
     type: entity_reference_autocomplete
-    weight: 28
+    weight: 12
     region: content
     settings:
       match_operator: CONTAINS
@@ -104,7 +113,7 @@ content:
     third_party_settings: {  }
   field_visa_number:
     type: string_textfield
-    weight: 27
+    weight: 11
     region: content
     settings:
       size: 60
@@ -112,13 +121,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 10
+    weight: 9
     region: content
     settings:
       display_label: true

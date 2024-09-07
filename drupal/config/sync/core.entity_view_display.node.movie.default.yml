@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.movie.field_actors
+    - field.field.node.movie.field_clean_title
     - field.field.node.movie.field_cnc_number
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
@@ -29,6 +30,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 104
+    region: content
+  field_clean_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 112
     region: content
   field_cnc_number:
     type: string

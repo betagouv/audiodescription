@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\user\Entity\User;
+use Drupal\Core\Batch\BatchBuilder;
 
 function audiodescription_update_10001() {
   $datas = [
@@ -44,5 +45,85 @@ function audiodescription_update_10001() {
       \Drupal::messenger()->addMessage(t('Failed to create the user. Exception: @message', ['@message' => $e->getMessage()]), 'error');
     }
   }
+}
 
+function audiodescription_update_10002()
+{
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'movie')
+    ->accessCheck(FALSE)
+    ->execute();
+
+  if (!empty($nids)) {
+    $batch_builder = new BatchBuilder();
+    $batch_builder
+      ->setTitle(t('Updating movie clean titles...'))
+      ->setInitMessage(t('Starting to update movie nodes...'))
+      ->setProgressMessage(t('Processed @current out of @total movies.'))
+      ->setErrorMessage(t('An error occurred during the update process.'))
+      ->setFinishCallback('audiodescription_batch_finished');
+
+    $batch_builder->addOperation('audiodescription_update_movie_batch', [$nids]);
+    batch_set($batch_builder->toArray());
+  }
+}
+
+/**
+ * Fonction de traitement par lot pour mettre à jour le champ field_clean_title.
+ *
+ * @param array $nids
+ *   Liste des ID des nœuds à traiter.
+ * @param array $context
+ *   Le contexte de batch, géré automatiquement par Drupal.
+ */
+function audiodescription_update_movie_batch(array $nids, array &$context)
+{
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($nids);
+    $context['sandbox']['nids'] = $nids;
+  }
+
+  $limit = 50;
+  $nids_to_process = array_slice($context['sandbox']['nids'], $context['sandbox']['progress'], $limit);
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+  foreach ($nids_to_process as $nid) {
+    $node_storage = $entity_type_manager->getStorage('node');
+    $node = $node_storage->load($nid);
+    if ($node) {
+      $title = $node->getTitle();
+      $pathauto_service = \Drupal::service('pathauto.alias_cleaner');
+      $clean_title = $pathauto_service->cleanString($title);
+
+      if ($node->get('field_clean_title')->value !== $clean_title) {
+        $node->set('field_clean_title', $clean_title);
+        $node->save();
+      }
+    }
+    $context['sandbox']['progress']++;
+  }
+
+  $context['finished'] = ($context['sandbox']['progress'] / $context['sandbox']['max']);
+  $context['message'] = t('Processed @count out of @total movies.', [
+    '@count' => $context['sandbox']['progress'],
+    '@total' => $context['sandbox']['max'],
+  ]);
+}
+
+/**
+ * Fonction de callback après la fin du traitement batch.
+ *
+ * @param bool $success
+ *   Indique si le batch a réussi ou non.
+ * @param array $results
+ *   Les résultats des opérations de batch.
+ */
+function audiodescription_batch_finished($success, $results, $operations) {
+  if ($success) {
+    \Drupal::messenger()->addMessage(t('The movie clean titles were successfully updated.'));
+  }
+  else {
+    \Drupal::messenger()->addMessage(t('An error occurred while updating movie clean titles.'), 'error');
+  }
 }

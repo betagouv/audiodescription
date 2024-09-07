@@ -1,11 +1,11 @@
-uuid: 3ea9c4b7-10ed-49ec-bf37-0a621bf131a8
+uuid: 51f8ac18-b8f0-4052-ae5e-4dba7b47ae14
 langcode: fr
 status: true
 dependencies:
   module:
     - elasticsearch_connector
-id: local
-name: Local
+id: elasticsearch
+name: Elasticsearch
 description: ''
 backend: elasticsearch
 backend_config:

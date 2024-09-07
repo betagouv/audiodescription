@@ -27,6 +27,7 @@ ad:
     component:
       css/ad/block.css: {}
       css/ad/movies.css: {}
+      css/ad/search.css: {}
 fix:
   version: VERSION
   css:

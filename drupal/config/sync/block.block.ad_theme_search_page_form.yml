@@ -1,0 +1,23 @@
+uuid: 8a617eda-372e-4821-b708-ba73dd153e36
+langcode: fr
+status: true
+dependencies:
+  config:
+    - views.view.search
+  module:
+    - views
+  theme:
+    - ad_theme
+id: ad_theme_search_page_form
+theme: ad_theme
+region: content
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:search-search_page'
+settings:
+  id: 'views_exposed_filter_block:search-search_page'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+visibility: {  }

@@ -1,0 +1,36 @@
+{% if pages %}
+<div class="fr-container">
+  <nav{{ attributes.addClass('fr-pagination').setAttribute('role', 'navigation').setAttribute('aria-label', 'Pagination'|t) }}>
+    <ul class="fr-pagination__list pager__items js-pager__items">
+      {{ first ? _self.generate_link('First page'|t, first, 'first'|t, false) }}
+      {{ _self.generate_link('Previous page'|t, prev, 'prev'|t, true) }}
+      {% for item in pages %}
+        {% set item_attributes = item.attributes|default(create_attribute()) %}
+        {% set item_attributes = item_attributes.addClass('fr-pagination__link').setAttribute('title', 'Page @key'|t({'@key': item.title})) %}
+        <li>
+          {% if item.url %}
+            <a{{ item_attributes.setAttribute('href', item.url) }}>
+              {{ item.title }}
+            </a>
+          {% else %}
+            <a{{ item_attributes.setAttribute('aria-current', 'page') }}>
+              {{ item.title }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      {{ _self.generate_link('Next page'|t, next, 'next'|t, true) }}
+      {{ last ? _self.generate_link('Last page'|t, last, 'last'|t, false) }}
+    </ul>
+  </nav>
+</div>
+{% endif %}
+
+{% macro generate_link(label, url, modifier, display_label) %}
+  {% set attributes = create_attribute().addClass('fr-pagination__link', 'fr-pagination__link--' ~ modifier) %}
+  {% set attributes = url ? attributes.setAttribute('href', url) : attributes.setAttribute('aria-disabled', 'true').setAttribute('role', 'link') %}
+  {% set attributes = display_label ? attributes.addClass('fr-pagination__link--lg-label') : attributes %}
+  <li>
+    <a{{ attributes }}>{{ label }}</a>
+  </li>
+{% endmacro %}

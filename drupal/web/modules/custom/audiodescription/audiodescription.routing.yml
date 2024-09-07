@@ -7,9 +7,9 @@ audiodescription.homepage:
     _permission: 'access content'
 
 audiodescription.poc.movie:
-  path: '/poc/oeuvres/films/regne-animal'
+  path: '/poc/oeuvres/films/{movie}'
   defaults:
     _controller: '\Drupal\audiodescription\Controller\PocController:movie'
-    _title: 'REGNE ANIMAL'
+    _title: 'LE REGNE ANIMAL'
   requirements:
     _permission: 'access content'

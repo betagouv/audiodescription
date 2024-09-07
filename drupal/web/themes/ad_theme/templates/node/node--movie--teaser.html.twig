@@ -2,31 +2,42 @@
 
 {% set has_ad = 'Non' %}
 {% set title = node.title.value %}
-{% set detail = '' %}
 
-{% if node.field_has_ad.value %}
-  {% set has_ad = 'Oui' %}
-  {% set title = {
-    '#type': 'html_tag',
-    '#tag': 'a',
-    '#value': node.title.value,
-    '#attributes': {
-    'href': url,
-    }
-  } %}
+<div class="fr-mt-3w fr-mb-3w">
 
-  {% set detail = 'Audiodécrit' %}
+  {% if node.field_has_ad.value %}
+    {% set has_ad = 'Oui' %}
+    {% set title = {
+      '#type': 'html_tag',
+      '#tag': 'a',
+      '#value': node.title.value,
+      '#attributes': {
+        'href': url,
+      }
+    } %}
 
-{% endif %}
+    {{ pattern('card', {
+      horizontal_ratio: 'tier',
+      enlarge_link: true,
+      title_tag: 'h2',
+      tags_badges: pattern('badge', {
+        label: 'Audiodécrit',
+        color_schema: 'blue-ecume'
+      }),
+      title: title,
+      description: 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.'
+    }, 'horizontal') }}
 
-{{ pattern('card', {
-  horizontal_ratio: 'tier',
-  enlarge_link: true,
-  title_tag: 'h2',
-  tags_badges: pattern('badge', {
-    label: 'Audiodécrit',
-    color_schema: 'blue-ecume'
-  }),
-  title: title,
-  description: 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.'
-}, 'horizontal') }}
+  {% else %}
+
+    {{ pattern('card', {
+      horizontal_ratio: 'tier',
+      enlarge_link: true,
+      title_tag: 'h2',
+      title: title,
+      description: 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.'
+    }, 'horizontal') }}
+
+  {% endif %}
+
+</div>

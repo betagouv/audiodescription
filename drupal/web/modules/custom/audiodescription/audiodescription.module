@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\node\Entity\Node;
+
 /**
  * Implements hook_theme().
  */
@@ -57,5 +59,14 @@ function audiodescription_theme($existing, $type, $theme, $path)
       ],
     ],
   ];
+}
 
+function audiodescription_node_presave(Node $node) {
+  $pathauto_service = \Drupal::service('pathauto.alias_cleaner');
+
+  if ($node->getType() === 'movie') {
+    $title = $node->getTitle();
+    $clean_title = $pathauto_service->cleanString($title);
+    $node->set('field_clean_title', $clean_title);
+  }
 }
