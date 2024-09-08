@@ -75,6 +75,7 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'variables' => [
         'has_ad' => null,
         'no_ad' => null,
+        'form' => null,
       ],
     ],
   ];
