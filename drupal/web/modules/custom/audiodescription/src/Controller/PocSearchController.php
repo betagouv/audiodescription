@@ -38,9 +38,13 @@ class PocSearchController extends ControllerBase
 
     if ($index) {
       $pageHasAd = $params->get('page_has_ad', 1);
+      $pageHasAd = empty($pageHasAd) ? 1 : $pageHasAd;
+
       $offsetHasAd = ($pageHasAd-1)*self::PAGE_SIZE;
 
       $pageNoAd = $params->get('page_no_ad', 1);
+      $pageNoAd = empty($pageNoAd) ? 1 : $pageNoAd;
+
       $offsetNoAd = ($pageNoAd-1)*self::PAGE_SIZE;
 
       [$totalHasAd, $pagesCountHasAd, $entitiesHasAd] = $this->queryAdMovies($index, $offsetHasAd, 1, $search);

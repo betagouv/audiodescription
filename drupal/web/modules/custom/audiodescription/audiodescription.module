@@ -78,6 +78,14 @@ function audiodescription_theme($existing, $type, $theme, $path)
         'form' => null,
       ],
     ],
+    'header_search_form_block' => [
+      'render element' => 'children',
+      'template' => 'header-search-form-block',
+      'path' => $path . '/templates',
+      'variables' => [
+        'form' => null,
+      ],
+    ],
   ];
 }
 

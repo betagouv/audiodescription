@@ -22,9 +22,6 @@ class HpCollectionsBlock extends BlockBase
       $config_pages = \Drupal::service('config_pages.loader');
       $homepage = $config_pages->load('homepage');
 
-
-
-
       $field_collections_with_genres = $homepage->get('field_collections_with_genres');
 
       $collection_genres = [

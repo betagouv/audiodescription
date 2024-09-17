@@ -26,7 +26,7 @@ class MovieSearchForm extends FormBase {
 
     $form['search_api_fulltext'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Search for a movie'),
+      '#title' => $this->t('Rechercher un film'),
       '#size' => 30,
       '#maxlength' => 128,
       '#value' => $search_api_fulltext,
@@ -43,6 +43,8 @@ class MovieSearchForm extends FormBase {
       ]
     ];
 
+    $form['#action'] = '/poc/recherche';
+
     return $form;
   }
 
@@ -50,20 +52,20 @@ class MovieSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $search = $form_state->getValue('search_api_fulltext');
+    $search = $form_state->getUserInput()['search_api_fulltext'];
 
     $parameters = [
       'search_api_fulltext' => $search,
     ];
 
     $request = \Drupal::request();
-    $pageHasAd = $request->query->get('page_has_ad', '');
+    $pageHasAd = $request->query->get('page_has_ad', null);
 
     if (!is_null($pageHasAd)) {
       $parameters['page_has_ad'] = $pageHasAd;
     }
 
-    $pageNoAd = $request->query->get('page_no_ad');
+    $pageNoAd = $request->query->get('page_no_ad',null);
 
     if (!is_null($pageNoAd)) {
       $parameters['page_no_ad'] = $pageNoAd;
