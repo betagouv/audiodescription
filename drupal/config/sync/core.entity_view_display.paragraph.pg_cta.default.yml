@@ -9,25 +9,14 @@ dependencies:
     - paragraphs.paragraphs_type.pg_cta
   module:
     - link
-    - options
 id: paragraph.pg_cta.default
 targetEntityType: paragraph
 bundle: pg_cta
 mode: default
 content:
-  field_pg_is_external:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 2
-    region: content
   field_pg_link:
     type: link
-    label: above
+    label: visually_hidden
     settings:
       trim_length: 80
       url_only: false
@@ -35,14 +24,9 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 1
-    region: content
-  field_pg_style:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
+    weight: 0
     region: content
 hidden:
+  field_pg_is_external: true
+  field_pg_style: true
   search_api_excerpt: true

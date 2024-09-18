@@ -1,8 +1,9 @@
-uuid: 9be6c39c-a738-4af5-895b-daab940b8303
+uuid: 95d1c838-e553-4145-86b0-f9b88927187c
 langcode: fr
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.full
     - field.field.paragraph.pg_paragraph.field_pg_cta
     - field.field.paragraph.pg_paragraph.field_pg_image
     - field.field.paragraph.pg_paragraph.field_pg_text
@@ -10,11 +11,16 @@ dependencies:
     - paragraphs.paragraphs_type.pg_paragraph
   module:
     - entity_reference_revisions
+    - layout_builder
     - text
-id: paragraph.pg_paragraph.default
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.pg_paragraph.full
 targetEntityType: paragraph
 bundle: pg_paragraph
-mode: default
+mode: full
 content:
   field_pg_cta:
     type: entity_reference_revisions_entity_view

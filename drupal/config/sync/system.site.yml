@@ -2,7 +2,7 @@ _core:
   default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
 langcode: fr
 uuid: ce11e096-e66c-426d-bf8f-cc78c42a67f8
-name: 'Plateforme Audiodescription'
+name: Audiodescription
 mail: admin@example.com
 slogan: ''
 page:

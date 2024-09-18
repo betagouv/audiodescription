@@ -10,6 +10,6 @@ favicon:
   use_default: 1
 container: fr-container--fluid
 available_colors: {  }
-logo_text: 'Ministère de la Culture'
+logo_text: 'Ministère \nde la Culture'
 dsfr_footer_top: ''
 ui_skins_theme: light
