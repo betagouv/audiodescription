@@ -1,0 +1,19 @@
+uuid: da64b986-d8c9-4855-9dc6-dc2d2dc54d17
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_condition
+    - paragraphs.paragraphs_type.pg_plateform
+id: paragraph.pg_plateform.field_pg_condition
+field_name: field_pg_condition
+entity_type: paragraph
+bundle: pg_plateform
+label: Condition
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

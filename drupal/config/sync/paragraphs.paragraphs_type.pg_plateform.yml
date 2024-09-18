@@ -1,0 +1,10 @@
+uuid: 3bff59d3-7cf5-4304-a02c-2c5d109fb075
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_plateform
+label: Plateforme
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

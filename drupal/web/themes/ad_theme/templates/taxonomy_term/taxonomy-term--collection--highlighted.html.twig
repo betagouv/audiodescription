@@ -8,6 +8,12 @@
         <div class="fr-col-lg-6 fr-col-12">
           {% set movie = data.entity %}
           {% set movie_url = path('entity.node.canonical', {'node': movie.id()}) %}
+          {% set movie_synopsis = movie.field_synopsis.value|render|striptags %}
+
+          {% if movie_synopsis is empty %}
+            {% set movie_synopsis = 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.' %}
+          {% endif %}
+
           {{ pattern('card', {
             title_tag: 'h3',
             'title': {
@@ -22,7 +28,7 @@
               label: 'Audiodécrit',
               color_schema: 'blue-ecume'
             }),
-            description: 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.',
+            description: movie_synopsis,
             enlarge_link: true
           }, 'vertical') }}
         </div>

@@ -1,0 +1,52 @@
+uuid: 551cfc27-8a6e-42ad-9323-fb195ee540dc
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_plateform.field_pg_condition
+    - field.field.paragraph.pg_plateform.field_pg_image
+    - field.field.paragraph.pg_plateform.field_pg_link
+    - field.field.paragraph.pg_plateform.field_pg_name
+    - paragraphs.paragraphs_type.pg_plateform
+  module:
+    - link
+    - media_library
+id: paragraph.pg_plateform.default
+targetEntityType: paragraph
+bundle: pg_plateform
+mode: default
+content:
+  field_pg_condition:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_image:
+    type: media_library_widget
+    weight: 1
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_pg_link:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_pg_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

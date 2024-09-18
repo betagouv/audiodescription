@@ -31,6 +31,17 @@
             }) }}
           {% endfor %}
         {% endif %}
+
+        {% set synopsis_plain_text = node.field_synopsis.value|render|striptags %}
+
+        {% if synopsis_plain_text is not empty %}
+          <p class="ad-movies-infos-title">
+            <strong>Synopsis</strong>
+          </p>
+          {{ node.field_synopsis.value|raw }}
+        {% endif %}
+
+
       </div>
 
       <div class="fr-mb-3w fr-mb-md-7w">
@@ -44,6 +55,47 @@
         </ul>
       </div>
 
+      {% set block_watch = node.field_watch_movie.entity %}
+      <div class="ad-watch-movie-block fr-mb-3w fr-mb-md-7w">
+        <h2>{{ block_watch.field_pg_title.value }}</h2>
+        <ul class="ad-watch-movie-block__list">
+         {% for pg in block_watch.field_pg_plateforms_types %}
+           {% set plateform_type = pg.entity %}
+           <li>
+             <h3>{{ plateform_type.field_pg_title.value }}</h3>
+             <ul class="ad-watch-movie-block__list-platforms">
+               {% for entity in plateform_type.field_pg_plateforms %}
+                 {% set plateform = entity.entity %}
+                 {% set media = plateform.field_pg_image.get(0).entity %}
+                 {% set file_url = file_url(media.field_media_image.get(0).entity.uri.value) %}
+
+                 <li class="ad-watch-movie-block__platform">
+                   {{ pattern('card', {
+                     horizontal_ratio: 'tier',
+                     enlarge_link: true,
+                     title_tag: 'h4',
+                     title: {
+                       '#type': 'html_tag',
+                       '#tag': 'a',
+                       '#value': plateform.field_pg_name.value,
+                       '#attributes': {
+                         'href': plateform.field_pg_link.get(0).getUrl().toString(),
+                       }
+                     },
+                     image: {
+                       '#type': 'render',
+                       '#theme': 'image',
+                       '#uri': file_url,
+                     },
+                     description: plateform.field_pg_condition.value
+                   }, 'horizontal') }}
+                 </li>
+               {% endfor %}
+             </ul>
+           </li>
+         {% endfor %}
+        </ul>
+      </div>
 
     </div>
   </div>

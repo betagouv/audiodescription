@@ -4,6 +4,11 @@
 {% set title = node.title.value %}
 
 <div class="fr-mt-3w fr-mb-3w">
+  {% set synopsis = node.field_synopsis.value|render|striptags %}
+
+  {% if synopsis is empty %}
+    {% set synopsis = 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.' %}
+  {% endif %}
 
   {% if node.field_has_ad.value %}
     {% set has_ad = 'Oui' %}
@@ -25,7 +30,7 @@
         color_schema: 'blue-ecume'
       }),
       title: title,
-      description: 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.'
+      description: synopsis
     }, 'horizontal') }}
 
   {% else %}
@@ -35,7 +40,7 @@
       enlarge_link: true,
       title_tag: 'h2',
       title: title,
-      description: 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.'
+      description: synopsis
     }, 'horizontal') }}
 
   {% endif %}

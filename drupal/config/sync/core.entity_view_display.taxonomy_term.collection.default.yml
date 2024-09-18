@@ -21,32 +21,17 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_taxo_is_highlighted:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_taxo_label_button_see_all:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_taxo_movies:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: teaser
+      link: false
     third_party_settings: {  }
     weight: 1
     region: content
 hidden:
+  field_taxo_is_highlighted: true
+  field_taxo_label_button_see_all: true
   langcode: true
   search_api_excerpt: true

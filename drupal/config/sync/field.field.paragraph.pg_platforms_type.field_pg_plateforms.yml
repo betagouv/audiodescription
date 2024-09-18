@@ -1,0 +1,46 @@
+uuid: b94e34bb-37ac-40cc-9887-96958d54bd97
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_plateforms
+    - paragraphs.paragraphs_type.pg_plateform
+    - paragraphs.paragraphs_type.pg_platforms_type
+  module:
+    - entity_reference_revisions
+id: paragraph.pg_platforms_type.field_pg_plateforms
+field_name: field_pg_plateforms
+entity_type: paragraph
+bundle: pg_platforms_type
+label: Plateformes
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_plateform: pg_plateform
+    negate: 0
+    target_bundles_drag_drop:
+      pg_cta:
+        weight: 8
+        enabled: false
+      pg_documents:
+        weight: 9
+        enabled: false
+      pg_paragraph:
+        weight: 10
+        enabled: false
+      pg_plateform:
+        weight: 7
+        enabled: true
+      pg_platforms_type:
+        weight: 11
+        enabled: false
+      pg_watch_movie:
+        weight: 12
+        enabled: false
+field_type: entity_reference_revisions

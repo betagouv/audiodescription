@@ -1,0 +1,44 @@
+uuid: a927231e-d50b-4cca-80ef-343a626f639e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_watch_movie.field_pg_plateforms_types
+    - field.field.paragraph.pg_watch_movie.field_pg_title
+    - paragraphs.paragraphs_type.pg_watch_movie
+  module:
+    - paragraphs
+id: paragraph.pg_watch_movie.default
+targetEntityType: paragraph
+bundle: pg_watch_movie
+mode: default
+content:
+  field_pg_plateforms_types:
+    type: paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: Paragraphe
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_pg_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

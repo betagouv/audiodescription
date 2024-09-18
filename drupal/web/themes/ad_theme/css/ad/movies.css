@@ -10,3 +10,29 @@
 .ad-movie__block-contact {
   background: var(--background-alt-blue-france);
 }
+
+.ad-watch-movie-block__list{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.ad-watch-movie-block__list-platforms {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.ad-watch-movie-block__platform {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 992px) {
+  .ad-watch-movie-block__platform {
+    width: calc(50% - 1rem);
+  }
+}
+
+

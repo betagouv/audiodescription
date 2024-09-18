@@ -32,55 +32,46 @@
  * @ingroup themeable
  */
 #}
-<div class="fr-container fr-mb-4w">
-  {% if genres.description is not empty %}
-    <div class="fr-mt-4w fr-mb-4w">
-      {{ genres.description|raw }}
-    </div>
+{%
+  set classes = [
+  dom_id ? 'js-view-dom-id-' ~ dom_id,
+  'fr-mb-4w'
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title }}
+  {{ title_suffix }}
+
+  {% if header %}
+    <header>
+      {{ header }}
+    </header>
   {% endif %}
 
-  <h2>Tous les genres</h2>
+  {{ exposed }}
+  {{ attachment_before }}
 
-  <div class="fr-container--fluid">
-    {%
-      set classes = [
-      dom_id ? 'js-view-dom-id-' ~ dom_id,
-      'fr-grid-row',
-      'fr-grid-row--gutters'
-    ]
-    %}
-    <div{{ attributes.addClass(classes) }}>
-      {{ title_prefix }}
-      {{ title }}
-      {{ title_suffix }}
+  {% if rows -%}
+    {{ rows }}
+  {% elseif empty -%}
+    {{ empty }}
+  {% endif %}
 
-      {% if header %}
-        <header>
-          {{ header }}
-        </header>
-      {% endif %}
-
-      {{ exposed }}
-      {{ attachment_before }}
-
-      {% if rows -%}
-        {{ rows }}
-      {% elseif empty -%}
-        {{ empty }}
-      {% endif %}
+  <div class="fr-container fr-grid-row--center">
+    <div class="fr-grid-row fr-grid-row--center">
       {{ pager }}
-
-      {{ attachment_after }}
-      {{ more }}
-
-      {% if footer %}
-        <footer>
-          {{ footer }}
-        </footer>
-      {% endif %}
-
-      {{ feed_icons }}
     </div>
-
   </div>
+
+  {{ attachment_after }}
+  {{ more }}
+
+  {% if footer %}
+    <footer>
+      {{ footer }}
+    </footer>
+  {% endif %}
+
+  {{ feed_icons }}
 </div>
