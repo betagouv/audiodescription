@@ -60,11 +60,12 @@
       </div>
 
       <div class="fr-mb-3w fr-mb-md-7w">
-        <p class="ad-movies-infos-title">
+        <h2>{{ config.block_ad.title }}</h2>
+        <p>
           {% if node.field_has_ad.value %}
-            <strong>{{ config.block_ad.title }} : </strong> Film audiodécrit
+            Film audiodécrit
           {% else %}
-            <strong>{{ config.block_ad.title }} : </strong> Film non audiodécrit
+            Film non audiodécrit
           {% endif %}
         </p>
       </div>
