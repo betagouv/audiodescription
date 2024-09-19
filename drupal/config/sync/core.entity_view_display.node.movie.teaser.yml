@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_nationalities
+    - field.field.node.movie.field_poster
     - field.field.node.movie.field_public
     - field.field.node.movie.field_synopsis
     - field.field.node.movie.field_visa_number
@@ -33,6 +34,7 @@ hidden:
   field_genres: true
   field_has_ad: true
   field_nationalities: true
+  field_poster: true
   field_public: true
   field_synopsis: true
   field_visa_number: true

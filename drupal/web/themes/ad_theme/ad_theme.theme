@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Drupal\block\Entity\Block;
+use Drupal\node\NodeInterface;
 
 function ad_theme_theme_suggestions_taxonomy_term_alter(
   array &$suggestions,
@@ -31,6 +32,25 @@ function ad_theme_theme_suggestions_views_view_alter(array &$suggestions, array 
   $suggestions[] = 'views_view__' . $view_id;
   $suggestions[] = 'views_view__' . $view_id . '__' . $view_current_display;
 
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function ad_theme_theme_suggestions_page_title_alter(array &$suggestions, array &$variables)
+{
+  if (\Drupal::routeMatch()->getRouteName() === 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+
+    if ($node instanceof NodeInterface) {
+      $bundle = $node->bundle();
+      $suggestions[] = 'page_title__' . $bundle;
+
+      $view_mode = \Drupal::routeMatch()->getParameter('view_mode') ?? 'full';
+      $suggestions[] = 'page_title__' . $view_mode;
+      $suggestions[] = 'page_title__' . $bundle . '__' . $view_mode;
+    }
+  }
 }
 
 /**

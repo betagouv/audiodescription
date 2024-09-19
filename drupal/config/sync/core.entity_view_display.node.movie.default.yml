@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_nationalities
+    - field.field.node.movie.field_poster
     - field.field.node.movie.field_public
     - field.field.node.movie.field_synopsis
     - field.field.node.movie.field_visa_number
@@ -91,6 +92,15 @@ content:
       link: true
     third_party_settings: {  }
     weight: 111
+    region: content
+  field_poster:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 114
     region: content
   field_public:
     type: entity_reference_label

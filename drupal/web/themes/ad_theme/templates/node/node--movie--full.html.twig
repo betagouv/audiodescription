@@ -2,6 +2,22 @@
   <div{{ content_attributes }}>
     <div class="fr-container">
       <div class="fr-mb-3w fr-mb-md-7w">
+
+        {% set poster_uri = node.field_poster.entity.field_media_image.entity.uri.value %}
+
+        {% if poster_uri is not empty %}
+          {% set imagestyle = {
+            '#theme':      'image_style',
+            '#style_name': 'poster',
+            '#uri':        poster_uri,
+          } %}
+
+          <div class="fr-mb-4w">
+            {{ imagestyle }}
+          </div>
+        {% endif %}
+
+        <h1>{{ label }}</h1>
         <h2>{{ config.block_infos.title }}</h2>
 
         {% if node.field_directors|length > 0 %}
@@ -41,18 +57,16 @@
           {{ node.field_synopsis.value|raw }}
         {% endif %}
 
-
       </div>
 
       <div class="fr-mb-3w fr-mb-md-7w">
-        <h2>{{ config.block_ad.title }}</h2>
-        <ul>
+        <p class="ad-movies-infos-title">
           {% if node.field_has_ad.value %}
-            <li>Film audiodécrit</li>
+            <strong>{{ config.block_ad.title }} : </strong> Film audiodécrit
           {% else %}
-            <li>Film non audiodécrit</li>
+            <strong>{{ config.block_ad.title }} : </strong> Film non audiodécrit
           {% endif %}
-        </ul>
+        </p>
       </div>
 
       {% set block_watch = node.field_watch_movie.entity %}

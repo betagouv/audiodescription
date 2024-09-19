@@ -1,0 +1,15 @@
+uuid: 7374e432-9933-4587-b692-ce55fc0d1c33
+langcode: fr
+status: true
+dependencies: {  }
+name: poster
+label: Affiche
+effects:
+  94493cfd-1d45-48e2-9120-e308c61f560a:
+    uuid: 94493cfd-1d45-48e2-9120-e308c61f560a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 165
+      height: 220
+      anchor: center-center
