@@ -2,7 +2,9 @@
 
 namespace Drupal\audiodescription\Importer;
 
-class ImportException extends \Exception
-{
+/**
+ *
+ */
+class ImportException extends \Exception {
 
 }

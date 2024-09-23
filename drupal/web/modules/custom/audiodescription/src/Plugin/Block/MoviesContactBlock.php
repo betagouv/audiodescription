@@ -6,16 +6,20 @@ use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
+/**
+ *
+ */
 #[Block(
   id: "movies_contact_block",
   admin_label: new TranslatableMarkup("Block contact sur les films"),
   category: new TranslatableMarkup("Audiodescription")
 )]
-class MoviesContactBlock extends BlockBase
-{
+class MoviesContactBlock extends BlockBase {
 
-  public function build()
-  {
+  /**
+   *
+   */
+  public function build() {
     $config_pages = \Drupal::service('config_pages.loader');
     $config = $config_pages->load('movies');
 
@@ -30,4 +34,5 @@ class MoviesContactBlock extends BlockBase
       '#email' => $email,
     ];
   }
+
 }

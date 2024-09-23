@@ -2,8 +2,11 @@
 
 namespace Drupal\audiodescription\Parser;
 
-class CsvParser
-{
+/**
+ *
+ */
+class CsvParser {
+
   /**
    * Parse CSV file.
    *
@@ -16,7 +19,9 @@ class CsvParser
   public function parseCSV($filename) {
     $rows = [];
 
-    if (($handle = fopen($filename, 'r')) !== FALSE) {
+    $handle = fopen($filename, 'r');
+
+    if ($handle !== FALSE) {
       // Get the headers from the first row.
       $headers = fgetcsv($handle, separator: ',');
 
@@ -30,4 +35,5 @@ class CsvParser
 
     return $rows;
   }
+
 }

@@ -2,71 +2,77 @@
 
 namespace Drupal\audiodescription\Plugin\Block;
 
-
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\views\Entity\View;
 use Drupal\Core\Url;
+use Drupal\views\Entity\View;
 
+/**
+ *
+ */
 #[Block(
   id: "hp_collections_block",
   admin_label: new TranslatableMarkup("Collections sur la page d'accueil"),
   category: new TranslatableMarkup("Audiodescription")
 )]
-class HpCollectionsBlock extends BlockBase
-{
+class HpCollectionsBlock extends BlockBase {
 
-    public function build()
-    {
-      $config_pages = \Drupal::service('config_pages.loader');
-      $homepage = $config_pages->load('homepage');
+  /**
+   *
+   */
+  public function build() {
+    $config_pages = \Drupal::service('config_pages.loader');
 
-      $field_collections_with_genres = $homepage->get('field_collections_with_genres');
+    /** @var \Drupal\config_pages\Entity\ConfigPages $homepage */
+    $homepage = $config_pages->load('homepage');
 
-      $collection_genres = [
-        'is_displayed' => false,
-        'data' => []
-      ];
+    $field_collections_with_genres = $homepage->get('field_collections_with_genres');
 
-      if ($field_collections_with_genres) {
-        $collection_genres['is_displayed'] = true;
+    $collection_genres = [
+      'is_displayed' => FALSE,
+      'data' => [],
+    ];
 
-        $view = View::load('genres');
-        if ($view) {
-          $view_display = $view->getDisplay('page');
+    if ($field_collections_with_genres) {
+      $collection_genres['is_displayed'] = TRUE;
 
-          // Get view title.
-          $title = $view_display['display_title'];
+      $view = View::load('genres');
+      if ($view) {
+        $view_display = $view->getDisplay('page');
 
-          // Get view url.
-          if (!empty($view_display['display_options']['path'])) {
-            $path = $view_display['display_options']['path'];
+        // Get view title.
+        $title = $view_display['display_title'];
 
-            $url = Url::fromUserInput('/' . $path)->toString();
-          }
+        // Get view url.
+        if (!empty($view_display['display_options']['path'])) {
+          $path = $view_display['display_options']['path'];
+
+          $url = Url::fromUserInput('/' . $path)->toString();
         }
-
-        $collection_genres['data'] = [
-          'title' => $title,
-          'url' => $url,
-        ];
       }
 
-      $collections = [];
-      $terms = $homepage->get('field_collections_collections')->referencedEntities();
-      foreach ($terms as $term) {
-        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('taxonomy_term');
-        $render_array = $view_builder->view($term, 'tile');
-
-        $collections[] = $render_array;
-      }
-
-      return [
-        '#theme' => 'hp_collections_block',
-        '#title' => $homepage->get('field_collections_title')->value,
-        '#collections' => $collections,
-        '#collection_genres' => $collection_genres,
+      $collection_genres['data'] = [
+        'title' => $title,
+        'url' => $url,
       ];
     }
+
+    $collections = [];
+    $terms = $homepage->get('field_collections_collections')->referencedEntities();
+    foreach ($terms as $term) {
+      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('taxonomy_term');
+      $render_array = $view_builder->view($term, 'tile');
+
+      $collections[] = $render_array;
+    }
+
+    return [
+      '#theme' => 'hp_collections_block',
+      '#title' => $homepage->get('field_collections_title')->value,
+      '#collections' => $collections,
+      '#collection_genres' => $collection_genres,
+    ];
+  }
+
 }

@@ -2,23 +2,27 @@
 
 namespace Drupal\audiodescription\Manager;
 
-use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\taxonomy\Entity\Term;
 
-class PublicManager
-{
-  public function __construct(private EntityTypeManagerInterface $entityTypeManager)
-  {
+/**
+ *
+ */
+class PublicManager {
+
+  public function __construct(private EntityTypeManagerInterface $entityTypeManager) {
 
   }
 
-  public function provide(string $publicCode, ?string $publicName = null): ?Term
-  {
+  /**
+   *
+   */
+  public function provide(string $publicCode, ?string $publicName = NULL): ?Term {
 
     $properties = [
       'field_taxo_code' => $publicCode,
-      'vid' => Taxonomy::PUBLIC->value
+      'vid' => Taxonomy::PUBLIC->value,
     ];
 
     if (isset($publicName) && !empty($publicName)) {
@@ -29,7 +33,7 @@ class PublicManager
       ->getStorage('taxonomy_term')
       ->loadByProperties($properties);
 
-    $public = null;
+    $public = NULL;
     if (count($publics) !== 0) {
       $public = array_shift($publics);
     }
@@ -46,4 +50,5 @@ class PublicManager
 
     return $public;
   }
+
 }

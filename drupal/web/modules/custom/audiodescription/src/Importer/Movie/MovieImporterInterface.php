@@ -2,7 +2,14 @@
 
 namespace Drupal\audiodescription\Importer\Movie;
 
-interface MovieImporterInterface
-{
+/**
+ *
+ */
+interface MovieImporterInterface {
+
+  /**
+   *
+   */
   public function import();
+
 }

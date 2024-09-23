@@ -2,27 +2,37 @@
 
 namespace Drupal\audiodescription\Controller;
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\block\Entity\Block;
 use Drupal\node\Entity\Node;
 
-class PocController extends ControllerBase
-{
+/**
+ *
+ */
+class PocController extends ControllerBase {
+
+  /**
+   *
+   */
   public function movie() {
     $cnc_number = 2021001740;
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $nids = $node_storage->getQuery()
-      ->condition('type', 'movie') // Filtrer pour le type de contenu 'movie'.
-      ->condition('field_cnc_number', $cnc_number) // Filtrer par la valeur du field_cnc_number.
+    // Filtrer pour le type de contenu 'movie'.
+      ->condition('type', 'movie')
+    // Filtrer par la valeur du field_cnc_number.
+      ->condition('field_cnc_number', $cnc_number)
       ->accessCheck(TRUE)
-      ->range(0, 1) // Limiter à un résultat.
+    // Limiter à un résultat.
+      ->range(0, 1)
       ->execute();
 
     if (!empty($nids)) {
       $nid = reset($nids);
       $node = Node::load($nid);
-    } else {
+    }
+    else {
       return [
         '#markup' => $this->t('Aucun film trouvé pour le CNC Number : @cnc', ['@cnc' => $cnc_number]),
       ];
@@ -48,7 +58,6 @@ class PocController extends ControllerBase
       ],
     ];
 
-
     return [
       '#theme' => 'poc_movie',
       '#node' => $node,
@@ -56,4 +65,5 @@ class PocController extends ControllerBase
       '#block_contact' => $blockContact,
     ];
   }
+
 }

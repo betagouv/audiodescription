@@ -2,29 +2,32 @@
 
 namespace Drupal\audiodescription\Manager;
 
-use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\Node;
 
-class MovieManager
-{
-  public function __construct(private EntityTypeManagerInterface $entityTypeManager)
-  {
+/**
+ *
+ */
+class MovieManager {
+
+  public function __construct(private EntityTypeManagerInterface $entityTypeManager) {
 
   }
 
-  public function createOrUpdate(array $data): Node
-  {
+  /**
+   *
+   */
+  public function createOrUpdate(array $data): Node {
     $cncNumber = $data['cnc_number'];
 
     $movies = $this->entityTypeManager->getStorage('node')->loadByProperties([
       'field_cnc_number' => $cncNumber,
-      'type' => 'movie'
+      'type' => 'movie',
     ]);
 
-    $movie = null;
+    $movie = NULL;
     if (count($movies) !== 0) {
-      // @TODO : Update.
+      // @todo Update.
       $movie = array_shift($movies);
     }
 
@@ -50,7 +53,7 @@ class MovieManager
 
       if (!is_null($data['genre'])) {
         $properties['field_genres'] = [
-          ['target_id' => $data['genre']->tid->value]
+          ['target_id' => $data['genre']->tid->value],
         ];
       }
 
@@ -65,4 +68,5 @@ class MovieManager
 
     return $movie;
   }
+
 }

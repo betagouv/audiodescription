@@ -1,8 +1,16 @@
 <?php
 
-use Drupal\user\Entity\User;
-use Drupal\Core\Batch\BatchBuilder;
+/**
+ * @file
+ * Execute actions on drush updb.
+ */
 
+use Drupal\Core\Batch\BatchBuilder;
+use Drupal\user\Entity\User;
+
+/**
+ * Create test users.
+ */
 function audiodescription_update_10001() {
   $datas = [
     [
@@ -10,17 +18,17 @@ function audiodescription_update_10001() {
       'password' => 'contrib',
       'email' => 'contrib@ad.fr',
       'roles' => [
-        'contrib'
-      ]
+        'contrib',
+      ],
     ],
     [
       'username' => 'super_contrib',
       'password' => 'super_contrib',
       'email' => 'supercontrib@ad.fr',
       'roles' => [
-        'super_contrib'
-      ]
-    ]
+        'super_contrib',
+      ],
+    ],
   ];
 
   foreach ($datas as $data) {
@@ -47,8 +55,10 @@ function audiodescription_update_10001() {
   }
 }
 
-function audiodescription_update_10002()
-{
+/**
+ * Fill field_clean_title for all movies.
+ */
+function audiodescription_update_10002() {
   $nids = \Drupal::entityQuery('node')
     ->condition('type', 'movie')
     ->accessCheck(FALSE)
@@ -76,8 +86,7 @@ function audiodescription_update_10002()
  * @param array $context
  *   Le contexte de batch, géré automatiquement par Drupal.
  */
-function audiodescription_update_movie_batch(array $nids, array &$context)
-{
+function audiodescription_update_movie_batch(array $nids, array &$context) {
   if (empty($context['sandbox'])) {
     $context['sandbox']['progress'] = 0;
     $context['sandbox']['max'] = count($nids);

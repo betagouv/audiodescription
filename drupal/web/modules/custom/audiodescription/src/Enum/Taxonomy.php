@@ -1,8 +1,11 @@
 <?php
+
 namespace Drupal\audiodescription\Enum;
 
-enum Taxonomy: string
-{
+/**
+ *
+ */
+enum Taxonomy: string {
   case DIRECTOR = 'director';
   case PUBLIC = 'public';
   case GENRE = 'genre';

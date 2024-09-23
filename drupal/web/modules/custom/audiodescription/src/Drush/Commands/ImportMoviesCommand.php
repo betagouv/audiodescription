@@ -5,7 +5,6 @@ namespace Drupal\audiodescription\Drush\Commands;
 use Drupal\audiodescription\Enum\ImportSourceType;
 use Drupal\audiodescription\Importer\ImportException;
 use Drupal\audiodescription\Importer\Movie\ImporterFactory;
-use Drupal\Core\Utility\Token;
 use Drush\Attributes as CLI;
 use Drush\Commands\DrushCommands;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,7 +18,7 @@ final class ImportMoviesCommand extends DrushCommands {
    * Constructs an AudiodescriptionCommands object.
    */
   public function __construct(
-    private readonly ImporterFactory $importerFactory
+    private readonly ImporterFactory $importerFactory,
   ) {
     parent::__construct();
   }
@@ -46,13 +45,15 @@ final class ImportMoviesCommand extends DrushCommands {
     try {
       $importer->import();
       $this->logger()->success('Import terminé');
-    } catch (ImportException $e) {
-        $this->logger()->error($e->getMessage());
-    } catch (\Throwable $t) {
-        $this->logger()->error('Erreur fatale : ' . $t->getMessage());
+    }
+    catch (ImportException $e) {
+      $this->logger()->error($e->getMessage());
+    }
+    catch (\Throwable $t) {
+      $this->logger()->error('Erreur fatale : ' . $t->getMessage());
     };
-
 
     $this->logger()->success(dt('Achievement unlocked.'));
   }
+
 }

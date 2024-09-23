@@ -2,11 +2,17 @@
 
 namespace Drupal\audiodescription\Controller;
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\block\Entity\Block;
 
-class HomepageController extends ControllerBase
-{
+/**
+ *
+ */
+class HomepageController extends ControllerBase {
+
+  /**
+   *
+   */
   public function build() {
     $config_pages = \Drupal::service('config_pages.loader');
     $homepage = $config_pages->load('homepage');
@@ -23,9 +29,9 @@ class HomepageController extends ControllerBase
       $ctas[] = [
         'url' => $entity->get('field_pg_link')->first()->getUrl()->toString(),
         'text' => $entity->get('field_pg_link')->first()->title,
-        'target' => ($entity->get('field_pg_is_external')->value == true) ? 'blank' : 'self',
-        'external' => ($entity->get('field_pg_is_external')->value == true),
-        'style' => $entity->get('field_pg_style')->value
+        'target' => ($entity->get('field_pg_is_external')->value == TRUE) ? 'blank' : 'self',
+        'external' => ($entity->get('field_pg_is_external')->value == TRUE),
+        'style' => $entity->get('field_pg_style')->value,
       ];
     }
 
@@ -43,6 +49,7 @@ class HomepageController extends ControllerBase
 
     $block = Block::load('ad_hp_highlighted_collections_block');
 
+    $highlightedCollections = [];
     if ($block) {
       $highlightedCollections = \Drupal::entityTypeManager()
         ->getViewBuilder('block')
@@ -66,4 +73,5 @@ class HomepageController extends ControllerBase
       '#collections' => $collections,
     ];
   }
+
 }

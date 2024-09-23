@@ -2,18 +2,20 @@
 
 namespace Drupal\audiodescription\Importer\Movie;
 
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\audiodescription\Manager\DirectorManager;
 use Drupal\audiodescription\Manager\GenreManager;
 use Drupal\audiodescription\Manager\MovieManager;
 use Drupal\audiodescription\Manager\NationalityManager;
 use Drupal\audiodescription\Manager\PublicManager;
 use Drupal\audiodescription\Parser\CsvParser;
-use Drupal\Core\Entity\EntityTypeManager;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
-{
+/**
+ *
+ */
+class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
   use LoggerAwareTrait;
 
   public function __construct(
@@ -25,38 +27,40 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
     private NationalityManager $nationalityManager,
     private PublicManager $publicManager,
     private readonly string $cncMoviesFile,
-    private readonly string $cncPublicsFile
-  )
-  {
+    private readonly string $cncPublicsFile,
+  ) {
   }
 
-  public function import(): void
-  {
+  /**
+   *
+   */
+  public function import(): void {
+    // @todo Move this code in PubicCsvImporter.php
     // Import publics.
     $lines = $this->csvParser->parseCSV($this->cncPublicsFile);
 
     foreach ($lines as $line) {
-      $public = $this->publicManager->provide($line['code'], $line['name']);
+      // @todo create function "create" instead of use provide function.
+      $this->publicManager->provide($line['code'], $line['name']);
     }
 
     // Import movies.
     $lines = $this->csvParser->parseCSV($this->cncMoviesFile);
 
-    $i = 1;
     foreach ($lines as $line) {
       if (!is_null($line['TITRE']) && !empty($line['TITRE'])) {
         $data = [
           'title' => $line['TITRE'],
           'cnc_number' => $line['N°CNC'],
-          'visa_number' => null,
-          'has_ad' => false,
-          'directors' => null,
-          'public' => null,
-          'genre' => null,
-          'nationalities' => null
+          'visa_number' => NULL,
+          'has_ad' => FALSE,
+          'directors' => NULL,
+          'public' => NULL,
+          'genre' => NULL,
+          'nationalities' => NULL,
         ];
 
-        $directors = json_decode($line['Nom_Realisateur'], true);
+        $directors = json_decode($line['Nom_Realisateur'], TRUE);
 
         if (!empty($directors)) {
           $data['directors'] = [];
@@ -82,7 +86,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
           $data['genre'] = $genre;
         }
 
-        $nationalities = json_decode($line['PAYS'], true);
+        $nationalities = json_decode($line['PAYS'], TRUE);
 
         if (!empty($nationalities)) {
           $data['nationalities'] = [];
@@ -96,7 +100,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
         // Complete data.
         if (!is_null($line['AudioDecrit']) && !empty($line['AudioDecrit'])) {
           if ($line['AudioDecrit'] == 'OUI') {
-            $data['has_ad'] = true;
+            $data['has_ad'] = TRUE;
           }
         }
 
@@ -105,14 +109,11 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
         }
 
         // Create or update movie.
-        $movie = $this->movieManager->createOrUpdate($data);
-
-        dump($i);
-        $i++;
+        $this->movieManager->createOrUpdate($data);
 
         /**if ($i > 100) {
-        break;
-        }**/
+         * break;
+         * }**/
 
         // Clear entities cache.
         $this->entityTypeManager->clearCachedDefinitions();
@@ -120,4 +121,5 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface
     }
 
   }
+
 }

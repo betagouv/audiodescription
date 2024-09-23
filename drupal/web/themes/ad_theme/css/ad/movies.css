@@ -11,7 +11,7 @@
   background: var(--background-alt-blue-france);
 }
 
-.ad-watch-movie-block__list{
+.ad-watch-movie-block__list {
   list-style-type: none;
   padding-left: 0;
 }
@@ -34,5 +34,3 @@
     width: calc(50% - 1rem);
   }
 }
-
-

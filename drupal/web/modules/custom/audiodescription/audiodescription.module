@@ -1,23 +1,26 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_theme().
  */
-function audiodescription_theme($existing, $type, $theme, $path)
-{
+function audiodescription_theme($existing, $type, $theme, $path) {
   return [
     'homepage' => [
       'render element' => 'children',
       'template' => 'homepage',
       'path' => $path . '/templates',
       'variables' => [
-        'header' => null,
-        'infos' => null,
-        'about' => null,
-        'highlighted_collections' => null,
-        'collections' => null,
+        'header' => NULL,
+        'infos' => NULL,
+        'about' => NULL,
+        'highlighted_collections' => NULL,
+        'collections' => NULL,
       ],
     ],
     'hp_highlighted_collections_block' => [
@@ -25,7 +28,7 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'template' => 'hp-highlighted-collections-block',
       'path' => $path . '/templates',
       'variables' => [
-        'collections' => null,
+        'collections' => NULL,
       ],
     ],
     'hp_collections_block' => [
@@ -33,9 +36,9 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'template' => 'hp-collections-block',
       'path' => $path . '/templates',
       'variables' => [
-        'collections' => null,
-        'collection_genres' => null,
-        'title' => null
+        'collections' => NULL,
+        'collection_genres' => NULL,
+        'title' => NULL,
       ],
     ],
     'movies_contact_block' => [
@@ -43,9 +46,9 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'template' => 'movies-contact-block',
       'path' => $path . '/templates',
       'variables' => [
-        'title' => null,
-        'description' => null,
-        'email' => null,
+        'title' => NULL,
+        'description' => NULL,
+        'email' => NULL,
       ],
     ],
     'search_contact_block' => [
@@ -53,9 +56,9 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'template' => 'search-contact-block',
       'path' => $path . '/templates',
       'variables' => [
-        'title' => null,
-        'description' => null,
-        'cta' => null,
+        'title' => NULL,
+        'description' => NULL,
+        'cta' => NULL,
       ],
     ],
     'poc_movie' => [
@@ -63,9 +66,9 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'template' => 'poc-movie',
       'path' => $path . '/templates/poc',
       'variables' => [
-        'node' => null,
-        'config' => null,
-        'block_contact' => null,
+        'node' => NULL,
+        'config' => NULL,
+        'block_contact' => NULL,
       ],
     ],
     'poc_search' => [
@@ -73,9 +76,9 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'template' => 'poc-search',
       'path' => $path . '/templates/poc',
       'variables' => [
-        'has_ad' => null,
-        'no_ad' => null,
-        'form' => null,
+        'has_ad' => NULL,
+        'no_ad' => NULL,
+        'form' => NULL,
       ],
     ],
     'header_search_form_block' => [
@@ -83,12 +86,15 @@ function audiodescription_theme($existing, $type, $theme, $path)
       'template' => 'header-search-form-block',
       'path' => $path . '/templates',
       'variables' => [
-        'form' => null,
+        'form' => NULL,
       ],
     ],
   ];
 }
 
+/**
+ *
+ */
 function audiodescription_node_presave(Node $node) {
   $pathauto_service = \Drupal::service('pathauto.alias_cleaner');
 

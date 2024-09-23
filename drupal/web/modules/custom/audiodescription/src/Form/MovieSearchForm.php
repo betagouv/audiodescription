@@ -38,9 +38,9 @@ class MovieSearchForm extends FormBase {
       '#attributes' => [
         'class' => [
           'fr-btn',
-          'fr-btn--secondary'
-        ]
-      ]
+          'fr-btn--secondary',
+        ],
+      ],
     ];
 
     $form['#action'] = '/poc/recherche';
@@ -59,13 +59,13 @@ class MovieSearchForm extends FormBase {
     ];
 
     $request = \Drupal::request();
-    $pageHasAd = $request->query->get('page_has_ad', null);
+    $pageHasAd = $request->query->get('page_has_ad', NULL);
 
     if (!is_null($pageHasAd)) {
       $parameters['page_has_ad'] = $pageHasAd;
     }
 
-    $pageNoAd = $request->query->get('page_no_ad',null);
+    $pageNoAd = $request->query->get('page_no_ad', NULL);
 
     if (!is_null($pageNoAd)) {
       $parameters['page_no_ad'] = $pageNoAd;
