@@ -4,8 +4,11 @@ namespace Drupal\audiodescription\Plugin\Block;
 
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\taxonomy\Entity\Term;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a highlight collections block on homepage.
@@ -15,7 +18,31 @@ use Drupal\taxonomy\Entity\Term;
   admin_label: new TranslatableMarkup("Collections mises en avant"),
   category: new TranslatableMarkup("Audiodescription")
 )]
-class HpHighlightedCollectionsBlock extends BlockBase {
+class HpHighlightedCollectionsBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  private $entityTypeManager;
+
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entityTypeManager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->entityTypeManager = $entityTypeManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new self(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * Builds the render array for the block.
@@ -24,7 +51,7 @@ class HpHighlightedCollectionsBlock extends BlockBase {
    *   A render array representing the block's content.
    */
   public function build() {
-    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $query = $term_storage->getQuery()
       ->condition('field_taxo_is_highlighted', TRUE)
       ->accessCheck(FALSE);
@@ -35,7 +62,7 @@ class HpHighlightedCollectionsBlock extends BlockBase {
 
     foreach ($tids as $tid) {
       $term = Term::load($tid);
-      $view_builder = \Drupal::entityTypeManager()->getViewBuilder('taxonomy_term');
+      $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
       $render_array = $view_builder->view($term, 'highlighted');
 
       $collections[] = $render_array;

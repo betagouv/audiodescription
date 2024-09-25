@@ -3,12 +3,52 @@
 namespace Drupal\audiodescription\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\block\Entity\Block;
+use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Controller for building the homepage content.
  */
 class HomepageController extends ControllerBase {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The config pages loader service.
+   *
+   * @var \Drupal\config_pages\ConfigPagesLoaderServiceInterface
+   */
+  protected $configPagesLoader;
+
+  /**
+   * Constructs a new PocController.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager service.
+   * @param \Drupal\config_pages\ConfigPagesLoaderServiceInterface $configPagesLoader
+   *   The config pages loader service.
+   */
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, ConfigPagesLoaderServiceInterface $configPagesLoader) {
+    $this->entityTypeManager = $entityTypeManager;
+    $this->configPagesLoader = $configPagesLoader;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new self(
+      $container->get('entity_type.manager'),
+      $container->get('config_pages.loader')
+    );
+  }
 
   /**
    * Provides the render array for the homepage.
@@ -17,7 +57,7 @@ class HomepageController extends ControllerBase {
    *   A render array representing the content of the homepage.
    */
   public function build() {
-    $config_pages = \Drupal::service('config_pages.loader');
+    $config_pages = $this->configPagesLoader;
     $homepage = $config_pages->load('homepage');
 
     $header = [
@@ -54,15 +94,16 @@ class HomepageController extends ControllerBase {
 
     $highlightedCollections = [];
     if ($block) {
-      $highlightedCollections = \Drupal::entityTypeManager()
+      $highlightedCollections = $this->entityTypeManager
         ->getViewBuilder('block')
         ->view($block);
     }
 
     $block = Block::load('ad_hp_collections_block');
 
+    $collections = [];
     if ($block) {
-      $collections = \Drupal::entityTypeManager()
+      $collections = $this->entityTypeManager
         ->getViewBuilder('block')
         ->view($block);
     }

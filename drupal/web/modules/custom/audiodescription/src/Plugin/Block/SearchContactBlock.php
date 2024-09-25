@@ -4,7 +4,10 @@ namespace Drupal\audiodescription\Plugin\Block;
 
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a contact block on search page.
@@ -14,7 +17,31 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
   admin_label: new TranslatableMarkup("Block contact sur les pages de recherche"),
   category: new TranslatableMarkup("Audiodescription")
 )]
-class SearchContactBlock extends BlockBase {
+class SearchContactBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The config pages loader service.
+   *
+   * @var \Drupal\config_pages\ConfigPagesLoaderServiceInterface
+   */
+  private $configPagesLoader;
+
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigPagesLoaderServiceInterface $configPagesLoader) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->configPagesLoader = $configPagesLoader;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new self(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('config_pages.loader')
+    );
+  }
 
   /**
    * Builds the render array for the block.
@@ -23,7 +50,7 @@ class SearchContactBlock extends BlockBase {
    *   A render array representing the block's content.
    */
   public function build() {
-    $config_pages = \Drupal::service('config_pages.loader');
+    $config_pages = $this->configPagesLoader;
     $config = $config_pages->load('wordings');
 
     $title = $config->get('field_search_bk_contact_title')->value;

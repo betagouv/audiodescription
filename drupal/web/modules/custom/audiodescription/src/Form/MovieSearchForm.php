@@ -4,11 +4,36 @@ namespace Drupal\audiodescription\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides a form for searching movies.
  */
 class MovieSearchForm extends FormBase {
+
+  /**
+   * The request stack service.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * Class constructor.
+   */
+  public function __construct(RequestStack $requestStack) {
+    $this->requestStack = $requestStack;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new self(
+      $container->get('request_stack')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -21,7 +46,7 @@ class MovieSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $request = \Drupal::request();
+    $request = $this->requestStack->getCurrentRequest();
     $search_api_fulltext = $request->query->get('search_api_fulltext');
 
     $form['search_api_fulltext'] = [
@@ -58,7 +83,7 @@ class MovieSearchForm extends FormBase {
       'search_api_fulltext' => $search,
     ];
 
-    $request = \Drupal::request();
+    $request = $this->requestStack->getCurrentRequest();
     $pageHasAd = $request->query->get('page_has_ad', NULL);
 
     if (!is_null($pageHasAd)) {

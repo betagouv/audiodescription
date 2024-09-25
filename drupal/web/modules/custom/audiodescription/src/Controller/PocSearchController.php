@@ -3,6 +3,7 @@
 namespace Drupal\audiodescription\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Url;
 use Drupal\search_api\Entity\Index;
@@ -26,13 +27,23 @@ class PocSearchController extends ControllerBase {
   protected $formBuilder;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * Constructs a new MovieSearchController.
    *
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager service.
    */
-  public function __construct(FormBuilderInterface $form_builder) {
+  public function __construct(FormBuilderInterface $form_builder, EntityTypeManagerInterface $entityTypeManager) {
     $this->formBuilder = $form_builder;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -64,7 +75,7 @@ class PocSearchController extends ControllerBase {
       $renderedEntitiesNoAd = [];
 
       foreach ($entitiesHasAd as $entity) {
-        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+        $view_builder = $this->entityTypeManager->getViewBuilder('node');
         $renderedEntitiesHasAd[] = $view_builder->view($entity, 'teaser');
       }
 
@@ -76,7 +87,7 @@ class PocSearchController extends ControllerBase {
       $pageSizeHasAd = ($pagesCountHasAd > 1) ? self::PAGE_SIZE : $totalHasAd;
 
       foreach ($entitiesNoAd as $entity) {
-        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
+        $view_builder = $this->entityTypeManager->getViewBuilder('node');
         $renderedEntitiesNoAd[] = $view_builder->view($entity, 'teaser');
       }
 
@@ -144,7 +155,7 @@ class PocSearchController extends ControllerBase {
       $ids[] = $id;
     }
 
-    $entities = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($ids);
+    $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($ids);
 
     return [
       $total,
