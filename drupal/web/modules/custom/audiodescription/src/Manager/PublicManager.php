@@ -7,7 +7,7 @@ use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\taxonomy\Entity\Term;
 
 /**
- *
+ * Class responsible for managing public-related operations.
  */
 class PublicManager {
 
@@ -16,7 +16,10 @@ class PublicManager {
   }
 
   /**
+   * Function to create public or update if it exists.
    *
+   * @return \Drupal\taxonomy\Entity\Term
+   *   Public created or updated.
    */
   public function provide(string $publicCode, ?string $publicName = NULL): ?Term {
 

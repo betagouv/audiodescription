@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class MovieSearchForm.
+ * Provides a form for searching movies.
  */
 class MovieSearchForm extends FormBase {
 

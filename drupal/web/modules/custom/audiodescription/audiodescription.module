@@ -2,6 +2,7 @@
 
 /**
  * @file
+ * Contains audiodescription module-related hooks.
  */
 
 use Drupal\node\Entity\Node;
@@ -93,7 +94,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
 }
 
 /**
- *
+ * Implements hook_node_presave().
  */
 function audiodescription_node_presave(Node $node) {
   $pathauto_service = \Drupal::service('pathauto.alias_cleaner');

@@ -7,24 +7,24 @@ use Drupal\block\Entity\Block;
 use Drupal\node\Entity\Node;
 
 /**
- *
+ * Controller for building the POC pages content.
  */
 class PocController extends ControllerBase {
 
   /**
+   * Provides the render array for the movie page (POC).
    *
+   * @return array
+   *   A render array representing the content of the movie page (POC).
    */
   public function movie() {
     $cnc_number = 2021001740;
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
     $nids = $node_storage->getQuery()
-    // Filtrer pour le type de contenu 'movie'.
       ->condition('type', 'movie')
-    // Filtrer par la valeur du field_cnc_number.
       ->condition('field_cnc_number', $cnc_number)
       ->accessCheck(TRUE)
-    // Limiter à un résultat.
       ->range(0, 1)
       ->execute();
 

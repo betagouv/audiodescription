@@ -9,7 +9,7 @@ use Drupal\Core\Url;
 use Drupal\views\Entity\View;
 
 /**
- *
+ * Provides a collections block on homepage.
  */
 #[Block(
   id: "hp_collections_block",
@@ -19,7 +19,10 @@ use Drupal\views\Entity\View;
 class HpCollectionsBlock extends BlockBase {
 
   /**
+   * Builds the render array for the block.
    *
+   * @return array
+   *   A render array representing the block's content.
    */
   public function build() {
     $config_pages = \Drupal::service('config_pages.loader');

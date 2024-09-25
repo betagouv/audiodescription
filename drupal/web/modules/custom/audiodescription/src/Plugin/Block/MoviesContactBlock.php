@@ -7,7 +7,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- *
+ * Provides a contact block on movie page.
  */
 #[Block(
   id: "movies_contact_block",
@@ -17,7 +17,10 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 class MoviesContactBlock extends BlockBase {
 
   /**
+   * Builds the render array for the block.
    *
+   * @return array
+   *   A render array representing the block's content.
    */
   public function build() {
     $config_pages = \Drupal::service('config_pages.loader');

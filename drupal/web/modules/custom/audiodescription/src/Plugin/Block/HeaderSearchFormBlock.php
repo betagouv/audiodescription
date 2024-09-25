@@ -2,19 +2,21 @@
 
 namespace Drupal\audiodescription\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a 'Header search form' block.
- *
- * @Block(
- *   id = "header_search_form_block",
- *   admin_label = @Translation("Formulaire de recherche (header)")
- * )
+ * Provides a search form block in header.
  */
+#[Block(
+  id: "header_search_form_block",
+  admin_label: new TranslatableMarkup("Formulaire de recherche (header)"),
+  category: new TranslatableMarkup("Audiodescription")
+)]
 class HeaderSearchFormBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**

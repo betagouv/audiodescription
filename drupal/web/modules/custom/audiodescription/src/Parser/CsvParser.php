@@ -3,7 +3,7 @@
 namespace Drupal\audiodescription\Parser;
 
 /**
- *
+ * Class to parse a CSV file.
  */
 class CsvParser {
 
@@ -16,7 +16,7 @@ class CsvParser {
    * @return array
    *   An array of CSV data.
    */
-  public function parseCSV($filename) {
+  public function parseCsv($filename) {
     $rows = [];
 
     $handle = fopen($filename, 'r');

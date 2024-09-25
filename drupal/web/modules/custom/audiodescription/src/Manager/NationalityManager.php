@@ -7,7 +7,7 @@ use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\taxonomy\Entity\Term;
 
 /**
- *
+ * Class responsible for managing nationality-related operations.
  */
 class NationalityManager {
 
@@ -16,7 +16,10 @@ class NationalityManager {
   }
 
   /**
+   * Function to create nationality or update if it exists.
    *
+   * @return \Drupal\taxonomy\Entity\Term
+   *   Nationality created or updated.
    */
   public function provide(string $nationalityName): ?Term {
     $nationalityCode = $this->computeCode($nationalityName);
@@ -45,7 +48,10 @@ class NationalityManager {
   }
 
   /**
+   * Function to generate code for nationality.
    *
+   * @return string
+   *   Generated code for nationality.
    */
   public function computeCode(string $genre): string {
     $transliterator = \Transliterator::createFromRules(

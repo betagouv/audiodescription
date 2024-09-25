@@ -7,7 +7,7 @@ use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\taxonomy\Entity\Term;
 
 /**
- *
+ * Class responsible for managing genre-related operations.
  */
 class GenreManager {
 
@@ -16,7 +16,10 @@ class GenreManager {
   }
 
   /**
+   * Function to create genre or update if it exists.
    *
+   * @return \Drupal\taxonomy\Entity\Term
+   *   Genre created or updated.
    */
   public function provide(string $genreName): ?Term {
     $genreCode = $this->computeCode($genreName);
@@ -45,7 +48,10 @@ class GenreManager {
   }
 
   /**
+   * Function to generate code for genre.
    *
+   * @return string
+   *   Generated code for genre.
    */
   public function computeCode(string $genre): string {
     $transliterator = \Transliterator::createFromRules(

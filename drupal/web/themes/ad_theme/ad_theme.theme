@@ -2,6 +2,7 @@
 
 /**
  * @file
+ * Contains theme-related hooks and preprocess functions.
  */
 
 declare(strict_types=1);
@@ -10,7 +11,7 @@ use Drupal\block\Entity\Block;
 use Drupal\node\NodeInterface;
 
 /**
- *
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
 function ad_theme_theme_suggestions_taxonomy_term_alter(
   array &$suggestions,

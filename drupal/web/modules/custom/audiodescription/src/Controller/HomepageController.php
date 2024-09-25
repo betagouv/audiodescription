@@ -6,12 +6,15 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\block\Entity\Block;
 
 /**
- *
+ * Controller for building the homepage content.
  */
 class HomepageController extends ControllerBase {
 
   /**
+   * Provides the render array for the homepage.
    *
+   * @return array
+   *   A render array representing the content of the homepage.
    */
   public function build() {
     $config_pages = \Drupal::service('config_pages.loader');

@@ -10,11 +10,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- *
+ * Controller for building the search page V2 content.
  */
 class PocSearchController extends ControllerBase {
   private const PAGE_SIZE = 6;
-  // 2 pages before current, 2 pages after current
+
+  // Display 2 pages before current and 2 pages after current.
   private const PAGINATION_SIZE = 2;
 
   /**
@@ -35,7 +36,10 @@ class PocSearchController extends ControllerBase {
   }
 
   /**
+   * Provides the render array for the search page v2 (POC).
    *
+   * @return array|JsonResponse
+   *   A render array representing the content of the search page v2 (POC).
    */
   public function search(Request $request) {
     $index = Index::load('movies');
@@ -112,7 +116,7 @@ class PocSearchController extends ControllerBase {
   }
 
   /**
-   *
+   * Query movies.
    */
   public function queryAdMovies(Index $index, int $offset, bool $hasAd, ?string $search) :array {
     $query = $index->query();
@@ -150,7 +154,7 @@ class PocSearchController extends ControllerBase {
   }
 
   /**
-   *
+   * Build pagination.
    */
   private function buildPagination(int $pageHasAd, int $pageNoAd, int $pagesCount, string $search, bool $hasAd) {
     if ($hasAd) {
@@ -216,7 +220,10 @@ class PocSearchController extends ControllerBase {
   }
 
   /**
+   * Build URL with params.
    *
+   * @return string
+   *   URL stringified.
    */
   private function buildUrl(int $pageHasAd, int $pageNoAd, string $search) {
     $parameters = [

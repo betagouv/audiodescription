@@ -13,7 +13,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
 /**
- *
+ * Imports movies from a CNC CSV file.
  */
 class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
   use LoggerAwareTrait;
@@ -32,12 +32,12 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
   }
 
   /**
-   *
+   * Imports movie data from a source.
    */
   public function import(): void {
     // @todo Move this code in PubicCsvImporter.php
     // Import publics.
-    $lines = $this->csvParser->parseCSV($this->cncPublicsFile);
+    $lines = $this->csvParser->parseCsv($this->cncPublicsFile);
 
     foreach ($lines as $line) {
       // @todo create function "create" instead of use provide function.
@@ -45,7 +45,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
     }
 
     // Import movies.
-    $lines = $this->csvParser->parseCSV($this->cncMoviesFile);
+    $lines = $this->csvParser->parseCsv($this->cncMoviesFile);
 
     foreach ($lines as $line) {
       if (!is_null($line['TITRE']) && !empty($line['TITRE'])) {
@@ -97,7 +97,6 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
           }
         }
 
-        // Complete data.
         if (!is_null($line['AudioDecrit']) && !empty($line['AudioDecrit'])) {
           if ($line['AudioDecrit'] == 'OUI') {
             $data['has_ad'] = TRUE;
@@ -110,10 +109,6 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
 
         // Create or update movie.
         $this->movieManager->createOrUpdate($data);
-
-        /**if ($i > 100) {
-         * break;
-         * }**/
 
         // Clear entities cache.
         $this->entityTypeManager->clearCachedDefinitions();

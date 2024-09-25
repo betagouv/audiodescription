@@ -8,7 +8,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\taxonomy\Entity\Term;
 
 /**
- *
+ * Provides a highlight collections block on homepage.
  */
 #[Block(
   id: "highlighted_collections_block",
@@ -18,7 +18,10 @@ use Drupal\taxonomy\Entity\Term;
 class HpHighlightedCollectionsBlock extends BlockBase {
 
   /**
+   * Builds the render array for the block.
    *
+   * @return array
+   *   A render array representing the block's content.
    */
   public function build() {
     $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');

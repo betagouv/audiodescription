@@ -3,7 +3,7 @@
 namespace Drupal\audiodescription\Enum;
 
 /**
- *
+ * Defines taxonomy types.
  */
 enum Taxonomy: string {
   case DIRECTOR = 'director';

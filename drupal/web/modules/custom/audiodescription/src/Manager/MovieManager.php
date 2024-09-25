@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\Node;
 
 /**
- *
+ * Class responsible for managing movie-related operations.
  */
 class MovieManager {
 
@@ -15,7 +15,10 @@ class MovieManager {
   }
 
   /**
+   * Function to create movie or update if it exists.
    *
+   * @return \Drupal\node\Entity\Node
+   *   Movie created or updated.
    */
   public function createOrUpdate(array $data): Node {
     $cncNumber = $data['cnc_number'];
