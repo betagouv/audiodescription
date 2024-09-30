@@ -73,7 +73,7 @@ class HpCollectionsBlock extends BlockBase implements ContainerFactoryPluginInte
     /** @var \Drupal\config_pages\Entity\ConfigPages $homepage */
     $homepage = $config_pages->load('homepage');
 
-    $field_collections_with_genres = $homepage->get('field_collections_with_genres');
+    $field_collections_with_genres = $homepage->get('field_collections_with_genres')->value;
 
     $collection_genres = [
       'is_displayed' => FALSE,

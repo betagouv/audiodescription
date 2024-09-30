@@ -45,6 +45,33 @@ services:
   audiodescription.parser.csv:
     class: Drupal\audiodescription\Parser\CsvParser
 
+  audiodescription.movie.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\MovieBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+
+  audiodescription.node.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\NodeBreadcrumbBuilder
+    arguments: ['@menu.link_tree']
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+
+  audiodescription.view.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\ViewBreadcrumbBuilder
+    arguments: ['@entity_type.manager', '@menu.link_tree']
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+
+  audiodescription.genre.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\GenreBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 1010 }
+
+  audiodescription.collection.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\CollectionBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 1010 }
+
 parameters:
   cnc_movies_file: 'modules/custom/audiodescription/files/full-movies.csv'
   cnc_publics_file: 'modules/custom/audiodescription/files/publics.csv'

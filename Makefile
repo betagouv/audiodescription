@@ -1,6 +1,10 @@
+.PHONY:up
+up:
+	docker compose up -d
+
 .PHONY:sh
 sh:
-	@docker compose exec php bash
+	docker compose exec php bash
 
 # Code quality
 .PHONY: phpstan
