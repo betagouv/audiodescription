@@ -119,6 +119,9 @@ class PocSearchController extends ControllerBase {
           'pageSize' => $pageSizeNoAd,
         ],
         '#form' => $form,
+        '#cache' => [
+          'max-age' => 0,  // Pas de mise en cache.
+        ]
       ];
     }
     else {

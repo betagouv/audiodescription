@@ -52,7 +52,7 @@ services:
 
   audiodescription.node.breadcrumb:
     class: Drupal\audiodescription\Breadcrumb\NodeBreadcrumbBuilder
-    arguments: ['@menu.link_tree']
+    arguments: ['@entity_type.manager', '@menu.link_tree']
     tags:
       - { name: breadcrumb_builder, priority: 100 }
 
