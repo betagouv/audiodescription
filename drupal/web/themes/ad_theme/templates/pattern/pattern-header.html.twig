@@ -1,0 +1,107 @@
+{% set header_id = header_id|default('fr-header-' ~ random()) %}
+{% set mobile_menu_id = header_id ~ '--mobile-menu' %}
+{% set mobile_menu_bid = header_id ~ '--mobile-menu-btn' %}
+{% set search_id = header_id ~ '--search' %}
+{% set search_bid = header_id ~ '--search-btn' %}
+
+<header{{ attributes.addClass('fr-header').setAttribute('role', 'banner') }}>
+  <div class="fr-header__body">
+    <div class="fr-container">
+      <div class="fr-header__body-row">
+        <div class="fr-header__brand fr-enlarge-link">
+          <div class="fr-header__brand-top">
+
+            {% set logo_text = logo_text|default('République\nFrançaise') %}
+
+            {# Main logo #}
+            <div class="fr-header__logo">
+              {# Operator logo #}
+              {% if (not operator_logo) and (not service_title) %}
+                <a href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ logo_text }}">
+              {% endif %}
+              <p class="fr-logo">
+                {{ logo_text|nl2br }}
+              </p>
+              {% if (not operator_logo) and (not service_title) %}
+                </a>
+              {% endif %}
+            </div>
+
+            {# Operator logo #}
+            {% if operator_logo %}
+              <div class="fr-header__operator fr-hidden fr-unhidden-md">
+                {% if not service_title %}
+                  <a href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ operator_logo_alt }} - {{ logo_text }}">
+                {% endif %}
+                {{ operator_logo }}
+                {% if not service_title %}
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {# Header navbar #}
+            {% if tools_search or navbar %}
+              <div class="fr-header__navbar">
+                {% if tools_search %}
+                  <button class="fr-btn--search fr-btn" data-fr-opened="false" aria-controls="{{ search_id }}" title="{{ 'Search'|t }}" id="{{ search_bid }}">
+                    {{ 'Search'|t }}
+                  </button>
+                {% endif %}
+                {% if navbar %}
+                  <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="{{ mobile_menu_id }}" aria-haspopup="dialog" title="{{ 'Menu'|t }}" id="{{ mobile_menu_bid }}">
+                    {{ 'Menu'|t }}
+                  </button>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+
+          {# Header service #}
+          {% if service_title %}
+            <div class="fr-header__service">
+              {# Header service title #}
+              <a href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ service_title }} - {{ logo_text }}">
+                <p class="fr-header__service-title">{{ service_title }}</p>
+              </a>
+              {# Header service tagline #}
+              {% if service_tagline %}
+                <p class="fr-header__service-tagline">{{ service_tagline }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+
+        {# Header tools #}
+        {% if tools_links or tools_search %}
+          <div class="fr-header__tools">
+            {# Header tools links #}
+            {% if tools_links %}
+              <div class="fr-header__tools-links">
+                {{ tools_links }}
+              </div>
+            {% endif %}
+            {# Header tools bottom (can be used for search bar) #}
+            {% if tools_search %}
+              <div class="fr-header__search fr-modal" id="{{ search_id }}" aria-labelledby="{{ search_bid }}">
+                <div class="fr-container fr-container-lg--fluid">
+                  <button class="fr-btn fr-btn--close" aria-controls="{{ search_id }}" title="{{ 'Close search'|t }}">{{ 'Close'|t }}</button>
+                  {{ tools_search }}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if navbar %}
+    <div class="fr-header__menu fr-modal" id="{{ mobile_menu_id }}" aria-labelledby="{{ mobile_menu_bid }}">
+      <div class="fr-container">
+        <button class="fr-btn fr-btn--close" aria-controls="{{ mobile_menu_id }}" title="{{ 'Close menu'|t }}">{{ 'Close'|t }}</button>
+        <div class="fr-header__menu-links"></div>
+        {{ navbar }}
+      </div>
+    </div>
+  {% endif %}
+</header>
