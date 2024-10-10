@@ -4,9 +4,9 @@ namespace Drupal\audiodescription\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\block\Entity\Block;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -42,6 +42,8 @@ class HomepageController extends ControllerBase {
    *   The entity type manager service.
    * @param \Drupal\config_pages\ConfigPagesLoaderServiceInterface $configPagesLoader
    *   The config pages loader service.
+   * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
+   *   The form builder service.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, ConfigPagesLoaderServiceInterface $configPagesLoader, FormBuilderInterface $form_builder) {
     $this->entityTypeManager = $entityTypeManager;

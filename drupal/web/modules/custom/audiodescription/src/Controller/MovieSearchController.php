@@ -120,8 +120,9 @@ class MovieSearchController extends ControllerBase {
         ],
         '#form' => $form,
         '#cache' => [
-          'max-age' => 0,  // Pas de mise en cache.
-        ]
+        // Pas de mise en cache.
+          'max-age' => 0,
+        ],
       ];
     }
     else {

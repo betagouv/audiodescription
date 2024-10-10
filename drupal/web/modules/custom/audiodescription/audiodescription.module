@@ -5,6 +5,7 @@
  * Contains audiodescription module-related hooks.
  */
 
+use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\node\Entity\Node;
 
 /**
@@ -117,13 +118,13 @@ function audiodescription_node_presave(Node $node) {
 /**
  * Implémentation de hook_block_view_alter().
  */
-function audiodescription_block_view_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
+function audiodescription_block_view_alter(array &$build, BlockPluginInterface $block) {
 
   $current_route = \Drupal::routeMatch()->getRouteName();
 
   $routes = [
     'audiodescription.error.403',
-    'audiodescription.error.404'
+    'audiodescription.error.404',
   ];
 
   if (in_array($current_route, $routes)) {

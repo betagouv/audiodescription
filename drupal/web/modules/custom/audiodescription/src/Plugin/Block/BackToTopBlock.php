@@ -9,7 +9,6 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 /**
  * Provides a 'Back to top' Block.
  */
-
 #[Block(
   id: "back_to_top_block",
   admin_label: new TranslatableMarkup("Back To Top Block"),
@@ -30,4 +29,3 @@ class BackToTopBlock extends BlockBase {
   }
 
 }
-
