@@ -18,7 +18,6 @@
         {% endif %}
 
         <h1>{{ label }}</h1>
-        <h2>{{ config.block_infos.title }}</h2>
 
         {% if node.field_directors|length > 0 %}
           {% set directors = [] %}
@@ -88,7 +87,7 @@
                    {{ pattern('card', {
                      horizontal_ratio: 'tier',
                      enlarge_link: true,
-                     title_tag: 'h4',
+                     title_tag: 'p',
                      title: {
                        '#type': 'html_tag',
                        '#tag': 'a',

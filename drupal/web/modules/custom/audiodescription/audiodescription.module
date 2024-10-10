@@ -22,6 +22,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'about' => NULL,
         'highlighted_collections' => NULL,
         'collections' => NULL,
+        'search_form' => NULL,
       ],
     ],
     'hp_highlighted_collections_block' => [
@@ -62,20 +63,10 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'cta' => NULL,
       ],
     ],
-    'poc_movie' => [
+    'movie_search' => [
       'render element' => 'children',
-      'template' => 'poc-movie',
-      'path' => $path . '/templates/poc',
-      'variables' => [
-        'node' => NULL,
-        'config' => NULL,
-        'block_contact' => NULL,
-      ],
-    ],
-    'poc_search' => [
-      'render element' => 'children',
-      'template' => 'poc-search',
-      'path' => $path . '/templates/poc',
+      'template' => 'movie-search',
+      'path' => $path . '/templates',
       'variables' => [
         'has_ad' => NULL,
         'no_ad' => NULL,
@@ -88,6 +79,23 @@ function audiodescription_theme($existing, $type, $theme, $path) {
       'path' => $path . '/templates',
       'variables' => [
         'form' => NULL,
+      ],
+    ],
+    'error_403' => [
+      'render element' => 'children',
+      'template' => 'error-403',
+      'path' => $path . '/templates',
+    ],
+    'error_404' => [
+      'render element' => 'children',
+      'template' => 'error-404',
+      'path' => $path . '/templates',
+    ],
+
+    'back_to_top_block' => [
+      'variables' => [
+        'custom_data' => [],
+        'custom_string' => '',
       ],
     ],
   ];
@@ -103,5 +111,30 @@ function audiodescription_node_presave(Node $node) {
     $title = $node->getTitle();
     $clean_title = $pathauto_service->cleanString($title);
     $node->set('field_clean_title', $clean_title);
+  }
+}
+
+/**
+ * Implémentation de hook_block_view_alter().
+ */
+function audiodescription_block_view_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
+
+  $current_route = \Drupal::routeMatch()->getRouteName();
+
+  $routes = [
+    'audiodescription.error.403',
+    'audiodescription.error.404'
+  ];
+
+  if (in_array($current_route, $routes)) {
+    $blocks = [
+      'system_breadcrumb_block',
+      'page_title_block',
+      'back_to_top_block',
+    ];
+
+    if (in_array($block->getBaseId(), $blocks)) {
+      $build = [];
+    }
   }
 }

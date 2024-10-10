@@ -6,18 +6,26 @@ audiodescription.homepage:
   requirements:
     _permission: 'access content'
 
-audiodescription.poc.movie:
-  path: '/poc/oeuvres/films/regne-animal'
+audiodescription.movie_search:
+  path: '/recherche'
   defaults:
-    _controller: '\Drupal\audiodescription\Controller\PocController:movie'
-    _title: 'LE REGNE ANIMAL'
+    _controller: '\Drupal\audiodescription\Controller\MovieSearchController:search'
+    _title: 'Résultats de recherche'
   requirements:
     _permission: 'access content'
 
-audiodescription.poc.search:
-  path: '/poc/recherche'
+audiodescription.error.404:
+  path: '/error-404'
   defaults:
-    _controller: '\Drupal\audiodescription\Controller\PocSearchController:search'
-    _title: 'Recherche v2'
+    _controller: '\Drupal\audiodescription\Controller\ErrorController:error404'
+    _title: 'Page non trouvée'
+  requirements:
+    _permission: 'access content'
+
+audiodescription.error.403:
+  path: '/error-403'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\ErrorController:error403'
+    _title: 'Accès refusé'
   requirements:
     _permission: 'access content'

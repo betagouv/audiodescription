@@ -8,7 +8,6 @@ dependencies:
     - field.field.config_pages.movies.field_block_contact_description
     - field.field.config_pages.movies.field_block_contact_email
     - field.field.config_pages.movies.field_block_contact_title
-    - field.field.config_pages.movies.field_block_infos_title
   module:
     - field_group
     - text
@@ -93,14 +92,6 @@ content:
   field_block_contact_title:
     type: string_textfield
     weight: 3
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_block_infos_title:
-    type: string_textfield
-    weight: 1
     region: content
     settings:
       size: 60

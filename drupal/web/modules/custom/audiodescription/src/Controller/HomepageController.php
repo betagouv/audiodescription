@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\block\Entity\Block;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
+use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,6 +29,13 @@ class HomepageController extends ControllerBase {
   protected $configPagesLoader;
 
   /**
+   * The form builder service.
+   *
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  protected $formBuilder;
+
+  /**
    * Constructs a new PocController.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -35,9 +43,10 @@ class HomepageController extends ControllerBase {
    * @param \Drupal\config_pages\ConfigPagesLoaderServiceInterface $configPagesLoader
    *   The config pages loader service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, ConfigPagesLoaderServiceInterface $configPagesLoader) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, ConfigPagesLoaderServiceInterface $configPagesLoader, FormBuilderInterface $form_builder) {
     $this->entityTypeManager = $entityTypeManager;
     $this->configPagesLoader = $configPagesLoader;
+    $this->formBuilder = $form_builder;
   }
 
   /**
@@ -46,7 +55,8 @@ class HomepageController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new self(
       $container->get('entity_type.manager'),
-      $container->get('config_pages.loader')
+      $container->get('config_pages.loader'),
+      $container->get('form_builder'),
     );
   }
 
@@ -108,6 +118,8 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
+    $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\MovieSearchForm');
+
     return [
       '#theme' => 'homepage',
       '#header' => $header,
@@ -115,6 +127,7 @@ class HomepageController extends ControllerBase {
       '#about' => $about,
       '#highlighted_collections' => $highlightedCollections,
       '#collections' => $collections,
+      '#search_form' => $search_form,
     ];
   }
 

@@ -68,7 +68,7 @@ class MovieSearchForm extends FormBase {
       ],
     ];
 
-    $form['#action'] = '/poc/recherche';
+    $form['#action'] = '/recherche';
 
     return $form;
   }
@@ -97,7 +97,7 @@ class MovieSearchForm extends FormBase {
     }
 
     $form_state->setRedirect(
-      'audiodescription.poc.search',
+      'audiodescription.movie_search',
       [],
       ['query' => $parameters]
     );

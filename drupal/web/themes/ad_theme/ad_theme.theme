@@ -89,9 +89,6 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
   $config = $config_pages->load('movies');
 
   $variables['config'] = [
-    'block_infos' => [
-      'title' => $config->get('field_block_infos_title')->value,
-    ],
     'block_ad' => [
       'title' => $config->get('field_block_ad_title')->value,
     ],

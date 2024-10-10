@@ -1,7 +1,18 @@
 <div class="ad-search-page fr-container">
+  <div class="fr-mb-2w fr-mt-2w">
+    {% set total = has_ad.total + no_ad.total %}
+    <p>{{ total }} résultats correspondent à votre requête, dont {{ has_ad.total }} résultats avec une audiodescription.</p>
+  </div>
+
   <div class="fr-mb-7w">
     {{ form }}
   </div>
+
+  {{ pattern('accordion', {
+    title: 'Filtres',
+    content: 'Mon super contenu'
+  }) }}
+
   <div class="fr-mb-7w">
     <h2>Films avec audiodescription</h2>
     <p>{{ has_ad.total }} résultats correspondent à votre requête ({{ has_ad.pageSize }} résultats affichés par page - Page 1 sur {{ has_ad.pagesCount }})</p>

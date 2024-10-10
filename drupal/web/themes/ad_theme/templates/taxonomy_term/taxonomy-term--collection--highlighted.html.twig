@@ -15,7 +15,7 @@
           {% endif %}
 
           {{ pattern('card', {
-            title_tag: 'h3',
+            title_tag: 'p',
             'title': {
               '#type': 'html_tag',
               '#tag': 'a',
@@ -24,10 +24,6 @@
                 'href': movie_url,
               }
             },
-            tags_badges: pattern('badge', {
-              label: 'Audiodécrit',
-              color_schema: 'blue-ecume'
-            }),
             description: movie_synopsis,
             enlarge_link: true
           }, 'vertical') }}

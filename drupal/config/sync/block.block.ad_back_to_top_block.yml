@@ -1,0 +1,20 @@
+uuid: ea809ae4-2e43-4fad-9673-2299c9f79fc8
+langcode: fr
+status: true
+dependencies:
+  module:
+    - audiodescription
+  theme:
+    - ad_theme
+id: ad_back_to_top_block
+theme: ad_theme
+region: bottom
+weight: 0
+provider: null
+plugin: back_to_top_block
+settings:
+  id: back_to_top_block
+  label: 'Back To Top Block'
+  label_display: '0'
+  provider: audiodescription
+visibility: {  }

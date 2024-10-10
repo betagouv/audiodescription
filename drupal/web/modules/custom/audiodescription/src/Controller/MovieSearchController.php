@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Controller for building the search page V2 content.
  */
-class PocSearchController extends ControllerBase {
+class MovieSearchController extends ControllerBase {
   private const PAGE_SIZE = 6;
 
   // Display 2 pages before current and 2 pages after current.
@@ -101,7 +101,7 @@ class PocSearchController extends ControllerBase {
       $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\MovieSearchForm');
 
       return [
-        '#theme' => 'poc_search',
+        '#theme' => 'movie_search',
         '#has_ad' => [
           'total' => $totalHasAd,
           'pagesCount' => $pagesCountHasAd,
@@ -249,7 +249,7 @@ class PocSearchController extends ControllerBase {
       $parameters['search_api_fulltext'] = $search;
     }
 
-    $url = Url::fromRoute('audiodescription.poc.search', $parameters);
+    $url = Url::fromRoute('audiodescription.movie_search', $parameters);
 
     return $url->toString();
   }
