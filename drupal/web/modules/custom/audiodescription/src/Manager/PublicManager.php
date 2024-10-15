@@ -26,6 +26,7 @@ class PublicManager {
       ->loadByProperties($properties);
 
     if (empty($publics)) {
+      $properties['name'] = $publicName;
       $public = Term::create($properties);
       $public->save();
       return;
