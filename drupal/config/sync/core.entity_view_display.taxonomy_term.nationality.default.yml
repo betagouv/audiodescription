@@ -1,4 +1,4 @@
-uuid: 84d7adf3-9e19-484c-a0e4-65dfb5a4512c
+uuid: d9a058a8-819c-4e9d-acc6-bd5a0b7fd507
 langcode: fr
 status: true
 dependencies:
@@ -6,35 +6,27 @@ dependencies:
     - field.field.taxonomy_term.nationality.field_taxo_code
     - taxonomy.vocabulary.nationality
   module:
-    - path
+    - text
 id: taxonomy_term.nationality.default
 targetEntityType: taxonomy_term
 bundle: nationality
 mode: default
 content:
-  field_taxo_code:
-    type: string_textfield
-    weight: 1
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  name:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 2
-    region: content
+  description:
+    type: text_default
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
+  field_taxo_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
-  description: true
   langcode: true
-  status: true
+  search_api_excerpt: true
