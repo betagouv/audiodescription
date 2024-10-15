@@ -46,9 +46,10 @@ reset-db:
 	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=public
 	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=director
 
-.PHONY:drush-adim
-drush-adim:
-	docker compose exec php vendor/bin/drush adim CNC_CSV
+.PHONY:drush-import
+drush-import:
+	docker compose exec php vendor/bin/drush ad:import:publics
+	docker compose exec php vendor/bin/drush ad:import:movies CNC_CSV
 
 .PHONY:drush-cr
 drush-cr:

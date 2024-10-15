@@ -1,0 +1,20 @@
+uuid: 25f40ee8-4e09-4a42-88d8-8935df64843c
+langcode: fr
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_production_year
+field_name: field_production_year
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -30,8 +30,42 @@ class MovieManager {
 
     $movie = NULL;
     if (count($movies) !== 0) {
-      // @todo Update.
       $movie = array_shift($movies);
+
+      if (!empty($data['title'])) {
+        $movie->set('title', $data['title']);
+      }
+
+      $movie->set('field_has_ad', $data['has_ad']);
+
+      if (!empty($data['visa_number'])) {
+        $movie->set('field_visa_number', $data['visa_number']);
+      }
+
+      if (!empty($data['directors'])) {
+        $directorsData = array_map(function($director) {
+          return ['target_id' => $director];
+        }, $data['directors']);
+        $movie->set('field_directors', $directorsData);
+      }
+
+      if (!empty($data['public'])) {
+        $movie->set('field_public', ['target_id' => $data['public']->tid->value]);
+      }
+
+      if (!empty($data['genre'])) {
+        $movie->set('field_genres', ['target_id' => $data['genre']->tid->value]);
+      }
+
+      if (!empty($data['nationalities'])) {
+        $nationalityData = array_map(function($nationality) {
+          return ['target_id' => $nationality];
+        }, $data['nationalities']);
+        $movie->set('field_nationalities', $nationalityData);
+
+      }
+
+      $movie->save();
     }
 
     if (is_null($movie)) {
@@ -65,8 +99,8 @@ class MovieManager {
       }
 
       $movie = Node::create($properties);
-
       $movie->save();
+
     }
 
     return $movie;

@@ -13,3 +13,33 @@ definitions:
     parent: ''
     enabled: true
     expanded: false
+  navigation__create:
+    weight: -50
+    menu_name: content
+    parent: ''
+    enabled: true
+    expanded: false
+  navigation__blocks:
+    weight: -45
+    menu_name: content
+    parent: ''
+    expanded: false
+    enabled: true
+  navigation__content:
+    weight: -49
+    menu_name: content
+    parent: ''
+    expanded: false
+    enabled: true
+  navigation__files:
+    weight: -47
+    menu_name: content
+    parent: ''
+    expanded: false
+    enabled: true
+  navigation__media:
+    weight: -46
+    menu_name: content
+    parent: ''
+    expanded: false
+    enabled: true

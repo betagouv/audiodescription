@@ -27,7 +27,6 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
     private NationalityManager $nationalityManager,
     private PublicManager $publicManager,
     private readonly string $cncMoviesFile,
-    private readonly string $cncPublicsFile,
   ) {
   }
 
@@ -35,15 +34,6 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
    * Imports movie data from a source.
    */
   public function import(): void {
-    // @todo Move this code in PubicCsvImporter.php
-    // Import publics.
-    $lines = $this->csvParser->parseCsv($this->cncPublicsFile);
-
-    foreach ($lines as $line) {
-      // @todo create function "create" instead of use provide function.
-      $this->publicManager->provide($line['code'], $line['name']);
-    }
-
     // Import movies.
     $lines = $this->csvParser->parseCsv($this->cncMoviesFile);
 

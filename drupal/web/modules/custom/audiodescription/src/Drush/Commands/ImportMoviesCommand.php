@@ -35,9 +35,9 @@ final class ImportMoviesCommand extends DrushCommands {
   /**
    * Command description here.
    */
-  #[CLI\Command(name: 'ad:import', aliases: ['adim'])]
+  #[CLI\Command(name: 'ad:import:movies', aliases: ['adim'])]
   #[CLI\Argument(name: 'sourceArg', description: 'Import source.')]
-  #[CLI\Usage(name: 'ad:import', description: 'List implementations of hook_cron().')]
+  #[CLI\Usage(name: 'ad:import:movies', description: 'Import movies from source.')]
   public function import($sourceArg) {
     $source = ImportSourceType::from($sourceArg);
     $importer = $this->importerFactory->createImporter($source);

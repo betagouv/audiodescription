@@ -1,4 +1,12 @@
 services:
+  _defaults:
+    # autoconfigure must be on
+    autoconfigure: true
+
+  logger.channel.audiodescription:
+    parent: logger.channel_base
+    arguments: [ 'audiodescription' ]
+
   audiodescription.cnc_csv_importer:
     class: Drupal\audiodescription\Importer\Movie\CncCsvImporter
     arguments:
@@ -10,6 +18,13 @@ services:
       - '@audiodescription.manager.nationality'
       - '@audiodescription.manager.public'
       - '%cnc_movies_file%'
+
+  audiodescription.public_csv_importer:
+    class: Drupal\audiodescription\Importer\Public\PublicCsvImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.parser.csv'
+      - '@audiodescription.manager.public'
       - '%cnc_publics_file%'
 
   audiodescription.importer_factory:

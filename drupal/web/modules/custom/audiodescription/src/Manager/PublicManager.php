@@ -15,6 +15,27 @@ class PublicManager {
 
   }
 
+  public function createOrUpdate(string $publicCode, string $publicName): void {
+    $properties = [
+      'field_taxo_code' => $publicCode,
+      'vid' => Taxonomy::PUBLIC->value,
+    ];
+
+    $publics = $this->entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadByProperties($properties);
+
+    if (empty($publics)) {
+      $public = Term::create($properties);
+      $public->save();
+      return;
+    }
+
+    $public = array_shift($publics);
+    $public->setName($publicName);
+    $public->save();
+  }
+
   /**
    * Function to create public or update if it exists.
    *
