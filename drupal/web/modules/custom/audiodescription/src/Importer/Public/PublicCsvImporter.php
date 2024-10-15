@@ -35,8 +35,10 @@ class PublicCsvImporter implements LoggerAwareInterface {
     $lines = $this->csvParser->parseCsv($this->cncPublicsFile);
 
     foreach ($lines as $line) {
-      $this->logger->info(sprintf('Import public with code %s and name %s', $line['code'], $line['name']));
-      $this->publicManager->createOrUpdate($line['code'], $line['name']);
+      $name = trim($line['name']);
+      $code = trim($line['code']);
+      $this->logger->info(sprintf('Import public with code %s and name %s', $code, $name));
+      $this->publicManager->createOrUpdate($code, $name);
     }
 
     // Clear entities cache.

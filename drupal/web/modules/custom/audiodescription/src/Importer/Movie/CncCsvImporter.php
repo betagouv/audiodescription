@@ -40,8 +40,8 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
     foreach ($lines as $line) {
       if (!is_null($line['TITRE']) && !empty($line['TITRE'])) {
         $data = [
-          'title' => $line['TITRE'],
-          'cnc_number' => $line['N°CNC'],
+          'title' => trim($line['TITRE']),
+          'cnc_number' => trim($line['N°CNC']),
           'visa_number' => NULL,
           'has_ad' => FALSE,
           'directors' => NULL,
@@ -56,7 +56,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
           $data['directors'] = [];
 
           foreach ($directors as $director) {
-            $director = $this->directorManager->provide($director);
+            $director = $this->directorManager->provide(trim($director));
 
             $data['directors'][] = $director->tid->value;
           }
@@ -64,14 +64,14 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
 
         $publicCode = $line['INTERDICTION'];
         if (!empty($publicCode)) {
-          $public = $this->publicManager->provide($publicCode);
+          $public = $this->publicManager->provide(trim($publicCode));
 
           $data['public'] = $public;
         }
 
         $genreName = $line['GENRE'];
         if (!empty($genreName)) {
-          $genre = $this->genreManager->provide($genreName);
+          $genre = $this->genreManager->provide(trim($genreName));
 
           $data['genre'] = $genre;
         }
@@ -82,19 +82,19 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
           $data['nationalities'] = [];
 
           foreach ($nationalities as $nationality) {
-            $nationality = $this->nationalityManager->provide($nationality);
+            $nationality = $this->nationalityManager->provide(trim($nationality));
             $data['nationalities'][] = $nationality->tid->value;
           }
         }
 
         if (!is_null($line['AudioDecrit']) && !empty($line['AudioDecrit'])) {
-          if ($line['AudioDecrit'] == 'OUI') {
+          if (trim($line['AudioDecrit']) == 'OUI') {
             $data['has_ad'] = TRUE;
           }
         }
 
         if (!is_null($line['VISA']) && !empty($line['VISA'])) {
-          $data['visa_number'] = $line['VISA'];
+          $data['visa_number'] = trim($line['VISA']);
         }
 
         // Create or update movie.
