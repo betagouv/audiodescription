@@ -3,11 +3,11 @@
 namespace Drupal\audiodescription\Importer\Movie;
 
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\audiodescription\Manager\DirectorManager;
-use Drupal\audiodescription\Manager\GenreManager;
-use Drupal\audiodescription\Manager\MovieManager;
-use Drupal\audiodescription\Manager\NationalityManager;
-use Drupal\audiodescription\Manager\PublicManager;
+use Drupal\audiodescription\EntityManager\DirectorManager;
+use Drupal\audiodescription\EntityManager\GenreManager;
+use Drupal\audiodescription\EntityManager\MovieManager;
+use Drupal\audiodescription\EntityManager\NationalityManager;
+use Drupal\audiodescription\EntityManager\PublicManager;
 use Drupal\audiodescription\Parser\CsvParser;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;

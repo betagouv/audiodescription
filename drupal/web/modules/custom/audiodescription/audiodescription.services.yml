@@ -33,32 +33,37 @@ services:
       - '@audiodescription.cnc_csv_importer'
 
   audiodescription.manager.director:
-    class: Drupal\audiodescription\Manager\DirectorManager
+    class: Drupal\audiodescription\EntityManager\DirectorManager
     arguments:
       - '@entity_type.manager'
 
   audiodescription.manager.genre:
-    class: Drupal\audiodescription\Manager\GenreManager
+    class: Drupal\audiodescription\EntityManager\GenreManager
     arguments:
       - '@entity_type.manager'
 
   audiodescription.manager.movie:
-    class: Drupal\audiodescription\Manager\MovieManager
+    class: Drupal\audiodescription\EntityManager\MovieManager
     arguments:
       - '@entity_type.manager'
 
   audiodescription.manager.nationality:
-    class: Drupal\audiodescription\Manager\NationalityManager
+    class: Drupal\audiodescription\EntityManager\NationalityManager
     arguments:
       - '@entity_type.manager'
 
   audiodescription.manager.public:
-    class: Drupal\audiodescription\Manager\PublicManager
+    class: Drupal\audiodescription\EntityManager\PublicManager
     arguments:
       - '@entity_type.manager'
 
   audiodescription.parser.csv:
     class: Drupal\audiodescription\Parser\CsvParser
+
+  audiodescription.manager.movie_search:
+    class: Drupal\audiodescription\Manager\MovieSearchManager
+    arguments:
+      - '@entity_type.manager'
 
   audiodescription.movie.breadcrumb:
     class: Drupal\audiodescription\Breadcrumb\MovieBreadcrumbBuilder

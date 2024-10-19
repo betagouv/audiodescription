@@ -1,7 +1,6 @@
 <div class="ad-search-page fr-container">
   <div class="fr-mb-2w fr-mt-2w">
-    {% set total = has_ad.total + no_ad.total %}
-    <p>{{ total }} résultats correspondent à votre requête, dont {{ has_ad.total }} résultats avec une audiodescription.</p>
+    <p>{{ movies.total }} résultats correspondent à votre requête, dont {{ movies.totalWithAd }} résultat(s) avec une audiodescription.</p>
   </div>
 
   <div class="fr-mb-7w">
@@ -9,32 +8,16 @@
   </div>
 
   <div class="fr-mb-7w">
-    <h2>Films avec audiodescription</h2>
-    <p>{{ has_ad.total }} résultats correspondent à votre requête ({{ has_ad.pageSize }} résultats affichés par page - Page 1 sur {{ has_ad.pagesCount }})</p>
-    {{ has_ad.items }}
-    {% if has_ad.pagination is not null %}
+    <h2>Films</h2>
+    <p>{{ movies.total }} résultats correspondent à votre requête ({{ movies.pageSize }} résultats affichés par page - Page 1 sur {{ movies.pagesCount }})</p>
+    {{ movies.items }}
+    {% if movies.pagination is not null %}
       {{ pattern('pagination', {
-        first: has_ad.pagination.first,
-        prev: has_ad.pagination.prev,
-        pages: has_ad.pagination.pages,
-        next: has_ad.pagination.next,
-        last: has_ad.pagination.last,
-      }) }}
-    {% endif %}
-  </div>
-
-  <div class="fr-mb-7w">
-    <h2>Films sans audiodescription</h2>
-    <p>{{ no_ad.total }} résultats correspondent à votre requête ({{ no_ad.pageSize }} résultats affichés par page - Page 1 sur {{ no_ad.pagesCount }})</p>
-    {{ no_ad.items }}
-
-    {% if no_ad.pagination is not null %}
-      {{ pattern('pagination', {
-        first: no_ad.pagination.first,
-        prev: no_ad.pagination.prev,
-        pages: no_ad.pagination.pages,
-        next: no_ad.pagination.next,
-        last: no_ad.pagination.last,
+        first: movies.pagination.first,
+        prev: movies.pagination.prev,
+        pages: movies.pagination.pages,
+        next: movies.pagination.next,
+        last: movies.pagination.last,
       }) }}
     {% endif %}
   </div>

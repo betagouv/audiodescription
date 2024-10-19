@@ -3,11 +3,7 @@
 namespace Drupal\audiodescription\Importer\Public;
 
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\audiodescription\Manager\DirectorManager;
-use Drupal\audiodescription\Manager\GenreManager;
-use Drupal\audiodescription\Manager\MovieManager;
-use Drupal\audiodescription\Manager\NationalityManager;
-use Drupal\audiodescription\Manager\PublicManager;
+use Drupal\audiodescription\EntityManager\PublicManager;
 use Drupal\audiodescription\Parser\CsvParser;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -29,8 +25,7 @@ class PublicCsvImporter implements LoggerAwareInterface {
   /**
    * Import publics data from a source.
    */
-  public function import(): void
-  {
+  public function import(): void {
     // Import publics.
     $lines = $this->csvParser->parseCsv($this->cncPublicsFile);
 
@@ -44,4 +39,5 @@ class PublicCsvImporter implements LoggerAwareInterface {
     // Clear entities cache.
     $this->entityTypeManager->clearCachedDefinitions();
   }
+
 }

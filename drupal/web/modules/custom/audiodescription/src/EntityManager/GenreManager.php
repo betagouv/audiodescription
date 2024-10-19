@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\audiodescription\Manager;
+namespace Drupal\audiodescription\EntityManager;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\audiodescription\Enum\Taxonomy;

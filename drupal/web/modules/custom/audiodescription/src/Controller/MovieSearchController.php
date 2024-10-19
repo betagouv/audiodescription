@@ -6,15 +6,16 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Url;
-use Drupal\search_api\Entity\Index;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\audiodescription\Manager\MovieSearchManager;
+use Drupal\audiodescription\Popo\MovieSearchParametersBag;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller for building the search page V2 content.
  */
 class MovieSearchController extends ControllerBase {
-  private const PAGE_SIZE = 6;
+  private const PAGE_SIZE = 12;
 
   // Display 2 pages before current and 2 pages after current.
   private const PAGINATION_SIZE = 2;
@@ -34,16 +35,41 @@ class MovieSearchController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
+   * The movie search manager service.
+   *
+   * @var \Drupal\audiodescription\Manager\MovieSearchManager
+   */
+  protected $movieSearchManager;
+
+  /**
    * Constructs a new MovieSearchController.
    *
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager service.
+   * @param Drupal\audiodescription\Manager\MovieSearchManager $movieSearchManager
+   *   The movie search manager service.
    */
-  public function __construct(FormBuilderInterface $form_builder, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(
+    FormBuilderInterface $form_builder,
+    EntityTypeManagerInterface $entityTypeManager,
+    MovieSearchManager $movieSearchManager,
+  ) {
     $this->formBuilder = $form_builder;
     $this->entityTypeManager = $entityTypeManager;
+    $this->movieSearchManager = $movieSearchManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new self(
+      $container->get('form_builder'),
+      $container->get('entity_type.manager'),
+      $container->get('audiodescription.manager.movie_search'),
+    );
   }
 
   /**
@@ -53,150 +79,84 @@ class MovieSearchController extends ControllerBase {
    *   A render array representing the content of the search page v2 (POC).
    */
   public function search(Request $request) {
-    $index = Index::load('movies');
-    $params = $request->query;
-    $search = $params->get('search_api_fulltext', '');
 
-    if ($index) {
-      $pageHasAd = $params->get('page_has_ad', 1);
-      $pageHasAd = empty($pageHasAd) ? 1 : $pageHasAd;
+    $params = MovieSearchParametersBag::createFromRequest($request);
 
-      $offsetHasAd = ($pageHasAd - 1) * self::PAGE_SIZE;
+    $offset = ($params->page - 1) * self::PAGE_SIZE;
 
-      $pageNoAd = $params->get('page_no_ad', 1);
-      $pageNoAd = empty($pageNoAd) ? 1 : $pageNoAd;
+    [$total, $pagesCount, $entities] = $this->movieSearchManager->queryMovies($offset, self::PAGE_SIZE, $params->search);
 
-      $offsetNoAd = ($pageNoAd - 1) * self::PAGE_SIZE;
+    $totalWithAd = $this->movieSearchManager->countAdMovies($params->search);
 
-      [$totalHasAd, $pagesCountHasAd, $entitiesHasAd] = $this->queryAdMovies($index, $offsetHasAd, 1, $search);
-      [$totalNoAd, $pagesCountNoAd, $entitiesNoAd] = $this->queryAdMovies($index, $offsetNoAd, 0, $search);
+    $renderedEntities = [];
 
-      $renderedEntitiesHasAd = [];
-      $renderedEntitiesNoAd = [];
-
-      foreach ($entitiesHasAd as $entity) {
-        $view_builder = $this->entityTypeManager->getViewBuilder('node');
-        $renderedEntitiesHasAd[] = $view_builder->view($entity, 'teaser');
-      }
-
-      $paginationHasAd = NULL;
-      if ($pagesCountHasAd > 1) {
-        $paginationHasAd = $this->buildPagination($pageHasAd, $pageNoAd, $pagesCountHasAd, $search, TRUE);
-      }
-
-      $pageSizeHasAd = ($pagesCountHasAd > 1) ? self::PAGE_SIZE : $totalHasAd;
-
-      foreach ($entitiesNoAd as $entity) {
-        $view_builder = $this->entityTypeManager->getViewBuilder('node');
-        $renderedEntitiesNoAd[] = $view_builder->view($entity, 'teaser');
-      }
-
-      $paginationNoAd = NULL;
-      if ($pagesCountNoAd > 1) {
-        $paginationNoAd = $this->buildPagination($pageHasAd, $pageNoAd, $pagesCountNoAd, $search, FALSE);
-      }
-
-      $pageSizeNoAd = ($pagesCountNoAd > 1) ? self::PAGE_SIZE : $totalNoAd;
-
-      $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\MovieSearchForm');
-
-      return [
-        '#theme' => 'movie_search',
-        '#has_ad' => [
-          'total' => $totalHasAd,
-          'pagesCount' => $pagesCountHasAd,
-          'items' => $renderedEntitiesHasAd,
-          'pagination' => $paginationHasAd,
-          'page' => $pageHasAd,
-          'pageSize' => $pageSizeHasAd,
-        ],
-        '#no_ad' => [
-          'total' => $totalNoAd,
-          'pagesCount' => $pagesCountNoAd,
-          'items' => $renderedEntitiesNoAd,
-          'pagination' => $paginationNoAd,
-          'page' => $pageNoAd,
-          'pageSize' => $pageSizeNoAd,
-        ],
-        '#form' => $form,
-        '#cache' => [
-        // Pas de mise en cache.
-          'max-age' => 0,
-        ],
-      ];
-    }
-    else {
-      return new JsonResponse(['error' => 'Index not found'], 404);
-    }
-  }
-
-  /**
-   * Query movies.
-   */
-  public function queryAdMovies(Index $index, int $offset, bool $hasAd, ?string $search) :array {
-    $query = $index->query();
-    $query->addCondition('field_has_ad', (int) $hasAd);
-
-    if (!is_null($search)) {
-      $query->keys($search);
+    foreach ($entities as $entity) {
+      $view_builder = $this->entityTypeManager->getViewBuilder('node');
+      $renderedEntities[] = $view_builder->view($entity, 'teaser');
     }
 
-    $query->range($offset, self::PAGE_SIZE);
-
-    $results = $query->execute();
-
-    $total = $results->getResultCount();
-    $pagesCount = ceil($total / self::PAGE_SIZE);
-
-    $ids = [];
-
-    foreach ($results->getResultItems() as $item) {
-      // Par exemple, pour les nœuds, cela donne 'node/1'.
-      $entity_id = $item->getId();
-      $id = explode('/', $entity_id)[1];
-      $id = explode(':', $id)[0];
-
-      $ids[] = $id;
+    $pagination = NULL;
+    if ($pagesCount > 1) {
+      $pagination = $this->buildPagination($params, $pagesCount);
     }
 
-    $entities = $this->entityTypeManager->getStorage('node')->loadMultiple($ids);
+    $pageSize = ($pagesCount > 1) ? self::PAGE_SIZE : $total;
+
+    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm');
 
     return [
-      $total,
-      $pagesCount,
-      $entities,
+      '#theme' => 'movie_search',
+      '#movies' => [
+        'total' => $total,
+        'pagesCount' => $pagesCount,
+        'items' => $renderedEntities,
+        'pagination' => $pagination,
+        'page' => $params->page,
+        'pageSize' => $pageSize,
+        'totalWithAd' => $totalWithAd,
+      ],
+      '#form' => $form,
+      '#cache' => [
+        // Pas de mise en cache.
+        'max-age' => 0,
+      ],
     ];
   }
 
   /**
    * Build pagination.
    */
-  private function buildPagination(int $pageHasAd, int $pageNoAd, int $pagesCount, string $search, bool $hasAd) {
-    if ($hasAd) {
-      $page = $pageHasAd;
+  private function buildPagination(MovieSearchParametersBag $params, int $pagesCount) {
+    $parameters = [
+      'page' => 1,
+      'search' => $params->search,
+    ];
+    $first = ($params->page == 1) ? FALSE : $this->buildUrl($parameters);
 
-      $first = ($page == 1) ? FALSE : $this->buildUrl(1, $pageNoAd, $search);
-      $prev = ($page == 1) ? FALSE : $this->buildUrl(($page - 1), $pageNoAd, $search);
+    $parameters = [
+      'page' => $params->page - 1,
+      'search' => $params->search,
+    ];
+    $prev = ($params->page == 1) ? FALSE : $this->buildUrl($parameters);
 
-      $next = ($page == $pagesCount) ? FALSE : $this->buildUrl(($page + 1), $pageNoAd, $search);
-      $last = ($page == $pagesCount) ? FALSE : $this->buildUrl($pagesCount, $pageNoAd, $search);
-    }
-    else {
-      $page = $pageNoAd;
+    $parameters = [
+      'page' => $params->page + 1,
+      'search' => $params->search,
+    ];
+    $next = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($parameters);
 
-      $first = ($page == 1) ? FALSE : $this->buildUrl($pageHasAd, 1, $search);
-      $prev = ($page == 1) ? FALSE : $this->buildUrl($pageHasAd, ($page - 1), $search);
-
-      $next = ($page == $pagesCount) ? FALSE : $this->buildUrl($pageNoAd, ($page + 1), $search);
-      $last = ($page == $pagesCount) ? FALSE : $this->buildUrl($pageNoAd, $pagesCount, $search);
-    }
+    $parameters = [
+      'page' => $pagesCount,
+      'search' => $params->search,
+    ];
+    $last = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($parameters);
 
     $befores = [];
     $afters = [];
 
     for ($i = 1; $i <= self::PAGINATION_SIZE; $i++) {
-      $indexBefore = $page - $i;
-      $indexAfter = $page + $i;
+      $indexBefore = $params->page - $i;
+      $indexAfter = $params->page + $i;
 
       if ($indexBefore > 0) {
         $befores[] = $indexBefore;
@@ -207,21 +167,31 @@ class MovieSearchController extends ControllerBase {
       }
     }
 
+    sort($befores);
     $pages = [];
     foreach ($befores as $before) {
+      $parameters = [
+        'page' => $before,
+        'search' => $params->search,
+      ];
       $pages[] = [
         'title' => $before,
-        'url' => ($hasAd) ? $this->buildUrl($before, $pageNoAd, $search) : $this->buildUrl($pageHasAd, $before, $search),
+        'url' => $this->buildUrl($parameters),
       ];
     }
 
     $pages[] = [
-      'title' => $page,
+      'title' => $params->page,
     ];
+
     foreach ($afters as $after) {
+      $parameters = [
+        'page' => $after,
+        'search' => $params->search,
+      ];
       $pages[] = [
         'title' => $after,
-        'url' => ($hasAd) ? $this->buildUrl($after, $pageNoAd, $search) : $this->buildUrl($pageHasAd, $after, $search),
+        'url' => $this->buildUrl($parameters),
       ];
     }
 
@@ -240,17 +210,8 @@ class MovieSearchController extends ControllerBase {
    * @return string
    *   URL stringified.
    */
-  private function buildUrl(int $pageHasAd, int $pageNoAd, string $search) {
-    $parameters = [
-      'page_has_ad' => $pageHasAd,
-      'page_no_ad' => $pageNoAd,
-    ];
-
-    if (!empty($search)) {
-      $parameters['search_api_fulltext'] = $search;
-    }
-
-    $url = Url::fromRoute('audiodescription.movie_search', $parameters);
+  private function buildUrl(array $params) {
+    $url = Url::fromRoute('audiodescription.movie_search', $params);
 
     return $url->toString();
   }

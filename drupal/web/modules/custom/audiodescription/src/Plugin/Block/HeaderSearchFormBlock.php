@@ -59,7 +59,7 @@ class HeaderSearchFormBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build() {
-    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\MovieSearchForm');
+    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm');
 
     return [
       '#theme' => 'header_search_form_block',

@@ -2,7 +2,6 @@
 
 namespace Drupal\audiodescription\Form;
 
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -10,7 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Provides a form for searching movies.
  */
-class MovieSearchForm extends FormBase {
+class SimpleMovieSearchForm extends AbstractMovieSearchForm {
 
   /**
    * The request stack service.
@@ -39,7 +38,7 @@ class MovieSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'movie_search_form';
+    return 'simple_movie_search_form';
   }
 
   /**
@@ -47,14 +46,14 @@ class MovieSearchForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $request = $this->requestStack->getCurrentRequest();
-    $search_api_fulltext = $request->query->get('search_api_fulltext');
+    $search = $request->query->get('search');
 
-    $form['search_api_fulltext'] = [
+    $form['search'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Rechercher un film'),
       '#size' => 30,
       '#maxlength' => 128,
-      '#value' => $search_api_fulltext,
+      '#value' => $search,
     ];
 
     $form['submit'] = [
@@ -77,24 +76,7 @@ class MovieSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $search = $form_state->getUserInput()['search_api_fulltext'];
-
-    $parameters = [
-      'search_api_fulltext' => $search,
-    ];
-
-    $request = $this->requestStack->getCurrentRequest();
-    $pageHasAd = $request->query->get('page_has_ad', NULL);
-
-    if (!is_null($pageHasAd)) {
-      $parameters['page_has_ad'] = $pageHasAd;
-    }
-
-    $pageNoAd = $request->query->get('page_no_ad', NULL);
-
-    if (!is_null($pageNoAd)) {
-      $parameters['page_no_ad'] = $pageNoAd;
-    }
+    $parameters = $this->getBaseParameters($form_state);
 
     $form_state->setRedirect(
       'audiodescription.movie_search',

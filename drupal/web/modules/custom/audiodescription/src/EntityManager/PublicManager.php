@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\audiodescription\Manager;
+namespace Drupal\audiodescription\EntityManager;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\audiodescription\Enum\Taxonomy;
@@ -15,6 +15,9 @@ class PublicManager {
 
   }
 
+  /**
+   * Create or update public taxonomy term.
+   */
   public function createOrUpdate(string $publicCode, string $publicName): void {
     $properties = [
       'field_taxo_code' => $publicCode,

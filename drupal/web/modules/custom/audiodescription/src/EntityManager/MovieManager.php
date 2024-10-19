@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\audiodescription\Manager;
+namespace Drupal\audiodescription\EntityManager;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\Node;
@@ -43,7 +43,7 @@ class MovieManager {
       }
 
       if (!empty($data['directors'])) {
-        $directorsData = array_map(function($director) {
+        $directorsData = array_map(function ($director) {
           return ['target_id' => $director];
         }, $data['directors']);
         $movie->set('field_directors', $directorsData);
@@ -58,7 +58,7 @@ class MovieManager {
       }
 
       if (!empty($data['nationalities'])) {
-        $nationalityData = array_map(function($nationality) {
+        $nationalityData = array_map(function ($nationality) {
           return ['target_id' => $nationality];
         }, $data['nationalities']);
         $movie->set('field_nationalities', $nationalityData);

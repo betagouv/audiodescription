@@ -120,7 +120,7 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
-    $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\MovieSearchForm');
+    $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm');
 
     return [
       '#theme' => 'homepage',
