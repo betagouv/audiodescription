@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
+    - field.field.node.movie.field_is_complete
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_poster
     - field.field.node.movie.field_production_year
@@ -35,14 +36,6 @@ content:
     settings:
       match_operator: CONTAINS
       match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_clean_title:
-    type: string_textfield
-    weight: 16
-    region: content
-    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -84,6 +77,13 @@ content:
   field_has_ad:
     type: boolean_checkbox
     weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_is_complete:
+    type: boolean_checkbox
+    weight: 16
     region: content
     settings:
       display_label: true
@@ -179,6 +179,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_clean_title: true
   langcode: true
   promote: true
   sticky: true

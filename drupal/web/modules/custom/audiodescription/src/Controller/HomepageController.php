@@ -99,6 +99,7 @@ class HomepageController extends ControllerBase {
     $about = [
       'title' => $homepage->get('field_about_title')->value,
       'description' => $homepage->get('field_about_description')->value,
+      'pre_contact' => $homepage->get('field_about_pre_contact')->value,
       'email' => $homepage->get('field_about_email')->value,
     ];
 
@@ -120,7 +121,16 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
-    $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm');
+    $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
+
+    $block = Block::load('ad_hp_last_movies_block');
+
+    $lastMovies = [];
+    if ($block) {
+      $lastMovies = $this->entityTypeManager
+        ->getViewBuilder('block')
+        ->view($block);
+    }
 
     return [
       '#theme' => 'homepage',
@@ -129,6 +139,7 @@ class HomepageController extends ControllerBase {
       '#about' => $about,
       '#highlighted_collections' => $highlightedCollections,
       '#collections' => $collections,
+      '#last_movies' => $lastMovies,
       '#search_form' => $search_form,
     ];
   }

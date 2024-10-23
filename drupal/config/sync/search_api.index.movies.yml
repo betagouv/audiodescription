@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.storage.node.field_production_year
     - field.storage.node.field_has_ad
     - field.storage.node.field_genres
     - field.storage.node.field_cnc_number
@@ -47,10 +48,18 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_has_ad
     type: text
-    boost: 3.0
+    boost: 8.0
     dependencies:
       config:
         - field.storage.node.field_has_ad
+  field_production_year:
+    label: 'Année de production'
+    datasource_id: 'entity:node'
+    property_path: field_production_year
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_production_year
   title:
     label: Titre
     datasource_id: 'entity:node'

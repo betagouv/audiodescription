@@ -1,0 +1,18 @@
+uuid: 1b5c8394-edf7-4759-b412-5fd447759f5f
+langcode: fr
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_is_complete
+field_name: field_is_complete
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,19 @@
+uuid: 2537b0ca-5a74-4f00-b4de-7e56587fc45b
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+    - text
+id: config_pages.field_last_movies_description
+field_name: field_last_movies_description
+entity_type: config_pages
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

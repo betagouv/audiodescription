@@ -2,6 +2,7 @@
 
 namespace Drupal\audiodescription\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -19,10 +20,18 @@ class FullMovieSearchForm extends AbstractMovieSearchForm {
   protected $requestStack;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  private $entityTypeManager;
+
+  /**
    * Class constructor.
    */
-  public function __construct(RequestStack $requestStack) {
+  public function __construct(RequestStack $requestStack, EntityTypeManagerInterface $entityTypeManager) {
     $this->requestStack = $requestStack;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -30,7 +39,8 @@ class FullMovieSearchForm extends AbstractMovieSearchForm {
    */
   public static function create(ContainerInterface $container) {
     return new self(
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -50,10 +60,45 @@ class FullMovieSearchForm extends AbstractMovieSearchForm {
 
     $form['search'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Rechercher un film'),
+      '#title' => $this->t('Mots-clés'),
       '#size' => 30,
       '#maxlength' => 128,
       '#value' => $search,
+    ];
+
+    $form['ad'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Audiodescription'),
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
+    ];
+
+    $form['ad']['only'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Films audiodécrits uniquement'),
+      '#default_value' => 0,
+    ];
+
+    $form['ad']['marius'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Films primés par le prix Marius'),
+      '#default_value' => 0,
+    ];
+
+    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('genre');
+    $options = [];
+
+    foreach ($terms as $term) {
+      $options[$term->tid] = $term->name;
+    }
+
+    $form['genres'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Genres'),
+      '#options' => $options,
+    // Mettre à TRUE si vous voulez un select multiple.
+      '#multiple' => TRUE,
+      '#required' => FALSE,
     ];
 
     $form['submit'] = [

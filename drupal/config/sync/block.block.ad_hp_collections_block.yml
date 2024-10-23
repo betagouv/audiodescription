@@ -9,7 +9,7 @@ dependencies:
 id: ad_hp_collections_block
 theme: ad_theme
 region: not_displayed
-weight: -5
+weight: -8
 provider: null
 plugin: hp_collections_block
 settings:

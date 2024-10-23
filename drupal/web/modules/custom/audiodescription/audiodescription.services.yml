@@ -32,6 +32,11 @@ services:
     arguments:
       - '@audiodescription.cnc_csv_importer'
 
+  audiodescription.manager.actor:
+    class: Drupal\audiodescription\EntityManager\ActorManager
+    arguments:
+      - '@entity_type.manager'
+
   audiodescription.manager.director:
     class: Drupal\audiodescription\EntityManager\DirectorManager
     arguments:
@@ -92,6 +97,10 @@ services:
     tags:
       - { name: breadcrumb_builder, priority: 1010 }
 
+  audiodescription.wysiwyg_chapo_twig_filter:
+    class: Drupal\audiodescription\TwigExtension\WysiwygChapoTwigFilter
+    tags:
+      - { name: twig.extension }
 parameters:
   cnc_movies_file: 'modules/custom/audiodescription/files/full-movies.csv'
   cnc_publics_file: 'modules/custom/audiodescription/files/publics.csv'

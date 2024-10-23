@@ -1,0 +1,52 @@
+<div class="block">
+  <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w">
+    <h2>{{ title }}</h2>
+    {{ description|class2wysiwygP('fr-text--lead')|raw }}
+
+    <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w fr-mb-3w">
+      {% for movie in movies %}
+        {% set movie_url = path('entity.node.canonical', {'node': movie.id()}) %}
+        {% set tags_badges = [] %}
+
+        {% for genre in movie.field_genres %}
+          {% set term = genre.entity %}
+          {% set tag_badge = pattern('tag', {
+            label: term.name.value
+          }) %}
+          {% set tags_badges = tags_badges | merge([tag_badge]) %}
+        {% endfor %}
+
+        <div class="fr-col-12 fr-col-lg-4">
+
+          {{ pattern('card', {
+            title_tag: 'p',
+            'title': {
+              '#type': 'html_tag',
+              '#tag': 'a',
+              '#value': movie.title.value,
+              '#attributes': {
+                'href': movie_url
+              },
+            },
+            tags_badges: tags_badges,
+            enlarge_link: true
+          }, 'vertical') }}
+        </div>
+      {% endfor %}
+    </div>
+
+
+    <div class="fr-mb-3w">
+      {% set button = pattern('button', {
+        label: cta.text,
+        url: cta.url,
+        target: cta.target,
+        external: cta.external
+      }, cta.style) %}
+
+      {{ pattern('button_group', {
+        buttons: [ button ]
+      }, 'inline__center') }}
+    </div>
+  </div>
+</div>

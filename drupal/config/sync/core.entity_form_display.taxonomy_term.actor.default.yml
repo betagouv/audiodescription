@@ -3,7 +3,8 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.actor.field_taxo_firstname
+    - field.field.taxonomy_term.actor.field_taxo_code
+    - field.field.taxonomy_term.actor.field_taxo_role
     - taxonomy.vocabulary.actor
   module:
     - path
@@ -12,9 +13,17 @@ targetEntityType: taxonomy_term
 bundle: actor
 mode: default
 content:
-  field_taxo_firstname:
+  field_taxo_code:
     type: string_textfield
     weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_taxo_role:
+    type: string_textfield
+    weight: 2
     region: content
     settings:
       size: 60
@@ -30,7 +39,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }

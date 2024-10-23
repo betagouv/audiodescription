@@ -1,0 +1,21 @@
+uuid: 5e63b7bb-4679-4822-8c66-0675e0802b14
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_about_pre_contact
+id: config_pages.homepage.field_about_pre_contact
+field_name: field_about_pre_contact
+entity_type: config_pages
+bundle: homepage
+label: 'Phrase de pré-contact'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 'Envoyez-nous toute suggestion ou retour à notre adresse mail : '
+default_value_callback: ''
+settings: {  }
+field_type: string

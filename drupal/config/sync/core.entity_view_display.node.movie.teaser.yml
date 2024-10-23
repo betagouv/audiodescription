@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
+    - field.field.node.movie.field_is_complete
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_poster
     - field.field.node.movie.field_production_year
@@ -34,6 +35,7 @@ hidden:
   field_duration: true
   field_genres: true
   field_has_ad: true
+  field_is_complete: true
   field_nationalities: true
   field_poster: true
   field_production_year: true

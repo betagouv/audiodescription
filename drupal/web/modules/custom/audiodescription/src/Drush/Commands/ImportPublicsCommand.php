@@ -31,7 +31,7 @@ final class ImportPublicsCommand extends DrushCommands {
   }
 
   /**
-   * Command description here.
+   * Import publics from CSV files.
    */
   #[CLI\Command(name: 'ad:import:publics', aliases: ['adip'])]
   #[CLI\Usage(name: 'ad:import:publics', description: 'Import publics from CSV files.')]

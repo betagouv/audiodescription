@@ -1,11 +1,20 @@
 <div class="block">
   <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
     <h1>{{ header.title }}</h1>
-    {{ header.chapo|raw }}
-    {{ search_form }}
+    {{ header.chapo|class2wysiwygP('fr-text--lead')|raw }}
+
+    <div class="fr-grid-row">
+      <div class="fr-col-12 fr-col-lg-8">
+        {{ search_form }}
+      </div>
+    </div>
+
   </div>
 </div>
-  {# @Todo : Search bar #}
+
+{% if last_movies is not empty %}
+  {{ last_movies }}
+{% endif %}
 
 {% if highlighted_collections is not empty %}
   {{ highlighted_collections }}
@@ -18,12 +27,11 @@
 <div class="block">
   <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
       <h2>{{ infos.title }}</h2>
-      {{ infos.description|raw }}
+      {{ infos.description|class2wysiwygP('fr-text--lead')|raw }}
 
       {% set buttons = [] %}
 
       {% for cta in infos.ctas %}
-
         {% set button = pattern('button', {
           label: cta.text,
           url: cta.url,
@@ -32,19 +40,20 @@
         }, cta.style) %}
 
         {% set buttons = buttons | merge([button]) %}
-
       {% endfor %}
 
       {{ pattern('button_group', {
-        buttons: buttons
-      }, 'vertical') }}
+        buttons: buttons,
+        equisized: 'equisized'
+      }, 'inline') }}
     </div>
 </div>
 
 <div class="block">
   <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
     <h2>{{ about.title }}</h2>
-    {{ about.description|raw }}
-    <a href="{{ 'mailto:' ~ about.email }}">{{ about.email }}</a>
+    {{ about.description|class2wysiwygP('fr-text--lead')|raw }}
+
+    <p class="fr-text--lead">{{ about.pre_contact }}<a href="{{ 'mailto:' ~ about.email }}">{{ about.email }}</a></p>
   </div>
 </div>

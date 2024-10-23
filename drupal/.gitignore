@@ -24,7 +24,7 @@
 # Ignore drupal core (if not versioning drupal sources)
 /web/vendor
 /web/core
-/web/libraries
+/web/libraries/dsfr
 /web/modules/README.txt
 /web/modules/contrib
 /web/profiles/README.txt

@@ -6,6 +6,7 @@ dependencies:
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
     - field.field.taxonomy_term.collection.field_taxo_movies
+    - field.field.taxonomy_term.collection.field_taxo_short_desc
     - taxonomy.vocabulary.collection
   module:
     - path
@@ -17,7 +18,7 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 3
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -40,11 +41,19 @@ content:
     third_party_settings: {  }
   field_taxo_movies:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_taxo_short_desc:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
@@ -58,7 +67,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

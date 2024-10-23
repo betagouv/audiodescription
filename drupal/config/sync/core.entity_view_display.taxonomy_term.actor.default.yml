@@ -3,7 +3,8 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.actor.field_taxo_firstname
+    - field.field.taxonomy_term.actor.field_taxo_code
+    - field.field.taxonomy_term.actor.field_taxo_role
     - taxonomy.vocabulary.actor
   module:
     - text
@@ -19,13 +20,21 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_taxo_firstname:
+  field_taxo_code:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_taxo_role:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   langcode: true

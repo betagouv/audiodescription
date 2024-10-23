@@ -1,3 +1,5 @@
+{% set description = term.field_taxo_short_desc.value ?? '' %}
+
 <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
   {{ pattern('tile', {
     title_tag: 'p',
@@ -9,7 +11,8 @@
         'href': url,
       }
     },
-    enlarge_link: true
-  }, 'sm') }}
+    enlarge_link: true,
+    description: description
+  }, 'horizontal__sm') }}
 
 </div>

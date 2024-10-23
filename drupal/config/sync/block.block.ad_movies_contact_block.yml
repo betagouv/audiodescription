@@ -9,7 +9,7 @@ dependencies:
 id: ad_movies_contact_block
 theme: ad_theme
 region: not_displayed
-weight: 0
+weight: -7
 provider: null
 plugin: movies_contact_block
 settings:

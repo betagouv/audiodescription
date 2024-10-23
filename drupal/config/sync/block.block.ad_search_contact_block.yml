@@ -9,7 +9,7 @@ dependencies:
 id: ad_search_contact_block
 theme: ad_theme
 region: not_displayed
-weight: 0
+weight: -5
 provider: null
 plugin: search_contact_block
 settings:

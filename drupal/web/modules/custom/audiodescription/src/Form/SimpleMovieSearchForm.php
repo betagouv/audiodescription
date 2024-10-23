@@ -44,9 +44,14 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state, string $format = 'lg') {
     $request = $this->requestStack->getCurrentRequest();
     $search = $request->query->get('search');
+
+    $prefixClasses = 'fr-search-bar';
+    if ($format == 'lg') {
+      $prefixClasses .= ' fr-search-bar--lg';
+    }
 
     $form['search'] = [
       '#type' => 'textfield',
@@ -54,6 +59,7 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
       '#size' => 30,
       '#maxlength' => 128,
       '#value' => $search,
+      '#prefix' => '<div class="'. $prefixClasses .'" role="search">'
     ];
 
     $form['submit'] = [
@@ -65,7 +71,12 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
           'fr-btn--secondary',
         ],
       ],
+      '#suffix' => '</div>'
     ];
+
+    if ($format == 'md') {
+      $form['submit']['#attributes']['title'] = $this->t('Search');
+    }
 
     $form['#action'] = '/recherche';
 

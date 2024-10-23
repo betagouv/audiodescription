@@ -33,7 +33,7 @@ final class ImportMoviesCommand extends DrushCommands {
   }
 
   /**
-   * Command description here.
+   * Import movies from source.
    */
   #[CLI\Command(name: 'ad:import:movies', aliases: ['adim'])]
   #[CLI\Argument(name: 'sourceArg', description: 'Import source.')]

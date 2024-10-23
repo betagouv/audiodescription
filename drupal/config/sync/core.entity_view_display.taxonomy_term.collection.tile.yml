@@ -7,6 +7,7 @@ dependencies:
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
     - field.field.taxonomy_term.collection.field_taxo_movies
+    - field.field.taxonomy_term.collection.field_taxo_short_desc
     - taxonomy.vocabulary.collection
   module:
     - layout_builder
@@ -24,5 +25,6 @@ hidden:
   field_taxo_is_highlighted: true
   field_taxo_label_button_see_all: true
   field_taxo_movies: true
+  field_taxo_short_desc: true
   langcode: true
   search_api_excerpt: true

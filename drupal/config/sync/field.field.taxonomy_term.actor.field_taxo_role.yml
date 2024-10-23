@@ -1,17 +1,17 @@
-uuid: 274ebdc6-42c5-4f82-b1ec-eb8c186455da
+uuid: cbceb92b-1e03-4265-b15b-f3d080945007
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_taxo_firstname
+    - field.storage.taxonomy_term.field_taxo_role
     - taxonomy.vocabulary.actor
-id: taxonomy_term.actor.field_taxo_firstname
-field_name: field_taxo_firstname
+id: taxonomy_term.actor.field_taxo_role
+field_name: field_taxo_role
 entity_type: taxonomy_term
 bundle: actor
-label: Prénom
+label: Rôle
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

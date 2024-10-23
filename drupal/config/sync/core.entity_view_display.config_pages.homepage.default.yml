@@ -6,6 +6,7 @@ dependencies:
     - config_pages.type.homepage
     - field.field.config_pages.homepage.field_about_description
     - field.field.config_pages.homepage.field_about_email
+    - field.field.config_pages.homepage.field_about_pre_contact
     - field.field.config_pages.homepage.field_about_title
     - field.field.config_pages.homepage.field_collections_collections
     - field.field.config_pages.homepage.field_collections_title
@@ -16,6 +17,9 @@ dependencies:
     - field.field.config_pages.homepage.field_infos_ctas
     - field.field.config_pages.homepage.field_infos_description
     - field.field.config_pages.homepage.field_infos_title
+    - field.field.config_pages.homepage.field_last_movies_cta
+    - field.field.config_pages.homepage.field_last_movies_description
+    - field.field.config_pages.homepage.field_last_movies_title
   module:
     - entity_reference_revisions
     - text
@@ -37,6 +41,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_about_pre_contact:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 12
     region: content
   field_about_title:
     type: string
@@ -120,6 +132,30 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_last_movies_cta:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_last_movies_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_last_movies_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 13
     region: content
 hidden:
   search_api_excerpt: true

@@ -1,0 +1,22 @@
+uuid: fdec784b-9e77-4930-a3f3-8fce27c6aa99
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_last_movies_description
+  module:
+    - text
+id: config_pages.homepage.field_last_movies_description
+field_name: field_last_movies_description
+entity_type: config_pages
+bundle: homepage
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
