@@ -1,6 +1,6 @@
 <div class="ad-search-page fr-container">
   <div class="fr-mb-2w fr-mt-2w">
-    <p>{{ movies.total }} résultats correspondent à votre requête, dont {{ movies.totalWithAd }} résultat(s) avec une audiodescription.</p>
+    <p>{{ movies.total }} résultats pour "{{ filters.search }}" dont {{ movies.totalWithAd }} résultats avec audiodescription</p>
   </div>
 
   <div class="fr-mb-7w fr-grid-row">
@@ -13,14 +13,14 @@
   <div class="fr-mb-7w">
     {{ pattern('accordion', {
       title: 'Filtres',
-      content: filters,
+      content: filtersForm,
       expanded: true,
     }) }}
   </div>
 
   <div class="fr-mb-7w">
-    <h2>Films</h2>
-    <p>{{ movies.total }} résultats correspondent à votre requête ({{ movies.pageSize }} résultats affichés par page - Page 1 sur {{ movies.pagesCount }})</p>
+    <h2>{{ movies.total }} films trouvés</h2>
+    <p>{{ movies.pageSize }} résultats par page - {{ movies.pagesCount }} pages</p>
     {{ movies.items }}
     {% if movies.pagination is not null %}
       {{ pattern('pagination', {

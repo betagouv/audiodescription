@@ -56,7 +56,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $request = $this->requestStack->getCurrentRequest();
-    $search = $request->query->get('search');
+    $withAd = $request->query->get('with_ad');
 
     $form['ad'] = [
       '#type' => 'fieldset',
@@ -65,17 +65,18 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#collapsed' => FALSE,
     ];
 
-    $form['ad']['only'] = [
+    $form['ad']['with_ad'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Films audiodécrits uniquement'),
       '#default_value' => 0,
+      "#value" => $withAd
     ];
 
-    $form['ad']['marius'] = [
+    /**$form['ad']['marius'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Films primés par le prix Marius'),
       '#default_value' => 0,
-    ];
+    ];**/
 
     $form['infos'] = [
       '#type' => 'fieldset',
@@ -123,7 +124,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#suffix' => '</div>',
     ];
 
-    $options = [];
+    /**$options = [];
 
     $form['infos']['fields']['production_year'] = [
       '#type' => 'select',
@@ -133,7 +134,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#required' => FALSE,
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
-    ];
+    ];**/
 
     $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('public');
     $options = [];
@@ -153,14 +154,14 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#suffix' => '</div>',
     ];
 
-    $form['viewing'] = [
+    /**$form['viewing'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Visionnage'),
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
-    ];
+    ];**/
 
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('platform');
+    /**$terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('platform');
     $options = [];
 
     foreach ($terms as $term) {
@@ -174,13 +175,13 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       // Mettre à TRUE si vous voulez un select multiple.
       '#multiple' => TRUE,
       '#required' => FALSE,
-    ];
+    ];**/
 
-    $form['viewing']['free'] = [
+    /**$form['viewing']['free'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Films gratuits uniquement'),
       '#default_value' => 0,
-    ];
+    ];**/
 
     $form['submit'] = [
       '#type' => 'submit',

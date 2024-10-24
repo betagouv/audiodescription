@@ -84,7 +84,7 @@ class MovieSearchController extends ControllerBase {
 
     $offset = ($params->page - 1) * self::PAGE_SIZE;
 
-    [$total, $pagesCount, $entities] = $this->movieSearchManager->queryMovies($offset, self::PAGE_SIZE, $params->search);
+    [$total, $pagesCount, $entities] = $this->movieSearchManager->queryMovies($offset, self::PAGE_SIZE, $params);
 
     $totalWithAd = $this->movieSearchManager->countAdMovies($params->search);
 
@@ -103,7 +103,7 @@ class MovieSearchController extends ControllerBase {
     $pageSize = ($pagesCount > 1) ? self::PAGE_SIZE : $total;
 
     $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
-    $filters = $this->formBuilder->getForm('Drupal\audiodescription\Form\FiltersMovieSearchForm');
+    $filtersForm = $this->formBuilder->getForm('Drupal\audiodescription\Form\FiltersMovieSearchForm');
 
     return [
       '#theme' => 'movie_search',
@@ -117,9 +117,11 @@ class MovieSearchController extends ControllerBase {
         'totalWithAd' => $totalWithAd,
       ],
       '#form' => $form,
-      '#filters' => $filters,
+      '#filtersForm' => $filtersForm,
+      '#filters' => [
+        'search' => $params->search,
+      ],
       '#cache' => [
-        // Pas de mise en cache.
         'max-age' => 0,
       ],
     ];
