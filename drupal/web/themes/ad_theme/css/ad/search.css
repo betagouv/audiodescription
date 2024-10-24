@@ -5,3 +5,15 @@
 .ad-search__block-contact {
   background: var(--background-alt-blue-france);
 }
+
+.ad-legend {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  line-height: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+  .ad-legend {
+    font-size: 1.25rem !important;
+  }
+}

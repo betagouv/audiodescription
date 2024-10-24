@@ -83,6 +83,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
       'variables' => [
         'movies' => NULL,
         'form' => NULL,
+        'filters' => NULL,
       ],
     ],
     'header_search_form_block' => [

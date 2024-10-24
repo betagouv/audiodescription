@@ -1,12 +1,12 @@
-uuid: 1075b3e2-d68b-4668-975d-0f3ea0f145bb
+uuid: 38e8d95c-23f1-4185-bdbc-03e84a6473ff
 langcode: fr
 status: true
 dependencies:
   module:
     - entity_reference_revisions
     - paragraphs
-id: paragraph.field_pg_plateforms
-field_name: field_pg_plateforms
+id: paragraph.field_pg_platforms
+field_name: field_pg_platforms
 entity_type: paragraph
 type: entity_reference_revisions
 settings:

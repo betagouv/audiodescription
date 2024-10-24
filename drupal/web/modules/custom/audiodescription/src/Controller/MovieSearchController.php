@@ -102,7 +102,8 @@ class MovieSearchController extends ControllerBase {
 
     $pageSize = ($pagesCount > 1) ? self::PAGE_SIZE : $total;
 
-    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\FullMovieSearchForm');
+    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
+    $filters = $this->formBuilder->getForm('Drupal\audiodescription\Form\FiltersMovieSearchForm');
 
     return [
       '#theme' => 'movie_search',
@@ -116,6 +117,7 @@ class MovieSearchController extends ControllerBase {
         'totalWithAd' => $totalWithAd,
       ],
       '#form' => $form,
+      '#filters' => $filters,
       '#cache' => [
         // Pas de mise en cache.
         'max-age' => 0,

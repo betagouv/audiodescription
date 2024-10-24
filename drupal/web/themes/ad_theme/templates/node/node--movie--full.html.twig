@@ -73,14 +73,14 @@
       <div class="ad-watch-movie-block fr-mb-3w fr-mb-md-7w">
         <h2>{{ block_watch.field_pg_title.value }}</h2>
         <ul class="ad-watch-movie-block__list">
-         {% for pg in block_watch.field_pg_plateforms_types %}
-           {% set plateform_type = pg.entity %}
+         {% for pg in block_watch.field_pg_platforms_types %}
+           {% set platform_type = pg.entity %}
            <li>
-             <h3>{{ plateform_type.field_pg_title.value }}</h3>
+             <h3>{{ platform_type.field_pg_title.value }}</h3>
              <ul class="ad-watch-movie-block__list-platforms">
-               {% for entity in plateform_type.field_pg_plateforms %}
-                 {% set plateform = entity.entity %}
-                 {% set media = plateform.field_pg_image.get(0).entity %}
+               {% for entity in platform_type.field_pg_platforms %}
+                 {% set platform = entity.entity %}
+                 {% set media = platform.field_pg_platform.entity.field_taxo_logo.get(0).entity %}
                  {% set file_url = file_url(media.field_media_image.get(0).entity.uri.value) %}
 
                  <li class="ad-watch-movie-block__platform">
@@ -91,9 +91,9 @@
                      title: {
                        '#type': 'html_tag',
                        '#tag': 'a',
-                       '#value': plateform.field_pg_name.value,
+                       '#value': platform.field_pg_platform.entity.name.value,
                        '#attributes': {
-                         'href': plateform.field_pg_link.get(0).getUrl().toString(),
+                         'href': platform.field_pg_link.get(0).getUrl().toString(),
                        }
                      },
                      image: {
@@ -101,7 +101,7 @@
                        '#theme': 'image',
                        '#uri': file_url,
                      },
-                     description: plateform.field_pg_condition.value
+                     description: platform.field_pg_condition.value
                    }, 'horizontal') }}
                  </li>
                {% endfor %}

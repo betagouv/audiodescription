@@ -172,6 +172,9 @@ final class SynchronizeScratCommand extends DrushCommands {
             }
           }
         }
+
+        // Clear entities cache.
+        $this->entityTypeManager->clearCachedDefinitions();
       }
     }
     catch (\Throwable $t) {

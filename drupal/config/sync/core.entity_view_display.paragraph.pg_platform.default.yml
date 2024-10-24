@@ -1,0 +1,46 @@
+uuid: bf555872-2a80-4ce2-a6b0-b51669242de0
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_platform.field_pg_condition
+    - field.field.paragraph.pg_platform.field_pg_link
+    - field.field.paragraph.pg_platform.field_pg_platform
+    - paragraphs.paragraphs_type.pg_platform
+  module:
+    - link
+id: paragraph.pg_platform.default
+targetEntityType: paragraph
+bundle: pg_platform
+mode: default
+content:
+  field_pg_condition:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_pg_link:
+    type: link
+    label: visually_hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pg_platform:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  search_api_excerpt: true

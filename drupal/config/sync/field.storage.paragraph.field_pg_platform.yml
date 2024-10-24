@@ -1,17 +1,16 @@
-uuid: d0e4cbc1-9958-4291-b1bf-0d19506e7b2a
+uuid: 52cea674-5a90-43fb-8154-7a6bdbb7dbdd
 langcode: fr
 status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_pg_name
-field_name: field_pg_name
+    - taxonomy
+id: paragraph.field_pg_platform
+field_name: field_pg_platform
 entity_type: paragraph
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1

@@ -1,14 +1,14 @@
-uuid: da64b986-d8c9-4855-9dc6-dc2d2dc54d17
+uuid: ba7ab096-4d37-44f4-857a-4c0521f9b830
 langcode: fr
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_pg_condition
-    - paragraphs.paragraphs_type.pg_plateform
-id: paragraph.pg_plateform.field_pg_condition
+    - paragraphs.paragraphs_type.pg_platform
+id: paragraph.pg_platform.field_pg_condition
 field_name: field_pg_condition
 entity_type: paragraph
-bundle: pg_plateform
+bundle: pg_platform
 label: Condition
 description: ''
 required: false

@@ -1,15 +1,15 @@
-uuid: 160fc8de-76fe-4a80-bb63-6ffeff74bfe8
+uuid: f9c43f77-ae84-4650-9ff5-ae23990f27f8
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_pg_image
+    - field.storage.taxonomy_term.field_taxo_logo
     - media.type.image
-    - paragraphs.paragraphs_type.pg_plateform
-id: paragraph.pg_plateform.field_pg_image
-field_name: field_pg_image
-entity_type: paragraph
-bundle: pg_plateform
+    - taxonomy.vocabulary.platform
+id: taxonomy_term.platform.field_taxo_logo
+field_name: field_taxo_logo
+entity_type: taxonomy_term
+bundle: platform
 label: Logo
 description: ''
 required: true

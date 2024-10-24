@@ -1,16 +1,16 @@
-uuid: 24d8bff1-6886-4e44-bfeb-78238a5d3968
+uuid: 504fc288-611d-417f-9028-b25bb33b97ca
 langcode: fr
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_pg_link
-    - paragraphs.paragraphs_type.pg_plateform
+    - paragraphs.paragraphs_type.pg_platform
   module:
     - link
-id: paragraph.pg_plateform.field_pg_link
+id: paragraph.pg_platform.field_pg_link
 field_name: field_pg_link
 entity_type: paragraph
-bundle: pg_plateform
+bundle: pg_platform
 label: Lien
 description: ''
 required: true
@@ -19,5 +19,5 @@ default_value: {  }
 default_value_callback: ''
 settings:
   title: 0
-  link_type: 17
+  link_type: 16
 field_type: link

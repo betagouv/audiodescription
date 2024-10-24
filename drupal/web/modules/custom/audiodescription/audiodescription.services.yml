@@ -81,6 +81,11 @@ services:
     tags:
       - { name: breadcrumb_builder, priority: 100 }
 
+  audiodescription.search.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\SearchBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+
   audiodescription.view.breadcrumb:
     class: Drupal\audiodescription\Breadcrumb\ViewBreadcrumbBuilder
     arguments: ['@entity_type.manager', '@menu.link_tree']
