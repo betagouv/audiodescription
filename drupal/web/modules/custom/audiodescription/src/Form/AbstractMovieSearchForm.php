@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormBase;
 abstract class AbstractMovieSearchForm extends FormBase {
 
   /**
-   * Get base parameters (without filters) to build URL.
+   * Get base parameters to build URL.
    */
   protected function getBaseParameters($form_state) {
     $parameters = [];

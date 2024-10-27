@@ -23,3 +23,9 @@ simple_greeting:
     lit/simple-greeting.js: { attributes : { type: module } }
   dependencies:
     - ad_theme/lit
+
+lit_components:
+  js:
+    lit/rich-select.js: { attributes : { type: module } }
+  dependencies:
+    - ad_theme/lit

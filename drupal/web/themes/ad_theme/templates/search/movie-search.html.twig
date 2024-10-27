@@ -3,16 +3,16 @@
     <p>{{ movies.total }} résultats pour "{{ filters.search }}" dont {{ movies.totalWithAd }} résultats avec audiodescription</p>
   </div>
 
-  <div class="fr-mb-7w fr-grid-row">
+  {# <div class="fr-mb-7w fr-grid-row">
     <div class="fr-col-12 fr-col-lg-8">
       {{ form }}
     </div>
-  </div>
+  </div> #}
 
 
   <div class="fr-mb-7w">
     {{ pattern('accordion', {
-      title: 'Filtres',
+      title: 'Filtrer les résultats',
       content: filtersForm,
       expanded: true,
     }) }}

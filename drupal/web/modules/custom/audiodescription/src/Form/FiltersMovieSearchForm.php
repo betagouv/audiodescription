@@ -56,7 +56,22 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $request = $this->requestStack->getCurrentRequest();
-    $withAd = $request->query->get('with_ad');
+    $selectedWithAd = $request->query->get('with_ad');
+    $selectedGenres = $request->query->getIterator()['genre'] ?? [];
+    $selectedNationalities = $request->query->getIterator()['nationality'] ?? [];
+    $selectedPublics = $request->query->getIterator()['public'] ?? [];
+
+    $search = $request->query->get('search');
+
+    $form['search'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Rechercher un film'),
+      '#size' => 30,
+      '#maxlength' => 128,
+      '#value' => $search,
+      '#prefix' => '<div class="fr-mt-1w fr-mb-5w" role="search">',
+      '#suffix' => '</div>',
+    ];
 
     $form['ad'] = [
       '#type' => 'fieldset',
@@ -69,7 +84,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Films audiodécrits uniquement'),
       '#default_value' => 0,
-      "#value" => $withAd
+      "#value" => $selectedWithAd
     ];
 
     /**$form['ad']['marius'] = [
@@ -105,6 +120,8 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#required' => FALSE,
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
+      '#default_value' => $selectedGenres,
+      '#field_widget_type' => 'rich_select_widget',
     ];
 
     $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('nationality');
@@ -122,6 +139,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#required' => FALSE,
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
+      '#default_value' => $selectedNationalities,
     ];
 
     /**$options = [];
@@ -152,6 +170,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#required' => FALSE,
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
+      '#default_value' => $selectedPublics
     ];
 
     /**$form['viewing'] = [
