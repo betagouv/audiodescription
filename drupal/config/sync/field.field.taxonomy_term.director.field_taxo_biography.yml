@@ -1,0 +1,22 @@
+uuid: d610df08-9be1-4f05-bf4d-0a800ec89ab3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_biography
+    - taxonomy.vocabulary.director
+  module:
+    - text
+id: taxonomy_term.director.field_taxo_biography
+field_name: field_taxo_biography
+entity_type: taxonomy_term
+bundle: director
+label: Biographie
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

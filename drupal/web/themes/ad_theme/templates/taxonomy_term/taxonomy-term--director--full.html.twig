@@ -1,0 +1,59 @@
+
+<div{{ attributes }}>
+  <div class="fr-container">
+    <div class="fr-mb-3w fr-mb-md-7w">
+      {% set poster_uri = term.field_taxo_picture.entity.field_media_image.entity.uri.value %}
+
+      {% if poster_uri is not empty %}
+        {% set imagestyle = {
+          '#theme':      'image_style',
+          '#style_name': 'poster',
+          '#uri':        poster_uri,
+        } %}
+
+        <div class="fr-mb-4w">
+          {{ imagestyle }}
+        </div>
+      {% endif %}
+
+      <h1>{{ term.name.value }}</h1>
+
+      {{ term.field_taxo_biography.value|raw }}
+
+      {% if movies|length == 1 %}
+        <h2>Son film avec audiodescription</h2>
+      {% elseif movies|length > 1 %}
+        <h2>Ses films avec audiodescription</h2>
+      {% endif %}
+
+      {% for movie in movies %}
+        {% set has_ad = 'Oui' %}
+
+        {% set synopsis = movie.field_synopsis.value|render|striptags %}
+
+        {% if synopsis is empty %}
+          {% set synopsis = 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.' %}
+        {% endif %}
+
+        {% set movie_url = path('entity.node.canonical', {'node': movie.nid.value}) %}
+
+        {% set title = {
+          '#type': 'html_tag',
+          '#tag': 'a',
+          '#value': movie.title.value,
+          '#attributes': {
+            'href': movie_url,
+          }
+        } %}
+
+        {{ pattern('card', {
+          horizontal_ratio: 'tier',
+          enlarge_link: true,
+          title_tag: 'p',
+          title: title,
+          description: synopsis
+        }, 'horizontal') }}
+      {% endfor %}
+    </div>
+  </div>
+</div>

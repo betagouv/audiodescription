@@ -92,13 +92,18 @@ services:
     tags:
       - { name: breadcrumb_builder, priority: 100 }
 
-  audiodescription.genre.breadcrumb:
-    class: Drupal\audiodescription\Breadcrumb\GenreBreadcrumbBuilder
+  audiodescription.collection.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\CollectionBreadcrumbBuilder
     tags:
       - { name: breadcrumb_builder, priority: 1010 }
 
-  audiodescription.collection.breadcrumb:
-    class: Drupal\audiodescription\Breadcrumb\CollectionBreadcrumbBuilder
+  audiodescription.director.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\DirectorBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 1010 }
+
+  audiodescription.genre.breadcrumb:
+    class: Drupal\audiodescription\Breadcrumb\GenreBreadcrumbBuilder
     tags:
       - { name: breadcrumb_builder, priority: 1010 }
 
@@ -106,6 +111,8 @@ services:
     class: Drupal\audiodescription\TwigExtension\WysiwygChapoTwigFilter
     tags:
       - { name: twig.extension }
+
+
 parameters:
   cnc_movies_file: 'modules/custom/audiodescription/files/full-movies.csv'
   cnc_publics_file: 'modules/custom/audiodescription/files/publics.csv'

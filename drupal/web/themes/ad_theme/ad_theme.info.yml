@@ -3,7 +3,7 @@ type: theme
 base theme: ui_suite_dsfr
 description: Audiodescription platform theme
 package: audiodescription
-core_version_requirement: ^10
+core_version_requirement: ^10|^11
 libraries:
   - ad_theme/global
   - ad_theme/fix

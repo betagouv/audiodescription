@@ -3,19 +3,31 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.director.field_taxo_biography
     - field.field.taxonomy_term.director.field_taxo_code
     - field.field.taxonomy_term.director.field_taxo_firstname
+    - field.field.taxonomy_term.director.field_taxo_picture
     - taxonomy.vocabulary.director
   module:
+    - media_library
     - path
+    - text
 id: taxonomy_term.director.default
 targetEntityType: taxonomy_term
 bundle: director
 mode: default
 content:
+  field_taxo_biography:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_taxo_code:
     type: string_textfield
-    weight: 1
+    weight: 4
     region: content
     settings:
       size: 60
@@ -29,6 +41,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_taxo_picture:
+    type: media_library_widget
+    weight: 2
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -39,7 +58,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 2
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }

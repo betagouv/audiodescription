@@ -14,3 +14,6 @@
 .admin-toolbar {
   z-index: 1001;
 }
+
+.ad-dropdown { display: none; }
+.ad-dropdown--visible { display: block; }

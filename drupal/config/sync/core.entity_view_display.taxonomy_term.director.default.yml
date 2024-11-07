@@ -3,8 +3,10 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.director.field_taxo_biography
     - field.field.taxonomy_term.director.field_taxo_code
     - field.field.taxonomy_term.director.field_taxo_firstname
+    - field.field.taxonomy_term.director.field_taxo_picture
     - taxonomy.vocabulary.director
   module:
     - text
@@ -13,29 +15,32 @@ targetEntityType: taxonomy_term
 bundle: director
 mode: default
 content:
-  description:
+  field_taxo_biography:
     type: text_default
-    label: hidden
+    label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
-    region: content
-  field_taxo_code:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_taxo_firstname:
     type: string
-    label: above
+    label: visually_hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
     region: content
+  field_taxo_picture:
+    type: entity_reference_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
+  description: true
+  field_taxo_code: true
   langcode: true
   search_api_excerpt: true
