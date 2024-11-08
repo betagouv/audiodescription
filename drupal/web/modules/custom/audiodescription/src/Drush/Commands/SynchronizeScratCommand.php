@@ -4,11 +4,11 @@ namespace Drupal\audiodescription\Drush\Commands;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileExists;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\audiodescription\EntityManager\ActorManager;
 use Drupal\audiodescription\EntityManager\GenreManager;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\media\Entity\Media;
+use Drupal\pathauto\AliasCleanerInterface;
 use Drush\Attributes as CLI;
 use Drush\Commands\DrushCommands;
 use GuzzleHttp\ClientInterface;
@@ -26,11 +26,10 @@ final class SynchronizeScratCommand extends DrushCommands {
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
     private readonly ClientInterface $httpClient,
-    protected null|LoggerInterface $logger,
     private GenreManager $genreManager,
     private ActorManager $actorManager,
-    private FileSystemInterface $fileSystem,
     private FileRepositoryInterface $fileRepository,
+    private AliasCleanerInterface $aliasCleaner
   ) {
     parent::__construct();
   }
@@ -42,11 +41,10 @@ final class SynchronizeScratCommand extends DrushCommands {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('http_client'),
-      $container->get('logger.channel.default'),
       $container->get('audiodescription.manager.genre'),
       $container->get('audiodescription.manager.actor'),
-      $container->get('file_system'),
-      $container->get('file.repository')
+      $container->get('file.repository'),
+      $container->get('pathauto.alias_cleaner')
     );
   }
 
@@ -121,7 +119,14 @@ final class SynchronizeScratCommand extends DrushCommands {
                 $posterUrl = $data['cover'];
                 $response = $this->httpClient->get($posterUrl, ['stream' => TRUE]);
                 if ($response->getStatusCode() === 200) {
-                  $fileName = basename($posterUrl);
+                  $movieTitle = $this->aliasCleaner->cleanString($node->title->value);
+
+                  $parsedUrl = parse_url($posterUrl);
+                  $pathInfo = pathinfo($parsedUrl['path']);
+                  $extension = $pathInfo['extension'] ?? 'jpg';
+
+                  $fileName = $movieTitle . '_' . $node->id() . '.' . $extension;
+
                   $fileData = $response->getBody()->getContents();
                   $destination = 'public://posters/' . $fileName;
                   $file = $this->fileRepository->writeData($fileData, $destination, FileExists::Replace);
@@ -157,18 +162,12 @@ final class SynchronizeScratCommand extends DrushCommands {
               $node->save();
 
               dump('************************************');
-              dump($node->title->value . ' synchronized');
+              dump($node->title->value . ' (' . $node->id() . ') synchronized');
               dump('************************************');
 
             }
             catch (\Exception $e) {
-              /*
-               * $this->logger->error(
-               * 'Erreur lors de l\'appel à l\'API: @message',
-               * ['@message' => $e->getMessage()]
-               * );
-               */
-              dump($node->title->value . ' non trouvé dans l\'API Scrat');
+              dump($node->title->value . ' (' . $node->id() . ') non trouvé dans l\'API Scrat');
             }
           }
         }
