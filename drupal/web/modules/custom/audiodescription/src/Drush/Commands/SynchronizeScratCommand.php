@@ -174,11 +174,13 @@ final class SynchronizeScratCommand extends DrushCommands {
 
         // Clear entities cache.
         $this->entityTypeManager->clearCachedDefinitions();
+        $this->entityTypeManager->getStorage('node')->resetCache(array_keys($nids));
       }
     }
     catch (\Throwable $t) {
       // $this->logger()->error('Erreur fatale : ' . $t->getMessage());
       dump("Erreur fatale");
+      dump("Erreur fatale" . $t->getMessage());
     };
   }
 
