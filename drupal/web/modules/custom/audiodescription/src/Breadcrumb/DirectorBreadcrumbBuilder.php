@@ -26,7 +26,7 @@ class DirectorBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
-    $breadcrumb->addCacheContexts(['url', 'route']);
+    $breadcrumb->addCacheContexts(['url.path', 'route']);
 
     // Add the 'Home' link.
     $breadcrumb->addLink(Link::createFromRoute(t('Home'), '<front>'));

@@ -26,8 +26,7 @@ class MovieBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
-
-    $breadcrumb->addCacheContexts(["url"]);
+    $breadcrumb->addCacheContexts(['url.path', 'route']);
 
     $breadcrumb->addLink(Link::createFromRoute(t('Home'), '<front>'));
 
