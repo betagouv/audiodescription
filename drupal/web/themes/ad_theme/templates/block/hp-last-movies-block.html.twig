@@ -37,16 +37,14 @@
 
 
     {# <div class="fr-mb-3w">
-      {% set button = pattern('button', {
-        label: cta.text,
-        url: cta.url,
-        target: cta.target,
-        external: cta.external
-      }, cta.style) %}
-
-      {{ pattern('button_group', {
-        buttons: [ button ]
-      }, 'inline__center') }}
+      <div class="fr-btns-group--inline fr-btns-group--center fr-btns-group">
+        {{ pattern('button', {
+          label: cta.text,
+          url: cta.url,
+          target: cta.target,
+          external: cta.external
+        }, cta.style) }}
+      </div>
     </div> #}
   </div>
 </div>

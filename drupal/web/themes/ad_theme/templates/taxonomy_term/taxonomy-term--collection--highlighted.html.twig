@@ -33,14 +33,13 @@
 
 
     <div class="fr-mb-3w">
-      {{ pattern('button_group', {
-        buttons: [
-          pattern('button', {
-            label: term.field_taxo_label_button_see_all.value,
-            url: url,
-            target: 'self',
-          }, 'secondary')
-        ]
-      }, 'inline__center') }}
+      <div class="fr-btns-group--inline fr-btns-group--center fr-btns-group">
+        {{ pattern('button', {
+          label: term.field_taxo_label_button_see_all.value,
+          url: url,
+          target: 'self',
+        }, 'secondary') }}
+      </div>
+
     </div>
   </div>
