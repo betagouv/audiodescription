@@ -23,11 +23,13 @@
           {% set directors = [] %}
           {% for director in node.field_directors %}
             {% set entity = director.entity %}
-            {% set directors = directors|merge([entity.name.value]) %}
+
+            {% set link = '<a href="' ~ path('entity.taxonomy_term.canonical', {'taxonomy_term': entity.id}) ~ '">' ~ entity.name.value|t ~ '</a>' %}
+            {% set directors = directors|merge([link]) %}
           {% endfor %}
 
           <p class="ad-movies-infos-title">
-            <strong>Réalisation : </strong> {{ directors|join(', ') }}
+            <strong>Réalisation : </strong> {{ directors|join(', ')|raw }}
           </p>
         {% endif %}
 

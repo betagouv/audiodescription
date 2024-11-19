@@ -46,13 +46,15 @@
           }
         } %}
 
-        {{ pattern('card', {
-          horizontal_ratio: 'tier',
-          enlarge_link: true,
-          title_tag: 'p',
-          title: title,
-          description: synopsis
-        }, 'horizontal') }}
+        <div class="fr-mt-3w fr-mb-3w">
+          {{ pattern('card', {
+            horizontal_ratio: 'tier',
+            enlarge_link: true,
+            title_tag: 'p',
+            title: title,
+            description: synopsis,
+          }, 'horizontal') }}
+        </div>
       {% endfor %}
     </div>
   </div>
