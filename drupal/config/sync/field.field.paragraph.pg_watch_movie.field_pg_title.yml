@@ -15,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: 'Regarder ce film'
+    value: 'Où regarder ce film'
 default_value_callback: ''
 settings: {  }
 field_type: string
