@@ -79,6 +79,9 @@
            {% set platform_type = pg.entity %}
            <li>
              <h3>{{ platform_type.field_pg_title.value }}</h3>
+             {% if platform_type.field_pg_description.value is not empty %}
+               <p>{{ platform_type.field_pg_description.value }}</p>
+             {% endif %}
              <ul class="ad-watch-movie-block__list-platforms">
                {% for entity in platform_type.field_pg_platforms %}
                  {% set platform = entity.entity %}

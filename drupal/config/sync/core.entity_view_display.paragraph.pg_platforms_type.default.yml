@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.paragraph.pg_platforms_type.field_pg_description
     - field.field.paragraph.pg_platforms_type.field_pg_platforms
     - field.field.paragraph.pg_platforms_type.field_pg_title
     - paragraphs.paragraphs_type.pg_platforms_type
@@ -13,6 +14,13 @@ targetEntityType: paragraph
 bundle: pg_platforms_type
 mode: default
 content:
+  field_pg_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_pg_platforms:
     type: entity_reference_revisions_entity_view
     label: above
