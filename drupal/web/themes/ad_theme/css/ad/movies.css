@@ -34,3 +34,7 @@
     width: calc(50% - 1rem);
   }
 }
+
+.fr-card--no-hover .fr-enlarge-link:hover {
+  background-color: initial !important;
+}

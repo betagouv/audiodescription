@@ -31,13 +31,15 @@
 
   {% else %}
 
-    {{ pattern('card', {
-      horizontal_ratio: 'tier',
-      enlarge_link: true,
-      title_tag: 'p',
-      title: title,
-      description: synopsis
-    }, 'horizontal') }}
+    <div class="fr-card--no-hover">
+      {{ pattern('card', {
+        horizontal_ratio: 'tier',
+        enlarge_link: true,
+        title_tag: 'p',
+        title: title,
+        description: synopsis
+      }, 'horizontal') }}
+    </div>
 
   {% endif %}
 
