@@ -38,3 +38,7 @@
 .fr-card--no-hover .fr-enlarge-link:hover {
   background-color: initial !important;
 }
+
+.fr-card__start {
+  margin-bottom: .75rem !important;
+}
