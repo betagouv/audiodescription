@@ -37,4 +37,29 @@ class MovieSearchParametersBag {
     return new self($search, $page, $withAD, $genre, $nationality, $public);
   }
 
+  public function filtersToArray()
+  {
+    $array = [];
+
+    $array['search'] = $this->search;
+
+    if ($this->withAd == true) {
+      $array['with_ad'] = $this->withAd;
+    }
+
+    if (!empty($this->genre)){
+      $array['genre'] = $this->genre;
+    }
+
+    if (!empty($this->nationality)){
+      $array['nationality'] = $this->nationality;
+    }
+
+    if (!empty($this->public)){
+      $array['public'] = $this->public;
+    }
+
+    return $array;
+  }
+
 }

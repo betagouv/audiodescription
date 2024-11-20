@@ -131,29 +131,20 @@ class MovieSearchController extends ControllerBase {
    * Build pagination.
    */
   private function buildPagination(MovieSearchParametersBag $params, int $pagesCount) {
-    $parameters = [
-      'page' => 1,
-      'search' => $params->search,
-    ];
-    $first = ($params->page == 1) ? FALSE : $this->buildUrl($parameters);
+    $parameters = $params->filtersToArray();
+    $urlParameters = $parameters;
+    $urlParameters['page'] = 1;
 
-    $parameters = [
-      'page' => $params->page - 1,
-      'search' => $params->search,
-    ];
-    $prev = ($params->page == 1) ? FALSE : $this->buildUrl($parameters);
+    $first = ($params->page == 1) ? FALSE : $this->buildUrl($urlParameters);
 
-    $parameters = [
-      'page' => $params->page + 1,
-      'search' => $params->search,
-    ];
-    $next = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($parameters);
+    $urlParameters['page'] = $params->page - 1;
+    $prev = ($params->page == 1) ? FALSE : $this->buildUrl($urlParameters);
 
-    $parameters = [
-      'page' => $pagesCount,
-      'search' => $params->search,
-    ];
-    $last = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($parameters);
+    $urlParameters['page'] = $params->page + 1;
+    $next = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($urlParameters);
+
+    $urlParameters['page'] = $pagesCount;
+    $last = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($urlParameters);
 
     $befores = [];
     $afters = [];
@@ -174,13 +165,11 @@ class MovieSearchController extends ControllerBase {
     sort($befores);
     $pages = [];
     foreach ($befores as $before) {
-      $parameters = [
-        'page' => $before,
-        'search' => $params->search,
-      ];
+      $urlParameters['page'] = $before;
+
       $pages[] = [
         'title' => $before,
-        'url' => $this->buildUrl($parameters),
+        'url' => $this->buildUrl($urlParameters),
       ];
     }
 
@@ -189,13 +178,10 @@ class MovieSearchController extends ControllerBase {
     ];
 
     foreach ($afters as $after) {
-      $parameters = [
-        'page' => $after,
-        'search' => $params->search,
-      ];
+      $urlParameters['page'] = $after;
       $pages[] = [
         'title' => $after,
-        'url' => $this->buildUrl($parameters),
+        'url' => $this->buildUrl($urlParameters),
       ];
     }
 
