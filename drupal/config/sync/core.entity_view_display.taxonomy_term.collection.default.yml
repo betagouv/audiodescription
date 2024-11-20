@@ -8,39 +8,16 @@ dependencies:
     - field.field.taxonomy_term.collection.field_taxo_movies
     - field.field.taxonomy_term.collection.field_taxo_short_desc
     - taxonomy.vocabulary.collection
-  module:
-    - text
 id: taxonomy_term.collection.default
 targetEntityType: taxonomy_term
 bundle: collection
 mode: default
-content:
-  description:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_taxo_movies:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: teaser
-      link: false
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_taxo_short_desc:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
+content: {  }
 hidden:
+  description: true
   field_taxo_is_highlighted: true
   field_taxo_label_button_see_all: true
+  field_taxo_movies: true
+  field_taxo_short_desc: true
   langcode: true
   search_api_excerpt: true
