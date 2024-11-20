@@ -25,7 +25,7 @@ class CollectionBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
-    $breadcrumb->addCacheContexts(['url.path', 'route']);
+    $breadcrumb->addCacheContexts(['url']);
 
     // Add the 'Home' link.
     $breadcrumb->addLink(Link::createFromRoute(t('Home'), '<front>'));
