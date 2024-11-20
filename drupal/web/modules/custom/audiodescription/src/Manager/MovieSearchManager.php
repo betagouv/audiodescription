@@ -35,7 +35,7 @@ class MovieSearchManager {
   public function queryMovies(int $offset, int $pageSize, ?MovieSearchParametersBag $params) :array {
     $query = $this->moviesIndex->query();
 
-    $search = $params->search ?? null();
+    $search = $params->search ?? null;
     if (!is_null($search)) {
       $query->keys($search);
     }
@@ -104,12 +104,43 @@ class MovieSearchManager {
   /**
    * Count number of movies with AD.
    */
-  public function countAdMovies(?string $search): int {
+  public function countAdMovies(MovieSearchParametersBag $params): int {
     $queryWithAd = $this->moviesIndex->query();
 
-    if (!is_null($search)) {
-      $queryWithAd->keys($search);
+    if (!is_null($params->search)) {
+      $queryWithAd->keys($params->search);
     }
+
+    if (!empty($params->genre)) {
+      $andGroup = $queryWithAd->createConditionGroup('AND');
+
+      foreach ($params->genre as $genre) {
+        $andGroup->addCondition('field_genres', $genre, '=');
+      }
+
+      $queryWithAd->addConditionGroup($andGroup);
+    }
+
+    if (!empty($params->nationality)) {
+      $andGroup = $queryWithAd->createConditionGroup('AND');
+
+      foreach ($params->nationality as $nationality) {
+        $andGroup->addCondition('field_nationalities', $nationality, '=');
+      }
+
+      $queryWithAd->addConditionGroup($andGroup);
+    }
+
+    if (!empty($params->public)) {
+      $andGroup = $queryWithAd->createConditionGroup('OR');
+
+      foreach ($params->public as $public) {
+        $andGroup->addCondition('field_public', $public, '=');
+      }
+
+      $queryWithAd->addConditionGroup($andGroup);
+    }
+
     $queryWithAd->addCondition('field_has_ad', 1);
     $results = $queryWithAd->execute();
 

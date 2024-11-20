@@ -86,7 +86,7 @@ class MovieSearchController extends ControllerBase {
 
     [$total, $pagesCount, $entities] = $this->movieSearchManager->queryMovies($offset, self::PAGE_SIZE, $params);
 
-    $totalWithAd = $this->movieSearchManager->countAdMovies($params->search);
+    $totalWithAd = $this->movieSearchManager->countAdMovies($params);
 
     $renderedEntities = [];
 
