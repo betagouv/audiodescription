@@ -42,3 +42,18 @@
 .fr-card__start {
   margin-bottom: .75rem !important;
 }
+
+.fr-card__tags.fr-tags-group {
+  order: 4;
+}
+
+@media (min-width: 768px) {
+  .fr-card.fr-card--horizontal-fifth {
+    min-height: 330px;
+  }
+  .fr-card.fr-card--horizontal-fifth .fr-card__header {
+    flex: 0 0 20%;
+    width: 20%;
+  }
+}
+
