@@ -95,6 +95,7 @@ class HomepageController extends ControllerBase {
     $infos = [
       'title' => $homepage->get('field_infos_title')->value,
       'description' => $homepage->get('field_infos_description')->value,
+      'image' => $homepage->get('field_infos_image')->entity->field_media_image->entity->uri->value,
       'ctas' => $ctas,
     ];
 

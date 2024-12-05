@@ -18,6 +18,7 @@ dependencies:
     - field.field.config_pages.homepage.field_header_with_search_bar
     - field.field.config_pages.homepage.field_infos_ctas
     - field.field.config_pages.homepage.field_infos_description
+    - field.field.config_pages.homepage.field_infos_image
     - field.field.config_pages.homepage.field_infos_title
     - field.field.config_pages.homepage.field_last_movies_cta
     - field.field.config_pages.homepage.field_last_movies_description
@@ -144,6 +145,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_infos_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_infos_title:
     type: string

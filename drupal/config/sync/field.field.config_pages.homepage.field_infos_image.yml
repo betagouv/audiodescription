@@ -1,0 +1,29 @@
+uuid: 211d0c20-b423-4d9c-85e6-a556d298f3e6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_infos_image
+    - media.type.image
+id: config_pages.homepage.field_infos_image
+field_name: field_infos_image
+entity_type: config_pages
+bundle: homepage
+label: Image
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
