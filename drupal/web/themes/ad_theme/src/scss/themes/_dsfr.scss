@@ -5,3 +5,10 @@
 .fr-tile {
   background-size: 100% 2px,2px 100%,2px 100%,100% 2px;
 }
+
+.fr-badge {
+  text-transform: math-auto;
+  &--purple-glycine {
+    color: #4B2639;
+  }
+}
