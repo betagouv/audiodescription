@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - config_pages.type.wordings
+    - field.field.config_pages.wordings.field_info_banner_description
+    - field.field.config_pages.wordings.field_info_banner_title
     - field.field.config_pages.wordings.field_search_bk_contact_cta
     - field.field.config_pages.wordings.field_search_bk_contact_desc
     - field.field.config_pages.wordings.field_search_bk_contact_title
@@ -17,6 +19,22 @@ targetEntityType: config_pages
 bundle: wordings
 mode: default
 content:
+  field_info_banner_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_info_banner_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
   field_search_bk_contact_cta:
     type: entity_reference_revisions_entity_view
     label: above

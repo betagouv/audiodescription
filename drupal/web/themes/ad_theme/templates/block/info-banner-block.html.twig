@@ -1,0 +1,15 @@
+{% if title is not empty %}
+  <div class="fr-notice fr-notice--info">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p>
+          <span class="fr-notice__title">{{ title }}</span>
+          {% if description is not empty %}
+             :
+            <span class="fr-notice__desc">{{ description }}</span>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,20 @@
+uuid: 18aa13bc-9129-45ea-905a-5ce02be82808
+langcode: fr
+status: true
+dependencies:
+  module:
+    - audiodescription
+  theme:
+    - ad_theme
+id: ad_info_banner_block
+theme: ad_theme
+region: top
+weight: 0
+provider: null
+plugin: info_banner_block
+settings:
+  id: info_banner_block
+  label: 'Information Banner Block'
+  label_display: '0'
+  provider: audiodescription
+visibility: {  }

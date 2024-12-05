@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - config_pages.type.wordings
+    - field.field.config_pages.wordings.field_info_banner_description
+    - field.field.config_pages.wordings.field_info_banner_title
     - field.field.config_pages.wordings.field_search_bk_contact_cta
     - field.field.config_pages.wordings.field_search_bk_contact_desc
     - field.field.config_pages.wordings.field_search_bk_contact_title
@@ -23,7 +25,7 @@ third_party_settings:
       label: Genres
       region: content
       parent_name: ''
-      weight: 0
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -40,7 +42,23 @@ third_party_settings:
       label: Recherche
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+    group_info_banner:
+      children:
+        - field_info_banner_title
+        - field_info_banner_description
+      label: "Bandeau d'information"
+      region: content
+      parent_name: ''
+      weight: 0
       format_type: fieldset
       format_settings:
         classes: ''
@@ -54,6 +72,22 @@ targetEntityType: config_pages
 bundle: wordings
 mode: default
 content:
+  field_info_banner_description:
+    type: string_textfield
+    weight: 7
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_info_banner_title:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_search_bk_contact_cta:
     type: paragraphs
     weight: 4

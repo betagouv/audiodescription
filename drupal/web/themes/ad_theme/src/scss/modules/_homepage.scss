@@ -1,0 +1,26 @@
+.ad-homepage {
+  &__infos {
+    &-content {
+      order: 2;
+    }
+
+    &-image {
+      order: 1;
+      text-align: center;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .ad-homepage {
+    &__infos {
+      &-content {
+        order: 1;
+      }
+
+      &-image {
+        order: 2;
+      }
+    }
+  }
+}

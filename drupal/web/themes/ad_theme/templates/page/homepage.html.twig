@@ -28,10 +28,10 @@
   {{ collections }}
 {% endif %}
 
-<div class="block">
+<div class="block ad-homepage__infos">
   <div class="fr-container">
       <div class="fr-grid-row">
-        <div class="fr-col-12 fr-col-lg-6">
+        <div class="fr-col-12 fr-col-lg-6 ad-homepage__infos-content">
           <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
             <h2>{{ infos.title }}</h2>
             {{ infos.description|class2wysiwygP('fr-text--lead')|raw }}
@@ -49,13 +49,16 @@
               {% set buttons = buttons | merge([button]) %}
             {% endfor %}
 
-            {{ pattern('button_group', {
-              buttons: buttons,
-              inline_from: 'md',
-            }, 'default') }}
+            <div class="fr-grid-row">
+              <div class="fr-col-8">
+                {{ pattern('button_group', {
+                  buttons: buttons,
+                }, 'default') }}
+              </div>
+            </div>
           </div>
         </div>
-        <div class="fr-col-12 fr-col-lg-6">
+        <div class="fr-col-12 fr-col-lg-6 ad-homepage__infos-image">
           <img src="{{ file_url(infos.image) }}" alt="" />
         </div>
       </div>

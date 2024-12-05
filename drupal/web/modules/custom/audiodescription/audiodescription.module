@@ -76,6 +76,15 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'cta' => NULL,
       ],
     ],
+    'info_banner_block' => [
+      'render element' => 'children',
+      'template' => 'info_banner-block',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => NULL,
+        'description' => NULL,
+      ],
+    ],
     'movie_search' => [
       'render element' => 'children',
       'template' => 'movie-search',
