@@ -66,7 +66,6 @@
     <span class="field-prefix">{{ prefix }}</span>
   {% endif %}
 
-  {{ children }}
   {% if suffix is not empty %}
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
@@ -83,4 +82,14 @@
     </div>
   {% endif %}
 </div>
+
+<rich-select
+  title="{{ title }}"
+  singular_title="{{ singular_title }}"
+  plural_title="{{ plural_title }}"
+  options="{{ options }}"
+  name="{{ name }}"
+  selected="{{ selected }}"
+  {% if is_female %} is_female {% endif %}
+></rich-select>
 

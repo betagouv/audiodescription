@@ -121,7 +121,9 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
       '#default_value' => $selectedGenres,
-      '#field_widget_type' => 'rich_select_widget',
+      '#singular_title' => 'genre',
+      '#plural_title' => 'genres',
+      '#is_female' => FALSE,
     ];
 
     $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('nationality');
@@ -140,6 +142,9 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
       '#default_value' => $selectedNationalities,
+      '#singular_title' => 'nationalité',
+      '#plural_title' => 'nationalités',
+      '#is_female' => TRUE,
     ];
 
     /**$options = [];
@@ -170,7 +175,10 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#required' => FALSE,
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
-      '#default_value' => $selectedPublics
+      '#default_value' => $selectedPublics,
+      '#singular_title' => 'public',
+      '#plural_title' => 'publics',
+      '#is_female' => FALSE,
     ];
 
     /**$form['viewing'] = [

@@ -1,31 +1,9 @@
 # Main theme library.
 global:
   js:
-    js/ad-theme.js: {}
-ad:
+    dist/scripts.js: { }
   css:
-    component:
-      css/ad/block.css: {}
-      css/ad/movies.css: {}
-      css/ad/search.css: {}
-fix:
-  version: VERSION
-  css:
-    component:
-      css/fix.css: { }
-
-lit:
-  js:
-    /libraries/lit/lit-all.min.js: { attributes : { type: module } }
-
-simple_greeting:
-  js:
-    lit/simple-greeting.js: { attributes : { type: module } }
-  dependencies:
-    - ad_theme/lit
-
-lit_components:
-  js:
-    lit/rich-select.js: { attributes : { type: module } }
+    theme:
+      dist/styles.css: { }
   dependencies:
     - ad_theme/lit

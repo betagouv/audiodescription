@@ -49,6 +49,14 @@ services:
     networks:
       - drupal-network
 
+  node:
+    image: node:20
+    volumes:
+      - ./drupal/web/themes/ad_theme:/usr/app
+    restart: on-failure
+    entrypoint: "tail -f /dev/null"
+    working_dir: "/usr/app"
+
 volumes:
   db-data:
 

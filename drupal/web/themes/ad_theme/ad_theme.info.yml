@@ -6,11 +6,9 @@ package: audiodescription
 core_version_requirement: ^10|^11
 libraries:
   - ad_theme/global
-  - ad_theme/fix
   - ad_theme/ad
   - ad_theme/lit
   - ad_theme/lit_components
-  - ad_theme/simple_greeting
 regions:
   header_operator_logo: Header - Operator logo
   header_tools_links: Header - Tools links

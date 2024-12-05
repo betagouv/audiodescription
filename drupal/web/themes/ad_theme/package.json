@@ -2,13 +2,21 @@
   "name": "ad_theme",
   "private": true,
   "scripts": {
-    "livereload": "livereload --exclusions node_modules/ --exts 'css,js,twig,theme,apng,avif,gif,jpg,jpeg,jfif,pjpeg,pjp,png,svg,webp'"
+    "livereload": "livereload --exclusions node_modules/ --exts 'css,js,twig,theme,apng,avif,gif,jpg,jpeg,jfif,pjpeg,pjp,png,svg,webp'",
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "devDependencies": {
+    "fuse.js": "^7.0.0",
+    "glob": "^11.0.0",
+    "lit": "^3.2.1",
     "livereload": "^0.9.3",
-    "sass": "^1.80.3"
-  },
-  "dependencies": {
-    "lit": "^3.2.1"
+    "sass": "^1.80.3",
+    "sass-embedded": "^1.82.0",
+    "vite": "^6.0.2",
+    "vite-plugin-live-reload": "^3.0.4",
+    "vite-plugin-sass": "^0.1.0",
+    "vite-plugin-static-copy": "^2.2.0"
   }
 }
