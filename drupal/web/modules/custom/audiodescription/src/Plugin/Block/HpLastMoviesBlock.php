@@ -97,12 +97,19 @@ class HpLastMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
 
     $movies = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
 
+    $moviesRendered = [];
+    foreach($movies as $movie) {
+      $moviesRendered[] = $this->entityTypeManager
+        ->getViewBuilder('node')
+        ->view($movie, 'card');
+    }
+
     return [
       '#theme' => 'hp_last_movies_block',
       '#title' => $homepage->get('field_last_movies_title')->value,
       '#description' => $homepage->get('field_last_movies_description')->value,
       '#cta' => $cta,
-      '#movies' => $movies,
+      '#movies' => $moviesRendered,
     ];
   }
 

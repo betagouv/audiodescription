@@ -3,33 +3,12 @@
     {{ term.description.value|class2wysiwygP('fr-text--lead')|raw }}
 
     {% set movies = term.field_taxo_movies %}
-    <div class="fr-grid-row fr-grid-row--gutters fr-mb-3w">
-      {% for data in movies | slice(0, 2) %}
-        <div class="fr-col-lg-6 fr-col-12">
-          {% set movie = data.entity %}
-          {% set movie_url = path('entity.node.canonical', {'node': movie.id()}) %}
-          {% set movie_synopsis = movie.field_synopsis.value|render|striptags %}
 
-          {% if movie_synopsis is empty %}
-            {% set movie_synopsis = 'Movies ipsum Accio Brain! The mind is not a book, to be opened at will and examined at leisure. Thoughts are not etched on the inside of skulls, to be perused by an invader. The mind is a complex and many-layered thing. Dobby is free.' %}
-          {% endif %}
 
-          {{ pattern('card', {
-            title_tag: 'p',
-            'title': {
-              '#type': 'html_tag',
-              '#tag': 'a',
-              '#value': movie.title.value,
-              '#attributes': {
-                'href': movie_url,
-              }
-            },
-            description: movie_synopsis,
-            enlarge_link: true
-          }, 'vertical') }}
-        </div>
-      {% endfor %}
-    </div>
+    {% for data in movies | slice(0, 2) %}
+    {% set movie = data.entity %}
+            {% include '@ad_theme/node/node--movie--teaser.html.twig' with { 'node': movie } %}
+    {% endfor %}
 
 
     <div class="fr-mb-3w">
@@ -38,7 +17,7 @@
           label: term.field_taxo_label_button_see_all.value,
           url: url,
           target: 'self',
-        }, 'secondary') }}
+        }, 'primary') }}
       </div>
 
     </div>

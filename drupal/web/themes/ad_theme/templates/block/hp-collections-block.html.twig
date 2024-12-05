@@ -3,6 +3,10 @@
     <h2>{{ title }}</h2>
     <div class="fr-grid-row fr-grid-row--gutters fr-mb-3w">
       {% if collection_genres.is_displayed %}
+
+        {% set file_url = file_url(collection_genres.icon) %}
+
+
         <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
           {{ pattern('tile', {
             title_tag: 'p',
@@ -14,8 +18,14 @@
                 'href': collection_genres.data.url,
               }
             },
-            enlarge_link: true
-          }, 'horizontal__sm') }}
+            image: {
+              '#type': 'render',
+              '#theme': 'image',
+              '#uri': file_url,
+            },
+            enlarge_link: true,
+            icon: true,
+          }) }}
 
         </div>
       {% endif %}

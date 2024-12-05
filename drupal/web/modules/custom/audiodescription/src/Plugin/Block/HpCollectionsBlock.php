@@ -78,10 +78,16 @@ class HpCollectionsBlock extends BlockBase implements ContainerFactoryPluginInte
     $collection_genres = [
       'is_displayed' => FALSE,
       'data' => [],
+      'icon' => '',
     ];
 
     if ($field_collections_with_genres) {
+      /** @var \Drupal\config_pages\Entity\ConfigPages $homepage */
+      $wordings = $config_pages->load('wordings');
+
       $collection_genres['is_displayed'] = TRUE;
+
+      $collection_genres['icon'] = $wordings->field_taxo_genres_icon->entity->field_media_image->entity->uri->value;
 
       $view = View::load('genres');
       if ($view) {

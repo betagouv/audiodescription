@@ -1,14 +1,18 @@
 <div class="block">
-  <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
-    <h1>{{ header.title }}</h1>
-    {{ header.chapo|class2wysiwygP('fr-text--lead')|raw }}
-
+  <div class="fr-container">
     <div class="fr-grid-row">
-      <div class="fr-col-12 fr-col-lg-8">
-        {{ search_form }}
+      <div class="fr-col-12 fr-col-lg-6">
+        <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
+          <h1>{{ header.title }}</h1>
+          {{ header.chapo|class2wysiwygP('fr-text--lead')|raw }}
+
+          {{ search_form }}
+        </div>
+      </div>
+      <div class="fr-col-lg-6 fr-hidden fr-unhidden-lg">
+        <img src="{{ file_url(header.image) }}" alt="" />
       </div>
     </div>
-
   </div>
 </div>
 
@@ -25,35 +29,52 @@
 {% endif %}
 
 <div class="block">
-  <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
-      <h2>{{ infos.title }}</h2>
-      {{ infos.description|class2wysiwygP('fr-text--lead')|raw }}
+  <div class="fr-container">
+      <div class="fr-grid-row">
+        <div class="fr-col-12 fr-col-lg-6">
+          <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
+            <h2>{{ infos.title }}</h2>
+            {{ infos.description|class2wysiwygP('fr-text--lead')|raw }}
 
-      {% set buttons = [] %}
+            {% set buttons = [] %}
 
-      {% for cta in infos.ctas %}
-        {% set button = pattern('button', {
-          label: cta.text,
-          url: cta.url,
-          target: cta.target,
-          external: cta.external
-        }, cta.style) %}
+            {% for cta in infos.ctas %}
+              {% set button = pattern('button', {
+                label: cta.text,
+                url: cta.url,
+                target: cta.target,
+                external: cta.external
+              }, cta.style) %}
 
-        {% set buttons = buttons | merge([button]) %}
-      {% endfor %}
+              {% set buttons = buttons | merge([button]) %}
+            {% endfor %}
 
-      {{ pattern('button_group', {
-        buttons: buttons,
-        inline_from: 'md',
-      }, 'default') }}
+            {{ pattern('button_group', {
+              buttons: buttons,
+              inline_from: 'md',
+            }, 'default') }}
+          </div>
+        </div>
+        <div class="fr-col-12 fr-col-lg-6">
+          
+        </div>
+      </div>
     </div>
 </div>
 
 <div class="block">
   <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
-    <h2>{{ about.title }}</h2>
-    {{ about.description|class2wysiwygP('fr-text--lead')|raw }}
+    <div class="fr-grid-row">
+      <div class="fr-col-12 fr-col-lg-2">
+        <img src="{{ file_url(about.icon) }}" alt="" />
+      </div>
+      <div class="fr-col-12 fr-col-lg-10">
+        <h2>{{ about.title }}</h2>
+        {{ about.description|class2wysiwygP('fr-text--lead')|raw }}
 
-    <p class="fr-text--lead">{{ about.pre_contact }} <a href="{{ 'mailto:' ~ about.email }}">{{ about.email }}</a></p>
+        <p class="fr-text--lead">{{ about.pre_contact }} <a href="{{ 'mailto:' ~ about.email }}">{{ about.email }}</a></p>
+      </div>
+    </div>
+
   </div>
 </div>

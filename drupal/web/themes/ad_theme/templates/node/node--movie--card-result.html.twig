@@ -35,7 +35,7 @@
   {% if not has_ad %}
     <div class="fr-card--no-hover">
   {% endif%}
-      <div class="fr-card fr-card--horizontal fr-enlarge-link ad-movie-teaser">
+      <div class="fr-card fr-card--horizontal fr-card--horizontal-fifth">
         <div class="fr-card__body">
           <div class="fr-card__content">
             <h3 class="fr-card__title">
@@ -63,9 +63,17 @@
                   {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
 
                   <li>
-                    {{ pattern('tag', {
-                      label: term.name.value
-                    }) }}
+                    {% if has_ad %}
+                      {{ pattern('tag', {
+                        label: term.name.value,
+                        url: term_path,
+                        color_schema: 'blue-ecume'
+                      }) }}
+                    {% else %}
+                      {{ pattern('tag', {
+                        label: term.name.value
+                      }) }}
+                    {% endif %}
                   </li>
                 {% endfor %}
 

@@ -1,0 +1,29 @@
+uuid: 9b6516ef-17b0-41f3-adc3-0a67df3895c3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_icon
+    - media.type.image
+    - taxonomy.vocabulary.collection
+id: taxonomy_term.collection.field_taxo_icon
+field_name: field_taxo_icon
+entity_type: taxonomy_term
+bundle: collection
+label: Icône
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

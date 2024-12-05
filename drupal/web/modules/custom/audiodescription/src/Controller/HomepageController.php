@@ -75,6 +75,8 @@ class HomepageController extends ControllerBase {
     $header = [
       'title' => $homepage->get('field_header_title')->value,
       'chapo' => $homepage->get('field_header_chapo')->value,
+      'has_search_bar' => $homepage->get('field_header_with_search_bar')->value,
+      'image' => $homepage->get('field_header_image')->entity->field_media_image->entity->uri->value
     ];
 
     $ctas = [];
@@ -99,6 +101,7 @@ class HomepageController extends ControllerBase {
     $about = [
       'title' => $homepage->get('field_about_title')->value,
       'description' => $homepage->get('field_about_description')->value,
+      'icon' => $homepage->get('field_about_icon')->entity->field_media_image->entity->uri->value,
       'pre_contact' => $homepage->get('field_about_pre_contact')->value,
       'email' => $homepage->get('field_about_email')->value,
     ];

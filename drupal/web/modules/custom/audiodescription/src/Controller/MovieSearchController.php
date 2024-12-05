@@ -92,7 +92,7 @@ class MovieSearchController extends ControllerBase {
 
     foreach ($entities as $entity) {
       $view_builder = $this->entityTypeManager->getViewBuilder('node');
-      $renderedEntities[] = $view_builder->view($entity, 'teaser');
+      $renderedEntities[] = $view_builder->view($entity, 'card_result');
     }
 
     $pagination = NULL;

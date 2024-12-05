@@ -1,0 +1,24 @@
+.ad-movie-teaser {
+  .fr-card__img {
+    img {
+      aspect-ratio: initial;
+    }
+  }
+
+  &__platform {
+    order: 5;
+  }
+}
+
+@media (min-width: 992px) {
+  .ad-movie-teaser {
+    height: 320px !important;
+
+    .fr-card__header {
+      flex: 0 0 236.2px;
+      width: 236.2px;
+    }
+  }
+}
+
+

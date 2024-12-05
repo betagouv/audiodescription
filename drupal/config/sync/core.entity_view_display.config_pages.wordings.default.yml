@@ -8,6 +8,7 @@ dependencies:
     - field.field.config_pages.wordings.field_search_bk_contact_desc
     - field.field.config_pages.wordings.field_search_bk_contact_title
     - field.field.config_pages.wordings.field_taxo_genres_description
+    - field.field.config_pages.wordings.field_taxo_genres_icon
   module:
     - entity_reference_revisions
     - text
@@ -46,6 +47,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_taxo_genres_icon:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 4
     region: content
 hidden:
   search_api_excerpt: true

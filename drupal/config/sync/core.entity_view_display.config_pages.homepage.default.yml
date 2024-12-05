@@ -6,12 +6,14 @@ dependencies:
     - config_pages.type.homepage
     - field.field.config_pages.homepage.field_about_description
     - field.field.config_pages.homepage.field_about_email
+    - field.field.config_pages.homepage.field_about_icon
     - field.field.config_pages.homepage.field_about_pre_contact
     - field.field.config_pages.homepage.field_about_title
     - field.field.config_pages.homepage.field_collections_collections
     - field.field.config_pages.homepage.field_collections_title
     - field.field.config_pages.homepage.field_collections_with_genres
     - field.field.config_pages.homepage.field_header_chapo
+    - field.field.config_pages.homepage.field_header_image
     - field.field.config_pages.homepage.field_header_title
     - field.field.config_pages.homepage.field_header_with_search_bar
     - field.field.config_pages.homepage.field_infos_ctas
@@ -41,6 +43,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_about_icon:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 18
     region: content
   field_about_pre_contact:
     type: string
@@ -91,6 +102,15 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  field_header_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 17
+    region: content
   field_header_title:
     type: string
     label: above
@@ -107,7 +127,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 16
     region: content
   field_infos_ctas:
     type: entity_reference_revisions_entity_view

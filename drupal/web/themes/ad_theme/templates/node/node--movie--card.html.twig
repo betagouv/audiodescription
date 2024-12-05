@@ -1,0 +1,79 @@
+{% set directors = node.field_directors.entity %}
+
+{% set has_ad = node.field_has_ad.value %}
+{% set has_ad_label = 'Audiodescription introuvable' %}
+
+{% if has_ad %}
+  {% set has_ad_label = 'Audiodedécrit' %}
+{% endif %}
+
+{% set title = node.title.value %}
+
+<div>
+  {% set synopsis = node.field_synopsis.value|render|striptags %}
+
+  {% set poster = file_url(node.field_poster.entity.field_media_image.entity.uri.value) %}
+
+  {% if poster is empty %}
+    {% set poster = '/themes/ad_theme/images/placeholder.16x9.png' %}
+  {% endif %}
+
+  {% set sentence = [] %}
+  {% set directors = [] %}
+  {% for director in node.field_directors %}
+    {% set directors = directors|merge([director.entity.name.value]) %}
+  {% endfor %}
+
+  {% if directors is not empty %}
+    {% set sentence = sentence|merge(['de <strong>' ~ directors|join(', ') ~ '</strong>']) %}
+  {% endif %}
+
+  {% if node.field_production_year.value is not empty %}
+    {% set sentence = sentence|merge(['sorti en <strong>' ~ node.field_production_year.value ~ '</strong>']) %}
+  {% endif %}
+
+    <div class="fr-card fr-enlarge-link fr-card--horizontal ad-movie-card">
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <h3 class="fr-card__title">
+            <a href="{{ url }}">{{ title }}</a>
+          </h3>
+          {% for s in sentence %}
+            <p class="fr-card__desc">{{ s|raw }}</p>
+          {% endfor %}
+          {% if node.field_genres|length > 1 %}
+            <ul class="fr-card__tags fr-tags-group fr-mt-3v">
+              {% for genre in node.field_genres|slice(0, 3) %}
+                {% set term = genre.entity %}
+                {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
+
+                <li>
+                  {{ pattern('tag', {
+                    label: term.name.value
+                  }) }}
+                </li>
+              {% endfor %}
+
+            </ul>
+          {% elseif node.field_genres|length == 1%}
+            <div class="fr-card__tags fr-tags-group fr-mt-3v">
+              {% for genre in node.field_genres %}
+                {% set term = genre.entity %}
+                {{ pattern('tag', {
+                  label: term.name.value
+                }) }}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {# <p class="ad-movie-card__platform">Disponible sur Arte jusqu'au 2 avril 2025.</p> #}
+        </div>
+      </div>
+      <div class="fr-card__header">
+        <div class="fr-card__img">
+          <img class="fr-responsive-img" src="{{ poster }}" alt="Affiche du film {{ title }}" />
+        </div>
+      </div>
+    </div>
+
+</div>

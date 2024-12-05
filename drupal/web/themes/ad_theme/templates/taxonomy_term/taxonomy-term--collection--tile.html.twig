@@ -1,5 +1,7 @@
 {% set description = term.field_taxo_short_desc.value ?? '' %}
 
+{% set file_url = file_url(term.field_taxo_icon.entity.field_media_image.entity.uri.value) %}
+
 <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
   {{ pattern('tile', {
     title_tag: 'p',
@@ -9,10 +11,15 @@
       '#value': term.name.value,
       '#attributes': {
         'href': url,
-      }
+      },
+    },
+    image: {
+      '#type': 'render',
+      '#theme': 'image',
+      '#uri': file_url,
     },
     enlarge_link: true,
-    description: description
-  }, 'horizontal__sm') }}
+    icon: true,
+  }) }}
 
 </div>

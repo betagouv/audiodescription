@@ -1,0 +1,29 @@
+uuid: 29a127bd-3c12-4472-8c8a-387271819d48
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.wordings
+    - field.storage.config_pages.field_taxo_genres_icon
+    - media.type.image
+id: config_pages.wordings.field_taxo_genres_icon
+field_name: field_taxo_genres_icon
+entity_type: config_pages
+bundle: wordings
+label: Icône
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

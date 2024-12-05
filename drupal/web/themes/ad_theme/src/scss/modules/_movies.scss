@@ -35,8 +35,10 @@
   }
 }
 
+.fr-card--no-hover .fr-card:hover,
 .fr-card--no-hover .fr-enlarge-link:hover {
-  background-color: initial !important;
+  //background-color: initial !important;
+  background-color: white !important;
 }
 
 .fr-card__start {

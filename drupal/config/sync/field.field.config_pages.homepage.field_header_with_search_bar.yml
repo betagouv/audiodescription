@@ -1,4 +1,4 @@
-uuid: cec5088a-146e-4b10-88e9-042e11216b6d
+uuid: 42b340f4-11d2-4cd2-b7df-91fb9dd22536
 langcode: fr
 status: true
 dependencies:
@@ -9,11 +9,13 @@ id: config_pages.homepage.field_header_with_search_bar
 field_name: field_header_with_search_bar
 entity_type: config_pages
 bundle: homepage
-label: 'Affiché le moteur de recherche'
+label: 'Afficher le moteur de recherche'
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: 1
 default_value_callback: ''
 settings:
   on_label: Oui

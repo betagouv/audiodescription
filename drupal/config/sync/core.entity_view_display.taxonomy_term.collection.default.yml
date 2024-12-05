@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.collection.field_taxo_icon
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
     - field.field.taxonomy_term.collection.field_taxo_movies
@@ -12,7 +13,16 @@ id: taxonomy_term.collection.default
 targetEntityType: taxonomy_term
 bundle: collection
 mode: default
-content: {  }
+content:
+  field_taxo_icon:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: -4
+    region: content
 hidden:
   description: true
   field_taxo_is_highlighted: true
