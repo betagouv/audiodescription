@@ -228,3 +228,16 @@ function ad_theme_preprocess_form_element__select(&$variables)
     $variables['selected'] = json_encode($variables['element']['#value']);
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ad_theme_preprocess_taxonomy_term__collection__highlighted(&$variables)
+{
+  $movies = $variables['elements']['#taxonomy_term']->field_taxo_movies;
+  $variables['urls'] = [];
+  foreach ($movies as $movie) {
+    $entity = $movie->entity;
+    $variables['urls'][$entity->id()] = $entity->toUrl()->toString();
+  }
+}
