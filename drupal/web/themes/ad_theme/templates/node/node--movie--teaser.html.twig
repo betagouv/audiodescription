@@ -76,17 +76,9 @@
                   {% set term = genre.entity %}
                   {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
 
-                  {% if has_ad %}
-                    {{ pattern('tag', {
-                      label: term.name.value,
-                      url: term_path,
-                      color_schema: 'blue-ecume'
-                    }) }}
-                  {% else %}
-                    {{ pattern('tag', {
-                      label: term.name.value
-                    }) }}
-                  {% endif %}
+                  {{ pattern('tag', {
+                    label: term.name.value,
+                  }) }}
                 {% endfor %}
               </div>
             {% endif %}
