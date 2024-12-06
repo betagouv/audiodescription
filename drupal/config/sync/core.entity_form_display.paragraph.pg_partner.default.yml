@@ -1,0 +1,46 @@
+uuid: b5f3e55b-a14f-4fe9-9b49-c597ea6680f5
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_partner.field_pg_link
+    - field.field.paragraph.pg_partner.field_pg_override_condition
+    - field.field.paragraph.pg_partner.field_pg_partner
+    - paragraphs.paragraphs_type.pg_partner
+  module:
+    - link
+    - text
+id: paragraph.pg_partner.default
+targetEntityType: paragraph
+bundle: pg_partner
+mode: default
+content:
+  field_pg_link:
+    type: link_default
+    weight: 1
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_pg_override_condition:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_partner:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

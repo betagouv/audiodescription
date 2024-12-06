@@ -1,9 +1,0 @@
-uuid: 39108b8c-ced2-4dc7-a0a8-e226e1ac4f74
-langcode: fr
-status: true
-dependencies: {  }
-name: Plateforme
-vid: platform
-description: null
-weight: 0
-new_revision: false

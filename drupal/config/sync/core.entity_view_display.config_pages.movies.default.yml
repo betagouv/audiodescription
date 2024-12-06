@@ -7,7 +7,10 @@ dependencies:
     - field.field.config_pages.movies.field_block_ad_title
     - field.field.config_pages.movies.field_block_contact_description
     - field.field.config_pages.movies.field_block_contact_email
+    - field.field.config_pages.movies.field_block_contact_image
+    - field.field.config_pages.movies.field_block_contact_pre_contact
     - field.field.config_pages.movies.field_block_contact_title
+    - field.field.config_pages.movies.field_block_platforms_title
   module:
     - text
 id: config_pages.movies.default
@@ -37,6 +40,23 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  field_block_contact_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_block_contact_pre_contact:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_block_contact_title:
     type: string
     label: above
@@ -44,6 +64,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_block_platforms_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
     region: content
 hidden:
   search_api_excerpt: true

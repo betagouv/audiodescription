@@ -1,10 +1,15 @@
-<div class="ad-movie__block-contact">
-  <div class="fr-container fr-pb-3w fr-pb-md-7w fr-pt-3w fr-pt-md-7w">
-    <h2>{{ title }}</h2>
-    {{ description|raw }}
+<div class="block ad-movies-contact-block">
+  <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
+    <div class="fr-grid-row">
+      <div class="fr-col-12 fr-col-lg-10 ad-movies-contact-block__info">
+        <h2>{{ title }}</h2>
+        {{ description|class2wysiwygP('fr-text--lead')|raw }}
 
-    {% set url = 'mailto:' ~ email %}
-    <a href="{{ url }}">{{ email }}</a>
+        <p class="fr-text--lead">{{ pre_contact }} <a href="{{ 'mailto:' ~ email }}">{{ email }}</a></p>
+      </div>
+      <div class="fr-col-12 fr-col-lg-2 ad-movies-contact-block__image">
+        <img src="{{ file_url(image) }}" alt="" />
+      </div>
+    </div>
   </div>
-
 </div>

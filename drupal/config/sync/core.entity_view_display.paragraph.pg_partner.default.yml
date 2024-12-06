@@ -1,0 +1,46 @@
+uuid: 474c8fea-12cc-4ebb-87b8-b56ff720106c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_partner.field_pg_link
+    - field.field.paragraph.pg_partner.field_pg_override_condition
+    - field.field.paragraph.pg_partner.field_pg_partner
+    - paragraphs.paragraphs_type.pg_partner
+  module:
+    - link
+    - text
+id: paragraph.pg_partner.default
+targetEntityType: paragraph
+bundle: pg_partner
+mode: default
+content:
+  field_pg_link:
+    type: link
+    label: visually_hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pg_override_condition:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_pg_partner:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

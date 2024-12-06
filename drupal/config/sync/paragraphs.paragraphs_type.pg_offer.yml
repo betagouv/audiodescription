@@ -1,0 +1,10 @@
+uuid: 27645072-43dc-497f-ae6e-a0fd5d0b811f
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_offer
+label: Offre
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

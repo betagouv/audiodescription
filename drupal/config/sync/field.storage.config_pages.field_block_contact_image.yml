@@ -1,0 +1,20 @@
+uuid: 59983e0f-1289-41b8-854f-ea2a865144e7
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+    - media
+id: config_pages.field_block_contact_image
+field_name: field_block_contact_image
+entity_type: config_pages
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

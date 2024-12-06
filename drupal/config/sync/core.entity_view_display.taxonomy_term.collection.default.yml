@@ -3,6 +3,8 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.collection.field_display_on_movie_page
+    - field.field.taxonomy_term.collection.field_icon_on_movie_page
     - field.field.taxonomy_term.collection.field_taxo_icon
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
@@ -14,6 +16,25 @@ targetEntityType: taxonomy_term
 bundle: collection
 mode: default
 content:
+  field_display_on_movie_page:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: -3
+    region: content
+  field_icon_on_movie_page:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: -2
+    region: content
   field_taxo_icon:
     type: entity_reference_entity_view
     label: above

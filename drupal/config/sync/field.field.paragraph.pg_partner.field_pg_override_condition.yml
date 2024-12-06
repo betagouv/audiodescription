@@ -1,0 +1,22 @@
+uuid: d81099f6-d376-4709-af84-1604606567f4
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_override_condition
+    - paragraphs.paragraphs_type.pg_partner
+  module:
+    - text
+id: paragraph.pg_partner.field_pg_override_condition
+field_name: field_pg_override_condition
+entity_type: paragraph
+bundle: pg_partner
+label: Condition
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

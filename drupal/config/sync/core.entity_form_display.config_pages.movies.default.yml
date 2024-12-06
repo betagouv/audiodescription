@@ -7,16 +7,20 @@ dependencies:
     - field.field.config_pages.movies.field_block_ad_title
     - field.field.config_pages.movies.field_block_contact_description
     - field.field.config_pages.movies.field_block_contact_email
+    - field.field.config_pages.movies.field_block_contact_image
+    - field.field.config_pages.movies.field_block_contact_pre_contact
     - field.field.config_pages.movies.field_block_contact_title
+    - field.field.config_pages.movies.field_block_platforms_title
   module:
     - field_group
+    - media_library
     - text
 third_party_settings:
   field_group:
     group_movies_block_ad:
       children:
         - field_block_ad_title
-      label: 'Block "Audiodescription"'
+      label: 'Bloc "Audiodescription"'
       region: content
       parent_name: ''
       weight: 1
@@ -32,11 +36,13 @@ third_party_settings:
       children:
         - field_block_contact_title
         - field_block_contact_description
+        - field_block_contact_pre_contact
         - field_block_contact_email
-      label: 'Block "Contact"'
+        - field_block_contact_image
+      label: 'Bloc "Contact"'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -45,13 +51,13 @@ third_party_settings:
         label_as_html: false
         description: ''
         required_fields: true
-    group_movies_block_infos:
+    group_block_platforms:
       children:
-        - field_block_infos_title
-      label: 'Block "Informations sur le film"'
+        - field_block_platforms_title
+      label: 'Bloc "Plateformes"'
       region: content
       parent_name: ''
-      weight: 0
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -83,15 +89,38 @@ content:
     third_party_settings: {  }
   field_block_contact_email:
     type: email_default
-    weight: 5
+    weight: 6
     region: content
     settings:
       placeholder: ''
       size: 60
     third_party_settings: {  }
+  field_block_contact_image:
+    type: media_library_widget
+    weight: 7
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_block_contact_pre_contact:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_block_contact_title:
     type: string_textfield
     weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_block_platforms_title:
+    type: string_textfield
+    weight: 4
     region: content
     settings:
       size: 60

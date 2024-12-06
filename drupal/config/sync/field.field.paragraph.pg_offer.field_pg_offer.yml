@@ -1,0 +1,29 @@
+uuid: 7c2c09bb-8017-4802-b6ca-676513175240
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_offer
+    - paragraphs.paragraphs_type.pg_offer
+    - taxonomy.vocabulary.offer
+id: paragraph.pg_offer.field_pg_offer
+field_name: field_pg_offer
+entity_type: paragraph
+bundle: pg_offer
+label: Offre
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      offer: offer
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

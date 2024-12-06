@@ -1,5 +1,9 @@
-.block:nth-child(2n+1) {
-  background: var(--background-alt-blue-france);
+.block {
+  background: white;
+
+  &:nth-child(2n+1) {
+    background: var(--background-alt-blue-france);
+  }
 }
 
 .block:nth-child(2n+1) input {

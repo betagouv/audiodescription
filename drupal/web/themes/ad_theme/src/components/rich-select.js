@@ -111,7 +111,7 @@ export class RichSelect extends LitElement {
 
   _selectAll(e) {
     if (this.btnSelectAll.icon == 'fr-icon-close-circle-line') {
-      this.selectedOptions = [...[]];
+      this.selectedOptions = [];
 
       this.btnSelectAll = {
         'icon': 'fr-icon-check-line',

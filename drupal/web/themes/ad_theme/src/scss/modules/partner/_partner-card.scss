@@ -1,0 +1,29 @@
+.ad-partner-card {
+  border: 2px solid #DDD;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+    column-gap: 1rem;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__content {
+    padding-left: .5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .ad-partner-card {
+    &__container {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}

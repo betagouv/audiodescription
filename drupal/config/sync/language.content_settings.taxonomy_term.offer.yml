@@ -1,0 +1,11 @@
+uuid: cf15d261-9925-4a37-855f-94ca64f6020f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.offer
+id: taxonomy_term.offer
+target_entity_type_id: taxonomy_term
+target_bundle: offer
+default_langcode: site_default
+language_alterable: false

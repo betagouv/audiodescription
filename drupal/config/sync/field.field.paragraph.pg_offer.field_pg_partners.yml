@@ -1,0 +1,43 @@
+uuid: 5dbd7077-22b5-4726-9bff-a7f0b835a88f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_partners
+    - paragraphs.paragraphs_type.pg_offer
+    - paragraphs.paragraphs_type.pg_partner
+  module:
+    - entity_reference_revisions
+id: paragraph.pg_offer.field_pg_partners
+field_name: field_pg_partners
+entity_type: paragraph
+bundle: pg_offer
+label: Partenaires
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_partner: pg_partner
+    negate: 0
+    target_bundles_drag_drop:
+      pg_cta:
+        weight: 7
+        enabled: false
+      pg_documents:
+        weight: 8
+        enabled: false
+      pg_offer:
+        weight: 6
+        enabled: false
+      pg_paragraph:
+        weight: 9
+        enabled: false
+      pg_partner:
+        weight: 10
+        enabled: true
+field_type: entity_reference_revisions

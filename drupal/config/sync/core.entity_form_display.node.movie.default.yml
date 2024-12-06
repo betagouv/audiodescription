@@ -12,12 +12,12 @@ dependencies:
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_is_complete
     - field.field.node.movie.field_nationalities
+    - field.field.node.movie.field_offers
     - field.field.node.movie.field_poster
     - field.field.node.movie.field_production_year
     - field.field.node.movie.field_public
     - field.field.node.movie.field_synopsis
     - field.field.node.movie.field_visa_number
-    - field.field.node.movie.field_watch_movie
     - node.type.movie
   module:
     - media_library
@@ -98,6 +98,24 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_offers:
+    type: paragraphs
+    weight: 15
+    region: content
+    settings:
+      title: Paragraphe
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_poster:
     type: media_library_widget
     weight: 2
@@ -137,24 +155,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_watch_movie:
-    type: paragraphs
-    weight: 15
-    region: content
-    settings:
-      title: Paragraphe
-      title_plural: Paragraphs
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-      features:
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
     third_party_settings: {  }
   path:
     type: path

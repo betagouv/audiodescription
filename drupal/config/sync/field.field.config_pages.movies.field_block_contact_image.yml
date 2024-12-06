@@ -1,0 +1,29 @@
+uuid: 2ec95b7e-2e0d-4517-bbe6-60d11d697b8d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.movies
+    - field.storage.config_pages.field_block_contact_image
+    - media.type.image
+id: config_pages.movies.field_block_contact_image
+field_name: field_block_contact_image
+entity_type: config_pages
+bundle: movies
+label: Image
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

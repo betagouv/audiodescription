@@ -13,15 +13,14 @@ dependencies:
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_is_complete
     - field.field.node.movie.field_nationalities
+    - field.field.node.movie.field_offers
     - field.field.node.movie.field_poster
     - field.field.node.movie.field_production_year
     - field.field.node.movie.field_public
     - field.field.node.movie.field_synopsis
     - field.field.node.movie.field_visa_number
-    - field.field.node.movie.field_watch_movie
     - node.type.movie
   module:
-    - entity_reference_revisions
     - layout_builder
     - text
     - user
@@ -152,20 +151,12 @@ content:
     third_party_settings: {  }
     weight: 110
     region: content
-  field_watch_movie:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 113
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
     region: content
 hidden:
+  field_offers: true
   langcode: true
   search_api_excerpt: true

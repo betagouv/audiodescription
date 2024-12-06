@@ -1,0 +1,21 @@
+uuid: 29676815-d251-4901-91e9-d521e090eb73
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_display_on_movie_page
+    - taxonomy.vocabulary.collection
+id: taxonomy_term.collection.field_display_on_movie_page
+field_name: field_display_on_movie_page
+entity_type: taxonomy_term
+bundle: collection
+label: 'Afficher la collection sur la fiche Film'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Oui
+  off_label: Non
+field_type: boolean

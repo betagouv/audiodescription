@@ -1,8 +1,10 @@
 <article{{ attributes }}>
-  <div{{ content_attributes }}>
-    <div class="fr-container">
-      <div class="fr-mb-3w fr-mb-md-7w">
-
+  <div{{ content_attributes.addClass('block') }}>
+    <div class="fr-container fr-pb-3w fr-pb-7w">
+      <div class="fr-pt-3w fr-pt-7w">
+        <h1>{{ label }}</h1>
+      </div>
+      <div class="fr-grid-row fr-mb-2w">
         {% set poster_uri = node.field_poster.entity.field_media_image.entity.uri.value %}
 
         {% if poster_uri is not empty %}
@@ -12,111 +14,146 @@
             '#uri':        poster_uri,
           } %}
 
-          <div class="fr-mb-4w">
+          <div class="fr-col-12 fr-col-xl-2 fr-mb-2w">
             {{ imagestyle }}
           </div>
         {% endif %}
 
-        <h1>{{ label }}</h1>
-
-        {% if node.field_directors|length > 0 %}
-          {% set directors = [] %}
-          {% for director in node.field_directors %}
-            {% set entity = director.entity %}
-
-            {% set link = '<a href="' ~ path('entity.taxonomy_term.canonical', {'taxonomy_term': entity.id}) ~ '">' ~ entity.name.value|t ~ '</a>' %}
-            {% set directors = directors|merge([link]) %}
-          {% endfor %}
-
-          <p class="ad-movies-infos-title">
-            <strong>Réalisation : </strong> {{ directors|join(', ')|raw }}
-          </p>
-        {% endif %}
-
-        {% if (node.field_genres|length > 0) %}
-          <p class="ad-movies-infos-title">
-            <strong>Genres</strong>
-          </p>
-          {% for genre in node.field_genres %}
-            {% set term = genre.entity %}
-            {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
-
-            {{ pattern('tag', {
-              label: term.name.value,
-              url: term_path,
-              color_schema: 'blue-ecume'
-            }) }}
-          {% endfor %}
-        {% endif %}
-
-        {% set synopsis_plain_text = node.field_synopsis.value|render|striptags %}
-
-        {% if synopsis_plain_text is not empty %}
-          <p class="ad-movies-infos-title">
-            <strong>Synopsis</strong>
-          </p>
-          {{ node.field_synopsis.value|raw }}
-        {% endif %}
-
-      </div>
-
-      <div class="fr-mb-3w fr-mb-md-7w">
-        <h2>{{ config.block_ad.title }}</h2>
-        <p>
-          {% if node.field_has_ad.value %}
-            Film audiodécrit
-          {% else %}
-            Film non audiodécrit
+        <div class="fr-col-12 fr-col-xl-10">
+          {% if node.field_production_year.value %}
+            <p><strong>Année : </strong>{{ node.field_production_year.value }}</p>
           {% endif %}
-        </p>
+
+          {% if node.field_duration.value %}
+
+            {% set duration_in_minutes = node.field_duration.value %}
+            {% set hours = (duration_in_minutes // 60) %}
+            {% set minutes = '%02d'|format((duration_in_minutes % 60)) %}
+
+            <p><strong>Durée : </strong>{{ hours ~ ' h' ~ ' ' ~ minutes }}</p>
+          {% endif %}
+
+          {% if (node.field_genres|length > 0) %}
+            <p class="ad-movies-infos-title">
+              <strong>Genres : </strong>
+            {% for genre in node.field_genres %}
+              {% set term = genre.entity %}
+              {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
+
+              {{ pattern('tag', {
+                label: term.name.value,
+                url: term_path,
+                color_schema: 'blue-ecume'
+              }) }}
+            {% endfor %}
+            </p>
+          {% endif %}
+
+          {% if node.field_directors|length > 0 %}
+            {% set directors = [] %}
+            {% for director in node.field_directors %}
+              {% set entity = director.entity %}
+
+              {% set link = '<a href="' ~ path('entity.taxonomy_term.canonical', {'taxonomy_term': entity.id}) ~ '">' ~ entity.name.value|t ~ '</a>' %}
+              {% set directors = directors|merge([link]) %}
+            {% endfor %}
+
+            <p class="ad-movies-infos-title">
+              <strong>Réalisation : </strong> {{ directors|join(', ')|raw }}
+            </p>
+          {% endif %}
+
+          {# @Todo : Casting principal #}
+          {# @Todo : Palmarès #}
+
+          {% if node.field_public|length > 0 %}
+            <p><strong>Public : </strong>{{ node.field_public.entity.name.value }}</p>
+          {% endif %}
+        </div>
+
+        <div class="fr-grid-row">
+          <div class="fr-col-12 fr-col-lg-8">
+            {% set synopsis_plain_text = node.field_synopsis.value|render|striptags %}
+
+            {% if synopsis_plain_text is not empty %}
+              <p class="ad-movies-infos-title">
+                <strong>Synopsis : </strong>
+              </p>
+              {{ node.field_synopsis.value|raw }}
+            {% endif %}
+          </div>
+        </div>
+
       </div>
 
-      {% set block_watch = node.field_watch_movie.entity %}
-      <div class="ad-watch-movie-block fr-mb-3w fr-mb-md-7w">
-        <h2>{{ block_watch.field_pg_title.value }}</h2>
-        <ul class="ad-watch-movie-block__list">
-         {% for pg in block_watch.field_pg_platforms_types %}
-           {% set platform_type = pg.entity %}
-           <li>
-             <h3>{{ platform_type.field_pg_title.value }}</h3>
-             {% if platform_type.field_pg_description.value is not empty %}
-               <p>{{ platform_type.field_pg_description.value }}</p>
-             {% endif %}
-             <ul class="ad-watch-movie-block__list-platforms">
-               {% for entity in platform_type.field_pg_platforms %}
-                 {% set platform = entity.entity %}
-                 {% set media = platform.field_pg_platform.entity.field_taxo_logo.get(0).entity %}
-                 {% set file_url = file_url(media.field_media_image.get(0).entity.uri.value) %}
+      {% if node.field_has_ad.value %}
+        <div>
+          <h2>{{ config.block_ad.title }}</h2>
+          <div class="ad-movie-info-ad">
+            {% set logo = '/themes/ad_theme/images/ad_icon.png' %}
+            <img src="{{ logo }}" alt="" />
 
-                 <li class="ad-watch-movie-block__platform">
-                   {{ pattern('card', {
-                     horizontal_ratio: 'tier',
-                     enlarge_link: true,
-                     title_tag: 'p',
-                     title: {
-                       '#type': 'html_tag',
-                       '#tag': 'a',
-                       '#value': platform.field_pg_platform.entity.name.value,
-                       '#attributes': {
-                         'href': platform.field_pg_link.get(0).getUrl().toString(),
-                       }
-                     },
-                     image: {
-                       '#type': 'render',
-                       '#theme': 'image',
-                       '#uri': file_url,
-                     },
-                     description: platform.field_pg_condition.value
-                   }, 'horizontal') }}
-                 </li>
-               {% endfor %}
-             </ul>
-           </li>
-         {% endfor %}
-        </ul>
-      </div>
+            <p>Film audiodécrit en Français</p>
+          </div>
+          {% for collection in collections %}
+          <div class="ad-movie-info-ad">
+            {% set icon = file_url(collection.icon) %}
+            {% if collection.icon is null %}
+              {% set icon = '/themes/ad_theme/images/star_icon.png' %}
+            {% endif %}
+            <img src="{{ icon }}" alt="" />
 
+            <p>{{ collection.label }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
-  {{ block_contact }}
+  <div class="block ad-movie-offers">
+    <div class="fr-container fr-mb-3w fr-mb-md-7w fr-mt-3w fr-mt-md-7w">
+      <h2>{{ block_platforms.title }}</h2>
+      {% for offer in node.field_offers %}
+        <h3 class="fr-mt-2w">{{ offer.entity.field_pg_offer.entity.name.value }}</h3>
+
+        <div class="ad-partner-card__container">
+          {% for p in offer.entity.field_pg_partners %}
+
+          {% set partner = p.entity %}
+          {% set condition = partner.field_pg_override_condition.value %}
+          {% if condition is empty %}
+            {% set condition = partner.field_pg_partner.entity.field_taxo_condition.value %}
+          {% endif %}
+          {% set logo = partner.field_pg_partner.entity.field_taxo_logo.entity.field_media_image.entity.uri.value %}
+          {% set title = partner.field_pg_partner.entity.name.value %}
+
+
+          <div class="fr-grid-row ad-partner-card">
+            {% if logo is not empty %}
+            <div class="fr-col-12 fr-col-sm-3 fr-col-md-4 fr-col-xl-3">
+              <img src="{{ file_url(logo) }}" alt="" />
+            </div>
+            <div class="fr-col-12 fr-col-sm-9 fr-col-md-8 fr-col-xl-9 ad-partner-card__content">
+            {% else %}
+              <div class="fr-col-12 ad-partner-card__content">
+            {% endif%}
+              <p>{{ title }}</p>
+              {{ condition|raw }}
+              {{ pattern('button', {
+                label: partner.field_pg_partner.entity.field_taxo_label_button.value,
+                url: partner.field_pg_link.uri,
+                target: '_blank',
+                external: 1
+              }, 'primary') }}
+            </div>
+          </div>
+            {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="block">
+    {{ block_contact }}
+  </div>
 </article>

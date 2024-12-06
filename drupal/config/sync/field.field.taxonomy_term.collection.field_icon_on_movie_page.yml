@@ -1,0 +1,29 @@
+uuid: 885f5f3a-5760-4ba7-b9be-9d48c7767f3d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_icon_on_movie_page
+    - media.type.image
+    - taxonomy.vocabulary.collection
+id: taxonomy_term.collection.field_icon_on_movie_page
+field_name: field_icon_on_movie_page
+entity_type: taxonomy_term
+bundle: collection
+label: Icône
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

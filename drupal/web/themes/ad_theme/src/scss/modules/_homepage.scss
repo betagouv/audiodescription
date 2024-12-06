@@ -7,6 +7,10 @@
     &-image {
       order: 1;
       text-align: center;
+
+      img {
+        width: 100%;
+      }
     }
   }
 }
@@ -20,6 +24,10 @@
 
       &-image {
         order: 2;
+
+        img {
+          width: initial;
+        }
       }
     }
   }

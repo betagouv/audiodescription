@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.highlighted
+    - field.field.taxonomy_term.collection.field_display_on_movie_page
+    - field.field.taxonomy_term.collection.field_icon_on_movie_page
     - field.field.taxonomy_term.collection.field_taxo_icon
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
@@ -23,6 +25,8 @@ mode: highlighted
 content: {  }
 hidden:
   description: true
+  field_display_on_movie_page: true
+  field_icon_on_movie_page: true
   field_taxo_icon: true
   field_taxo_is_highlighted: true
   field_taxo_label_button_see_all: true

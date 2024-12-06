@@ -64,6 +64,8 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'title' => NULL,
         'description' => NULL,
         'email' => NULL,
+        'pre_contact' => NULL,
+        'image' => NULL,
       ],
     ],
     'search_contact_block' => [

@@ -137,6 +137,31 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
   }
 
   $variables['block_contact'] = $blockContact;
+
+  $collections = [];
+  $terms = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadByProperties(['vid' => 'collection', 'field_display_on_movie_page' => true]);
+
+  foreach ($terms as $term) {
+    if ($term->hasField('field_taxo_movies') && !$term->get('field_taxo_movies')->isEmpty()) {
+      foreach ($term->get('field_taxo_movies')->referencedEntities() as $referenced_movie) {
+        if ($referenced_movie->id() == $variables['node']->id()) {
+          $collections[] = [
+            'label' => $term->label(),
+            'icon' => $term->field_icon_on_movie_page->entity->field_media_image->entity->uri->value ?? NULL,
+          ];
+          break;
+        }
+      }
+    }
+  }
+
+  $variables['block_platforms'] = [
+    'title' => $config->get('field_block_platforms_title')->value
+  ];
+
+  $variables['collections'] = $collections;
 }
 
 /**
@@ -202,12 +227,4 @@ function ad_theme_preprocess_form_element__select(&$variables)
   if (isset($variables['element']['#value'])) {
     $variables['selected'] = json_encode($variables['element']['#value']);
   }
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function ad_theme_preprocess_node__movie__card(&$variables)
-{
-  $t = null;
 }

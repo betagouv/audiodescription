@@ -1,0 +1,20 @@
+uuid: c3eab9d1-9f79-4bf2-9cc5-cf79f4ef3718
+langcode: fr
+status: true
+dependencies:
+  module:
+    - media
+    - taxonomy
+id: taxonomy_term.field_icon_on_movie_page
+field_name: field_icon_on_movie_page
+entity_type: taxonomy_term
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

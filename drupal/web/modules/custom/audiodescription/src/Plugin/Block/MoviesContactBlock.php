@@ -55,13 +55,17 @@ class MoviesContactBlock extends BlockBase implements ContainerFactoryPluginInte
 
     $title = $config->get('field_block_contact_title')->value;
     $description = $config->get('field_block_contact_description')->value;
+    $pre_contact = $config->get('field_block_contact_pre_contact')->value;
     $email = $config->get('field_block_contact_email')->value;
+    $image = $config->get('field_block_contact_image')->entity->field_media_image->entity->uri->value;
 
     return [
       '#theme' => 'movies_contact_block',
       '#title' => $title,
       '#description' => $description,
+      '#pre_contact' => $pre_contact,
       '#email' => $email,
+      '#image' => $image,
     ];
   }
 

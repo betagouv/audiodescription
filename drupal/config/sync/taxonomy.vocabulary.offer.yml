@@ -1,0 +1,9 @@
+uuid: 3768f698-2691-4795-b9d5-bd74e4d4f019
+langcode: fr
+status: true
+dependencies: {  }
+name: Offre
+vid: offer
+description: null
+weight: 0
+new_revision: false

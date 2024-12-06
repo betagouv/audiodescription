@@ -1,0 +1,43 @@
+uuid: 02670fac-4676-4ac2-9089-cba4fbaa1977
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_offers
+    - node.type.movie
+    - paragraphs.paragraphs_type.pg_offer
+  module:
+    - entity_reference_revisions
+id: node.movie.field_offers
+field_name: field_offers
+entity_type: node
+bundle: movie
+label: Offres
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_offer: pg_offer
+    negate: 0
+    target_bundles_drag_drop:
+      pg_cta:
+        weight: 7
+        enabled: false
+      pg_documents:
+        weight: 8
+        enabled: false
+      pg_offer:
+        weight: 6
+        enabled: true
+      pg_paragraph:
+        weight: 9
+        enabled: false
+      pg_partner:
+        weight: 10
+        enabled: false
+field_type: entity_reference_revisions

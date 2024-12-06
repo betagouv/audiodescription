@@ -3,38 +3,6 @@
   padding-left: 0;
 }
 
-.ad-movies-infos-title {
-  margin: .5rem 0;
-}
-
-.ad-movie__block-contact {
-  background: var(--background-alt-blue-france);
-}
-
-.ad-watch-movie-block__list {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.ad-watch-movie-block__list-platforms {
-  list-style-type: none;
-  padding-left: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
-
-.ad-watch-movie-block__platform {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-@media (min-width: 992px) {
-  .ad-watch-movie-block__platform {
-    width: calc(50% - 1rem);
-  }
-}
-
 .fr-card--no-hover .fr-card:hover,
 .fr-card--no-hover .fr-enlarge-link:hover {
   //background-color: initial !important;
@@ -49,6 +17,20 @@
   order: 4;
 }
 
+.ad-movie-info-ad {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+
+  + .ad-movie-info-ad {
+    margin-top: 1rem;
+  }
+}
+
 @media (min-width: 768px) {
   .fr-card.fr-card--horizontal-fifth {
     min-height: 330px;
@@ -56,5 +38,34 @@
   .fr-card.fr-card--horizontal-fifth .fr-card__header {
     flex: 0 0 20%;
     width: 20%;
+  }
+}
+
+.ad-movies-contact-block {
+  &__info {
+    order: 2;
+  }
+
+  &__image {
+    order: 1;
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .ad-movies-contact-block {
+    &__info {
+      order: 1;
+    }
+
+    &__image {
+      order: 2;
+    }
+  }
+}
+
+.ad-movie-offers {
+  h3 {
+    font-weight: 500;
   }
 }

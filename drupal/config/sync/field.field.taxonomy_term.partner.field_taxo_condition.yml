@@ -1,0 +1,22 @@
+uuid: 426919cd-0e4f-4ef6-ba6f-95b0828be080
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_condition
+    - taxonomy.vocabulary.partner
+  module:
+    - text
+id: taxonomy_term.partner.field_taxo_condition
+field_name: field_taxo_condition
+entity_type: taxonomy_term
+bundle: partner
+label: Condition
+description: "Ce champ permet de prévenir l'utilisateur des conditions d'accès au partenaire : abonnement, achat, tarif...\r\nIl s'agit d'une valeur par défaut qui pourra être surchargée ponctuellement."
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

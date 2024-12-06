@@ -1,0 +1,50 @@
+uuid: fbd9faf1-91e3-459d-8981-40e34c5a3cc3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.partner.field_taxo_condition
+    - field.field.taxonomy_term.partner.field_taxo_label_button
+    - field.field.taxonomy_term.partner.field_taxo_logo
+    - taxonomy.vocabulary.partner
+  module:
+    - text
+id: taxonomy_term.partner.default
+targetEntityType: taxonomy_term
+bundle: partner
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_taxo_condition:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_taxo_label_button:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_taxo_logo:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

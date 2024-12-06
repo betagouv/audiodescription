@@ -1,0 +1,10 @@
+uuid: 4eb44a9c-94ef-40a5-982d-37a4e208742f
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_partner
+label: Partenaire
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
