@@ -128,7 +128,6 @@
             {% set logo = partner.field_pg_partner.entity.field_taxo_logo.entity.field_media_image.entity.uri.value %}
             {% set title = partner.field_pg_partner.entity.name.value %}
 
-
             <div class="fr-grid-row ad-partner-card">
               {% if logo is not empty %}
               <div class="fr-col-12 fr-col-sm-3 fr-col-md-4 fr-col-xl-3">
@@ -138,8 +137,10 @@
               {% else %}
                 <div class="fr-col-12 ad-partner-card__content">
               {% endif%}
-                <p>{{ title }}</p>
-                {{ condition|raw }}
+                <div>
+                  <p class="fr-text--lg ad-partner-card__title">{{ title }}</p>
+                  {{ condition|raw }}
+                </div>
                 {{ pattern('button', {
                   label: partner.field_pg_partner.entity.field_taxo_label_button.value,
                   url: partner.field_pg_link.uri,
