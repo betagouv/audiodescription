@@ -110,50 +110,50 @@
       {% endif %}
     </div>
   </div>
-  <div class="block ad-movie-offers">
-    <div class="fr-container fr-mb-3w fr-mb-md-7w fr-mt-3w fr-mt-md-7w">
-      <h2>{{ block_platforms.title }}</h2>
-      {% for offer in node.field_offers %}
-        <h3 class="fr-mt-2w">{{ offer.entity.field_pg_offer.entity.name.value }}</h3>
+  {% if  node.field_offers|length > 0 %}
+    <div class="block ad-movie-offers">
+      <div class="fr-container fr-mb-3w fr-mb-md-7w fr-mt-3w fr-mt-md-7w">
+        <h2>{{ block_platforms.title }}</h2>
+        {% for offer in node.field_offers %}
+          <h3 class="fr-mt-2w">{{ offer.entity.field_pg_offer.entity.name.value }}</h3>
 
-        <div class="ad-partner-card__container">
-          {% for p in offer.entity.field_pg_partners %}
+          <div class="ad-partner-card__container">
+            {% for p in offer.entity.field_pg_partners %}
 
-          {% set partner = p.entity %}
-          {% set condition = partner.field_pg_override_condition.value %}
-          {% if condition is empty %}
-            {% set condition = partner.field_pg_partner.entity.field_taxo_condition.value %}
-          {% endif %}
-          {% set logo = partner.field_pg_partner.entity.field_taxo_logo.entity.field_media_image.entity.uri.value %}
-          {% set title = partner.field_pg_partner.entity.name.value %}
+            {% set partner = p.entity %}
+            {% set condition = partner.field_pg_override_condition.value %}
+            {% if condition is empty %}
+              {% set condition = partner.field_pg_partner.entity.field_taxo_condition.value %}
+            {% endif %}
+            {% set logo = partner.field_pg_partner.entity.field_taxo_logo.entity.field_media_image.entity.uri.value %}
+            {% set title = partner.field_pg_partner.entity.name.value %}
 
 
-          <div class="fr-grid-row ad-partner-card">
-            {% if logo is not empty %}
-            <div class="fr-col-12 fr-col-sm-3 fr-col-md-4 fr-col-xl-3">
-              <img src="{{ file_url(logo) }}" alt="" />
+            <div class="fr-grid-row ad-partner-card">
+              {% if logo is not empty %}
+              <div class="fr-col-12 fr-col-sm-3 fr-col-md-4 fr-col-xl-3">
+                <img src="{{ file_url(logo) }}" alt="" />
+              </div>
+              <div class="fr-col-12 fr-col-sm-9 fr-col-md-8 fr-col-xl-9 ad-partner-card__content">
+              {% else %}
+                <div class="fr-col-12 ad-partner-card__content">
+              {% endif%}
+                <p>{{ title }}</p>
+                {{ condition|raw }}
+                {{ pattern('button', {
+                  label: partner.field_pg_partner.entity.field_taxo_label_button.value,
+                  url: partner.field_pg_link.uri,
+                  target: '_blank',
+                  external: 1
+                }, 'primary') }}
+              </div>
             </div>
-            <div class="fr-col-12 fr-col-sm-9 fr-col-md-8 fr-col-xl-9 ad-partner-card__content">
-            {% else %}
-              <div class="fr-col-12 ad-partner-card__content">
-            {% endif%}
-              <p>{{ title }}</p>
-              {{ condition|raw }}
-              {{ pattern('button', {
-                label: partner.field_pg_partner.entity.field_taxo_label_button.value,
-                url: partner.field_pg_link.uri,
-                target: '_blank',
-                external: 1
-              }, 'primary') }}
-            </div>
+              {% endfor %}
           </div>
-            {% endfor %}
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
-  </div>
+  {% endif %}
 
-  <div class="block">
-    {{ block_contact }}
-  </div>
+  {{ block_contact }}
 </article>
