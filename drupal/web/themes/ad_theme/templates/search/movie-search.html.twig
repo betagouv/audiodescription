@@ -1,6 +1,24 @@
 <div class="ad-search-page fr-container">
   <div class="fr-mb-2w fr-mt-2w">
     <p>{{ movies.total }} résultats pour "{{ filters.search }}" dont {{ movies.totalWithAd }} résultats avec audiodescription</p>
+
+    {% set f = [] %}
+    {% for key, filter in filters %}
+      {% if key != "search" %}
+        {% if filter is not null %}
+          {% set f = f|merge({(key): filter}) %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if f|length > 0 %}
+      <p>Les filtres appliqués sont : </p>
+      <ul>
+        {% for key, filter in f %}
+          <li>{{ key|capitalize }} : {{ filter|join(', ') }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
 
   {# <div class="fr-mb-7w fr-grid-row">
@@ -8,7 +26,6 @@
       {{ form }}
     </div>
   </div> #}
-
 
   <div class="fr-mb-7w">
     {{ pattern('accordion', {

@@ -221,6 +221,20 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       ],
     ];
 
+    $form['reset'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Reset'),
+      '#attributes' => [
+        'type' => 'reset',
+        'class' => [
+          'fr-btn',
+          'fr-btn--icon-left',
+          'fr-btn--tertiary-no-outline',
+          'fr-icon-checkbox-circle-line',
+        ],
+      ],
+    ];
+
     $form['#action'] = '/recherche';
 
     return $form;

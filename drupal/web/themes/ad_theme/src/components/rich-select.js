@@ -74,11 +74,26 @@ export class RichSelect extends LitElement {
     return this.is_female ? 'une' : 'un';
   }
 
+  get btnLabel() {
+    let length = this.selectedOptions.length;
+    if (length === 1) {
+      return '1 ' + this.singular_title + ' sélectionné';
+    }
+
+    if (length > 1) {
+      return length + ' ' + this.plural_title + ' sélectionnés';
+    }
+
+    return 'Sélectionner' + ' ' + this.pronoun + ' ' + this.singular_title;
+  }
+
   _formatOptions() {
-    return Object.entries(JSON.parse(this.options)).map(([key, value]) => ({
-      key: key,
-      value: value
-    }));
+    return Object.entries(JSON.parse(this.options))
+      .map(([key, value]) => ({
+        key: key,
+        value: value
+      }))
+      .sort((a, b) => a.value.localeCompare(b.value));
   }
 
   _handleCheckboxChange(e) {
@@ -89,6 +104,13 @@ export class RichSelect extends LitElement {
     } else {
       this.selectedOptions = this.selectedOptions.filter((v) => v !== value);
     }
+  }
+
+  _isSelected(key) {
+    if (typeof this.selectedOptions === 'object') {
+      return false;
+    }
+    return this.selectedOptions.includes(key);
   }
 
   _onSearch(e) {
@@ -147,7 +169,7 @@ export class RichSelect extends LitElement {
           aria-controls="ad-${this.plural_title}"
           aria-expanded="${this.visible}"
           @click="${this._toggleDropdown}">
-          Sélectionner ${this.pronoun} ${this.singular_title}
+          ${this.btnLabel}
         </button>
 
         <div
@@ -187,7 +209,7 @@ export class RichSelect extends LitElement {
                     type="checkbox"
                     aria-describedby="checkboxes-${this.plural_title}-messages-${item.key}"
                     value="${item.key}"
-                    ?checked="${this.selectedOptions.includes(item.key)}"
+                    ?checked="${this._isSelected(item.key)}"
                     @change="${this._handleCheckboxChange}"
                   >
                   <label class="fr-label" for="checkboxes-${this.plural_title}-${item.key}">

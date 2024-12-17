@@ -120,11 +120,27 @@ class MovieSearchController extends ControllerBase {
       '#filtersForm' => $filtersForm,
       '#filters' => [
         'search' => $params->search,
+        'genres' => $this->getCurrentFilters($params->genre),
+        'nationalities' => $this->getCurrentFilters($params->nationality),
+        'publics' => $this->getCurrentFilters($params->public),
       ],
       '#cache' => [
         'max-age' => 0,
       ],
     ];
+  }
+
+  private function getCurrentFilters(array $ids) {
+    foreach ($ids as $id) {
+      $entity = $this
+        ->entityTypeManager
+        ->getStorage('taxonomy_term')
+        ->load($id);
+
+      $values[] = $entity->getName();
+    }
+
+    return $values ?? NULL;
   }
 
   /**
