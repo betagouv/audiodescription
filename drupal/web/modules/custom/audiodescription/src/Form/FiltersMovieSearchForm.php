@@ -223,7 +223,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
 
     $form['reset'] = [
       '#type' => 'button',
-      '#value' => $this->t('Reset'),
+      '#value' => "Réinitialiser les filtres",
       '#attributes' => [
         'type' => 'reset',
         'class' => [
