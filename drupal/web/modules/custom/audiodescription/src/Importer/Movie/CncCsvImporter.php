@@ -56,7 +56,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
           $data['directors'] = [];
 
           foreach ($directors as $director) {
-            $director = $this->directorManager->provide(trim($director));
+            $director = $this->directorManager->createOrUpdate(trim($director));
 
             $data['directors'][] = $director->tid->value;
           }
@@ -64,14 +64,14 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
 
         $publicCode = $line['INTERDICTION'];
         if (!empty($publicCode)) {
-          $public = $this->publicManager->provide(trim($publicCode));
+          $public = $this->publicManager->createOrUpdate(trim($publicCode));
 
           $data['public'] = $public;
         }
 
         $genreName = $line['GENRE'];
         if (!empty($genreName)) {
-          $genre = $this->genreManager->provide(trim($genreName));
+          $genre = $this->genreManager->createOrUpdate(trim($genreName));
 
           $data['genre'] = $genre;
         }
@@ -82,7 +82,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
           $data['nationalities'] = [];
 
           foreach ($nationalities as $nationality) {
-            $nationality = $this->nationalityManager->provide(trim($nationality));
+            $nationality = $this->nationalityManager->createOrUpdate(trim($nationality));
             $data['nationalities'][] = $nationality->tid->value;
           }
         }
@@ -98,7 +98,7 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
         }
 
         // Create or update movie.
-        $this->movieManager->createOrUpdate($data);
+        $this->movieManager->provide($data);
 
         // Clear entities cache.
         $this->entityTypeManager->clearCachedDefinitions();

@@ -21,7 +21,7 @@ class NationalityManager {
    * @return \Drupal\taxonomy\Entity\Term
    *   Nationality created or updated.
    */
-  public function provide(string $nationalityName): ?Term {
+  public function createOrUpdate(string $nationalityName): ?Term {
     $nationalityCode = $this->computeCode($nationalityName);
 
     $nationalities = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
@@ -36,13 +36,13 @@ class NationalityManager {
 
     if (is_null($nationality)) {
       $nationality = Term::create([
-        'name' => $nationalityName,
         'field_taxo_code' => $nationalityCode,
         'vid' => Taxonomy::NATIONALITY->value,
       ]);
-
-      $nationality->save();
     }
+
+    $nationality->setName($nationalityName);
+    $nationality->save();
 
     return $nationality;
   }

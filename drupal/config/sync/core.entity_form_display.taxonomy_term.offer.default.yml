@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.offer.field_taxo_code
     - taxonomy.vocabulary.offer
   module:
     - path
@@ -11,6 +12,14 @@ targetEntityType: taxonomy_term
 bundle: offer
 mode: default
 content:
+  field_taxo_code:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 1

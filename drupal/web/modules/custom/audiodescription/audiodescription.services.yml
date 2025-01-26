@@ -27,6 +27,54 @@ services:
       - '@audiodescription.manager.public'
       - '%cnc_publics_file%'
 
+  audiodescription.director_patrimony_importer:
+    class: Drupal\audiodescription\Importer\Director\DirectorPatrimonyImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.manager.director'
+
+  audiodescription.genre_patrimony_importer:
+    class: Drupal\audiodescription\Importer\Genre\GenrePatrimonyImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.manager.genre'
+
+  audiodescription.movie_patrimony_importer:
+    class: Drupal\audiodescription\Importer\Movie\MoviePatrimonyImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.manager.movie'
+      - '@audiodescription.manager.nationality'
+      - '@audiodescription.manager.genre'
+      - '@audiodescription.manager.director'
+      - '@audiodescription.manager.public'
+      - '@audiodescription.manager.partner'
+      - '@audiodescription.manager.offer'
+
+  audiodescription.nationality_patrimony_importer:
+    class: Drupal\audiodescription\Importer\Nationality\NationalityPatrimonyImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.manager.nationality'
+
+  audiodescription.offer_patrimony_importer:
+    class: Drupal\audiodescription\Importer\Offer\OfferPatrimonyImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.manager.offer'
+
+  audiodescription.public_patrimony_importer:
+    class: Drupal\audiodescription\Importer\Public\PublicPatrimonyImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.manager.public'
+
+  audiodescription.partner_patrimony_importer:
+    class: Drupal\audiodescription\Importer\Partner\PartnerPatrimonyImporter
+    arguments:
+      - '@entity_type.manager'
+      - '@audiodescription.manager.partner'
+
   audiodescription.importer_factory:
     class: Drupal\audiodescription\Importer\Movie\ImporterFactory
     arguments:
@@ -51,9 +99,20 @@ services:
     class: Drupal\audiodescription\EntityManager\MovieManager
     arguments:
       - '@entity_type.manager'
+      - '@audiodescription.manager.offer'
 
   audiodescription.manager.nationality:
     class: Drupal\audiodescription\EntityManager\NationalityManager
+    arguments:
+      - '@entity_type.manager'
+
+  audiodescription.manager.offer:
+    class: Drupal\audiodescription\EntityManager\OfferManager
+    arguments:
+      - '@entity_type.manager'
+
+  audiodescription.manager.partner:
+    class: Drupal\audiodescription\EntityManager\PartnerManager
     arguments:
       - '@entity_type.manager'
 

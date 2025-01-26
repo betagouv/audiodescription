@@ -22,7 +22,7 @@ class MovieSearchManager {
    *
    * @var \Drupal\search_api\Entity\Index
    */
-  protected Index $moviesIndex;
+  protected ?Index $moviesIndex;
 
   public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;

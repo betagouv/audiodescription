@@ -1,0 +1,21 @@
+uuid: e79d0f42-dbdc-4cf5-b130-da4f6fcdd22f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_end_rights
+    - paragraphs.paragraphs_type.pg_partner
+  module:
+    - datetime
+id: paragraph.pg_partner.field_pg_end_rights
+field_name: field_pg_end_rights
+entity_type: paragraph
+bundle: pg_partner
+label: 'Fin des droits'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

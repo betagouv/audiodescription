@@ -15,6 +15,7 @@ dependencies:
     - taxonomy.vocabulary.nationality
     - taxonomy.vocabulary.public
   module:
+    - config_pages
     - contextual
     - file
     - media
@@ -30,6 +31,7 @@ weight: 5
 is_admin: null
 permissions:
   - 'access administration pages'
+  - 'access config_pages overview'
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
@@ -82,6 +84,7 @@ permissions:
   - 'edit any image media'
   - 'edit any movie content'
   - 'edit any page content'
+  - 'edit config_pages entity'
   - 'edit own article content'
   - 'edit own document media'
   - 'edit own image media'
@@ -107,6 +110,7 @@ permissions:
   - 'view any document media revisions'
   - 'view any image media revisions'
   - 'view article revisions'
+  - 'view config_pages entity'
   - 'view movie revisions'
   - 'view own unpublished content'
   - 'view page revisions'

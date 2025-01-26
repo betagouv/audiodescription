@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.partner.field_taxo_code
     - field.field.taxonomy_term.partner.field_taxo_condition
     - field.field.taxonomy_term.partner.field_taxo_label_button
     - field.field.taxonomy_term.partner.field_taxo_logo
@@ -16,6 +17,14 @@ targetEntityType: taxonomy_term
 bundle: partner
 mode: default
 content:
+  field_taxo_code:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_taxo_condition:
     type: text_textarea
     weight: 2

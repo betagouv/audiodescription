@@ -41,9 +41,11 @@
         "drupal/layout_paragraphs": "^2.0",
         "drupal/linkit": "^7.0-alpha2 ",
         "drupal/metatag": "^2.0",
+        "drupal/openid_connect": "^3.0@alpha",
         "drupal/pathauto": "^1.13",
         "drupal/search_api": "^1.35",
         "drupal/search_api_elasticsearch": "dev-7.x-1.x",
+        "drupal/simple_oauth": "^6.0@beta",
         "drupal/ui_suite_dsfr": "^1.0",
         "drush/drush": "^13.3",
         "gouv/dsfr": "^1.11"

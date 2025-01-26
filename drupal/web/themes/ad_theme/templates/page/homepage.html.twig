@@ -5,8 +5,10 @@
         <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
           <h1>{{ header.title }}</h1>
           {{ header.chapo|class2wysiwygP('fr-text--lead')|raw }}
-
-          {{ search_form }}
+          
+          {% if header.has_search_bar %}
+            {{ search_form }}
+          {% endif %}
         </div>
       </div>
       <div class="fr-col-lg-6 fr-hidden fr-unhidden-lg">

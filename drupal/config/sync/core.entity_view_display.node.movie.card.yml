@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.card
     - field.field.node.movie.field_actors
+    - field.field.node.movie.field_arte_id
     - field.field.node.movie.field_clean_title
     - field.field.node.movie.field_cnc_number
     - field.field.node.movie.field_directors
@@ -157,6 +158,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_arte_id: true
   field_offers: true
   langcode: true
   search_api_excerpt: true

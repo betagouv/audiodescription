@@ -11,4 +11,6 @@ enum Taxonomy: string {
   case PUBLIC = 'public';
   case GENRE = 'genre';
   case NATIONALITY = 'nationality';
+  case PARTNER = 'partner';
+  case OFFER = 'offer';
 }

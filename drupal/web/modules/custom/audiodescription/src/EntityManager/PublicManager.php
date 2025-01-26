@@ -18,44 +18,11 @@ class PublicManager {
   /**
    * Create or update public taxonomy term.
    */
-  public function createOrUpdate(string $publicCode, string $publicName): void {
+  public function createOrUpdate(string $publicCode, ?string $publicName = NULL): ?Term {
     $properties = [
       'field_taxo_code' => $publicCode,
       'vid' => Taxonomy::PUBLIC->value,
     ];
-
-    $publics = $this->entityTypeManager
-      ->getStorage('taxonomy_term')
-      ->loadByProperties($properties);
-
-    if (empty($publics)) {
-      $properties['name'] = $publicName;
-      $public = Term::create($properties);
-      $public->save();
-      return;
-    }
-
-    $public = array_shift($publics);
-    $public->setName($publicName);
-    $public->save();
-  }
-
-  /**
-   * Function to create public or update if it exists.
-   *
-   * @return \Drupal\taxonomy\Entity\Term
-   *   Public created or updated.
-   */
-  public function provide(string $publicCode, ?string $publicName = NULL): ?Term {
-
-    $properties = [
-      'field_taxo_code' => $publicCode,
-      'vid' => Taxonomy::PUBLIC->value,
-    ];
-
-    if (isset($publicName) && !empty($publicName)) {
-      $properties['name'] = $publicName;
-    }
 
     $publics = $this->entityTypeManager
       ->getStorage('taxonomy_term')
@@ -67,16 +34,13 @@ class PublicManager {
     }
 
     if (is_null($public)) {
-      $public = Term::create([
-        'name' => $publicName,
-        'field_taxo_code' => $publicCode,
-        'vid' => Taxonomy::PUBLIC->value,
-      ]);
-
-      $public->save();
+      $public = Term::create($properties);
     }
+
+    if (is_null($publicName)) $publicName = $publicCode;
+    $public->setName($publicName);
+    $public->save();
 
     return $public;
   }
-
 }

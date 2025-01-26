@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.movie.field_actors
+    - field.field.node.movie.field_arte_id
     - field.field.node.movie.field_clean_title
     - field.field.node.movie.field_cnc_number
     - field.field.node.movie.field_directors
@@ -29,6 +30,7 @@ mode: teaser
 content: {  }
 hidden:
   field_actors: true
+  field_arte_id: true
   field_clean_title: true
   field_cnc_number: true
   field_directors: true

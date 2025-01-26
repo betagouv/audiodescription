@@ -1,0 +1,19 @@
+uuid: 74df3982-0b69-4250-8d1e-41f2ec1dc415
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_arte_id
+    - node.type.movie
+id: node.movie.field_arte_id
+field_name: field_arte_id
+entity_type: node
+bundle: movie
+label: 'Arte ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -51,6 +51,10 @@ class InfoBannerBlock extends BlockBase implements ContainerFactoryPluginInterfa
     $config_pages = $this->configPagesLoader;
     $config = $config_pages->load('wordings');
 
+    if (is_null($config)) {
+      return [];
+    }
+
     $description = $config->get('field_info_banner_description')->value;
     $title = $config->get('field_info_banner_title')->value;
 

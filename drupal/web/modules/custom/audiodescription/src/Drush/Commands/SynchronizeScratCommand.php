@@ -97,7 +97,7 @@ final class SynchronizeScratCommand extends DrushCommands {
 
               $genres = [];
               foreach ($data['genres'] as $genre) {
-                $genres[] = $this->genreManager->provide(trim($genre));
+                $genres[] = $this->genreManager->createOrUpdate(trim($genre));
               }
               $genresData = array_map(function ($genre) {
                 return ['target_id' => $genre->id()];

@@ -13,6 +13,11 @@ help:
 up:
 	docker compose up -d
 
+##down: Down dockers
+.PHONY:down
+down:
+	docker compose down
+
 .PHONY:sh
 sh:
 	docker compose exec php bash
@@ -42,6 +47,8 @@ quality:
 reset-db:
 	docker compose exec php vendor/bin/drush entity:delete node --bundle=movie
 	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=genre
+	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=offer
+	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=partner
 	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=nationality
 	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=public
 	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=director

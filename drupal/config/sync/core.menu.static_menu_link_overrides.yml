@@ -8,38 +8,38 @@ definitions:
     expanded: false
     enabled: true
   standard__front_page:
-    weight: -50
     menu_name: main
     parent: ''
-    enabled: true
-    expanded: false
-  navigation__create:
     weight: -50
-    menu_name: content
-    parent: ''
-    enabled: true
     expanded: false
-  navigation__blocks:
-    weight: -45
+    enabled: true
+  navigation__create:
     menu_name: content
     parent: ''
+    weight: -50
+    expanded: false
+    enabled: true
+  navigation__blocks:
+    menu_name: content
+    parent: ''
+    weight: -45
     expanded: false
     enabled: true
   navigation__content:
-    weight: -49
     menu_name: content
     parent: ''
+    weight: -49
     expanded: false
     enabled: true
   navigation__files:
-    weight: -47
     menu_name: content
     parent: ''
+    weight: -47
     expanded: false
     enabled: true
   navigation__media:
-    weight: -46
     menu_name: content
     parent: ''
+    weight: -46
     expanded: false
     enabled: true

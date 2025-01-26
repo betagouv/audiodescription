@@ -3,11 +3,14 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.paragraph.pg_partner.field_pg_end_rights
     - field.field.paragraph.pg_partner.field_pg_link
     - field.field.paragraph.pg_partner.field_pg_override_condition
     - field.field.paragraph.pg_partner.field_pg_partner
+    - field.field.paragraph.pg_partner.field_pg_start_rights
     - paragraphs.paragraphs_type.pg_partner
   module:
+    - datetime
     - link
     - text
 id: paragraph.pg_partner.default
@@ -15,6 +18,12 @@ targetEntityType: paragraph
 bundle: pg_partner
 mode: default
 content:
+  field_pg_end_rights:
+    type: datetime_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_pg_link:
     type: link_default
     weight: 1
@@ -40,6 +49,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_pg_start_rights:
+    type: datetime_default
+    weight: 3
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

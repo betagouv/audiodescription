@@ -1,0 +1,20 @@
+uuid: 95a98444-9a6b-406d-bea0-47d332663ce3
+langcode: fr
+status: true
+dependencies:
+  module:
+    - datetime
+    - paragraphs
+id: paragraph.field_pg_start_rights
+field_name: field_pg_start_rights
+entity_type: paragraph
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
