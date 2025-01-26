@@ -15,7 +15,10 @@ label: Description
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: '<p>Retrouvez ci-dessous les derniers films audiodécrits ajoutés à notre catalogue.</p>'
+    format: basic_html
 default_value_callback: ''
 settings:
   allowed_formats: {  }

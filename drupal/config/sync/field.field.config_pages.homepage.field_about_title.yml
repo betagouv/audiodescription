@@ -15,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: 'À propos de la plateforme Audiodescription'
+    value: "À propos du portail de l'audiodescription"
 default_value_callback: ''
 settings: {  }
 field_type: string

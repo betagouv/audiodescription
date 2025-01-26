@@ -15,7 +15,10 @@ label: Chapô
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: '<p>Explorez le catalogue de films actuellement disponibles en version audiodécrite sur nos plateformes partenaires.</p>'
+    format: full_html
 default_value_callback: ''
 settings:
   allowed_formats: {  }

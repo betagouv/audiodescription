@@ -7,6 +7,7 @@ dependencies:
     - field.field.taxonomy_term.partner.field_taxo_condition
     - field.field.taxonomy_term.partner.field_taxo_label_button
     - field.field.taxonomy_term.partner.field_taxo_logo
+    - field.field.taxonomy_term.partner.field_taxo_logo_black_square
     - taxonomy.vocabulary.partner
   module:
     - media_library
@@ -27,7 +28,7 @@ content:
     third_party_settings: {  }
   field_taxo_condition:
     type: text_textarea
-    weight: 2
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -35,7 +36,7 @@ content:
     third_party_settings: {  }
   field_taxo_label_button:
     type: string_textfield
-    weight: 3
+    weight: 5
     region: content
     settings:
       size: 60
@@ -43,14 +44,21 @@ content:
     third_party_settings: {  }
   field_taxo_logo:
     type: media_library_widget
-    weight: 1
+    weight: 2
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_taxo_logo_black_square:
+    type: media_library_widget
+    weight: 3
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 4
+    weight: 6
     region: content
     settings:
       include_locked: true
@@ -65,13 +73,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 6
+    weight: 8
     region: content
     settings:
       display_label: true

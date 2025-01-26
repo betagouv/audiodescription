@@ -5,7 +5,35 @@
         <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
           <h1>{{ header.title }}</h1>
           {{ header.chapo|class2wysiwygP('fr-text--lead')|raw }}
-          
+
+          <div class="ad-homepage__stats">
+            <p class="fr-text--lead ad-homepage__stats-text">
+              <strong>{{ header.stats }} films</strong> disponibles sur
+            <ul class="ad-homepage__stats-list">
+              {% for partner in header.partners %}
+                <li class="ad-homepage__stats-list-item">
+                  {% set media = partner.field_taxo_logo_black_square.entity %}
+
+                  {% if media.field_media_image.entity %}
+                    {% set uri = media.field_media_image.entity.uri.value %}
+                    {% set alt = media.field_media_image.alt %}
+                    <img src="{{ file_url(uri) }}" alt="{{ alt }}">
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+            </p>
+          </div>
+
+          {% set header_cta = pattern('button', {
+            label: header.cta.text,
+            url: header.cta.url,
+            target: header.cta.target,
+            external: header.cta.external
+          }, header.cta.style) %}
+
+          {{ header_cta }}
+
           {% if header.has_search_bar %}
             {{ search_form }}
           {% endif %}

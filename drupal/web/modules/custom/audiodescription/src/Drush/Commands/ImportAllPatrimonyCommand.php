@@ -55,7 +55,7 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
   #[CLI\Usage(name: 'ad:import:all', description: 'Import all from patrimony.')]
   public function import(): void {
     try {
-      /**$this->genrePatrimonyImporter->import();
+      $this->genrePatrimonyImporter->import();
       $this->logger()->success('Import des genres terminé');
 
       $this->publicPatrimonyImporter->import();
@@ -71,7 +71,7 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
       $this->logger()->success('Import des partenaires terminé');
 
       $this->offerPatrimonyImporter->import();
-      $this->logger()->success('Import des offres terminé');**/
+      $this->logger()->success('Import des offres terminé');
 
       $this->moviePatrimonyImporter->import();
       $this->logger()->success('Import des films terminé');

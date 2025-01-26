@@ -2,8 +2,8 @@ _core:
   default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
 langcode: fr
 uuid: e6c1838c-d5b1-4d0c-8c20-9405ca9991f6
-name: Audiodescription
-mail: admin@example.com
+name: "Portail de l'audiodescription"
+mail: contact@audiodescription.beta.gouv.fr
 slogan: ''
 page:
   403: /error-403

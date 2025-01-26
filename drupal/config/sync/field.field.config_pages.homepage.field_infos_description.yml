@@ -15,7 +15,10 @@ label: Description
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: "<p>L'audiodescription est un procédé qui permet de rendre des œuvres audiovisuelles accessibles aux personnes aveugles et malvoyantes, grâce à des descriptions sonores qui permettent l'immersion dans l'œuvre.</p>"
+    format: basic_html
 default_value_callback: ''
 settings:
   allowed_formats: {  }

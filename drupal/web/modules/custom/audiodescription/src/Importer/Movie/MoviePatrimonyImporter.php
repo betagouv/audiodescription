@@ -22,7 +22,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
   const ITEMS_PER_PAGE = 200;
   // @Todo : set date dynamically.
-  const BASE_URL = 'http://172.17.0.1:8083/movies?updatedAt[after]=2025-01-21';
+  //const BASE_URL = 'http://172.17.0.1:8083/movies?updatedAt[after]=2025-01-21';
+  const BASE_URL = 'http://172.17.0.1:8083/movies?updatedAt[after]=2024-01-21';
 
   public function __construct(
     private EntityTypeManager $entityTypeManager,

@@ -1,0 +1,29 @@
+uuid: e31f423b-a0a7-4a9b-b275-a21b50842227
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_logo_black_square
+    - media.type.image
+    - taxonomy.vocabulary.partner
+id: taxonomy_term.partner.field_taxo_logo_black_square
+field_name: field_taxo_logo_black_square
+entity_type: taxonomy_term
+bundle: partner
+label: 'Logo "carré noir"'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

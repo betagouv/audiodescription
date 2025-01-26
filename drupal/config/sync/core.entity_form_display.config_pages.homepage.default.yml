@@ -13,6 +13,7 @@ dependencies:
     - field.field.config_pages.homepage.field_collections_title
     - field.field.config_pages.homepage.field_collections_with_genres
     - field.field.config_pages.homepage.field_header_chapo
+    - field.field.config_pages.homepage.field_header_cta
     - field.field.config_pages.homepage.field_header_image
     - field.field.config_pages.homepage.field_header_title
     - field.field.config_pages.homepage.field_header_with_search_bar
@@ -35,6 +36,8 @@ third_party_settings:
         - field_header_title
         - field_header_chapo
         - field_header_with_search_bar
+        - field_header_stats
+        - field_header_cta
         - field_header_image
       label: Header
       region: content
@@ -196,9 +199,27 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_header_cta:
+    type: paragraphs
+    weight: 5
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
   field_header_image:
     type: media_library_widget
-    weight: 4
+    weight: 6
     region: content
     settings:
       media_types: {  }

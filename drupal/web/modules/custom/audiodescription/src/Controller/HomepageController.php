@@ -3,10 +3,14 @@
 namespace Drupal\audiodescription\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\block\Entity\Block;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
+use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -72,10 +76,29 @@ class HomepageController extends ControllerBase {
     $config_pages = $this->configPagesLoader;
     $homepage = $config_pages->load('homepage');
 
+    $entity = $homepage->get('field_header_cta')->referencedEntities()[0];
+    $cta = [
+      'url' => $entity->get('field_pg_link')->first()->getUrl()->toString(),
+      'text' => $entity->get('field_pg_link')->first()->title,
+      'target' => ($entity->get('field_pg_is_external')->value == TRUE) ? 'blank' : 'self',
+      'external' => ($entity->get('field_pg_is_external')->value == TRUE),
+      'style' => $entity->get('field_pg_style')->value,
+    ];
+
+    // Get partners.
+    $query = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'partner')
+      ->exists('field_taxo_logo_black_square')
+      ->accessCheck(FALSE);
+    $term_ids = $query->execute();
+
     $header = [
       'title' => $homepage->get('field_header_title')->value,
       'chapo' => $homepage->get('field_header_chapo')->value,
       'has_search_bar' => $homepage->get('field_header_with_search_bar')->value,
+      'cta' => $cta,
+      'stats' => $this->countMoviesWithAtLeastOneSolution(),
+      'partners' => Term::loadMultiple($term_ids),
       'image' => $homepage->get('field_header_image')->entity->field_media_image->entity->uri->value
     ];
 
@@ -146,6 +169,52 @@ class HomepageController extends ControllerBase {
       '#last_movies' => $lastMovies,
       '#search_form' => $search_form,
     ];
+  }
+
+  private function countMoviesWithAtLeastOneSolution():int {
+    $current_date = new DrupalDateTime('now');
+
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'movie') // Récupérer uniquement les nodes de type "movie"
+      ->exists('field_offers') // Vérifier que le champ 'field_offers' est renseigné (c'est une référence à des Paragraphes)
+      ->accessCheck(FALSE); // Ignorer les vérifications d'accès si nécessaire
+    $movie_ids = $query->execute();
+
+    // Initialisation du compteur
+    $movie_ids_with_partners = [];
+
+    foreach ($movie_ids as $movie_id) {
+      $movie = Node::load($movie_id);
+
+
+      $offers = $movie->get('field_offers')->referencedEntities();
+      foreach ($offers as $offer) {
+        if ($offer->getType() == 'pg_offer') {
+          $partners = $offer->get('field_pg_partners')->referencedEntities();
+
+          foreach ($partners as $partner) {
+            if ($partner->getType() == 'pg_partner') {
+              $start_date = $partner->get('field_pg_start_rights')->value;
+              $end_date = $partner->get('field_pg_end_rights')->value;
+
+              if ($start_date && $end_date) {
+                $start_date = new DrupalDateTime($start_date);
+                $end_date = new DrupalDateTime($end_date);
+
+                if ($start_date->getTimestamp() < $current_date->getTimestamp() &&
+                  $end_date->getTimestamp() > $current_date->getTimestamp()) {
+                  if (!in_array($movie->id(), $movie_ids_with_partners)) {
+                    $movie_ids_with_partners[] = $movie->id();
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return count($movie_ids_with_partners);
   }
 
 }

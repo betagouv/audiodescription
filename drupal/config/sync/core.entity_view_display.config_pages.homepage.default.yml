@@ -13,6 +13,7 @@ dependencies:
     - field.field.config_pages.homepage.field_collections_title
     - field.field.config_pages.homepage.field_collections_with_genres
     - field.field.config_pages.homepage.field_header_chapo
+    - field.field.config_pages.homepage.field_header_cta
     - field.field.config_pages.homepage.field_header_image
     - field.field.config_pages.homepage.field_header_title
     - field.field.config_pages.homepage.field_header_with_search_bar
@@ -102,6 +103,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_header_cta:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 21
     region: content
   field_header_image:
     type: entity_reference_entity_view

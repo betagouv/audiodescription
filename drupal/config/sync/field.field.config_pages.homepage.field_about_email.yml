@@ -13,7 +13,9 @@ label: Courriel
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: contact@audiodescription.beta.gouv.fr
 default_value_callback: ''
 settings: {  }
 field_type: email

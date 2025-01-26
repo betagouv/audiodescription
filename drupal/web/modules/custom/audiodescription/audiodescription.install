@@ -6,7 +6,13 @@
  */
 
 use Drupal\Core\Batch\BatchBuilder;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\media\Entity\Media;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\User;
+use Drupal\file\Entity\File;
 
 /**
  * Create test users.
@@ -79,6 +85,75 @@ function audiodescription_update_10002() {
 }
 
 /**
+ * Set default for config pages.
+ */
+function audiodescription_update_10016() {
+  // Set homepage.
+  $config_page = \Drupal::service('config_pages.loader')
+    ->load('homepage');
+
+  if ($config_page) {
+    $config_page->set('field_header_title', "Trouver l'audiodescription d'un film");
+    $config_page->set('field_header_chapo', [
+      'value' => "<p>Explorez le catalogue de films actuellement disponibles en version audiodécrite sur nos plateformes partenaires.</p>",
+      'format' => 'full_html',
+    ]);
+    $config_page->set('field_header_with_search_bar', FALSE);
+    $cta = audiodescription_create_pg_cta('internal:/recherche', 'Parcourir le catalogue de films',FALSE, 'primary');
+    $config_page->set('field_header_cta', [
+      'target_id' => $cta->id(),
+      'target_revision_id' => $cta->getRevisionId(),
+    ]);
+    $config_page->set('field_header_stats', 'films disponibles sur');
+    $config_page->set('field_header_image', audiodescription_create_media_image('hero.png', ''));
+
+
+    $config_page->set('field_last_movies_title', 'Disponibles actuellement');
+    $config_page->set('field_last_movies_description', [
+      'value' => '<p>Retrouvez ci-dessous les derniers films audiodécrits ajoutés à notre catalogue.</p>',
+      'format' => 'basic_html',
+    ]);
+
+    $cta = audiodescription_create_pg_cta('internal:/recherche', 'Découvrir les films audiodécrits',FALSE, 'primary');
+    $config_page->set('field_last_movies_cta', [
+      'target_id' => $cta->id(),
+      'target_revision_id' => $cta->getRevisionId(),
+    ]);
+
+    $config_page->set('field_collections_title', 'Toutes nos collections de films audiodécrits');
+    $config_page->set('field_collections_with_genres', FALSE);
+
+    $config_page->set('field_infos_title', 'Qu’est ce que l’audiodescription ?');
+    $config_page->set('field_infos_description', [
+      'value' => "<p>L'audiodescription est un procédé qui permet de rendre des œuvres audiovisuelles accessibles aux personnes aveugles et malvoyantes, grâce à des descriptions sonores qui permettent l'immersion dans l'œuvre.</p>",
+      'format' => 'basic_html',
+    ]);
+
+    $cta = audiodescription_create_pg_cta('internal:/', "S'informer sur l'audiodescription",FALSE, 'primary');
+    $config_page->set('field_infos_ctas', [
+      [
+        'target_id' => $cta->id(),
+        'target_revision_id' => $cta->getRevisionId(),
+      ],
+    ]);
+
+    $config_page->set('field_infos_image', audiodescription_create_media_image('AD.png', 'Logo de l\'audiodescription'));
+
+    $config_page->set('field_about_title', 'À propos du portail de l\'audiodescription');
+    $config_page->set('field_about_description', [
+      'value' => "<p>Le portail du ministère de la Culture dédié à l’audiodescription fournit aux usagers en situation de handicap visuel et à leurs proches un accès à un catalogue de films audiodécrits via différentes solutions de diffusion partenaires, et à un ensemble de ressources informatives sur l’audiodescription.</p><p>Ce projet, en cours de construction, est porté par L'Atelier Numérique du Ministère de la Culture à travers le programme d'incubation beta.gouv.fr.</p>",
+      'format' => 'full_html',
+    ]);
+
+    $config_page->set('field_about_icon', audiodescription_create_media_image('information.svg', ''));
+    $config_page->set('field_about_pre_contact', 'Envoyez-nous toute suggestion ou retour à notre adresse mail :');
+    $config_page->set('field_about_email', 'contact@audiodescription.beta.gouv.fr');
+
+    $config_page->save();
+  }
+}
+
+/**
  * Fonction de traitement par lot pour mettre à jour le champ field_clean_title.
  *
  * @param array $nids
@@ -135,4 +210,90 @@ function audiodescription_batch_finished($success, $results, $operations) {
   else {
     \Drupal::messenger()->addMessage(t('An error occurred while updating movie clean titles.'), 'error');
   }
+}
+
+/**
+ * Crée une entité média de type image.
+ *
+ * @param string $uri
+ *   L'URI du fichier image (ex. : public://example.jpg).
+ * @param string $alt
+ *   Le texte alternatif pour l'image.
+ *
+ * @return array|null
+ *   Une référence à l'entité média ou NULL si le fichier n'existe pas.
+ */
+function audiodescription_create_media_image($filename, $alt) {
+  $file_system = \Drupal::service('file_system');
+  $source_path = DRUPAL_ROOT . '/modules/custom/audiodescription/images/' . $filename;
+
+  if (file_exists($source_path)) {
+    $destination_uri = 'public://' . $filename;
+    $copied = $file_system->copy($source_path, $destination_uri, FileSystemInterface::EXISTS_REPLACE);
+
+    if ($copied) {
+      $file = File::create([
+        'uri' => $destination_uri,
+        'status' => 1,
+      ]);
+      $file->save();
+
+      $media = Media::create([
+        'bundle' => 'image',
+        'name' => $alt,
+        'field_media_image' => [
+          'target_id' => $file->id(),
+          'alt' => $alt,
+        ],
+        'status' => 1,
+      ]);
+      $media->save();
+
+      \Drupal::logger('monmodule')->notice('Le fichier @filename a été importé et associé à une entité média.', [
+        '@filename' => $filename,
+      ]);
+
+      return $media->id();
+    }
+    else {
+      \Drupal::logger('monmodule')->error('Impossible de copier le fichier @filename dans le système de fichiers public.', [
+        '@filename' => $filename,
+      ]);
+    }
+  }
+  else {
+    \Drupal::logger('monmodule')->error('Le fichier @filename n\'existe pas dans le dossier du module.', [
+      '@filename' => $filename,
+    ]);
+  }
+
+  return NULL;
+}
+
+/**
+ * Crée un paragraphe de type 'pg_cta' et retourne son ID.
+ *
+ * @param string $link
+ *   L'URL du lien.
+ * @param bool $is_external
+ *   Si le lien est externe ou non.
+ * @param string $style
+ *   Le style du bouton (primary, secondary).
+ *
+ * @return string
+ *   L'ID du paragraphe créé.
+ */
+function audiodescription_create_pg_cta($link, $text, $is_external, $style) {
+  $paragraph = Paragraph::create([
+    'type' => 'pg_cta',
+    'field_pg_is_external' => $is_external,
+    'field_pg_link' => [
+      'uri' => $link,
+      'title' => $text,
+    ],
+    'field_pg_style' => $style,
+  ]);
+  $paragraph->save();
+
+  return $paragraph;
 }

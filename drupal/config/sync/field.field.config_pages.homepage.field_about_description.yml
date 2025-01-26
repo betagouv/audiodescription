@@ -15,7 +15,10 @@ label: Description
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: "<p>Le portail du ministère de la Culture dédié à l’audiodescription fournit aux usagers en situation de handicap visuel et à leurs proches un accès à un catalogue de films audiodécrits via différentes solutions de diffusion partenaires, et à un ensemble de ressources informatives sur l’audiodescription.</p><p>Ce projet, en cours de construction, est porté par L'Atelier Numérique du Ministère de la Culture à travers le programme d'incubation beta.gouv.fr.</p>"
+    format: basic_html
 default_value_callback: ''
 settings:
   allowed_formats: {  }
