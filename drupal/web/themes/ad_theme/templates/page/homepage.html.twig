@@ -17,7 +17,7 @@
                   {% if media.field_media_image.entity %}
                     {% set uri = media.field_media_image.entity.uri.value %}
                     {% set alt = media.field_media_image.alt %}
-                    <img src="{{ file_url(uri) }}" alt="{{ alt }}">
+                    <img src="{{ file_url(uri) }}" alt="{{ alt }}" title="{{ alt }}">
                   {% endif %}
                 </li>
               {% endfor %}
