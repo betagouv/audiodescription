@@ -124,6 +124,7 @@ class MovieManager {
     array $nationalities,
     array $directors,
     array $solutions,
+    ?string $synopsis,
   ): Node {
     $movies = $this->findExistingMovies($visa, $cncId, $arteId);
 
@@ -158,6 +159,13 @@ class MovieManager {
 
     if (!is_null($public)) {
       $movie->set('field_public', $public->tid->value);
+    }
+
+    if (!is_null($synopsis)) {
+      $movie->set('field_synopsis', [
+        'value' => $synopsis,
+        'format' => 'basic_html',
+      ]);
     }
 
     $ids = [];

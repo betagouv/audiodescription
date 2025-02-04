@@ -64,6 +64,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           $arteId = $movie['arteId'] ?? null;
           $hasAd = $movie['hasAd'];
           $productionYear = $movie['productionYear'] > 1800 ? $movie['productionYear'] : null;
+          $synopsis = $movie['synopsis'];
           $nationalities = [];
           $genres = [];
           $directors = [];
@@ -123,6 +124,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             $nationalities,
             $directors,
             $solutions,
+            $synopsis
           );
         }
 

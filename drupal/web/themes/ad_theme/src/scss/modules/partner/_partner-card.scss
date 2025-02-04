@@ -1,7 +1,9 @@
 .ad-partner-card {
-  border: 2px solid #DDD;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  &.fr-grid-row {
+    border: 2px solid #DDD;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
 
   &__container {
     display: grid;

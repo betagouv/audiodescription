@@ -1,0 +1,11 @@
+uuid: 480ce598-a4f0-418a-b9bf-8eb7691aae8c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - simple_sitemap.type.index
+id: sitemap
+label: Sitemap
+description: ''
+type: index
+weight: 0
