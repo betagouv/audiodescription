@@ -39,7 +39,7 @@ class DirectorPatrimonyImporter implements LoggerAwareInterface {
 
       // Output the result.
       foreach ($data['hydra:member'] as $director) {
-        $name = trim($director['name']);
+        $name = trim($director['fullname']);
         $this->directorManager->createOrUpdate($name);
         $this->entityTypeManager->clearCachedDefinitions();
         dump(sprintf("Created / Updated %s director.", $name));
