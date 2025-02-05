@@ -84,7 +84,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           }
 
           foreach ($movie['directors'] as $director) {
-            $directors[] = $this->directorManager->createOrUpdate($director['name']);
+            $directors[] = $this->directorManager->createOrUpdate($director['fullname']);
           }
 
           // @TODO : manage solutions
