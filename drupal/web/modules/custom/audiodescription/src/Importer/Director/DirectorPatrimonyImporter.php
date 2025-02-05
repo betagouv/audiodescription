@@ -29,7 +29,7 @@ class DirectorPatrimonyImporter implements LoggerAwareInterface {
 
     // @Todo : set date dynamically.
     try {
-      $response = $client->request('GET', 'http://172.17.0.1:8083/directors?updatedAt%5Bafter%5D=2025-01-04', [
+      $response = $client->request('GET', 'https://patrimoine.corfm.at/directors?updatedAt%5Bafter%5D=2025-01-04', [
         'headers' => [
           'Accept' => 'application/ld+json',
         ],

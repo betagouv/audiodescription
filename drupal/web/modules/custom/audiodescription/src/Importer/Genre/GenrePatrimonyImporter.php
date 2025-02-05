@@ -29,7 +29,7 @@ class GenrePatrimonyImporter implements LoggerAwareInterface {
 
     // @Todo : set date dynamically.
     try {
-      $response = $client->request('GET', 'http://172.17.0.1:8083/genres?updatedAt%5Bafter%5D=2025-01-04', [
+      $response = $client->request('GET', 'https://patrimoine.corfm.at/genres?updatedAt%5Bafter%5D=2025-01-04', [
         'headers' => [
           'Accept' => 'application/ld+json',
         ],
