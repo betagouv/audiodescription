@@ -37,8 +37,13 @@
             <p class="ad-movies-infos-title">
               <strong>Genres : </strong>
             {% for genre in node.field_genres %}
-              {% set term = genre.entity %}
-              {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
+
+                {% set term = genre.entity %}
+              {#
+                {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
+              #}
+
+              {% set term_path = '/recherche?genre[0]=' ~ term.id() %}
 
               {{ pattern('tag', {
                 label: term.name.value,
@@ -54,8 +59,12 @@
             {% for director in node.field_directors %}
               {% set entity = director.entity %}
 
+            {#
               {% set link = '<a href="' ~ path('entity.taxonomy_term.canonical', {'taxonomy_term': entity.id}) ~ '">' ~ entity.name.value|t ~ '</a>' %}
               {% set directors = directors|merge([link]) %}
+            #}
+
+              {% set directors = directors|merge([entity.name.value]) %}
             {% endfor %}
 
             <p class="ad-movies-infos-title">
@@ -154,6 +163,13 @@
         {% endfor %}
       </div>
     </div>
+  {% else %}
+      <div class="block ad-movie-offers">
+        <div class="fr-container fr-mb-3w fr-mb-md-7w fr-mt-3w fr-mt-md-7w">
+          <h2>{{ block_platforms.title }}</h2>
+          {{ block_platforms.no_result|class2wysiwygP('fr-text--lead')|raw }}
+        </div>
+      </div>
   {% endif %}
 
   {{ block_contact }}

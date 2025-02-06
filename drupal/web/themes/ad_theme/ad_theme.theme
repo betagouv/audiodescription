@@ -159,7 +159,8 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
   }
 
   $variables['block_platforms'] = [
-    'title' => $config->get('field_block_platforms_title')->value
+    'title' => $config->get('field_block_platforms_title')->value,
+    'no_result' => $config->get('field_block_platforms_no_result')->value
   ];
 
   $variables['collections'] = $collections;

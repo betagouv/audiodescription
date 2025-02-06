@@ -10,6 +10,7 @@ dependencies:
     - field.field.config_pages.movies.field_block_contact_image
     - field.field.config_pages.movies.field_block_contact_pre_contact
     - field.field.config_pages.movies.field_block_contact_title
+    - field.field.config_pages.movies.field_block_platforms_no_result
     - field.field.config_pages.movies.field_block_platforms_title
   module:
     - field_group
@@ -54,6 +55,7 @@ third_party_settings:
     group_block_platforms:
       children:
         - field_block_platforms_title
+        - field_block_platforms_no_result
       label: 'Bloc "Plateformes"'
       region: content
       parent_name: ''
@@ -116,6 +118,14 @@ content:
     region: content
     settings:
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_block_platforms_no_result:
+    type: text_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
   field_block_platforms_title:

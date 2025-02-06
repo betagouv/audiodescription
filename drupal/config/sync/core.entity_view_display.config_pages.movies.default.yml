@@ -10,6 +10,7 @@ dependencies:
     - field.field.config_pages.movies.field_block_contact_image
     - field.field.config_pages.movies.field_block_contact_pre_contact
     - field.field.config_pages.movies.field_block_contact_title
+    - field.field.config_pages.movies.field_block_platforms_no_result
     - field.field.config_pages.movies.field_block_platforms_title
   module:
     - text
@@ -64,6 +65,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_block_platforms_no_result:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_block_platforms_title:
     type: string
