@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\block\Entity\Block;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
@@ -162,6 +163,20 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
   ];
 
   $variables['collections'] = $collections;
+
+  $cache_tags = [];
+  $offers = $variables['elements']['#node']->get('field_offers')->referencedEntities();
+
+  foreach($offers as $offer) {
+    $partners = $offer->get('field_pg_partners')->referencedEntities();
+
+    foreach($partners as $partner) {
+      $term = $partner->get('field_pg_partner')->referencedEntities()[0];
+      $cache_tags = array_merge($cache_tags, $term->getCacheTags());
+    }
+  }
+
+  $variables['#cache']['tags'] = $cache_tags;
 }
 
 /**
