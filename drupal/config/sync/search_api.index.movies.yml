@@ -3,31 +3,20 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_production_year
-    - field.storage.node.field_has_ad
-    - field.storage.node.field_genres
-    - field.storage.node.field_nationalities
-    - field.storage.node.field_cnc_number
-    - field.storage.node.field_public
     - field.storage.node.field_directors
+    - field.storage.node.field_genres
+    - field.storage.node.field_has_ad
+    - field.storage.node.field_nationalities
+    - field.storage.node.field_production_year
+    - field.storage.node.field_public
     - search_api.server.elasticsearch
   module:
     - node
-    - search_api
 id: movies
 name: Films
 description: ''
 read_only: false
 field_settings:
-  field_cnc_number:
-    label: 'Numéro CNC'
-    datasource_id: 'entity:node'
-    property_path: field_cnc_number
-    type: text
-    boost: 21.0
-    dependencies:
-      config:
-        - field.storage.node.field_cnc_number
   field_directors:
     label: Réalisateurs
     datasource_id: 'entity:node'
@@ -108,6 +97,7 @@ tracker_settings:
     indexing_order: fifo
 options:
   cron_limit: 50
+  delete_on_fail: true
   index_directly: true
   track_changes_in_references: true
 server: elasticsearch

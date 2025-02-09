@@ -1,0 +1,31 @@
+uuid: ac0f6104-1841-4d08-b6ea-447682986a83
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.patrimony
+    - field.field.config_pages.patrimony.field_patrimony_last_import_date
+    - field.field.config_pages.patrimony.field_patrimony_url
+  module:
+    - datetime
+id: config_pages.patrimony.default
+targetEntityType: config_pages
+bundle: patrimony
+mode: default
+content:
+  field_patrimony_last_import_date:
+    type: datetime_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_patrimony_url:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  label: true

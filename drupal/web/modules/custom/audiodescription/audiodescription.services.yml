@@ -32,12 +32,14 @@ services:
     arguments:
       - '@entity_type.manager'
       - '@audiodescription.manager.director'
+      - '@config_pages.loader'
 
   audiodescription.genre_patrimony_importer:
     class: Drupal\audiodescription\Importer\Genre\GenrePatrimonyImporter
     arguments:
       - '@entity_type.manager'
       - '@audiodescription.manager.genre'
+      - '@config_pages.loader'
 
   audiodescription.movie_patrimony_importer:
     class: Drupal\audiodescription\Importer\Movie\MoviePatrimonyImporter
@@ -50,12 +52,14 @@ services:
       - '@audiodescription.manager.public'
       - '@audiodescription.manager.partner'
       - '@audiodescription.manager.offer'
+      - '@config_pages.loader'
 
   audiodescription.nationality_patrimony_importer:
     class: Drupal\audiodescription\Importer\Nationality\NationalityPatrimonyImporter
     arguments:
       - '@entity_type.manager'
       - '@audiodescription.manager.nationality'
+      - '@config_pages.loader'
 
   audiodescription.offer_patrimony_importer:
     class: Drupal\audiodescription\Importer\Offer\OfferPatrimonyImporter
@@ -68,12 +72,14 @@ services:
     arguments:
       - '@entity_type.manager'
       - '@audiodescription.manager.public'
+      - '@config_pages.loader'
 
   audiodescription.partner_patrimony_importer:
     class: Drupal\audiodescription\Importer\Partner\PartnerPatrimonyImporter
     arguments:
       - '@entity_type.manager'
       - '@audiodescription.manager.partner'
+      - '@config_pages.loader'
 
   audiodescription.importer_factory:
     class: Drupal\audiodescription\Importer\Movie\ImporterFactory
@@ -100,6 +106,8 @@ services:
     arguments:
       - '@entity_type.manager'
       - '@audiodescription.manager.offer'
+      - '@http_client'
+      - '@file.repository'
 
   audiodescription.manager.nationality:
     class: Drupal\audiodescription\EntityManager\NationalityManager

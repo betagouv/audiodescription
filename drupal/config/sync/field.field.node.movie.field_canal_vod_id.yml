@@ -1,15 +1,15 @@
-uuid: 78471135-71c1-49e1-9748-c99a3950fac4
+uuid: 7b27a70e-493b-4433-92fc-f1d8f0b058ea
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_visa_number
+    - field.storage.node.field_canal_vod_id
     - node.type.movie
-id: node.movie.field_visa_number
-field_name: field_visa_number
+id: node.movie.field_canal_vod_id
+field_name: field_canal_vod_id
 entity_type: node
 bundle: movie
-label: 'Numéro de visa'
+label: 'Canal VOD Id'
 description: ''
 required: false
 translatable: false

@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.actor.field_taxo_code
+    - field.field.taxonomy_term.actor.field_taxo_firstname
+    - field.field.taxonomy_term.actor.field_taxo_lastname
     - field.field.taxonomy_term.actor.field_taxo_role
     - taxonomy.vocabulary.actor
   module:
@@ -27,6 +29,22 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_taxo_firstname:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_taxo_lastname:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_taxo_role:
     type: string

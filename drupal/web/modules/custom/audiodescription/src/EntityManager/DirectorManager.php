@@ -21,7 +21,8 @@ class DirectorManager {
    * @return \Drupal\taxonomy\Entity\Term
    *   Director created or updated.
    */
-  public function createOrUpdate(string $directorName): ?Term {
+  public function createOrUpdate(array $data): ?Term {
+    $directorName = trim($data['fullname']);
     $directorCode = $this->computeCode($directorName);
 
     $directors = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
@@ -42,6 +43,14 @@ class DirectorManager {
     }
 
     $director->setName($directorName);
+    if (isset($data['firstname']) && !is_null($data['firstname'])) {
+      $director->set('field_taxo_firstname', $data['firstname']);
+    }
+
+    if (isset($data['lastname']) && !is_null($data['lastname'])) {
+      $director->set('field_taxo_lastname', $data['lastname']);
+    }
+
     $director->save();
 
     return $director;

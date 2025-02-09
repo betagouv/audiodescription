@@ -1,15 +1,15 @@
-uuid: 8d5f68ae-0881-4496-8ea7-a025674c111f
+uuid: 7fbe3f84-a594-4fed-be17-289af7d671ea
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_cnc_number
+    - field.storage.node.field_allocine_id
     - node.type.movie
-id: node.movie.field_cnc_number
-field_name: field_cnc_number
+id: node.movie.field_allocine_id
+field_name: field_allocine_id
 entity_type: node
 bundle: movie
-label: 'Numéro CNC'
+label: 'Allociné ID'
 description: ''
 required: false
 translatable: false

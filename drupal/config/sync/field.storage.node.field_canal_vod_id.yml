@@ -1,11 +1,11 @@
-uuid: 28b803d8-d140-444b-b9f0-bf4362275132
+uuid: 1114c2ce-5324-4b41-b57c-0dff24a20378
 langcode: fr
 status: true
 dependencies:
   module:
     - node
-id: node.field_clean_title
-field_name: field_clean_title
+id: node.field_canal_vod_id
+field_name: field_canal_vod_id
 entity_type: node
 type: string
 settings:

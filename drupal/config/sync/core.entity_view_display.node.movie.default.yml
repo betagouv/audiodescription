@@ -4,21 +4,20 @@ status: true
 dependencies:
   config:
     - field.field.node.movie.field_actors
+    - field.field.node.movie.field_allocine_id
     - field.field.node.movie.field_arte_id
-    - field.field.node.movie.field_clean_title
-    - field.field.node.movie.field_cnc_number
+    - field.field.node.movie.field_canal_vod_id
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
-    - field.field.node.movie.field_is_complete
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_offers
     - field.field.node.movie.field_poster
+    - field.field.node.movie.field_poster_external
     - field.field.node.movie.field_production_year
     - field.field.node.movie.field_public
     - field.field.node.movie.field_synopsis
-    - field.field.node.movie.field_visa_number
     - node.type.movie
   module:
     - entity_reference_revisions
@@ -37,6 +36,14 @@ content:
     third_party_settings: {  }
     weight: 104
     region: content
+  field_allocine_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 119
+    region: content
   field_arte_id:
     type: string
     label: above
@@ -45,21 +52,13 @@ content:
     third_party_settings: {  }
     weight: 118
     region: content
-  field_clean_title:
+  field_canal_vod_id:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 112
-    region: content
-  field_cnc_number:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 109
+    weight: 120
     region: content
   field_directors:
     type: entity_reference_label
@@ -96,16 +95,6 @@ content:
     third_party_settings: {  }
     weight: 101
     region: content
-  field_is_complete:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 116
-    region: content
   field_nationalities:
     type: entity_reference_label
     label: above
@@ -132,6 +121,14 @@ content:
     third_party_settings: {  }
     weight: 114
     region: content
+  field_poster_external:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 121
+    region: content
   field_production_year:
     type: number_integer
     label: above
@@ -155,14 +152,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 106
-    region: content
-  field_visa_number:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 110
     region: content
   links:
     settings: {  }

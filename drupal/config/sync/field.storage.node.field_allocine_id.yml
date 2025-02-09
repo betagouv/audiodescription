@@ -1,14 +1,17 @@
-uuid: 1b5c8394-edf7-4759-b412-5fd447759f5f
+uuid: 2a98e419-5666-4528-9303-edd5fc3c5cca
 langcode: fr
 status: true
 dependencies:
   module:
     - node
-id: node.field_is_complete
-field_name: field_is_complete
+id: node.field_allocine_id
+field_name: field_allocine_id
 entity_type: node
-type: boolean
-settings: {  }
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1

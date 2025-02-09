@@ -1,15 +1,15 @@
-uuid: 40cdf597-145f-4fa3-99bb-762e10b92632
+uuid: 08685cb5-f7a1-417d-9646-8270e90e04e2
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.node.field_clean_title
+    - field.storage.node.field_poster_external
     - node.type.movie
-id: node.movie.field_clean_title
-field_name: field_clean_title
+id: node.movie.field_poster_external
+field_name: field_poster_external
 entity_type: node
 bundle: movie
-label: 'Titre nettoyé'
+label: 'Affiche (externe)'
 description: ''
 required: false
 translatable: false

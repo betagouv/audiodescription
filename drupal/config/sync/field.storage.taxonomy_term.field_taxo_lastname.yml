@@ -1,12 +1,12 @@
-uuid: 4b2ca4d7-2d5b-4db5-94df-2b78cfb68a7c
+uuid: cacec176-da94-4e95-b8f3-e5884af15ed9
 langcode: fr
 status: true
 dependencies:
   module:
-    - node
-id: node.field_visa_number
-field_name: field_visa_number
-entity_type: node
+    - taxonomy
+id: taxonomy_term.field_taxo_lastname
+field_name: field_taxo_lastname
+entity_type: taxonomy_term
 type: string
 settings:
   max_length: 255

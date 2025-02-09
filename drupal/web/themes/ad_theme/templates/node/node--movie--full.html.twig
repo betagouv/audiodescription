@@ -5,9 +5,13 @@
         <h1>{{ label }}</h1>
       </div>
       <div class="fr-grid-row fr-mb-2w">
-        {% set poster_uri = node.field_poster.entity.field_media_image.entity.uri.value %}
+        {% set poster_uri = node.field_poster_external.value %}
+        <div class="fr-col-12 fr-col-xl-2 fr-mb-2w">
+          <img src="{{ poster_uri }}" alt="" width="165" height="220" loading="lazy" />
+        </div>
 
-        {% if poster_uri is not empty %}
+
+        {# {% if poster_uri is not empty %}
           {% set imagestyle = {
             '#theme':      'image_style',
             '#style_name': 'poster',
@@ -17,7 +21,7 @@
           <div class="fr-col-12 fr-col-xl-2 fr-mb-2w">
             {{ imagestyle }}
           </div>
-        {% endif %}
+        {% endif %} #}
 
         <div class="fr-col-12 fr-col-xl-10">
           {% if node.field_production_year.value %}

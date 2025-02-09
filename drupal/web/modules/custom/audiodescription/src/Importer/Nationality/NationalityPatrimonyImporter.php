@@ -4,6 +4,7 @@ namespace Drupal\audiodescription\Importer\Nationality;
 
 use Drupal\audiodescription\EntityManager\GenreManager;
 use Drupal\audiodescription\EntityManager\NationalityManager;
+use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
@@ -18,6 +19,7 @@ class NationalityPatrimonyImporter implements LoggerAwareInterface {
   public function __construct(
     private EntityTypeManager $entityTypeManager,
     private NationalityManager $nationalityManager,
+    private ConfigPagesLoaderServiceInterface $configPagesLoader,
   ) {
   }
 
@@ -28,9 +30,13 @@ class NationalityPatrimonyImporter implements LoggerAwareInterface {
     // Import genres.
     $client = \Drupal::httpClient();
 
-    // @Todo : set date dynamically.
+    $config_pages = $this->configPagesLoader;
+    $patrimony = $config_pages->load('patrimony');
+    $last_import_date = $patrimony->get('field_patrimony_last_import_date')->value;
+    $url = $patrimony->get('field_patrimony_url')->value;
+
     try {
-      $response = $client->request('GET', 'https://patrimoine.corfm.at/nationalities?updatedAt%5Bafter%5D=2025-01-04', [
+      $response = $client->request('GET', $url . '/nationalities?updatedAt%5Bafter%5D=' . $last_import_date, [
         'headers' => [
           'Accept' => 'application/ld+json',
         ],

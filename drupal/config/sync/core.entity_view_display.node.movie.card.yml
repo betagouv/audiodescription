@@ -5,21 +5,20 @@ dependencies:
   config:
     - core.entity_view_mode.node.card
     - field.field.node.movie.field_actors
+    - field.field.node.movie.field_allocine_id
     - field.field.node.movie.field_arte_id
-    - field.field.node.movie.field_clean_title
-    - field.field.node.movie.field_cnc_number
+    - field.field.node.movie.field_canal_vod_id
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
-    - field.field.node.movie.field_is_complete
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_offers
     - field.field.node.movie.field_poster
+    - field.field.node.movie.field_poster_external
     - field.field.node.movie.field_production_year
     - field.field.node.movie.field_public
     - field.field.node.movie.field_synopsis
-    - field.field.node.movie.field_visa_number
     - node.type.movie
   module:
     - layout_builder
@@ -41,22 +40,6 @@ content:
       link: true
     third_party_settings: {  }
     weight: 104
-    region: content
-  field_clean_title:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 112
-    region: content
-  field_cnc_number:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 109
     region: content
   field_directors:
     type: entity_reference_label
@@ -92,16 +75,6 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 101
-    region: content
-  field_is_complete:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 116
     region: content
   field_nationalities:
     type: entity_reference_label
@@ -144,21 +117,16 @@ content:
     third_party_settings: {  }
     weight: 106
     region: content
-  field_visa_number:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 110
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
     region: content
 hidden:
+  field_allocine_id: true
   field_arte_id: true
+  field_canal_vod_id: true
   field_offers: true
+  field_poster_external: true
   langcode: true
   search_api_excerpt: true

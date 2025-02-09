@@ -1,0 +1,20 @@
+uuid: 2b276f47-5f6e-4dbc-a080-16922c3321a8
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+    - datetime
+id: config_pages.field_patrimony_last_import_date
+field_name: field_patrimony_last_import_date
+entity_type: config_pages
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

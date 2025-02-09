@@ -9,6 +9,7 @@ use Drupal\audiodescription\EntityManager\NationalityManager;
 use Drupal\audiodescription\EntityManager\OfferManager;
 use Drupal\audiodescription\EntityManager\PartnerManager;
 use Drupal\audiodescription\EntityManager\PublicManager;
+use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
@@ -21,9 +22,6 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
   use LoggerAwareTrait;
 
   const ITEMS_PER_PAGE = 200;
-  // @Todo : set date dynamically.
-  //const BASE_URL = 'https://patrimoine.corfm.at/movies?updatedAt[after]=2025-01-21';
-  const BASE_URL = 'https://patrimoine.corfm.at/movies?updatedAt[after]=2024-01-21';
 
   public function __construct(
     private EntityTypeManager $entityTypeManager,
@@ -34,6 +32,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
     private PublicManager $publicManager,
     private PartnerManager $partnerManager,
     private OfferManager $offerManager,
+    private ConfigPagesLoaderServiceInterface $configPagesLoader
   ) {
   }
 
@@ -59,35 +58,44 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
         foreach ($data['hydra:member'] as $movie) {
           $title = $movie['title'];
-          $cncId = $movie['cncId'] ?? null;
-          $visa = $movie['visa'] ?? null;
+          $code = $movie['code'];
           $arteId = $movie['arteId'] ?? null;
+          $canalVodId = $movie['canalVodId'] ?? null;
+          $allocineId = $movie['allocineId'] ?? null;
           $hasAd = $movie['hasAd'];
-          $productionYear = $movie['productionYear'] > 1800 ? $movie['productionYear'] : null;
+          $productionYear = $movie['productionYear'] ?? null;
           $synopsis = $movie['synopsis'];
-          $nationalities = [];
+          //$nationalities = [];
           $genres = [];
           $directors = [];
           $solutions = [];
           $public = null;
+          $poster = $movie['poster'] ?? null;
 
           if (!empty($movie['public']['code'])) {
             $public = $this->publicManager->createOrUpdate($movie['public']['code']);
           }
 
-          foreach ($movie['nationalities'] as $nationality) {
+          /**foreach ($movie['nationalities'] as $nationality) {
             $nationalities[] = $this->nationalityManager->createOrUpdate($nationality['name']);
-          }
+          }**/
 
           foreach ($movie['genres'] as $genre) {
-            $genres[] = $this->genreManager->createOrUpdate($genre['name']);
+            if (isset($genre['mainGenre'])) {
+              if (is_array($genre['mainGenre'])) {
+                $genres[] = $this->genreManager->createOrUpdate($genre['mainGenre']['name']);
+              } else {
+                if ($genre['@id'] == $genre['mainGenre']) {
+                  $genres[] = $this->genreManager->createOrUpdate($genre['name']);
+                }
+              }
+            }
           }
 
           foreach ($movie['directors'] as $director) {
-            $directors[] = $this->directorManager->createOrUpdate($director['fullname']);
+            $directors[] = $this->directorManager->createOrUpdate($director);
           }
 
-          // @TODO : manage solutions
           foreach($movie['solutions'] as $solution) {
 
             $partner = $this->partnerManager->createOrUpdate(
@@ -98,6 +106,10 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             switch ($solution['partner']['code']) {
               case 'ARTE':
                 $offerCode = 'STREAMING';
+                break;
+              case 'CANAL_VOD':
+                $offerCode = 'TVOD';
+                break;
             }
 
             $link = $solution['link'];
@@ -114,17 +126,17 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
           $this->movieManager->createOrUpdate(
             $title,
-            $cncId,
-            $visa,
+            $allocineId,
             $arteId,
+            $canalVodId,
             $hasAd,
             $productionYear,
             $public,
             $genres,
-            $nationalities,
             $directors,
             $solutions,
-            $synopsis
+            $synopsis,
+            $poster,
           );
         }
 
@@ -147,9 +159,16 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
   }
 
   private function buildUrl($page) {
+    $config_pages = $this->configPagesLoader;
+    $patrimony = $config_pages->load('patrimony');
+    $last_import_date = $patrimony->get('field_patrimony_last_import_date')->value;
+    $url = $patrimony->get('field_patrimony_url')->value;
+
+    $baseUrl = $url . '/movies?updatedAt[after]=' . $last_import_date;
+
     return sprintf(
       '%s&page=%s&itemsPerPage=%s',
-      self::BASE_URL,
+      $baseUrl,
       $page,
       self::ITEMS_PER_PAGE
     );

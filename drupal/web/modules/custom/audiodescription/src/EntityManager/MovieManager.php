@@ -4,9 +4,13 @@ namespace Drupal\audiodescription\EntityManager;
 
 use DateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileExists;
+use Drupal\file\FileRepositoryInterface;
+use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Term;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Class responsible for managing movie-related operations.
@@ -16,6 +20,8 @@ class MovieManager {
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private OfferManager $offerManager,
+    private ClientInterface $httpClient,
+    private FileRepositoryInterface $fileRepository,
   ) {
 
   }
@@ -114,19 +120,19 @@ class MovieManager {
 
   public function createOrUpdate(
     string $title,
-    ?string $cncId,
-    ?string $visa,
+    ?string $allocineId,
     ?string $arteId,
+    ?string $canalVodId,
     string $hasAd,
     ?string $productionYear,
     Term|null $public,
     array $genres,
-    array $nationalities,
     array $directors,
     array $solutions,
     ?string $synopsis,
+    ?string $poster,
   ): Node {
-    $movies = $this->findExistingMovies($visa, $cncId, $arteId);
+    $movies = $this->findExistingMovies($allocineId, $arteId, $canalVodId);
 
     // BUG.
     if (count($movies) > 1) {
@@ -135,8 +141,6 @@ class MovieManager {
       }
       dump("----");
     }
-
-    dump('Count : ' . count($movies));
 
     if (count($movies) == 0) {
       $movie = Node::create([
@@ -148,14 +152,32 @@ class MovieManager {
     if (count($movies) == 1) {
       $movie = array_shift($movies);
       $movie->set('title', $title);
+
+      // Delete solutions before to import new ones.
+      if ($movie->hasField('field_offers') && !$movie->get('field_offers')->isEmpty()) {
+        $offers = $movie->get('field_offers')->referencedEntities();
+
+        foreach ($offers as $offer) {
+          if ($offer->hasField('field_pg_partners') && !$offer->get('field_pg_partners')->isEmpty()) {
+            $partners = $offer->get('field_pg_partners')->referencedEntities();
+
+            foreach ($partners as $partner) {
+              $partner->delete();
+            }
+          }
+          $offer->delete();
+        }
+
+        $movie->save();
+      }
     }
 
     $movie->set('field_has_ad', $hasAd);
     $movie->set('field_production_year', $productionYear);
 
-    if (!is_null($cncId)) $movie->set('field_cnc_number', $cncId);
-    if (!is_null($visa)) $movie->set('field_visa_number', $visa);
+    if (!is_null($allocineId)) $movie->set('field_allocine_id', $allocineId);
     if (!is_null($arteId)) $movie->set('field_arte_id', $arteId);
+    if (!is_null($canalVodId)) $movie->set('field_canal_vod_id', $canalVodId);
 
     if (!is_null($public)) {
       $movie->set('field_public', $public->tid->value);
@@ -168,11 +190,11 @@ class MovieManager {
       ]);
     }
 
-    $ids = [];
+    /**$ids = [];
     foreach ($nationalities as $nationality) {
       $ids[] = $nationality->tid->value;
     }
-    $movie->set('field_nationalities', $ids);
+    $movie->set('field_nationalities', $ids);**/
 
     $ids = [];
     foreach ($genres as $genre) {
@@ -185,6 +207,11 @@ class MovieManager {
       $ids[] = $director->tid->value;
     }
     $movie->set('field_directors', $ids);
+
+    // Poster.
+    if (!is_null($poster)) {
+      $movie->set('field_poster_external', $poster);
+    }
 
     $pg_offers = [];
 
@@ -238,15 +265,15 @@ class MovieManager {
     return $movie;
   }
 
-  private function findExistingMovies($visa, $cncId, $arteId): array {
+  private function findExistingMovies($allocineId, $arteId, $canalVodId): array {
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'movie')
       ->accessCheck(TRUE);
 
     $orGroup = $query->orConditionGroup()
-      ->condition('field_visa_number', $visa)
-      ->condition('field_cnc_number', $cncId)
-      ->condition('field_arte_id', $arteId);
+      ->condition('field_allocine_id', $allocineId)
+      ->condition('field_arte_id', $arteId)
+      ->condition('field_canal_vod_id', $canalVodId);
 
     $query->condition($orGroup);
 

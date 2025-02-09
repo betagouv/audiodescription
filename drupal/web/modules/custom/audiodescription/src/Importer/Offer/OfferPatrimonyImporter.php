@@ -26,13 +26,10 @@ class OfferPatrimonyImporter implements LoggerAwareInterface {
   public function import(): void {
     // Import offers.
 
-    // @Todo : set date dynamically.
     try {
       $offers = [
-        'DVD_BLURAY' => 'En DVD et Blu-Ray',
-        'LIBRARY' => 'En emprunt à la médiathèque',
         'STREAMING' => 'En streaming',
-        'VOD' => 'En vidéo à la demande',
+        'TVOD' => 'En vidéo à la demande (achat ou location)',
       ];
 
       // Output the result.

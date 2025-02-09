@@ -1,0 +1,19 @@
+uuid: c1e62406-8490-4f73-bacc-caea83c322b2
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_lastname
+    - taxonomy.vocabulary.director
+id: taxonomy_term.director.field_taxo_lastname
+field_name: field_taxo_lastname
+entity_type: taxonomy_term
+bundle: director
+label: 'Nom de famille'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

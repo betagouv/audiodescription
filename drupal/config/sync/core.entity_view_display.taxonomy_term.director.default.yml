@@ -6,6 +6,7 @@ dependencies:
     - field.field.taxonomy_term.director.field_taxo_biography
     - field.field.taxonomy_term.director.field_taxo_code
     - field.field.taxonomy_term.director.field_taxo_firstname
+    - field.field.taxonomy_term.director.field_taxo_lastname
     - field.field.taxonomy_term.director.field_taxo_picture
     - taxonomy.vocabulary.director
   module:
@@ -29,6 +30,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_taxo_lastname:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_taxo_picture:
     type: entity_reference_entity_view

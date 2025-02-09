@@ -1,0 +1,21 @@
+uuid: 753d52b9-1611-4105-afc6-e255d8893bed
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+id: config_pages.field_patrimony_url
+field_name: field_patrimony_url
+entity_type: config_pages
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,19 @@
+uuid: 4fe6dc4f-578e-4e51-96ff-6a999b0720b9
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_firstname
+    - taxonomy.vocabulary.actor
+id: taxonomy_term.actor.field_taxo_firstname
+field_name: field_taxo_firstname
+entity_type: taxonomy_term
+bundle: actor
+label: Prénom
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

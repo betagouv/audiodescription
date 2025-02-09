@@ -1,0 +1,19 @@
+uuid: 36709271-5768-42b1-a87d-d57ee73f8c3e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_lastname
+    - taxonomy.vocabulary.actor
+id: taxonomy_term.actor.field_taxo_lastname
+field_name: field_taxo_lastname
+entity_type: taxonomy_term
+bundle: actor
+label: 'Nom de famille'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

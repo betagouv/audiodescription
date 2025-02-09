@@ -1,0 +1,17 @@
+uuid: 135e9fba-4e08-4523-a4ce-662267533a1a
+langcode: fr
+status: true
+dependencies: {  }
+id: patrimony
+label: Patrimoine
+token: false
+context:
+  show_warning: true
+  group:
+    language: false
+  fallback:
+    language: ''
+menu:
+  path: ''
+  weight: 0
+  description: ''

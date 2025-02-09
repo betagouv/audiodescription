@@ -1,0 +1,21 @@
+uuid: b1ecff48-fc01-4c8d-9dcf-d34b0a0f0440
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.patrimony
+    - field.storage.config_pages.field_patrimony_last_import_date
+  module:
+    - datetime
+id: config_pages.patrimony.field_patrimony_last_import_date
+field_name: field_patrimony_last_import_date
+entity_type: config_pages
+bundle: patrimony
+label: 'Dernier import'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
