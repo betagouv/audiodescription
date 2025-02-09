@@ -6,10 +6,11 @@
       </div>
       <div class="fr-grid-row fr-mb-2w">
         {% set poster_uri = node.field_poster_external.value %}
-        <div class="fr-col-12 fr-col-xl-2 fr-mb-2w">
-          <img src="{{ poster_uri }}" alt="" width="165" height="220" loading="lazy" />
-        </div>
-
+        {% if poster_uri not empty %}
+          <div class="fr-col-12 fr-col-xl-2 fr-mb-2w">
+            <img src="{{ poster_uri }}" alt="" width="165" height="220" loading="lazy" />
+          </div>
+        {% endif %}
 
         {# {% if poster_uri is not empty %}
           {% set imagestyle = {
