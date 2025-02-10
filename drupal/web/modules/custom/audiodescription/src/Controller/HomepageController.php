@@ -2,6 +2,7 @@
 
 namespace Drupal\audiodescription\Controller;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -159,7 +160,7 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
-    return [
+    $build = [
       '#theme' => 'homepage',
       '#header' => $header,
       '#infos' => $infos,
@@ -168,7 +169,16 @@ class HomepageController extends ControllerBase {
       '#collections' => $collections,
       '#last_movies' => $lastMovies,
       '#search_form' => $search_form,
+      '#cache' => [
+        'tags' => ['node_list', 'taxonomy_term_list'],
+      ],
     ];
+
+    $cache_metadata = new CacheableMetadata();
+    $cache_metadata->addCacheTags(['node_list', 'taxonomy_term_list']);
+    $cache_metadata->applyTo($build);
+
+    return $build;
   }
 
   private function countMoviesWithAtLeastOneSolution():int {
