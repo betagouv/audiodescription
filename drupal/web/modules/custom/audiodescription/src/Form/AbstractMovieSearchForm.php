@@ -36,6 +36,10 @@ abstract class AbstractMovieSearchForm extends FormBase {
       $parameters['public'] = $userInput['public'];
     }
 
+    if (array_key_exists('partner', $userInput) && !is_null($userInput['partner'])) {
+      $parameters['partner'] = $userInput['partner'];
+    }
+
     $request = $this->requestStack->getCurrentRequest();
     $page = $request->query->get('page', NULL);
 

@@ -16,6 +16,7 @@ class MovieSearchParametersBag {
     public readonly array $genre,
     public readonly array $nationality,
     public readonly array $public,
+    public readonly array $partner,
   ) {
   }
 
@@ -33,8 +34,9 @@ class MovieSearchParametersBag {
     $genre = $params->getIterator()['genre'] ?? [];
     $nationality = $params->getIterator()['nationality'] ?? [];
     $public = $params->getIterator()['public'] ?? [];
+    $partner = $params->getIterator()['partner'] ?? [];
 
-    return new self($search, $page, $withAD, $genre, $nationality, $public);
+    return new self($search, $page, $withAD, $genre, $nationality, $public, $partner);
   }
 
   public function filtersToArray()
@@ -57,6 +59,10 @@ class MovieSearchParametersBag {
 
     if (!empty($this->public)){
       $array['public'] = $this->public;
+    }
+
+    if (!empty($this->partner)){
+      $array['partner'] = $this->partner;
     }
 
     return $array;

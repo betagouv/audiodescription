@@ -60,6 +60,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
     $selectedGenres = $request->query->getIterator()['genre'] ?? [];
     $selectedNationalities = $request->query->getIterator()['nationality'] ?? [];
     $selectedPublics = $request->query->getIterator()['public'] ?? [];
+    $selectedPartners = $request->query->getIterator()['partner'] ?? [];
 
     $search = $request->query->get('search');
 
@@ -73,7 +74,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#suffix' => '</div>',
     ];
 
-    $form['ad'] = [
+    /**$form['ad'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Audiodescription'),
       '#collapsible' => FALSE,
@@ -85,7 +86,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#title' => $this->t('Films audiodécrits uniquement'),
       '#default_value' => 0,
       "#value" => $selectedWithAd
-    ];
+    ];**/
 
     /**$form['ad']['marius'] = [
       '#type' => 'checkbox',
@@ -126,7 +127,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#is_female' => FALSE,
     ];
 
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('nationality');
+    /**$terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('nationality');
     $options = [];
 
     foreach ($terms as $term) {
@@ -145,7 +146,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#singular_title' => 'nationalité',
       '#plural_title' => 'nationalités',
       '#is_female' => TRUE,
-    ];
+    ];**/
 
     /**$options = [];
 
@@ -188,21 +189,27 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#collapsed' => FALSE,
     ];**/
 
-    /**$terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('platform');
+    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('partner');
     $options = [];
 
     foreach ($terms as $term) {
       $options[$term->tid] = $term->name;
     }
 
-    $form['viewing']['platform'] = [
+    $form['infos']['fields']['partner'] = [
       '#type' => 'select',
-      '#title' => $this->t('Plateforme'),
+      '#title' => $this->t('Partenaires'),
       '#options' => $options,
       // Mettre à TRUE si vous voulez un select multiple.
       '#multiple' => TRUE,
       '#required' => FALSE,
-    ];**/
+      '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
+      '#suffix' => '</div>',
+      '#default_value' => $selectedPartners,
+      '#singular_title' => 'partenaire',
+      '#plural_title' => 'partenaires',
+      '#is_female' => FALSE,
+    ];
 
     /**$form['viewing']['free'] = [
       '#type' => 'checkbox',

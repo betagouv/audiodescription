@@ -75,6 +75,16 @@ class MovieSearchManager {
       $query->addConditionGroup($andGroup);
     }
 
+    if (!empty($params->partner)) {
+      $andGroup = $query->createConditionGroup('OR');
+
+      foreach ($params->partner as $partner) {
+        $andGroup->addCondition('field_pg_partner', $partner, '=');
+      }
+
+      $query->addConditionGroup($andGroup);
+    }
+
     $query->range($offset, $pageSize);
 
     $results = $query->execute();

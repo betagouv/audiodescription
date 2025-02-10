@@ -7,11 +7,15 @@ dependencies:
     - field.storage.node.field_genres
     - field.storage.node.field_has_ad
     - field.storage.node.field_nationalities
+    - field.storage.node.field_offers
     - field.storage.node.field_production_year
     - field.storage.node.field_public
+    - field.storage.paragraph.field_pg_partner
+    - field.storage.paragraph.field_pg_partners
     - search_api.server.elasticsearch
   module:
     - node
+    - paragraphs
 id: movies
 name: Films
 description: ''
@@ -51,6 +55,18 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_nationalities
+  field_pg_partner:
+    label: Partenaires
+    datasource_id: 'entity:node'
+    property_path: 'field_offers:entity:field_pg_partners:entity:field_pg_partner'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_offers
+        - field.storage.paragraph.field_pg_partner
+        - field.storage.paragraph.field_pg_partners
+      module:
+        - paragraphs
   field_production_year:
     label: 'Année de production'
     datasource_id: 'entity:node'
