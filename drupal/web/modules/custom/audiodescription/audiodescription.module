@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
 
 /**
@@ -147,6 +148,30 @@ function audiodescription_block_view_alter(array &$build, BlockPluginInterface $
 
     if (in_array($block->getBaseId(), $blocks)) {
       $build = [];
+    }
+  }
+}
+
+function audiodescription_node_update(EntityInterface $entity) {
+  // Invalidate taxonmy terms Collection with movie $entity.
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'movie') {
+    $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()
+      ->condition('vid', 'collection')
+      ->condition('field_taxo_movies', $entity->id())
+      ->accessCheck(FALSE);
+
+    $term_ids = $query->execute();
+
+    if (!empty($term_ids)) {
+      $cache_tags = [];
+
+      foreach ($term_ids as $term_id) {
+        $cache_tags[] = "taxonomy_term:{$term_id}";
+      }
+
+      if (!empty($cache_tags)) {
+        \Drupal::service('cache_tags.invalidator')->invalidateTags($cache_tags);
+      }
     }
   }
 }

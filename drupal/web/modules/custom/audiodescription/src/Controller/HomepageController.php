@@ -160,6 +160,8 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
+    $configPagesTag = $homepage->getCacheTagsToInvalidate()[0];
+
     $build = [
       '#theme' => 'homepage',
       '#header' => $header,
@@ -170,12 +172,12 @@ class HomepageController extends ControllerBase {
       '#last_movies' => $lastMovies,
       '#search_form' => $search_form,
       '#cache' => [
-        'tags' => ['node_list', 'taxonomy_term_list'],
+        'tags' => ['node_list', 'taxonomy_term_list', $configPagesTag],
       ],
     ];
 
     $cache_metadata = new CacheableMetadata();
-    $cache_metadata->addCacheTags(['node_list', 'taxonomy_term_list']);
+    $cache_metadata->addCacheTags(['node_list', 'taxonomy_term_list', $configPagesTag]);
     $cache_metadata->applyTo($build);
 
     return $build;
