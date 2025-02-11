@@ -75,6 +75,8 @@ class HpCollectionsBlock extends BlockBase implements ContainerFactoryPluginInte
 
     $field_collections_with_genres = $homepage->get('field_collections_with_genres')->value;
 
+    /**
+    // @TODO : If one tile for all genres.
     $collection_genres = [
       'is_displayed' => FALSE,
       'data' => [],
@@ -82,7 +84,7 @@ class HpCollectionsBlock extends BlockBase implements ContainerFactoryPluginInte
     ];
 
     if ($field_collections_with_genres) {
-      /** @var \Drupal\config_pages\Entity\ConfigPages $homepage */
+      // @var \Drupal\config_pages\Entity\ConfigPages $homepage
       $wordings = $config_pages->load('wordings');
 
       $collection_genres['is_displayed'] = TRUE;
@@ -104,6 +106,27 @@ class HpCollectionsBlock extends BlockBase implements ContainerFactoryPluginInte
           $url = Url::fromUserInput('/' . $path)->toString();
           $collection_genres['data']['url'] = $url;
         }
+      }
+    }**/
+
+    $collection_genres = [];
+
+    if ($field_collections_with_genres) {
+      $term_ids = \Drupal::entityQuery('taxonomy_term')
+        ->condition('vid', 'genre')
+        ->sort('name', 'ASC')
+        ->accessCheck(FALSE)
+        ->execute();
+
+      $terms = \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->loadMultiple($term_ids);
+
+      foreach ($terms as $term) {
+        $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+        $render_array = $view_builder->view($term, 'tile');
+
+        $collection_genres[] = $render_array;
       }
     }
 

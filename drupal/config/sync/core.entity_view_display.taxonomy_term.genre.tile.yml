@@ -1,25 +1,32 @@
-uuid: 3add9d7d-f38a-4462-bd6d-6c64893fd726
+uuid: 4dd3d99a-7893-4c8b-b21c-85f66f069642
 langcode: fr
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.taxonomy_term.list
+    - core.entity_view_mode.taxonomy_term.tile
     - field.field.taxonomy_term.genre.field_taxo_code
     - field.field.taxonomy_term.genre.field_taxo_icon
     - taxonomy.vocabulary.genre
   module:
     - layout_builder
+    - text
 third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-id: taxonomy_term.genre.list
+id: taxonomy_term.genre.tile
 targetEntityType: taxonomy_term
 bundle: genre
-mode: list
-content: {  }
+mode: tile
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
-  description: true
   field_taxo_code: true
   field_taxo_icon: true
   langcode: true

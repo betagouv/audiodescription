@@ -123,6 +123,7 @@ class MovieSearchController extends ControllerBase {
         'genres' => $this->getCurrentFilters($params->genre),
         'nationalities' => $this->getCurrentFilters($params->nationality),
         'publics' => $this->getCurrentFilters($params->public),
+        'partenaires' => $this->getCurrentFilters($params->partner),
       ],
       '#cache' => [
         'max-age' => 0,

@@ -52,7 +52,13 @@
             </div>
             {% if synopsis is not empty %}
               <p class="fr-card__desc">{{ sentence|join(', ')|raw }}</p>
-              <p class="fr-card__desc">{{ synopsis }}</p>
+              <p class="fr-card__desc">
+                {% if synopsis|length > 315 %}
+                  {{ synopsis|slice(0, 315) ~ '...' }}
+                {% else %}
+                  {{ synopsis }}
+                {% endif %}
+              </p>
             {% else %}
               {% for s in sentence %}
                 <p class="fr-card__desc">{{ s|raw }}</p>
@@ -62,8 +68,8 @@
               <ul class="fr-card__tags fr-tags-group fr-mt-3v">
                 {% for genre in node.field_genres %}
                   {% set term = genre.entity %}
-                  {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
-
+                  {# % set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %} #}
+                  {% set term_path = '/recherche?genre[0]=' ~ term.id() %}
                   <li>
                     {% if has_ad %}
                       {{ pattern('tag', {
@@ -84,8 +90,9 @@
               <div class="fr-card__tags fr-tags-group fr-mt-3v">
                 {% for genre in node.field_genres %}
                   {% set term = genre.entity %}
-                  {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
 
+                  {# % set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %} #}
+                  {% set term_path = '/recherche?genre[0]=' ~ term.id() %}
                   {% if has_ad %}
                     {{ pattern('tag', {
                       label: term.name.value,

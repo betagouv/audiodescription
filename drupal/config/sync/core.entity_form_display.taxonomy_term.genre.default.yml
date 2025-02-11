@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.genre.field_taxo_code
+    - field.field.taxonomy_term.genre.field_taxo_icon
     - taxonomy.vocabulary.genre
   module:
+    - media_library
     - path
     - text
 id: taxonomy_term.genre.default
@@ -21,6 +23,13 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_taxo_icon:
+    type: media_library_widget
+    weight: 2
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -32,6 +41,11 @@ content:
   path:
     type: path
     weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

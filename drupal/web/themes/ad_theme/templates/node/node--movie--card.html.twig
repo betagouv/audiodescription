@@ -57,7 +57,7 @@
 
             </ul>
           {% elseif node.field_genres|length == 1%}
-            <div class="fr-card__tags fr-tags-group fr-mt-3v">
+            <div class="fr-card__tags fr-tags-group fr-mb-3v">
               {% for genre in node.field_genres %}
                 {% set term = genre.entity %}
                 {{ pattern('tag', {
@@ -67,7 +67,12 @@
             </div>
           {% endif %}
 
-          {# <p class="ad-movie-card__platform">Disponible sur Arte jusqu'au 2 avril 2025.</p> #}
+          <p class="ad-movie-card__platform">
+            Disponible sur {{ partner.name }}
+            {% if partner.end_date is not null %}
+              jusqu'au {{ partner.end_date }}
+            {% endif %}
+          </p>
         </div>
       </div>
       <div class="fr-card__header">

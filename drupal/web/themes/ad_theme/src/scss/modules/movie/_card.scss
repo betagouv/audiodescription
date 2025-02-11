@@ -5,8 +5,19 @@
     }
   }
 
+  .fr-card__desc {
+    margin-top: .25rem;
+    font-size: .85rem;
+  }
+
+  .fr-tag {
+    margin-top: .25rem;
+    font-size: .85rem;
+  }
+
   &__platform {
     order: 5;
+    font-size: .85rem;
   }
 }
 
