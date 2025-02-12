@@ -49,56 +49,60 @@ function ad_theme_theme_suggestions_views_view_alter(array &$suggestions, array 
 function ad_theme_preprocess_node__movie__card(&$variables)
 {
 
-  $database = \Drupal::database();
+  try {
+    $database = \Drupal::database();
 
-  $offerQuery = $database->select('node__field_offers', 'nfo')
-    ->fields('t', ['name'])
-    ->condition('nfo.entity_id', $variables['node']->nid->value);
+    $offerQuery = $database->select('node__field_offers', 'nfo')
+      ->fields('t', ['name'])
+      ->condition('nfo.entity_id', $variables['node']->nid->value);
 
-  $offerQuery->join('paragraph__field_pg_offer', 'pfo', 'pfo.entity_id = nfo.field_offers_target_id');
-  $offerQuery->addField('pfo', 'entity_id', 'pid');
+    $offerQuery->join('paragraph__field_pg_offer', 'pfo', 'pfo.entity_id = nfo.field_offers_target_id');
+    $offerQuery->addField('pfo', 'entity_id', 'pid');
 
-  $offerQuery->join('taxonomy_term_field_data', 't', 't.tid = pfo.field_pg_offer_target_id');
-  $offerQuery->addField('t', 'tid');
+    $offerQuery->join('taxonomy_term_field_data', 't', 't.tid = pfo.field_pg_offer_target_id');
+    $offerQuery->addField('t', 'tid');
 
 
-  $offerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
-  $offerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
+    $offerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
+    $offerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
 
-  $offerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
-  $offerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
+    $offerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
+    $offerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
 
-  $offerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
-  $offerQuery->orderBy('t.name', 'ASC');
+    $offerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
+    $offerQuery->orderBy('t.name', 'ASC');
 
-  $offer = $offerQuery->execute()->fetch();
+    $offer = $offerQuery->execute()->fetch();
 
-  $partnerQuery = $database->select('paragraphs_item_field_data', 'pifd')
-    ->fields('t', ['name'])
-    ->condition('pifd.parent_id', $offer->pid);
+    $partnerQuery = $database->select('paragraphs_item_field_data', 'pifd')
+      ->fields('t', ['name'])
+      ->condition('pifd.parent_id', $offer->pid);
 
-  $partnerQuery->leftJoin('paragraph__field_pg_partner', 'pfpp', 'pfpp.entity_id = pifd.id');
-  $partnerQuery->addField('pfpp', 'entity_id', 'pid');
+    $partnerQuery->leftJoin('paragraph__field_pg_partner', 'pfpp', 'pfpp.entity_id = pifd.id');
+    $partnerQuery->addField('pfpp', 'entity_id', 'pid');
 
-  $partnerQuery->leftJoin('taxonomy_term_field_data', 't', 't.tid = pfpp.field_pg_partner_target_id');
-  $partnerQuery->addField('t', 'tid');
+    $partnerQuery->leftJoin('taxonomy_term_field_data', 't', 't.tid = pfpp.field_pg_partner_target_id');
+    $partnerQuery->addField('t', 'tid');
 
-  $partnerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
-  $partnerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
+    $partnerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
+    $partnerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
 
-  $partnerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
-  $partnerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
+    $partnerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
+    $partnerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
 
-  $partnerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
-  $partnerQuery->orderBy('t.name', 'ASC');
+    $partnerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
+    $partnerQuery->orderBy('t.name', 'ASC');
 
-  $partner = $partnerQuery->execute()->fetch();
+    $partner = $partnerQuery->execute()->fetch();
 
-  $entityManager = \Drupal::entityTypeManager();
-  $pgEntityManager = $entityManager->getStorage('paragraph');
-  $pg = $pgEntityManager->load($partner->pid);
+    $entityManager = \Drupal::entityTypeManager();
+    $pgEntityManager = $entityManager->getStorage('paragraph');
+    $pg = $pgEntityManager->load($partner->pid);
 
-  $endDate = $pg->get('field_pg_end_rights');
+    $endDate = $pg->get('field_pg_end_rights');
+  } catch (Exception $e) {
+    var_dump($e);
+  }
 
 
   if (!is_null($endDate->value)) {
