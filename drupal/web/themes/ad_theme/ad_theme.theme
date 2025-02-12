@@ -94,25 +94,25 @@ function ad_theme_preprocess_node__movie__card(&$variables)
 
   $partner = $partnerQuery->execute()->fetch();
 
-  $entityManager = \Drupal::entityTypeManager();
-  $pgEntityManager = $entityManager->getStorage('paragraph');
-  $pg = $pgEntityManager->load($partner->pid);
+  if (!is_null($partner->pid)){
+    $entityManager = \Drupal::entityTypeManager();
+    $pgEntityManager = $entityManager->getStorage('paragraph');
+    $pg = $pgEntityManager->load($partner->pid);
+    $endDate = $pg->get('field_pg_end_rights') ?? NULL;
 
-  $endDate = $pg->get('field_pg_end_rights');
+    if (!is_null($endDate->value)) {
+      /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
+      $date_formatter = \Drupal::service('date.formatter');
 
+      $timestamp = strtotime($endDate->value);
+      $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
+    }
 
-  if (!is_null($endDate->value)) {
-    /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
-    $date_formatter = \Drupal::service('date.formatter');
-
-    $timestamp = strtotime($endDate->value);
-    $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
+    $variables['partner'] = [
+      'name' => $partner->name ?? NULL,
+      'end_date' => $formatted_date ?? NULL,
+    ];
   }
-
-  $variables['partner'] = [
-    'name' => $partner->name ?? NULL,
-    'end_date' => $formatted_date ?? NULL,
-  ];
 }
 
 /**
