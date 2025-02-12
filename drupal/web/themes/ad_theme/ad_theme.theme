@@ -73,42 +73,40 @@ function ad_theme_preprocess_node__movie__card(&$variables)
 
   $offer = $offerQuery->execute()->fetch();
 
-  if (!is_null($offer->pid)) {
-    $partnerQuery = $database->select('paragraphs_item_field_data', 'pifd')
-      ->fields('t', ['name'])
-      ->condition('pifd.parent_id', $offer->pid);
+  $partnerQuery = $database->select('paragraphs_item_field_data', 'pifd')
+    ->fields('t', ['name'])
+    ->condition('pifd.parent_id', $offer->pid);
 
-    $partnerQuery->leftJoin('paragraph__field_pg_partner', 'pfpp', 'pfpp.entity_id = pifd.id');
-    $partnerQuery->addField('pfpp', 'entity_id', 'pid');
+  $partnerQuery->leftJoin('paragraph__field_pg_partner', 'pfpp', 'pfpp.entity_id = pifd.id');
+  $partnerQuery->addField('pfpp', 'entity_id', 'pid');
 
-    $partnerQuery->leftJoin('taxonomy_term_field_data', 't', 't.tid = pfpp.field_pg_partner_target_id');
-    $partnerQuery->addField('t', 'tid');
+  $partnerQuery->leftJoin('taxonomy_term_field_data', 't', 't.tid = pfpp.field_pg_partner_target_id');
+  $partnerQuery->addField('t', 'tid');
 
-    $partnerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
-    $partnerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
+  $partnerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
+  $partnerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
 
-    $partnerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
-    $partnerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
+  $partnerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
+  $partnerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
 
-    $partnerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
-    $partnerQuery->orderBy('t.name', 'ASC');
+  $partnerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
+  $partnerQuery->orderBy('t.name', 'ASC');
 
-    $partner = $partnerQuery->execute()->fetch();
+  $partner = $partnerQuery->execute()->fetch();
 
-    $entityManager = \Drupal::entityTypeManager();
-    $pgEntityManager = $entityManager->getStorage('paragraph');
-    $pg = $pgEntityManager->load($partner->pid);
+  $entityManager = \Drupal::entityTypeManager();
+  $pgEntityManager = $entityManager->getStorage('paragraph');
+  $pg = $pgEntityManager->load($partner->pid);
 
-    $endDate = $pg->get('field_pg_end_rights');
+  $endDate = $pg->get('field_pg_end_rights');
 
 
-    if (!is_null($endDate->value)) {
-      /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
-      $date_formatter = \Drupal::service('date.formatter');
+  if (!is_null($endDate->value)) {
+    /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
+    $date_formatter = \Drupal::service('date.formatter');
 
-      $timestamp = strtotime($endDate->value);
-      $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
-    }
+    $timestamp = strtotime($endDate->value);
+    $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
   }
 
   $variables['partner'] = [
