@@ -1,0 +1,20 @@
+uuid: 2e98fe33-0ddb-47a2-9f35-24e97e1c2eb2
+langcode: fr
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.field_taxo_order
+field_name: field_taxo_order
+entity_type: taxonomy_term
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

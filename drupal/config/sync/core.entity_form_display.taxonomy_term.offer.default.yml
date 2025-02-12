@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.offer.field_taxo_code
+    - field.field.taxonomy_term.offer.field_taxo_order
     - taxonomy.vocabulary.offer
   module:
     - path
@@ -20,9 +21,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_taxo_order:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 1
+    weight: 3
     region: content
     settings:
       include_locked: true
@@ -37,13 +45,18 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 2
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 3
+    weight: 5
     region: content
     settings:
       display_label: true

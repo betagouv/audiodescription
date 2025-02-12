@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.offer.field_taxo_code
+    - field.field.taxonomy_term.offer.field_taxo_order
     - taxonomy.vocabulary.offer
   module:
     - text
@@ -26,6 +27,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_taxo_order:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   langcode: true

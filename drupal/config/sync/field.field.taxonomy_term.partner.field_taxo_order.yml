@@ -1,0 +1,23 @@
+uuid: 78932254-5d68-4e65-b1b0-9c9a3885947f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_order
+    - taxonomy.vocabulary.partner
+id: taxonomy_term.partner.field_taxo_order
+field_name: field_taxo_order
+entity_type: taxonomy_term
+bundle: partner
+label: Ordre
+description: 'Ce champ permet de définir l''ordre d''affichage des partenaires sur les pages "Film" ou sur les cartes.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

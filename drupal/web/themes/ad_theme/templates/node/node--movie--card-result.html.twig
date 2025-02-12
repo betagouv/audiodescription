@@ -4,7 +4,7 @@
 {% set has_ad_label = 'Audiodescription introuvable' %}
 
 {% if has_ad %}
-  {% set has_ad_label = 'Version audiodécrite' %}
+  {% set has_ad_label = 'Audiodescription disponible' %}
 {% endif %}
 
 {% set title = node.title.value %}
@@ -13,7 +13,6 @@
   {% set synopsis = node.field_synopsis.value|render|striptags %}
 
   {% set poster = file_url(node.field_poster.entity.field_media_image.entity.uri.value) %}
-
   {% set poster = node.field_poster_external.value %}
 
   {% if poster is empty %}
@@ -37,7 +36,7 @@
   {% if not has_ad %}
     <div class="fr-card--no-hover">
   {% endif%}
-      <div class="fr-card fr-card--horizontal fr-card--horizontal-fifth">
+      <div class="fr-card fr-card--horizontal fr-enlarge-link fr-card--horizontal-fifth">
         <div class="fr-card__body">
           <div class="fr-card__content">
             <h3 class="fr-card__title">
@@ -73,9 +72,7 @@
                   <li>
                     {% if has_ad %}
                       {{ pattern('tag', {
-                        label: term.name.value,
-                        url: term_path,
-                        color_schema: 'blue-ecume'
+                        label: term.name.value
                       }) }}
                     {% else %}
                       {{ pattern('tag', {
@@ -95,9 +92,7 @@
                   {% set term_path = '/recherche?genre[0]=' ~ term.id() %}
                   {% if has_ad %}
                     {{ pattern('tag', {
-                      label: term.name.value,
-                      url: term_path,
-                      color_schema: 'blue-ecume'
+                      label: term.name.value
                     }) }}
                   {% else %}
                     {{ pattern('tag', {

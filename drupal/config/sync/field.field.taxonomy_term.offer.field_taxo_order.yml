@@ -1,0 +1,23 @@
+uuid: 70522bc5-0481-4678-888d-2b7a9300cb1c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_order
+    - taxonomy.vocabulary.offer
+id: taxonomy_term.offer.field_taxo_order
+field_name: field_taxo_order
+entity_type: taxonomy_term
+bundle: offer
+label: Ordre
+description: 'Ce champ permet de définir l''ordre d''affichage des offres sur les pages "Film" ou sur les cartes.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
