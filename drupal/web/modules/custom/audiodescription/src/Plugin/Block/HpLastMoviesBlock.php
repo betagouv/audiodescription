@@ -85,7 +85,16 @@ class HpLastMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
       ];
     }
 
-    $entityQuery = $this->entityTypeManager->getStorage('node')->getQuery();
+    $movies = $homepage->get('field_last_movies_movies')->referencedEntities();
+
+    $moviesRendered = [];
+    foreach ($movies as $movie) {
+      $moviesRendered[] = $this->entityTypeManager
+        ->getViewBuilder('node')
+        ->view($movie, 'card');
+    }
+
+    /**$entityQuery = $this->entityTypeManager->getStorage('node')->getQuery();
     $query = $entityQuery
       ->condition('type', 'movie')
       ->condition('field_has_ad', TRUE)
@@ -102,7 +111,7 @@ class HpLastMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
       $moviesRendered[] = $this->entityTypeManager
         ->getViewBuilder('node')
         ->view($movie, 'card');
-    }
+    }**/
 
     return [
       '#theme' => 'hp_last_movies_block',

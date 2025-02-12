@@ -1,0 +1,29 @@
+uuid: 73dabce3-9492-46a8-a03e-79a793ea4ec7
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_last_movies_movies
+    - node.type.movie
+id: config_pages.homepage.field_last_movies_movies
+field_name: field_last_movies_movies
+entity_type: config_pages
+bundle: homepage
+label: Films
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      movie: movie
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
