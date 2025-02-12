@@ -49,31 +49,31 @@ function ad_theme_theme_suggestions_views_view_alter(array &$suggestions, array 
 function ad_theme_preprocess_node__movie__card(&$variables)
 {
 
-  try {
-    $database = \Drupal::database();
+  $database = \Drupal::database();
 
-    $offerQuery = $database->select('node__field_offers', 'nfo')
-      ->fields('t', ['name'])
-      ->condition('nfo.entity_id', $variables['node']->nid->value);
+  $offerQuery = $database->select('node__field_offers', 'nfo')
+    ->fields('t', ['name'])
+    ->condition('nfo.entity_id', $variables['node']->nid->value);
 
-    $offerQuery->join('paragraph__field_pg_offer', 'pfo', 'pfo.entity_id = nfo.field_offers_target_id');
-    $offerQuery->addField('pfo', 'entity_id', 'pid');
+  $offerQuery->join('paragraph__field_pg_offer', 'pfo', 'pfo.entity_id = nfo.field_offers_target_id');
+  $offerQuery->addField('pfo', 'entity_id', 'pid');
 
-    $offerQuery->join('taxonomy_term_field_data', 't', 't.tid = pfo.field_pg_offer_target_id');
-    $offerQuery->addField('t', 'tid');
+  $offerQuery->join('taxonomy_term_field_data', 't', 't.tid = pfo.field_pg_offer_target_id');
+  $offerQuery->addField('t', 'tid');
 
 
-    $offerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
-    $offerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
+  $offerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
+  $offerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
 
-    $offerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
-    $offerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
+  $offerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
+  $offerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
 
-    $offerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
-    $offerQuery->orderBy('t.name', 'ASC');
+  $offerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
+  $offerQuery->orderBy('t.name', 'ASC');
 
-    $offer = $offerQuery->execute()->fetch();
+  $offer = $offerQuery->execute()->fetch();
 
+  if (!is_null($offer->pid)) {
     $partnerQuery = $database->select('paragraphs_item_field_data', 'pifd')
       ->fields('t', ['name'])
       ->condition('pifd.parent_id', $offer->pid);
@@ -100,21 +100,19 @@ function ad_theme_preprocess_node__movie__card(&$variables)
     $pg = $pgEntityManager->load($partner->pid);
 
     $endDate = $pg->get('field_pg_end_rights');
-  } catch (Exception $e) {
-    var_dump($e);
-  }
 
 
-  if (!is_null($endDate->value)) {
-    /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
-    $date_formatter = \Drupal::service('date.formatter');
+    if (!is_null($endDate->value)) {
+      /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
+      $date_formatter = \Drupal::service('date.formatter');
 
-    $timestamp = strtotime($endDate->value);
-    $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
+      $timestamp = strtotime($endDate->value);
+      $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
+    }
   }
 
   $variables['partner'] = [
-    'name' => $partner->name,
+    'name' => $partner->name ?? NULL,
     'end_date' => $formatted_date ?? NULL,
   ];
 }
