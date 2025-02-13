@@ -58,6 +58,9 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
         foreach ($data['hydra:member'] as $movie) {
           $title = $movie['title'];
+
+          dump($title);
+
           $code = $movie['code'];
           $arteId = $movie['arteId'] ?? null;
           $canalVodId = $movie['canalVodId'] ?? null;
@@ -99,8 +102,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           foreach($movie['solutions'] as $solution) {
 
             $partner = $this->partnerManager->createOrUpdate(
-              $solution['partner']['code'],
-              $solution['partner']['name']
+              $solution['partner']['code']
             );
 
             switch ($solution['partner']['code']) {

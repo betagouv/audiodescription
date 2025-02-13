@@ -153,6 +153,7 @@ class MovieManager {
       $movie = array_shift($movies);
       $movie->set('title', $title);
 
+
       // Delete solutions before to import new ones.
       if ($movie->hasField('field_offers') && !$movie->get('field_offers')->isEmpty()) {
         $offers = $movie->get('field_offers')->referencedEntities();
@@ -165,10 +166,9 @@ class MovieManager {
               $partner->delete();
             }
           }
+
           $offer->delete();
         }
-
-        $movie->save();
       }
     }
 

@@ -9,6 +9,7 @@ use Drupal\audiodescription\Importer\Nationality\NationalityPatrimonyImporter;
 use Drupal\audiodescription\Importer\Offer\OfferPatrimonyImporter;
 use Drupal\audiodescription\Importer\Partner\PartnerPatrimonyImporter;
 use Drupal\audiodescription\Importer\Public\PublicPatrimonyImporter;
+use Drupal\search_api\Entity\Index;
 use Drush\Attributes as CLI;
 use Drush\Commands\DrushCommands;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -75,6 +76,15 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
 
       $this->moviePatrimonyImporter->import();
       $this->logger()->success('Import des films terminé');
+
+      $index = Index::load('movies');
+
+      if ($index) {
+        $this->output()->writeln('Indexation des films en cours...');
+        $index->indexItems();
+      } else {
+        $this->output()->writeln('Index non trouvé.');
+      }
     }
     catch (\Throwable $t) {
       $this->logger()->error('Erreur fatale : ' . $t->getMessage());

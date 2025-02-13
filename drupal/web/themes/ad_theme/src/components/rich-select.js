@@ -107,9 +107,6 @@ export class RichSelect extends LitElement {
   }
 
   _isSelected(key) {
-    if (typeof this.selectedOptions === 'object') {
-      return false;
-    }
     return this.selectedOptions.includes(key);
   }
 
