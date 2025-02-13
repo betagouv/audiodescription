@@ -198,7 +198,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
 
     $form['infos']['fields']['partner'] = [
       '#type' => 'select',
-      '#title' => $this->t('Partenaires'),
+      '#title' => $this->t('Plateformes'),
       '#options' => $options,
       // Mettre à TRUE si vous voulez un select multiple.
       '#multiple' => TRUE,
@@ -206,9 +206,9 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#prefix' => '<div class="fr-col fr-col-12 fr-col-md-3">',
       '#suffix' => '</div>',
       '#default_value' => $selectedPartners,
-      '#singular_title' => 'partenaire',
-      '#plural_title' => 'partenaires',
-      '#is_female' => FALSE,
+      '#singular_title' => 'plateforme',
+      '#plural_title' => 'plateformes',
+      '#is_female' => TRUE,
     ];
 
     /**$form['viewing']['free'] = [

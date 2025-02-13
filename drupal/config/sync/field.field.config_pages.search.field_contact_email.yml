@@ -1,0 +1,19 @@
+uuid: f1cd3b3a-8053-4589-b549-034b253fd383
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.search
+    - field.storage.config_pages.field_contact_email
+id: config_pages.search.field_contact_email
+field_name: field_contact_email
+entity_type: config_pages
+bundle: search
+label: E-mail
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

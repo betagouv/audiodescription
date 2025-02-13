@@ -1,0 +1,49 @@
+uuid: 707c8546-fb24-4022-b1f4-97dbf09a44c1
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.search
+    - field.field.config_pages.search.field_contact_description
+    - field.field.config_pages.search.field_contact_email
+    - field.field.config_pages.search.field_contact_pre_contact
+    - field.field.config_pages.search.field_contact_title
+  module:
+    - text
+id: config_pages.search.default
+targetEntityType: config_pages
+bundle: search
+mode: default
+content:
+  field_contact_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_contact_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_contact_pre_contact:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_contact_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -4,6 +4,7 @@ status: false
 dependencies:
   module:
     - audiodescription
+    - system
   theme:
     - ad_theme
 id: ad_search_contact_block
@@ -17,4 +18,8 @@ settings:
   label: '[SEARCH] Contact block'
   label_display: '0'
   provider: audiodescription
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /recherche

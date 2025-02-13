@@ -19,16 +19,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 class SearchContactBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The config pages loader service.
-   *
-   * @var \Drupal\config_pages\ConfigPagesLoaderServiceInterface
-   */
-  private $configPagesLoader;
-
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigPagesLoaderServiceInterface $configPagesLoader) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    private ConfigPagesLoaderServiceInterface $configPagesLoader
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->configPagesLoader = $configPagesLoader;
   }
 
   /**
@@ -51,27 +48,14 @@ class SearchContactBlock extends BlockBase implements ContainerFactoryPluginInte
    */
   public function build() {
     $config_pages = $this->configPagesLoader;
-    $config = $config_pages->load('wordings');
-
-    $title = $config->get('field_search_bk_contact_title')->value;
-    $description = $config->get('field_search_bk_contact_desc')->value;
-    $cta_data = $config->get('field_search_bk_contact_cta')->referencedEntities()[0];
-
-    $target = $cta_data->field_pg_is_external->value ? '_blank' : '_self';
-
-    $cta = [
-      'external' => $cta_data->field_pg_is_external->value,
-      'target' => $target,
-      'url' => $cta_data->field_pg_link[0]->uri,
-      'text' => $cta_data->field_pg_link[0]->title,
-      'style' => $cta_data->field_pg_style->value,
-    ];
+    $searchCp = $config_pages->load('search');
 
     return [
       '#theme' => 'search_contact_block',
-      '#title' => $title,
-      '#description' => $description,
-      '#cta' => $cta,
+      '#title' => $searchCp->get('field_contact_title')->value,
+      '#description' => $searchCp->get('field_contact_description')->value,
+      '#pre_contact' => $searchCp->get('field_contact_pre_contact')->value,
+      '#email' => $searchCp->get('field_contact_email')->value,
     ];
   }
 

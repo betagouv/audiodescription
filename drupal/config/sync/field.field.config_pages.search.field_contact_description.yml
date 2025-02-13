@@ -1,16 +1,16 @@
-uuid: b24d77ff-a47a-411d-b10e-692b1ee4ecb0
+uuid: e807ecdd-4947-48c4-b847-409cf35bdf9e
 langcode: fr
 status: true
 dependencies:
   config:
-    - config_pages.type.wordings
-    - field.storage.config_pages.field_search_bk_contact_desc
+    - config_pages.type.search
+    - field.storage.config_pages.field_contact_description
   module:
     - text
-id: config_pages.wordings.field_search_bk_contact_desc
-field_name: field_search_bk_contact_desc
+id: config_pages.search.field_contact_description
+field_name: field_contact_description
 entity_type: config_pages
-bundle: wordings
+bundle: search
 label: Description
 description: ''
 required: true

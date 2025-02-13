@@ -31,11 +31,11 @@
     {{ pattern('accordion', {
       title: 'Filtrer les résultats',
       content: filtersForm,
-      expanded: true,
+      expanded: false,
     }) }}
   </div>
 
-  <div class="fr-mb-7w">
+  <div class="fr-mb-7w" id="liste">
     <h2>{{ movies.total }} films trouvés</h2>
     <p>{{ movies.pageSize }} résultats par page - {{ movies.pagesCount }} pages</p>
     {{ movies.items }}
@@ -50,3 +50,5 @@
     {% endif %}
   </div>
 </div>
+
+{{ blockContact }}

@@ -1,0 +1,17 @@
+uuid: f19f9954-07b3-48d0-aadb-60bbc6458a43
+langcode: fr
+status: true
+dependencies: {  }
+id: search
+label: Recherche
+token: false
+context:
+  show_warning: true
+  group:
+    language: false
+  fallback:
+    language: ''
+menu:
+  path: ''
+  weight: 0
+  description: ''

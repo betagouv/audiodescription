@@ -76,7 +76,8 @@ function audiodescription_theme($existing, $type, $theme, $path) {
       'variables' => [
         'title' => NULL,
         'description' => NULL,
-        'cta' => NULL,
+        'pre_contact' => NULL,
+        'email' => NULL,
       ],
     ],
     'info_banner_block' => [
@@ -97,6 +98,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'form' => NULL,
         'filtersForm' => NULL,
         'filters' => NULL,
+        'blockContact' => NULL,
       ],
     ],
     'header_search_form_block' => [

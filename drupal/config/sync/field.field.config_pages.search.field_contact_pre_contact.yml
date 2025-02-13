@@ -1,0 +1,19 @@
+uuid: da199f15-691b-442b-8dfc-93fd6a70c440
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.search
+    - field.storage.config_pages.field_contact_pre_contact
+id: config_pages.search.field_contact_pre_contact
+field_name: field_contact_pre_contact
+entity_type: config_pages
+bundle: search
+label: 'Phrase de pré-contact'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

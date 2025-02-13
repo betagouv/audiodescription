@@ -1,0 +1,72 @@
+uuid: 58e6df13-a5a2-43f3-b5e9-55f9c516168b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.search
+    - field.field.config_pages.search.field_contact_description
+    - field.field.config_pages.search.field_contact_email
+    - field.field.config_pages.search.field_contact_pre_contact
+    - field.field.config_pages.search.field_contact_title
+  module:
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_block_contact:
+      children:
+        - field_contact_title
+        - field_contact_description
+        - field_contact_pre_contact
+        - field_contact_email
+      label: 'Block contact'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+id: config_pages.search.default
+targetEntityType: config_pages
+bundle: search
+mode: default
+content:
+  field_contact_description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_contact_email:
+    type: email_default
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_contact_pre_contact:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_contact_title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  label: true

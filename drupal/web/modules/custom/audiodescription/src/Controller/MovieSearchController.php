@@ -2,6 +2,8 @@
 
 namespace Drupal\audiodescription\Controller;
 
+use Drupal\block\Entity\Block;
+use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
@@ -105,6 +107,15 @@ class MovieSearchController extends ControllerBase {
     $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
     $filtersForm = $this->formBuilder->getForm('Drupal\audiodescription\Form\FiltersMovieSearchForm');
 
+    $block = Block::load('ad_search_contact_block');
+
+    $blockContact = [];
+    if ($block) {
+      $blockContact = $this->entityTypeManager
+        ->getViewBuilder('block')
+        ->view($block);
+    }
+
     return [
       '#theme' => 'movie_search',
       '#movies' => [
@@ -125,6 +136,7 @@ class MovieSearchController extends ControllerBase {
         'publics' => $this->getCurrentFilters($params->public),
         'partenaires' => $this->getCurrentFilters($params->partner),
       ],
+      '#blockContact' => $blockContact,
       '#cache' => [
         'max-age' => 0,
       ],
