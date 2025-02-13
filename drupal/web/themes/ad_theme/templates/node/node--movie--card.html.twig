@@ -64,12 +64,20 @@
           {% endif %}
 
           {% if partner.name is not empty %}
-          <p class="ad-movie-card__platform">
-            Disponible sur {{ partner.name }}
-            {% if partner.end_date is not null %}
-              jusqu'au {{ partner.end_date }}
-            {% endif %}
-          </p>
+            <p class="ad-movie-card__platform">
+              Disponible sur
+              {% if partner.pronunciation is not null %}
+                <span aria-label="{{ partner.pronunciation }}">
+                  {{ partner.name }}
+                </span>
+              {% else %}
+                {{ partner.name }}
+              {% endif %}
+
+              {% if partner.end_date is not null %}
+                jusqu'au {{ partner.end_date }}
+              {% endif %}
+            </p>
           {% endif %}
         </div>
       </div>

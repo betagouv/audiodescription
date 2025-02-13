@@ -141,6 +141,7 @@
             {% endif %}
             {% set logo = partner.field_pg_partner.entity.field_taxo_logo.entity.field_media_image.entity.uri.value %}
             {% set title = partner.field_pg_partner.entity.name.value %}
+            {% set pronunciation = partner.field_pg_partner.entity.field_taxo_pronunciation.value %}
 
             <div class="fr-grid-row ad-partner-card">
               {% if logo is not empty %}
@@ -152,11 +153,23 @@
                 <div class="fr-col-12 ad-partner-card__content">
               {% endif%}
                 <div>
-                  <p class="fr-text--lg ad-partner-card__title">{{ title }}</p>
+                  <p class="fr-text--lg ad-partner-card__title">
+                    {% if pronunciation is not empty %}
+                      <span aria-label="{{ pronunciation }}">
+                        {{ title }}
+                      </span>
+                    {% else %}
+                      {{ title }}
+                    {% endif %}
+                  </p>
                   {{ condition|raw }}
                 </div>
+                {% set partner_name = title %}
+                {% if pronunciation is not empty %}
+                    {% set partner_name = ' <span aria-label="' ~ pronunciation ~ '">' ~ title ~ '</span>' %}
+                {% endif %}
                 {{ pattern('button', {
-                  label: partner.field_pg_partner.entity.field_taxo_label_button.value,
+                  label: partner.field_pg_partner.entity.field_taxo_label_button.value ~ '&nbsp;' ~ partner_name,
                   url: partner.field_pg_link.uri,
                   target: '_blank',
                   external: 1

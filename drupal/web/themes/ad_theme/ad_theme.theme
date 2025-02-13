@@ -61,7 +61,6 @@ function ad_theme_preprocess_node__movie__card(&$variables)
   $offerQuery->join('taxonomy_term_field_data', 't', 't.tid = pfo.field_pg_offer_target_id');
   $offerQuery->addField('t', 'tid');
 
-
   $offerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
   $offerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
 
@@ -85,6 +84,9 @@ function ad_theme_preprocess_node__movie__card(&$variables)
 
   $partnerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
   $partnerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
+
+  $partnerQuery->leftJoin('taxonomy_term__field_taxo_pronunciation', 'ttp', 'ttp.entity_id = t.tid');
+  $partnerQuery->addField('ttp', 'field_taxo_pronunciation_value', 'field_taxo_pronunciation');
 
   $partnerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
   $partnerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
@@ -110,6 +112,7 @@ function ad_theme_preprocess_node__movie__card(&$variables)
 
     $variables['partner'] = [
       'name' => $partner->name ?? NULL,
+      'pronunciation' => $partner->field_taxo_pronunciation ?? NULL,
       'end_date' => $formatted_date ?? NULL,
     ];
   }

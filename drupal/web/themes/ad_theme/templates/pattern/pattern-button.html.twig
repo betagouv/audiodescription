@@ -1,0 +1,49 @@
+{% if variant and variant|lower != 'default' %}
+  {% set variants = variant|split('__')|map(v => v|lower|replace({(v): 'fr-btn--' ~ v})|replace({_: '-'})) %}
+  {% set attributes = attributes.addClass(variants) %}
+{% endif %}
+
+{% set attributes = social ? attributes.addClass('fr-btn--' ~ social) : attributes %}
+
+{% if icon and not tooltip %}
+  {% set attributes = attributes.addClass(icon) %}
+  {% if icon_position %}
+    {% set attributes = attributes.addClass('fr-btn--icon-' ~ icon_position) %}
+  {% endif %}
+{% endif %}
+
+{% if title %}
+  {% set attributes = attributes.setAttribute('title', title) %}
+{% endif %}
+
+{% if disabled %}
+  {% set attributes = attributes.setAttribute('disabled', true) %}
+{% endif %}
+
+{% if tooltip %}
+  {% set tooltip_id = 'tooltip-' ~ button_id|default(random()) %}
+  {% set attributes = attributes.addClass('fr-btn--tooltip').setAttribute('aria-describedby', tooltip_id) %}
+  <span class="fr-tooltip fr-placement" id="{{ tooltip_id }}" role="tooltip" aria-hidden="true">{{ tooltip }}</span>
+{% endif %}
+
+{% if url or attributes.href %}
+  {% set url = url|default(attributes.href) %}
+  {% if external %}
+    {% set attributes = attributes.setAttribute('rel', 'noopener') %}
+    {% set target = 'blank' %}
+  {% endif %}
+  {% if target and target == 'blank' %}
+    {% set title = '@title - new window'|t({'@title': title}) %}
+    {% set attributes = attributes.setAttribute('title', title) %}
+  {% endif %}
+  {% if target %}
+    {% set attributes = attributes.setAttribute('target', '_' ~ target) %}
+  {% endif %}
+  <a{{ attributes.addClass('fr-btn').setAttribute('href', url) }}>
+    {{ label|raw }}
+  </a>
+{% else %}
+  <button{{ attributes.addClass('fr-btn') }}>
+    {{ label|raw }}
+  </button>
+{% endif %}

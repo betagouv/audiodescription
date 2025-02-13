@@ -10,7 +10,7 @@ field_name: field_taxo_label_button
 entity_type: taxonomy_term
 bundle: partner
 label: 'Libellé du bouton'
-description: ''
+description: 'Pour écrire "Voir sur Arte Replay", remplissez le champ avec "Voir sur".'
 required: true
 translatable: false
 default_value: {  }

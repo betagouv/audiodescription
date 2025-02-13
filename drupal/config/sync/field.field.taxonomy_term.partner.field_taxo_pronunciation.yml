@@ -1,0 +1,19 @@
+uuid: 00961f59-04a3-4d45-99ee-22521b642613
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_taxo_pronunciation
+    - taxonomy.vocabulary.partner
+id: taxonomy_term.partner.field_taxo_pronunciation
+field_name: field_taxo_pronunciation
+entity_type: taxonomy_term
+bundle: partner
+label: Prononciation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
