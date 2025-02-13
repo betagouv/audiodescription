@@ -136,6 +136,7 @@ class MovieSearchController extends ControllerBase {
         'publics' => $this->getCurrentFilters($params->public),
         'partenaires' => $this->getCurrentFilters($params->partner),
       ],
+      '#filtersExpanded' => !$params->isEmptyParametersBag(),
       '#blockContact' => $blockContact,
       '#cache' => [
         'max-age' => 0,

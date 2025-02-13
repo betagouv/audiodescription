@@ -68,4 +68,19 @@ class MovieSearchParametersBag {
     return $array;
   }
 
+  public function isEmptyParametersBag() {
+    if (
+      $this->search == '' &&
+      !$this->withAd &&
+      empty($this->genre) &&
+      empty($this->nationality) &&
+      empty($this->partner) &&
+      empty($this->public)
+    ) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
 }

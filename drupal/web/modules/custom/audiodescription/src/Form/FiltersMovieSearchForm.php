@@ -232,7 +232,6 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#type' => 'button',
       '#value' => "Réinitialiser les filtres",
       '#attributes' => [
-        'type' => 'reset',
         'class' => [
           'fr-btn',
           'fr-btn--icon-left',

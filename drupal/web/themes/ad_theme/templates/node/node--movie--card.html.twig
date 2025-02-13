@@ -15,10 +15,6 @@
   {% set poster = file_url(node.field_poster.entity.field_media_image.entity.uri.value) %}
   {% set poster = node.field_poster_external.value %}
 
-  {% if poster is empty %}
-    {% set poster = '/themes/ad_theme/images/placeholder.16x9.png' %}
-  {% endif %}
-
   {% set sentence = [] %}
   {% set directors = [] %}
   {% for director in node.field_directors %}
@@ -77,11 +73,13 @@
           {% endif %}
         </div>
       </div>
+      {% if poster is not empty %}
       <div class="fr-card__header">
         <div class="fr-card__img">
           <img class="fr-responsive-img" src="{{ poster }}" alt="Affiche du film {{ title }}" />
         </div>
       </div>
+      {% endif %}
     </div>
 
 </div>
