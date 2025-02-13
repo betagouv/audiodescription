@@ -33,7 +33,7 @@
 
 
   <div class="fr-pt-3w fr-pb-3w">
-    {% for data in movies | slice(0, 2) %}
+    {% for data in movies %}
       {% set movie = data.entity %}
       {% include '@ad_theme/node/node--movie--teaser.html.twig' with { 'node': movie, 'url': urls[movie.nid.value] } %}
     {% endfor %}
