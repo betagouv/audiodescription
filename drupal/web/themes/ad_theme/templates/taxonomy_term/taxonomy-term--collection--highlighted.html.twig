@@ -1,6 +1,6 @@
 <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
     <h2>{{ term.name.value }}</h2>
-    {{ term.description.value|class2wysiwygP('fr-text--lead')|raw }}
+    {{ term.field_taxo_short_desc.value|class2wysiwygP('fr-text--lead')|raw }}
 
     {% set movies = term.field_taxo_movies %}
 

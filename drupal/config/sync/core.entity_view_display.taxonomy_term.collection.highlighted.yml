@@ -9,6 +9,7 @@ dependencies:
     - field.field.taxonomy_term.collection.field_taxo_icon
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
+    - field.field.taxonomy_term.collection.field_taxo_long_desc
     - field.field.taxonomy_term.collection.field_taxo_movies
     - field.field.taxonomy_term.collection.field_taxo_short_desc
     - taxonomy.vocabulary.collection
@@ -30,6 +31,7 @@ hidden:
   field_taxo_icon: true
   field_taxo_is_highlighted: true
   field_taxo_label_button_see_all: true
+  field_taxo_long_desc: true
   field_taxo_movies: true
   field_taxo_short_desc: true
   langcode: true

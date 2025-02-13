@@ -1,12 +1,12 @@
-uuid: aa0a709d-4bd3-4f99-a9a1-d9169cbd9d59
+uuid: 04f3a27c-4016-4603-af44-7c3962bb17b6
 langcode: fr
 status: true
 dependencies:
   module:
     - taxonomy
     - text
-id: taxonomy_term.field_taxo_short_desc
-field_name: field_taxo_short_desc
+id: taxonomy_term.field_taxo_long_desc
+field_name: field_taxo_long_desc
 entity_type: taxonomy_term
 type: text_long
 settings: {  }

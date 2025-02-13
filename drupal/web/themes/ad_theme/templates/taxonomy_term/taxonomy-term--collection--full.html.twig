@@ -26,8 +26,17 @@
  */
 #}
 
-<div{{ attributes }}>
-  <div class="fr-container">
-    {{ content }}
+<div class="fr-container fr-pt-3w fr-pb-3w">
+  {{ term.field_taxo_long_desc.value|class2wysiwygP('fr-text--lead')|raw }}
+
+  {% set movies = term.field_taxo_movies %}
+
+
+  <div class="fr-pt-3w fr-pb-3w">
+    {% for data in movies | slice(0, 2) %}
+      {% set movie = data.entity %}
+      {% include '@ad_theme/node/node--movie--teaser.html.twig' with { 'node': movie, 'url': urls[movie.nid.value] } %}
+    {% endfor %}
   </div>
 </div>
+

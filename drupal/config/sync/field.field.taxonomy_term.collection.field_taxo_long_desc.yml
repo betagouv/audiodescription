@@ -1,17 +1,17 @@
-uuid: fc0e09f9-4ebc-471b-ac92-9c4311b1ec05
+uuid: 0071787b-fba9-44f3-9202-6434d1a4ec5d
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_taxo_short_desc
+    - field.storage.taxonomy_term.field_taxo_long_desc
     - taxonomy.vocabulary.collection
   module:
     - text
-id: taxonomy_term.collection.field_taxo_short_desc
-field_name: field_taxo_short_desc
+id: taxonomy_term.collection.field_taxo_long_desc
+field_name: field_taxo_long_desc
 entity_type: taxonomy_term
 bundle: collection
-label: 'Description courte'
+label: 'Description longue'
 description: ''
 required: true
 translatable: false

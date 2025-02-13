@@ -8,6 +8,7 @@ dependencies:
     - field.field.taxonomy_term.collection.field_taxo_icon
     - field.field.taxonomy_term.collection.field_taxo_is_highlighted
     - field.field.taxonomy_term.collection.field_taxo_label_button_see_all
+    - field.field.taxonomy_term.collection.field_taxo_long_desc
     - field.field.taxonomy_term.collection.field_taxo_movies
     - field.field.taxonomy_term.collection.field_taxo_short_desc
     - taxonomy.vocabulary.collection
@@ -15,39 +16,15 @@ id: taxonomy_term.collection.default
 targetEntityType: taxonomy_term
 bundle: collection
 mode: default
-content:
-  field_display_on_movie_page:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: -3
-    region: content
-  field_icon_on_movie_page:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: -2
-    region: content
-  field_taxo_icon:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: -4
-    region: content
+content: {  }
 hidden:
   description: true
+  field_display_on_movie_page: true
+  field_icon_on_movie_page: true
+  field_taxo_icon: true
   field_taxo_is_highlighted: true
   field_taxo_label_button_see_all: true
+  field_taxo_long_desc: true
   field_taxo_movies: true
   field_taxo_short_desc: true
   langcode: true
