@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
+    - field.field.node.movie.field_lacinetek_id
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_offers
     - field.field.node.movie.field_orange_vod_id
@@ -127,6 +128,7 @@ hidden:
   field_allocine_id: true
   field_arte_id: true
   field_canal_vod_id: true
+  field_lacinetek_id: true
   field_offers: true
   field_orange_vod_id: true
   field_poster_external: true

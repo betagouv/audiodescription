@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
+    - field.field.node.movie.field_lacinetek_id
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_offers
     - field.field.node.movie.field_orange_vod_id
@@ -33,6 +34,7 @@ third_party_settings:
         - field_allocine_id
         - field_arte_id
         - field_canal_vod_id
+        - field_lacinetek_id
         - field_orange_vod_id
       label: Identifiants
       region: content
@@ -121,6 +123,14 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  field_lacinetek_id:
+    type: string_textfield
+    weight: 29
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_nationalities:
     type: entity_reference_autocomplete
     weight: 12
@@ -151,7 +161,7 @@ content:
     third_party_settings: {  }
   field_orange_vod_id:
     type: string_textfield
-    weight: 29
+    weight: 30
     region: content
     settings:
       size: 60

@@ -7,7 +7,9 @@
 
     {% for data in movies | slice(0, 2) %}
       {% set movie = data.entity %}
-      {% include '@ad_theme/node/node--movie--teaser.html.twig' with { 'node': movie, 'url': urls[movie.nid.value] } %}
+      {% if movie.entityTypeId == 'node' %}
+        {% include '@ad_theme/node/node--movie--teaser.html.twig' with { 'node': movie, 'url': urls[movie.nid.value] } %}
+      {% endif %}
     {% endfor %}
 
 

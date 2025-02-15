@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.movie.field_duration
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
+    - field.field.node.movie.field_lacinetek_id
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_offers
     - field.field.node.movie.field_orange_vod_id
@@ -95,6 +96,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 101
+    region: content
+  field_lacinetek_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 123
     region: content
   field_nationalities:
     type: entity_reference_label

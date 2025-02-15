@@ -326,8 +326,11 @@ function ad_theme_preprocess_taxonomy_term__collection__highlighted(&$variables)
 {
   $movies = $variables['elements']['#taxonomy_term']->field_taxo_movies;
   $variables['urls'] = [];
+
   foreach ($movies as $movie) {
     $entity = $movie->entity;
-    $variables['urls'][$entity->id()] = $entity->toUrl()->toString();
+    if (!is_null($entity)) {
+      $variables['urls'][$entity->id()] = $entity->toUrl()->toString();
+    }
   }
 }

@@ -66,6 +66,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           $canalVodId = $movie['canalVodId'] ?? null;
           $allocineId = $movie['allocineId'] ?? null;
           $orangeVodId = $movie['orangeVodId'] ?? null;
+          $laCinetekId = $movie['laCinetekId'] ?? null;
+
           $hasAd = $movie['hasAd'];
           $productionYear = $movie['productionYear'] ?? null;
           $synopsis = $movie['synopsis'] ?? null;
@@ -101,15 +103,13 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           }
 
           foreach($movie['solutions'] as $solution) {
-
-            dump($solution['partner']['code']);
-
             $partner = $this->partnerManager->createOrUpdate(
               $solution['partner']['code']
             );
 
             switch ($solution['partner']['code']) {
               case 'ARTE':
+              case 'LACINETEK':
                 $offerCode = 'STREAMING';
                 break;
               case 'CANAL_VOD':
@@ -119,8 +119,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             }
 
             $link = $solution['link'];
-            $startRights = $solution['startRights'];
-            $endRights = $solution['endRights'];
+            $startRights = $solution['startRights'] ?? null;
+            $endRights = $solution['endRights'] ?? null;
 
             $solutions[$offerCode][] = [
               'partner' => $partner,
@@ -128,8 +128,6 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
               'startRights' => $startRights,
               'endRights' => $endRights
             ];
-
-            dump($partner);
           }
 
           $this->movieManager->createOrUpdate(
@@ -137,6 +135,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             $allocineId,
             $arteId,
             $canalVodId,
+            $laCinetekId,
+            $orangeVodId,
             $hasAd,
             $productionYear,
             $public,

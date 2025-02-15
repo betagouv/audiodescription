@@ -1,0 +1,19 @@
+uuid: 1c1df6b0-e97e-48a6-aa9c-0b5b01dbf95b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lacinetek_id
+    - node.type.movie
+id: node.movie.field_lacinetek_id
+field_name: field_lacinetek_id
+entity_type: node
+bundle: movie
+label: 'LaCinetek ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

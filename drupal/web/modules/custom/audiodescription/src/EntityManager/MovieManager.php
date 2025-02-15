@@ -123,6 +123,8 @@ class MovieManager {
     ?string $allocineId,
     ?string $arteId,
     ?string $canalVodId,
+    ?string $laCinetekId,
+    ?string $orangeVodId,
     string $hasAd,
     ?string $productionYear,
     Term|null $public,
@@ -153,7 +155,6 @@ class MovieManager {
       $movie = array_shift($movies);
       $movie->set('title', $title);
 
-
       // Delete solutions before to import new ones.
       if ($movie->hasField('field_offers') && !$movie->get('field_offers')->isEmpty()) {
         $offers = $movie->get('field_offers')->referencedEntities();
@@ -178,6 +179,8 @@ class MovieManager {
     if (!is_null($allocineId)) $movie->set('field_allocine_id', $allocineId);
     if (!is_null($arteId)) $movie->set('field_arte_id', $arteId);
     if (!is_null($canalVodId)) $movie->set('field_canal_vod_id', $canalVodId);
+    if (!is_null($laCinetekId)) $movie->set('field_lacinetek_id', $laCinetekId);
+    if (!is_null($orangeVodId)) $movie->set('field_orange_vod_id', $orangeVodId);
 
     if (!is_null($public)) {
       $movie->set('field_public', $public->tid->value);
