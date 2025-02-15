@@ -37,6 +37,7 @@ class PartnerManager {
     }
 
     if (is_null($partner)) {
+      $properties['name'] = $partnerName ?? $partnerCode;
       $partner = Term::create($properties);
     }
 

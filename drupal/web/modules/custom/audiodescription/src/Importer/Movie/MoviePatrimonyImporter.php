@@ -65,9 +65,10 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           $arteId = $movie['arteId'] ?? null;
           $canalVodId = $movie['canalVodId'] ?? null;
           $allocineId = $movie['allocineId'] ?? null;
+          $orangeVodId = $movie['orangeVodId'] ?? null;
           $hasAd = $movie['hasAd'];
           $productionYear = $movie['productionYear'] ?? null;
-          $synopsis = $movie['synopsis'];
+          $synopsis = $movie['synopsis'] ?? null;
           //$nationalities = [];
           $genres = [];
           $directors = [];
@@ -101,6 +102,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
           foreach($movie['solutions'] as $solution) {
 
+            dump($solution['partner']['code']);
+
             $partner = $this->partnerManager->createOrUpdate(
               $solution['partner']['code']
             );
@@ -110,6 +113,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
                 $offerCode = 'STREAMING';
                 break;
               case 'CANAL_VOD':
+              case 'ORANGE_VOD':
                 $offerCode = 'TVOD';
                 break;
             }
@@ -124,6 +128,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
               'startRights' => $startRights,
               'endRights' => $endRights
             ];
+
+            dump($partner);
           }
 
           $this->movieManager->createOrUpdate(

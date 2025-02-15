@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_offers
+    - field.field.node.movie.field_orange_vod_id
     - field.field.node.movie.field_poster
     - field.field.node.movie.field_poster_external
     - field.field.node.movie.field_production_year
@@ -111,6 +112,14 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 117
+    region: content
+  field_orange_vod_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 122
     region: content
   field_poster:
     type: entity_reference_entity_view

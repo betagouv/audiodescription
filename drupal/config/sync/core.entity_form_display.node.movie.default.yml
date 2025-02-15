@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_nationalities
     - field.field.node.movie.field_offers
+    - field.field.node.movie.field_orange_vod_id
     - field.field.node.movie.field_poster
     - field.field.node.movie.field_poster_external
     - field.field.node.movie.field_production_year
@@ -32,6 +33,7 @@ third_party_settings:
         - field_allocine_id
         - field_arte_id
         - field_canal_vod_id
+        - field_orange_vod_id
       label: Identifiants
       region: content
       parent_name: ''
@@ -53,7 +55,7 @@ mode: default
 content:
   field_actors:
     type: entity_reference_autocomplete
-    weight: 12
+    weight: 13
     region: content
     settings:
       match_operator: CONTAINS
@@ -87,7 +89,7 @@ content:
     third_party_settings: {  }
   field_directors:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 9
     region: content
     settings:
       match_operator: CONTAINS
@@ -97,7 +99,7 @@ content:
     third_party_settings: {  }
   field_duration:
     type: number
-    weight: 10
+    weight: 11
     region: content
     settings:
       placeholder: ''
@@ -121,7 +123,7 @@ content:
     third_party_settings: {  }
   field_nationalities:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 12
     region: content
     settings:
       match_operator: CONTAINS
@@ -131,7 +133,7 @@ content:
     third_party_settings: {  }
   field_offers:
     type: paragraphs
-    weight: 13
+    weight: 14
     region: content
     settings:
       title: Paragraphe
@@ -147,6 +149,14 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
+  field_orange_vod_id:
+    type: string_textfield
+    weight: 29
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_poster:
     type: media_library_widget
     weight: 5
@@ -156,7 +166,7 @@ content:
     third_party_settings: {  }
   field_poster_external:
     type: string_textfield
-    weight: 6
+    weight: 7
     region: content
     settings:
       size: 60
@@ -164,7 +174,7 @@ content:
     third_party_settings: {  }
   field_production_year:
     type: number
-    weight: 7
+    weight: 8
     region: content
     settings:
       placeholder: ''
@@ -181,7 +191,7 @@ content:
     third_party_settings: {  }
   field_synopsis:
     type: text_textarea
-    weight: 9
+    weight: 10
     region: content
     settings:
       rows: 5
