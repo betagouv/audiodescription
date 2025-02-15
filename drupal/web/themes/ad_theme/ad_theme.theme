@@ -334,3 +334,24 @@ function ad_theme_preprocess_taxonomy_term__collection__highlighted(&$variables)
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ad_theme_preprocess_paragraph__pg_paragraph__full(&$variables)
+{
+  $cta = $variables['paragraph']->get('field_pg_cta')->referencedEntities();
+  if (!empty($cta)) {
+    $variables['cta'] = [
+      'url' => $cta[0]->get('field_pg_link')->first()->getUrl()->toString(),
+      'text' => $cta[0]->get('field_pg_link')->first()->title,
+      'target' => ($cta[0]->get('field_pg_is_external')->value == TRUE) ? 'blank' : 'self',
+      'external' => ($cta[0]->get('field_pg_is_external')->value == TRUE),
+      'style' => $cta[0]->get('field_pg_style')->value,
+    ];
+
+    if ($cta[0]->get('field_pg_is_external')->value) {
+      $variables['cta']['title'] = $cta[0]->get('field_pg_link')->first()->title;
+    }
+  }
+}

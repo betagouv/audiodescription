@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.paragraph.full
     - field.field.paragraph.pg_paragraph.field_pg_cta
     - field.field.paragraph.pg_paragraph.field_pg_image
+    - field.field.paragraph.pg_paragraph.field_pg_image_is_decorative
     - field.field.paragraph.pg_paragraph.field_pg_text
     - field.field.paragraph.pg_paragraph.field_pg_title
     - paragraphs.paragraphs_type.pg_paragraph
@@ -56,4 +57,5 @@ content:
     weight: 0
     region: content
 hidden:
+  field_pg_image_is_decorative: true
   search_api_excerpt: true

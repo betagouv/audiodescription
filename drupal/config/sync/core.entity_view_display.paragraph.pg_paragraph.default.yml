@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.pg_paragraph.field_pg_cta
     - field.field.paragraph.pg_paragraph.field_pg_image
+    - field.field.paragraph.pg_paragraph.field_pg_image_is_decorative
     - field.field.paragraph.pg_paragraph.field_pg_text
     - field.field.paragraph.pg_paragraph.field_pg_title
     - paragraphs.paragraphs_type.pg_paragraph
@@ -33,6 +34,16 @@ content:
       link: false
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_pg_image_is_decorative:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_pg_text:
     type: text_default

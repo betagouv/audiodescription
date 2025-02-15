@@ -1,0 +1,12 @@
+.pg-paragraph {
+  &__image {
+    max-width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .fr-grid-row {
+      flex-direction: row-reverse;
+    }
+  }
+}
+

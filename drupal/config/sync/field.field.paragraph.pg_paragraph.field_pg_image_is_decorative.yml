@@ -1,0 +1,21 @@
+uuid: 70e5bf3b-a55a-4a6e-864a-e138757eaa31
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_image_is_decorative
+    - paragraphs.paragraphs_type.pg_paragraph
+id: paragraph.pg_paragraph.field_pg_image_is_decorative
+field_name: field_pg_image_is_decorative
+entity_type: paragraph
+bundle: pg_paragraph
+label: 'Image décorative'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Décorative
+  off_label: "Porteuse d'information"
+field_type: boolean

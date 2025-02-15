@@ -162,7 +162,9 @@
                       {{ title }}
                     {% endif %}
                   </p>
-                  {{ condition|raw }}
+                  <div class="ad-partner-card__condition">
+                    {{ condition|raw }}
+                  </div>
                 </div>
                 {% set partner_name = title %}
                 {% if pronunciation is not empty %}

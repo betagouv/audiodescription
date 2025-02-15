@@ -17,6 +17,15 @@
     margin-bottom: 1rem;
   }
 
+  &__condition {
+    margin-bottom: 1rem;
+
+    p {
+      margin: 0;
+      font-size: .9rem;
+    }
+  }
+
   &__content {
     padding-left: .5rem;
     display: flex;
