@@ -34,7 +34,7 @@ WORKDIR /app/public
 
 ENV APP_ENV=prod
 ENV DATABASE_URL="postgresql://patrimony:patrimony@postgres:5432/patrimony?serverVersion=16&charset=utf8"
-RUN rm .env && touch .env
+RUN touch .env
 
 RUN chmod +x /app/public/startup.sh
 CMD ["/app/public/startup.sh"]
