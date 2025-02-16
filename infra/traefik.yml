@@ -1,0 +1,29 @@
+api:
+  dashboard: true
+  insecure: true
+entryPoints:
+  web:
+    address: ':80'
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          #permanent: true
+  websecure:
+    address: ':443'
+    http:
+      tls:
+        certResolver: default
+providers:
+  docker:
+    watch: true
+    exposedByDefault: false
+    network: web
+certificatesResolvers:
+  default:
+    acme:
+      email: contact@audiodescription.beta.gouv.fr
+      storage: acme.json
+      caServer: 'https://acme-v02.api.letsencrypt.org/directory'
+      tlsChallenge: {}

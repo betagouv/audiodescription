@@ -1,0 +1,23 @@
+services:
+  reverse-proxy:
+    image: traefik:v3.3
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      #- "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $PWD/traefik.yml:/etc/traefik/traefik.yml
+      - $PWD/acme.json:/acme.json
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.strip-www.redirectregex.regex=^https?://(www\\.)(.+)"
+      - "traefik.http.middlewares.strip-www.redirectregex.replacement=https://$${2}"
+      - "traefik.http.middlewares.strip-www.redirectregex.permanent=true"
+    restart: always
+    networks:
+      - web
+networks:
+  web:
+    external: true
