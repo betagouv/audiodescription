@@ -1,40 +1,53 @@
 services:
-  nginx:
-    image: nginx:latest
-    ports:
-      - "8080:80"
-    volumes:
-      - ./drupal:/var/www/html
-      - ./docker/dev/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - php
-    networks:
-      - drupal-network
-
-  php:
+  drupal:
     build:
       context: .
-      dockerfile: docker/dev/php/Dockerfile
+      dockerfile: docker/drupal/dev/php/Dockerfile
+    ports:
+      - 8080:80
+    working_dir: /app/public/drupal
     volumes:
-      - ./drupal:/var/www/html
-      - ./docker/dev/php/php.ini:/usr/local/etc/php/php.ini
+      - .:/app/public
+      - ./docker/drupal/dev/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/drupal/dev/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
     networks:
-      - drupal-network
+      - ad-network
+
+  patrimony:
+    build:
+      context: .
+      dockerfile: ./docker/patrimony/dev/php/Dockerfile
+    restart: always
+    working_dir: /app/public/patrimony
+    ports:
+      - 8083:80
+    environment:
+      GRUMPHP_PROJECT_DIR: '/app/public/symfony'
+      GRUMPHP_COMPOSER_DIR: '/app/public/symfony'
+      GRUMPHP_GIT_REPOSITORY_DIR: '/app/public/.git'
+      GRUMPHP_GIT_WORKING_DIR: '/app/public'
+    volumes:
+      - .:/app/public
+      - ./docker/patrimony/dev/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/patrimony/dev/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - ad-network
 
   db:
     image: postgres:latest
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./docker/postgres/init-patrimony-db.sh:/docker-entrypoint-initdb.d/init-patrimony-db.sh
     environment:
       - POSTGRES_DB=drupal
-      - POSTGRES_USER=drupal
-      - POSTGRES_PASSWORD=drupal
+      - POSTGRES_USER=audiodescription
+      - POSTGRES_PASSWORD=audiodescription
     ports:
       - '5432:5432'
     networks:
-      - drupal-network
+      - ad-network
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
@@ -47,7 +60,7 @@ services:
     volumes:
       - ./drupal/elasticsearch:/usr/share/elasticsearch/data
     networks:
-      - drupal-network
+      - ad-network
 
   node:
     image: node:20
@@ -61,4 +74,4 @@ volumes:
   db-data:
 
 networks:
-  drupal-network:
+  ad-network:

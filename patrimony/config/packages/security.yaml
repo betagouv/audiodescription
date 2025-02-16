@@ -1,0 +1,33 @@
+security:
+  providers:
+    # used to reload user from session & other features (e.g. switch_user)
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: username
+    api_user_provider:
+      id: App\Security\ApiUserProvider
+    # https://symfony.com/doc/current/security.html#c-hashing-passwords
+  firewalls:
+    dev:
+      pattern: ^/_(profiler|wdt)
+      security: false
+    api:
+      pattern:   ^/api
+      stateless: true
+      provider: api_user_provider
+      access_token:
+        token_handler: App\Security\ApiTokenHandler
+    ihm:
+      pattern:   ^/
+      stateless: false
+      provider: app_user_provider
+      custom_authenticators:
+        - App\Security\OidcAuthenticator
+      logout:
+        path: /logout
+  access_control:
+    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
+    - { path: /login, roles: PUBLIC_ACCESS }
+    - { path: /oidc/callback, roles: PUBLIC_ACCESS }

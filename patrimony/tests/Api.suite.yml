@@ -1,0 +1,17 @@
+actor: ApiTester
+suite_namespace: App\Tests\Api
+modules:
+    enabled:
+        - App\Tests\Support\Helper\ApiResponseHelper
+        - App\Tests\Support\Helper\EntityResponse\ProjectListItemHelper
+        - App\Tests\Support\Helper\EntityResponse\ProjectDetailsHelper
+        - App\Tests\Support\Helper\EntityResponse\AuditTypeListItemHelper
+        - App\Tests\Support\Helper\EntityResponse\AuditTypeItemHelper
+        - REST:
+            depends: Symfony
+        - Asserts
+        - Symfony:
+            app_path: src
+        - Doctrine:
+            depends: Symfony
+            cleanup: true

@@ -11,30 +11,30 @@ help:
 ##up: Start dockers
 .PHONY:up
 up:
-	docker compose up -d
+	docker compose up -d --build --remove-orphans -t 0
 
 ##down: Down dockers
 .PHONY:down
 down:
-	docker compose down
+	docker compose down -t 0
 
 .PHONY:sh
 sh:
-	docker compose exec php bash
+	docker compose exec drupal bash
 
 # Code quality
 .PHONY: phpstan
 phpstan:
-	docker compose exec php vendor/bin/phpstan.phar
+	docker compose exec drupal vendor/bin/phpstan.phar
 
 .PHONY: phpmd
 phpmd:
-	docker compose exec php vendor/bin/phpmd web/modules/custom/ web/themes/ad_theme/ ansi phpmd.xml
+	docker compose exec drupal vendor/bin/phpmd web/modules/custom/ web/themes/ad_theme/ ansi phpmd.xml
 
 .PHONY: phpcs
 phpcs:
-	docker compose exec php vendor/bin/phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml web/modules/custom/ web/themes/ad_theme/ || true
-	docker compose exec php vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml web/modules/custom/ web/themes/ad_theme/
+	docker compose exec drupal vendor/bin/phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml web/modules/custom/ web/themes/ad_theme/ || true
+	docker compose exec drupal vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml web/modules/custom/ web/themes/ad_theme/
 
 .PHONY: quality
 quality:
@@ -45,25 +45,125 @@ quality:
 # Drush commands
 .PHONY:reset-db
 reset-db:
-	docker compose exec php vendor/bin/drush entity:delete node --bundle=movie
-	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=genre
-	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=offer
-	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=partner
-	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=nationality
-	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=public
-	docker compose exec php vendor/bin/drush entity:delete taxonomy_term --bundle=director
+	docker compose exec drupal vendor/bin/drush entity:delete node --bundle=movie
+	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=genre
+	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=offer
+	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=partner
+	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=nationality
+	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=public
+	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=director
 
 .PHONY:drush-import
 drush-import:
-	docker compose exec php vendor/bin/drush ad:import:publics
-	docker compose exec php vendor/bin/drush ad:import:movies CNC_CSV
+	docker compose exec drupal vendor/bin/drush ad:import:publics
+	docker compose exec drupal vendor/bin/drush ad:import:movies CNC_CSV
 
 .PHONY:drush-cr
 drush-cr:
-	docker compose exec php vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush cr
 
 .PHONY:drush
 drush:
-	@docker compose exec php vendor/bin/drush $(filter-out $@,$(MAKECMDGOALS))
+	@docker compose exec drupal vendor/bin/drush $(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
+
+
+.PHONY: pt-up
+pt-up:
+	docker compose up -d --remove-orphans
+
+.PHONY: pt-down
+pt-down:
+	docker compose down
+
+.PHONY: pt-sh
+pt-sh:
+	docker compose exec patrimony bash
+
+.PHONY: pt-install
+pt-install:
+	docker compose exec patrimony composer install
+	make tests-setup
+
+.PHONY: pt-schema-reset
+pt-schema-reset:
+	docker compose exec patrimony php bin/console doctrine:database:drop --force --env=dev
+	docker compose exec patrimony php bin/console doctrine:database:create --env=dev
+	docker compose exec patrimony php bin/console doctrine:migrations:migrate --no-interaction --env=dev
+
+.PHONY: pt-migrate-diff
+pt-migrate-diff:
+	docker compose exec patrimony php bin/console doctrine:migrations:diff
+
+.PHONY: pt-fixtures-load
+pt-fixtures-load:
+	docker compose exec patrimony php bin/console doctrine:fixtures:load --env=dev --group=dev --no-interaction
+	docker compose exec patrimony php bin/console import:rgaa
+
+.PHONY: pt-migrate
+pt-migrate:
+	docker compose exec patrimony php bin/console doctrine:migrations:migrate
+
+.PHONY: pt-phpstan
+pt-phpstan:
+	docker compose exec patrimony php vendor/bin/phpstan analyse -c phpstan.neon
+
+.PHONY: pt-phpmd
+pt-phpmd:
+	docker compose exec patrimony php vendor/bin/phpmd src ansi phpmd.xml
+
+.PHONY: pt-phpcs
+pt-phpcs:
+	docker compose exec patrimony vendor/bin/phpcs
+
+.PHONY: pt-phpcbf
+pt-phpcbf:
+	docker compose exec patrimony php vendor/bin/phpcbf
+
+.PHONY: pt-quality
+pt-quality:
+	make phpcbf || true
+	make phpcs || true
+	make phpstan || true
+	make phpmd || true
+
+.PHONY: pt-grumphp
+pt-grumphp:
+	docker compose exec patrimony php vendor/bin/grumphp run
+
+.PHONY: pt-tests-build
+pt-tests-build:
+	docker compose exec patrimony php vendor/bin/codecept build
+
+.PHONY: pt-tests
+pt-tests:
+	make tests-setup
+	docker compose exec patrimony php vendor/bin/codecept run
+
+.PHONY: pt-tests-coverage
+pt-tests-coverage:
+	make tests-setup
+	docker compose exec patrimony php vendor/bin/codecept run --coverage --coverage-xml --coverage-html
+
+.PHONY: pt-tests-unit
+pt-tests-unit:
+	make tests-setup
+	docker compose exec patrimony php vendor/bin/codecept run Unit
+
+.PHONY: pt-tests-api
+pt-tests-api:
+	make tests-setup
+	docker compose exec patrimony php vendor/bin/codecept run Api
+
+.PHONY: pt-tests-setup
+pt-tests-setup:
+	docker compose exec patrimony php bin/console doctrine:database:drop --force --env=test
+	docker compose exec patrimony php bin/console doctrine:database:create --if-not-exists --env=test
+	docker compose exec patrimony php bin/console doctrine:migrations:migrate --env=test --no-interaction
+	docker compose exec patrimony php bin/console doctrine:fixtures:load --env=test --group=test --no-interaction
+
+.PHONE: pt-tests-run
+pt-tests-run:
+	make tests-setup
+	docker compose exec patrimony php vendor/bin/codecept run $(filter-out $@,$(MAKECMDGOALS))

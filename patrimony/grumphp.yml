@@ -1,0 +1,17 @@
+grumphp:
+    tasks: {
+        phpcs: {
+           standard: /app/public/symfony/phpcs.xml
+        },
+        phpmd: {
+            report_format: ansi,
+            ruleset: [
+                '/app/public/symfony/phpmd.xml'
+            ]
+        },
+        phpstan: {
+            configuration: /app/public/symfony/phpstan.neon
+        }
+    }
+    git_hook_variables:
+        EXEC_GRUMPHP_COMMAND: ['docker', 'compose','-f', '../compose.yml', 'exec', '-T', 'php']

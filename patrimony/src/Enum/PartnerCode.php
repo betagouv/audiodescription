@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Enum;
+
+enum PartnerCode: string
+{
+    case CNC = 'CNC';
+    case ARTE = 'ARTE';
+    case CANAL_VOD = "CANAL_VOD";
+    case LACINETEK = "LACINETEK";
+    case ORANGE_VOD = "ORANGE_VOD";
+}

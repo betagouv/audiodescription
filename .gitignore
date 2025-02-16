@@ -4,3 +4,4 @@
 node_modules
 
 compose.prod.yml
+.env

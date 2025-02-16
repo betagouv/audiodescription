@@ -1,0 +1,6 @@
+patrimony/var
+patrimony/vendor
+patrimony/.env.local
+patrimony/.env.local.dist
+patrimony/.env.test
+!patrimony/.env.dist
