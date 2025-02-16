@@ -33,11 +33,13 @@ class PublicPatrimonyImporter implements LoggerAwareInterface {
     $patrimony = $config_pages->load('patrimony');
     $last_import_date = $patrimony->get('field_patrimony_last_import_date')->value;
     $url = $patrimony->get('field_patrimony_url')->value;
+    $token = $patrimony->get('field_patrimony_token')->value;
 
     try {
       $response = $client->request('GET', $url . '/api/v1/public_restrictions?updatedAt%5Bafter%5D=' . $last_import_date, [
         'headers' => [
           'Accept' => 'application/ld+json',
+          'Authorization' => 'Bearer ' . $token,
         ],
       ]);
 
