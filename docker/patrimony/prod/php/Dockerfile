@@ -3,14 +3,14 @@ RUN apt update && apt install -y git openssl zip
 WORKDIR /app/public
 ENV COMPOSER_ALLOW_SUPERUSER=1
 COPY --from=composer:2.7 /usr/bin/composer /usr/local/bin/composer
-COPY ./symfony/composer.json .
-COPY ./symfony/composer.lock .
-COPY ./symfony/symfony.lock .
+COPY ./patrimony/composer.json .
+COPY ./patrimony/composer.lock .
+COPY ./patrimony/symfony.lock .
 RUN composer install --no-dev --no-scripts
-COPY ./symfony .
+COPY ./patrimony .
 
 
-FROM dunglas/frankenphp:1.2-php8.3-bookworm
+FROM dunglas/frankenphp:1.4-php8.3-bookworm
 WORKDIR /app/public
 
 RUN apt update && apt install -y \
@@ -27,8 +27,8 @@ RUN install-php-extensions \
 
 COPY --from=build /app/public .
 
-COPY ./docker/prod/caddy/Caddyfile /etc/caddy/Caddyfile
-COPY ./docker/prod/php/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/patrimony/prod/caddy/Caddyfile /etc/caddy/Caddyfile
+COPY ./docker/patrimony/prod/php/php.ini /usr/local/etc/php/php.ini
 
 WORKDIR /app/public
 
