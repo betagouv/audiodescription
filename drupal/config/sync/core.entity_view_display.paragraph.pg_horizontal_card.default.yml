@@ -1,0 +1,33 @@
+uuid: 037bc9b0-3a9b-4e26-a9c9-1c11731c1444
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_horizontal_card.field_pg_background
+    - field.field.paragraph.pg_horizontal_card.field_pg_click_area
+    - field.field.paragraph.pg_horizontal_card.field_pg_content_types
+    - field.field.paragraph.pg_horizontal_card.field_pg_image
+    - field.field.paragraph.pg_horizontal_card.field_pg_image_is_decorative
+    - field.field.paragraph.pg_horizontal_card.field_pg_is_external
+    - field.field.paragraph.pg_horizontal_card.field_pg_link
+    - field.field.paragraph.pg_horizontal_card.field_pg_text
+    - field.field.paragraph.pg_horizontal_card.field_pg_title
+    - field.field.paragraph.pg_horizontal_card.field_pg_title_card
+    - paragraphs.paragraphs_type.pg_horizontal_card
+id: paragraph.pg_horizontal_card.default
+targetEntityType: paragraph
+bundle: pg_horizontal_card
+mode: default
+content: {  }
+hidden:
+  field_pg_background: true
+  field_pg_click_area: true
+  field_pg_content_types: true
+  field_pg_image: true
+  field_pg_image_is_decorative: true
+  field_pg_is_external: true
+  field_pg_link: true
+  field_pg_text: true
+  field_pg_title: true
+  field_pg_title_card: true
+  search_api_excerpt: true

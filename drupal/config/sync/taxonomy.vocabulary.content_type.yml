@@ -1,0 +1,9 @@
+uuid: fd0b04e8-d345-4bcb-9848-fd6fc9ca4f9c
+langcode: fr
+status: true
+dependencies: {  }
+name: 'Type de contenu'
+vid: content_type
+description: null
+weight: 0
+new_revision: false

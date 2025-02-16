@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.paragraph.pg_paragraph.field_pg_background
     - field.field.paragraph.pg_paragraph.field_pg_cta
     - field.field.paragraph.pg_paragraph.field_pg_image
     - field.field.paragraph.pg_paragraph.field_pg_image_is_decorative
@@ -18,9 +19,15 @@ targetEntityType: paragraph
 bundle: pg_paragraph
 mode: default
 content:
+  field_pg_background:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_pg_cta:
     type: paragraphs
-    weight: 4
+    weight: 5
     region: content
     settings:
       title: Paragraphe
@@ -38,21 +45,21 @@ content:
     third_party_settings: {  }
   field_pg_image:
     type: media_library_widget
-    weight: 2
+    weight: 3
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_pg_image_is_decorative:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_pg_text:
     type: text_textarea
-    weight: 1
+    weight: 2
     region: content
     settings:
       rows: 5

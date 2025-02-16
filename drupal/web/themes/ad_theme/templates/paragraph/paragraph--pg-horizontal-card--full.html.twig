@@ -1,0 +1,148 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished',
+  'fr-container',
+  'fr-pt-3w',
+  'fr-pt-md-3w',
+  'fr-pb-3w',
+  'fr-pb-md-7w',
+  'pg-horizontal-card'
+] %}
+{% block paragraph %}
+  {% if paragraph.field_pg_background.value == 'blue' %}
+    <div class="block--is-blue">
+  {% endif %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      {% if paragraph.field_pg_title.value is not empty %}
+        <h2>{{ paragraph.field_pg_title.value }}</h2>
+      {% endif %}
+
+      <div class="wysiwyg">
+        {{ paragraph.field_pg_text.value|raw }}
+      </div>
+
+    {% if paragraph.field_pg_click_area.value == 'card' %}
+      <div class="fr-card fr-enlarge-link fr-card--horizontal">
+    {% else %}
+      <div class="fr-card fr-card--horizontal">
+    {% endif %}
+
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h3 class="fr-card__title">
+              {% if paragraph.field_pg_click_area.value == 'card' %}
+              <a
+                href="{{ link.url }}"
+                target="{{ link.target }}"
+                {% if link.title is not empty %}
+                  title="{{ link.title }}"
+                {% endif %}
+              >
+                {% endif %}
+                {{ paragraph.field_pg_title_card.value }}
+                {% if paragraph.field_pg_click_area.value == 'card' %}
+              </a>
+              {% endif %}
+            </h3>
+
+            {% if paragraph.field_pg_click_area.value == 'link' %}
+              <div class="fr-card__end">
+                <p class="fr-card__link">
+                  <a
+                    class="fr-link fr-link--sm fr-icon-arrow-right-line fr-link--icon-right"
+                    href="{{ link.url }}"
+                    target="{{ link.target }}"
+                    {% if link.title is not empty %}
+                      title="{{ link.title }}"
+                    {% endif %}
+                  >
+                    {{ link.text }}
+                  </a>
+                </p>
+              </div>
+            {% endif %}
+
+            <div class="fr-card__start">
+              {% if paragraph.field_pg_content_types|length > 0 %}
+                <ul class="fr-tags-group">
+                  {% for tag in paragraph.field_pg_content_types %}
+                    <li>
+                      <p class="fr-tag">{{ tag.entity.name.value }}</p>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+              {% if paragraph.field_pg_detail_area.value is not empty %}
+                <p class="fr-card__detail">{{ paragraph.field_pg_detail_area.value }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        {% set image = paragraph.field_pg_image.entity.field_media_image.entity.uri.value %}
+        {% if image is not empty %}
+          {% if paragraph.field_pg_image_is_decorative.value %}
+            {% set alt = "" %}
+          {% else %}
+            {% set alt = paragraph.field_pg_image.entity.field_media_image.alt %}
+          {% endif %}
+
+          <div class="fr-card__header">
+            <div class="fr-card__img">
+              <img src="{{ file_url(image) }}" alt="{{ alt }}" class="fr-responsive-img"/>
+            </div>
+          </div>
+        {% endif %}
+
+      </div>
+
+
+    {% endblock %}
+  </div>
+  {% if paragraph.field_pg_background.value == 'blue' %}
+    </div>
+  {% endif %}
+{% endblock paragraph %}

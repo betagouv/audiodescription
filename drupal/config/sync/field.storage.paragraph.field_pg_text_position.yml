@@ -1,0 +1,27 @@
+uuid: 64e458be-c040-463a-b0a3-eef1ae73f34f
+langcode: fr
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_pg_text_position
+field_name: field_pg_text_position
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: at_first
+      label: 'Au début'
+    -
+      value: at_the_end
+      label: 'À la fin'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -4,7 +4,7 @@
   }
 
   @media (min-width: 768px) {
-    .fr-grid-row {
+    &__2-columns {
       flex-direction: row-reverse;
     }
   }

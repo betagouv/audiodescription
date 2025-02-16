@@ -4,10 +4,15 @@
 @use "movies";
 @use "rich-select";
 @use "search";
+@use "wysiwyg";
 
 @use "movie/card";
 @use "movie/teaser";
 
+@use "paragraph/pg-card";
+@use "paragraph/pg-cards";
+@use "paragraph/pg-horizontal-card";
 @use "paragraph/pg-paragraph";
+@use "paragraph/pg-video-iframe";
 
 @use "partner/partner-card";

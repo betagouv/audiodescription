@@ -1,0 +1,19 @@
+uuid: 984e31e0-4b79-492f-8689-08047c5aa2fa
+langcode: fr
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - text
+id: paragraph.field_pg_source
+field_name: field_pg_source
+entity_type: paragraph
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

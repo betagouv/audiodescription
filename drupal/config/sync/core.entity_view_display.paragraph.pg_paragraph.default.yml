@@ -3,6 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.paragraph.pg_paragraph.field_pg_background
     - field.field.paragraph.pg_paragraph.field_pg_cta
     - field.field.paragraph.pg_paragraph.field_pg_image
     - field.field.paragraph.pg_paragraph.field_pg_image_is_decorative
@@ -11,12 +12,20 @@ dependencies:
     - paragraphs.paragraphs_type.pg_paragraph
   module:
     - entity_reference_revisions
+    - options
     - text
 id: paragraph.pg_paragraph.default
 targetEntityType: paragraph
 bundle: pg_paragraph
 mode: default
 content:
+  field_pg_background:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_pg_cta:
     type: entity_reference_revisions_entity_view
     label: visually_hidden

@@ -1,0 +1,25 @@
+uuid: 96f83e0a-1381-404b-b6b7-4b90d039875a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.content_type
+id: taxonomy_term.content_type.default
+targetEntityType: taxonomy_term
+bundle: content_type
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  path: true
+  simple_sitemap: true
+  status: true

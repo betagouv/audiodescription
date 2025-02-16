@@ -1,0 +1,21 @@
+uuid: 56cbcb79-3ed4-4362-93bc-94ffb1452d39
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_background
+    - paragraphs.paragraphs_type.pg_video_iframe
+  module:
+    - options
+id: paragraph.pg_video_iframe.field_pg_background
+field_name: field_pg_background
+entity_type: paragraph
+bundle: pg_video_iframe
+label: "Couleur d'arrière-plan"
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

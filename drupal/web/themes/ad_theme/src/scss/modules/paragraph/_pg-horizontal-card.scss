@@ -1,0 +1,13 @@
+.pg-horizontal-card {
+  .fr-card__link {
+    margin-bottom: 0;
+    margin-top: 2rem;
+  }
+
+  .fr-card {
+    &__header {
+      flex: 0 0 30%;
+      width: 30%;
+    }
+  }
+}

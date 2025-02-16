@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - node
     - system
   theme:
     - ad_theme
@@ -24,3 +25,10 @@ visibility:
     id: request_path
     negate: true
     pages: /homepage
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      movie: movie

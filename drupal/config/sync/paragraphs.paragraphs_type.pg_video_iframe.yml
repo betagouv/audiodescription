@@ -1,0 +1,10 @@
+uuid: 8eb5d57e-75eb-4c7e-8341-af317cdd23b8
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_video_iframe
+label: 'Bloc vidéo (iframe)'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

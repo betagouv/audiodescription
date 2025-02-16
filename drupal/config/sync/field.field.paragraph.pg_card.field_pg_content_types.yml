@@ -1,0 +1,29 @@
+uuid: 3a606141-ce92-4586-abc1-0c433237012f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_content_types
+    - paragraphs.paragraphs_type.pg_card
+    - taxonomy.vocabulary.content_type
+id: paragraph.pg_card.field_pg_content_types
+field_name: field_pg_content_types
+entity_type: paragraph
+bundle: pg_card
+label: 'Types de contenu'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      content_type: content_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

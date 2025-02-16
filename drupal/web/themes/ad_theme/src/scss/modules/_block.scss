@@ -4,6 +4,10 @@
   &:nth-child(2n+1) {
     background: var(--background-alt-blue-france);
   }
+
+  &--is-blue {
+    background: var(--background-alt-blue-france) !important;
+  }
 }
 
 .block:nth-child(2n+1) input {

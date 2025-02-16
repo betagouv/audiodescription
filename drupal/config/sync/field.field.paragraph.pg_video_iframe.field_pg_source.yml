@@ -1,0 +1,22 @@
+uuid: 77e2147c-0e0c-4998-b019-0a21a9755972
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_source
+    - paragraphs.paragraphs_type.pg_video_iframe
+  module:
+    - text
+id: paragraph.pg_video_iframe.field_pg_source
+field_name: field_pg_source
+entity_type: paragraph
+bundle: pg_video_iframe
+label: Source
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

@@ -1,0 +1,86 @@
+uuid: 4e8b7930-d988-4195-a3c5-66277eef2bdb
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_video_iframe.field_pg_background
+    - field.field.paragraph.pg_video_iframe.field_pg_cta
+    - field.field.paragraph.pg_video_iframe.field_pg_iframe_title
+    - field.field.paragraph.pg_video_iframe.field_pg_iframe_url
+    - field.field.paragraph.pg_video_iframe.field_pg_source
+    - field.field.paragraph.pg_video_iframe.field_pg_text
+    - field.field.paragraph.pg_video_iframe.field_pg_title
+    - field.field.paragraph.pg_video_iframe.field_pg_transcription
+    - paragraphs.paragraphs_type.pg_video_iframe
+  module:
+    - entity_reference_revisions
+    - options
+    - text
+id: paragraph.pg_video_iframe.default
+targetEntityType: paragraph
+bundle: pg_video_iframe
+mode: default
+content:
+  field_pg_background:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_pg_cta:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_pg_iframe_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_pg_iframe_url:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_pg_source:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_pg_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_pg_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pg_transcription:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  search_api_excerpt: true

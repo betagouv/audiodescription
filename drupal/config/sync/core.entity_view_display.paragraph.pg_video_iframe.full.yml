@@ -1,0 +1,30 @@
+uuid: 4f477bd8-206f-4866-a421-12cd41b50e04
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.full
+    - field.field.paragraph.pg_video_iframe.field_pg_background
+    - field.field.paragraph.pg_video_iframe.field_pg_cta
+    - field.field.paragraph.pg_video_iframe.field_pg_iframe_title
+    - field.field.paragraph.pg_video_iframe.field_pg_iframe_url
+    - field.field.paragraph.pg_video_iframe.field_pg_source
+    - field.field.paragraph.pg_video_iframe.field_pg_text
+    - field.field.paragraph.pg_video_iframe.field_pg_title
+    - field.field.paragraph.pg_video_iframe.field_pg_transcription
+    - paragraphs.paragraphs_type.pg_video_iframe
+id: paragraph.pg_video_iframe.full
+targetEntityType: paragraph
+bundle: pg_video_iframe
+mode: full
+content: {  }
+hidden:
+  field_pg_background: true
+  field_pg_cta: true
+  field_pg_iframe_title: true
+  field_pg_iframe_url: true
+  field_pg_source: true
+  field_pg_text: true
+  field_pg_title: true
+  field_pg_transcription: true
+  search_api_excerpt: true

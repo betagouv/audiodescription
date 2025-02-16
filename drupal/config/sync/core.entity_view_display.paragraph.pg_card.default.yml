@@ -1,0 +1,81 @@
+uuid: 4244b780-990f-4ac4-ae22-da17a4660154
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_card.field_pg_click_area
+    - field.field.paragraph.pg_card.field_pg_content_types
+    - field.field.paragraph.pg_card.field_pg_detail_area
+    - field.field.paragraph.pg_card.field_pg_image
+    - field.field.paragraph.pg_card.field_pg_image_is_decorative
+    - field.field.paragraph.pg_card.field_pg_is_external
+    - field.field.paragraph.pg_card.field_pg_link
+    - field.field.paragraph.pg_card.field_pg_text_area
+    - field.field.paragraph.pg_card.field_pg_title
+    - paragraphs.paragraphs_type.pg_card
+  module:
+    - link
+    - options
+id: paragraph.pg_card.default
+targetEntityType: paragraph
+bundle: pg_card
+mode: default
+content:
+  field_pg_click_area:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_pg_content_types:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pg_detail_area:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_pg_is_external:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_pg_link:
+    type: link
+    label: visually_hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pg_text_area:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_pg_image: true
+  field_pg_image_is_decorative: true
+  field_pg_title: true
+  search_api_excerpt: true

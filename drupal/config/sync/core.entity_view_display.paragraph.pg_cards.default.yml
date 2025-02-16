@@ -1,0 +1,40 @@
+uuid: 9e277184-1c0a-4edb-8df5-a71bb7aac762
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_cards.field_pg_background
+    - field.field.paragraph.pg_cards.field_pg_cards
+    - field.field.paragraph.pg_cards.field_pg_text
+    - field.field.paragraph.pg_cards.field_pg_text_position
+    - field.field.paragraph.pg_cards.field_pg_title
+    - paragraphs.paragraphs_type.pg_cards
+  module:
+    - entity_reference_revisions
+    - options
+id: paragraph.pg_cards.default
+targetEntityType: paragraph
+bundle: pg_cards
+mode: default
+content:
+  field_pg_background:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_pg_cards:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: full
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_pg_text: true
+  field_pg_text_position: true
+  field_pg_title: true
+  search_api_excerpt: true

@@ -1,0 +1,20 @@
+uuid: 011b423f-6e3e-49af-b60a-89992d09c987
+langcode: fr
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - taxonomy
+id: paragraph.field_pg_content_types
+field_name: field_pg_content_types
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 3
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

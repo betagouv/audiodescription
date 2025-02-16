@@ -1,0 +1,23 @@
+uuid: c924d2a7-e50d-4966-8b26-b112699a9aea
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_is_external
+    - paragraphs.paragraphs_type.pg_card
+id: paragraph.pg_card.field_pg_is_external
+field_name: field_pg_is_external
+entity_type: paragraph
+bundle: pg_card
+label: 'Est externe ?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Lien externe'
+  off_label: 'Lien interne'
+field_type: boolean

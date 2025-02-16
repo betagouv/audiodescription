@@ -1,0 +1,127 @@
+uuid: 4251e371-32f2-4e63-9698-3418ab04eb6f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_horizontal_card.field_pg_background
+    - field.field.paragraph.pg_horizontal_card.field_pg_click_area
+    - field.field.paragraph.pg_horizontal_card.field_pg_content_types
+    - field.field.paragraph.pg_horizontal_card.field_pg_image
+    - field.field.paragraph.pg_horizontal_card.field_pg_image_is_decorative
+    - field.field.paragraph.pg_horizontal_card.field_pg_is_external
+    - field.field.paragraph.pg_horizontal_card.field_pg_link
+    - field.field.paragraph.pg_horizontal_card.field_pg_text
+    - field.field.paragraph.pg_horizontal_card.field_pg_title
+    - field.field.paragraph.pg_horizontal_card.field_pg_title_card
+    - paragraphs.paragraphs_type.pg_horizontal_card
+  module:
+    - field_group
+    - link
+    - media_library
+    - text
+third_party_settings:
+  field_group:
+    group_card:
+      children:
+        - field_pg_title_card
+        - field_pg_click_area
+        - field_pg_image
+        - field_pg_image_is_decorative
+        - field_pg_content_types
+        - field_pg_link
+        - field_pg_is_external
+      label: Carte
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+id: paragraph.pg_horizontal_card.default
+targetEntityType: paragraph
+bundle: pg_horizontal_card
+mode: default
+content:
+  field_pg_background:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_pg_click_area:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_pg_content_types:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_image:
+    type: media_library_widget
+    weight: 6
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_pg_image_is_decorative:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_pg_is_external:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_pg_link:
+    type: link_default
+    weight: 9
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_pg_text:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_title_card:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

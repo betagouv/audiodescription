@@ -1,0 +1,23 @@
+uuid: d118ef55-c0a4-4889-99cf-332fe611f6f6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_click_area
+    - paragraphs.paragraphs_type.pg_card
+  module:
+    - options
+id: paragraph.pg_card.field_pg_click_area
+field_name: field_pg_click_area
+entity_type: paragraph
+bundle: pg_card
+label: 'Zone de clic'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: card
+default_value_callback: ''
+settings: {  }
+field_type: list_string

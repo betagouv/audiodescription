@@ -1,0 +1,21 @@
+uuid: 850c6c3a-807b-4c17-90b0-52d8baaca421
+langcode: fr
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_pg_text_area
+field_name: field_pg_text_area
+entity_type: paragraph
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

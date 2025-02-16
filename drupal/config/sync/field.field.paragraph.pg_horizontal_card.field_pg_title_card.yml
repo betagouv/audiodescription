@@ -1,0 +1,19 @@
+uuid: 3dfcaca6-b9cb-44a1-b90b-f00cbfc0b744
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_title_card
+    - paragraphs.paragraphs_type.pg_horizontal_card
+id: paragraph.pg_horizontal_card.field_pg_title_card
+field_name: field_pg_title_card
+entity_type: paragraph
+bundle: pg_horizontal_card
+label: 'Titre de la carte'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

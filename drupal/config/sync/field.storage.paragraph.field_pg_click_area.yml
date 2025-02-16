@@ -1,0 +1,27 @@
+uuid: 8668bde7-8930-4421-8c0a-1a4c8cba2e4b
+langcode: fr
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_pg_click_area
+field_name: field_pg_click_area
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: card
+      label: 'Carte entière'
+    -
+      value: link
+      label: 'Lien uniquement'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

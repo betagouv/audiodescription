@@ -1,0 +1,24 @@
+.pg-video-iframe {
+  iframe {
+    width: 100%;
+    height: 400px;
+  }
+
+  &__source {
+    margin: 1rem 0 2rem;
+
+    p {
+      margin: 0;
+    }
+
+    a,
+    p {
+      color: var(--text-mention-grey);
+    }
+  }
+
+  &__transcription {
+    background: white;
+    margin-bottom: 2rem;
+  }
+}

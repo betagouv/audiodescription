@@ -1,0 +1,10 @@
+uuid: df3cd11f-b1f5-4dad-a594-a549faa0f69d
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_horizontal_card
+label: 'Bloc Carte horizontale'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

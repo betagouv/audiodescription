@@ -38,66 +38,72 @@
  * @ingroup themeable
  */
 #}
-{%
-  set classes = [
+{% set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   not paragraph.isPublished() ? 'paragraph--unpublished',
   'fr-container',
   'fr-pt-3w',
-  'fr-pt-md-7w',
+  'fr-pt-md-3w',
   'fr-pb-3w',
   'fr-pb-md-7w',
   'pg-paragraph'
-]
-%}
+] %}
 {% block paragraph %}
-  <div class="block">
+    {% if paragraph.field_pg_background.value == 'blue' %}
+      <div class="block--is-blue">
+    {% endif %}
     <div{{ attributes.addClass(classes) }}>
       {% block content %}
         {% set image = paragraph.field_pg_image.entity.field_media_image.entity.uri.value %}
 
         {% if image is not empty %}
-          <div class="fr-grid-row fr-grid-row--gutters">
-            <div class="fr-col-12 fr-col-md-6">
-              {% if paragraph.field_pg_image_is_decorative.value %}
-                {% set alt = "" %}
-              {% else %}
-                {% set alt = paragraph.field_pg_image.entity.field_media_image.alt %}
-              {% endif %}
-              <img src="{{ file_url(image) }}" alt="{{ alt }}" class="pg-paragraph__image"/>
-            </div>
-            <div class="fr-col-12 fr-col-md-6">
+          <div class="fr-grid-row fr-grid-row--gutters pg-paragraph__2-columns">
+          <div class="fr-col-12 fr-col-md-6">
+            {% if paragraph.field_pg_image_is_decorative.value %}
+              {% set alt = "" %}
+            {% else %}
+              {% set alt = paragraph.field_pg_image.entity.field_media_image.alt %}
+            {% endif %}
+            <img src="{{ file_url(image) }}" alt="{{ alt }}" class="pg-paragraph__image"/>
+          </div>
+          <div class="fr-col-12 fr-col-md-6">
         {% endif %}
-              <h2>{{ paragraph.field_pg_title.value }}</h2>
-              {{ paragraph.field_pg_text.value|raw }}
+        {% if paragraph.field_pg_title.value is not empty %}
+          <h2>{{ paragraph.field_pg_title.value }}</h2>
+        {% endif %}
+        <div class="wysiwyg">
+          {{ paragraph.field_pg_text.value|raw }}
+        </div>
 
-              {% if paragraph.field_pg_cta.entity.field_pg_link.title is not empty %}
-                {% if cta.title %}
-                  {% set pg_cta = pattern('button', {
-                    label: cta.text,
-                    title: cta.title,
-                    url: cta.url,
-                    target: cta.target,
-                    external: cta.external
-                  }, cta.style) %}
-                {% else %}
-                  {% set pg_cta = pattern('button', {
-                    label: cta.text,
-                    url: cta.url,
-                    target: cta.target,
-                    external: cta.external
-                  }, cta.style) %}
-                {% endif %}
+        {% if paragraph.field_pg_cta.entity.field_pg_link.title is not empty %}
+          {% if cta.title %}
+            {% set pg_cta = pattern('button', {
+              label: cta.text,
+              title: cta.title,
+              url: cta.url,
+              target: cta.target,
+              external: cta.external
+            }, cta.style) %}
+          {% else %}
+            {% set pg_cta = pattern('button', {
+              label: cta.text,
+              url: cta.url,
+              target: cta.target,
+              external: cta.external
+            }, cta.style) %}
+          {% endif %}
 
-                {{ pg_cta }}
-              {% endif %}
+          {{ pg_cta }}
+        {% endif %}
         {% if image is not empty %}
-            </div>
+          </div>
           </div>
         {% endif %}
       {% endblock %}
     </div>
-  </div>
+      {% if paragraph.field_pg_background.value == 'blue' %}
+        </div>
+        {% endif %}
 {% endblock paragraph %}

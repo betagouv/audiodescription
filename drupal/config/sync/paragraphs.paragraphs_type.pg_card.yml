@@ -1,0 +1,10 @@
+uuid: 450d5ab5-2971-4c00-875a-7f7e01f52a8f
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_card
+label: Carte
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

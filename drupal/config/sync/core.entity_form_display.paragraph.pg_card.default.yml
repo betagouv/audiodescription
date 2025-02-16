@@ -1,0 +1,115 @@
+uuid: 8150bf1b-3fdb-4854-9c9a-ca8d9f3a600f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_card.field_pg_click_area
+    - field.field.paragraph.pg_card.field_pg_content_types
+    - field.field.paragraph.pg_card.field_pg_detail_area
+    - field.field.paragraph.pg_card.field_pg_image
+    - field.field.paragraph.pg_card.field_pg_image_is_decorative
+    - field.field.paragraph.pg_card.field_pg_is_external
+    - field.field.paragraph.pg_card.field_pg_link
+    - field.field.paragraph.pg_card.field_pg_text_area
+    - field.field.paragraph.pg_card.field_pg_title
+    - paragraphs.paragraphs_type.pg_card
+  module:
+    - field_group
+    - link
+    - media_library
+third_party_settings:
+  field_group:
+    group_link:
+      children:
+        - field_pg_click_area
+        - field_pg_link
+        - field_pg_is_external
+      label: Lien
+      region: content
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+id: paragraph.pg_card.default
+targetEntityType: paragraph
+bundle: pg_card
+mode: default
+content:
+  field_pg_click_area:
+    type: options_select
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_pg_content_types:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_detail_area:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_image:
+    type: media_library_widget
+    weight: 2
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_pg_image_is_decorative:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_pg_is_external:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_pg_link:
+    type: link_default
+    weight: 10
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_pg_text_area:
+    type: string_textfield
+    weight: 7
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

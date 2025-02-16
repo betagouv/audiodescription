@@ -1,0 +1,23 @@
+uuid: 869e9e72-fbe5-4aab-a694-ef4c5de410fd
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_text_position
+    - paragraphs.paragraphs_type.pg_cards
+  module:
+    - options
+id: paragraph.pg_cards.field_pg_text_position
+field_name: field_pg_text_position
+entity_type: paragraph
+bundle: pg_cards
+label: 'Position du texte'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: at_first
+default_value_callback: ''
+settings: {  }
+field_type: list_string

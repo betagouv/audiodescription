@@ -1,0 +1,22 @@
+uuid: afb4cb9a-9ad5-4962-83ec-e12d716dcbce
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_transcription
+    - paragraphs.paragraphs_type.pg_video_iframe
+  module:
+    - text
+id: paragraph.pg_video_iframe.field_pg_transcription
+field_name: field_pg_transcription
+entity_type: paragraph
+bundle: pg_video_iframe
+label: 'Transcription textuelle'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
