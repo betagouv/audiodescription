@@ -1,4 +1,26 @@
 services:
+  patrimony:
+    build:
+      context: .
+      dockerfile: ./docker/patrimony/prod/php/Dockerfile
+    restart: always
+    working_dir: /app/public/patrimony
+    ports:
+      - 8081:80
+    volumes:
+      - .:/app/public
+      - ./docker/patrimony/prod/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/patrimony/prod/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - ad-network
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.audiodescription_patrimony.rule=Host(`audiodescription.beta.gouv.fr`) && PathPrefix(`/patrimony`)"
+      - "traefik.http.routers.audiodescription_patrimony.entrypoints=websecure"
+      - "traefik.http.middlewares.remove-prefix.stripprefix.prefixes=/patrimony"
+      - "traefik.http.routers.audiodescription_patrimony.middlewares=remove-prefix" 
+
   drupal:
     build:
       context: .
@@ -19,21 +41,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.audiodescription.rule=Host(`audiodescription.beta.gouv.fr`)"
       - "traefik.http.routers.audiodescription.entrypoints=websecure"
-
-  patrimony:
-    build:
-      context: .
-      dockerfile: ./docker/patrimony/prod/php/Dockerfile
-    restart: always
-    working_dir: /app/public/patrimony
-    ports:
-      - 8081:80
-    volumes:
-      - .:/app/public
-      - ./docker/patrimony/prod/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./docker/patrimony/prod/php/php.ini:/usr/local/etc/php/php.ini
-    networks:
-      - ad-network
 
   db:
     image: postgres:latest
