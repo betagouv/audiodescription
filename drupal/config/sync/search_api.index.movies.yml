@@ -106,12 +106,13 @@ processor_settings:
   add_url: {  }
   aggregated_field: {  }
   custom_value: {  }
+  entity_status: {  }
   entity_type: {  }
   language_with_fallback: {  }
   rendered_item: {  }
 tracker_settings:
   default:
-    indexing_order: fifo
+    indexing_order: lifo
 options:
   cron_limit: 50
   delete_on_fail: true

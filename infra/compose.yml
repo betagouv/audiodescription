@@ -1,6 +1,20 @@
 services:
   reverse-proxy:
     image: traefik:v3.3
+    command:
+      - --api=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.email=contact@audiodescription.beta.gouv.fr
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --log.format=json  # Format des logs (par exemple, JSON pour une meilleure lisibilité dans les systèmes de monitoring)
+      - --accesslog=true   # Activer les logs d'accès
+      - --accesslog.bufferingsize=0  # Écrire immédiatement chaque ligne de log d'accès dans stdout
+      - --accesslog.format=json      # Format des logs d'accès
     container_name: traefik
     ports:
       - "80:80"
@@ -9,7 +23,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - $PWD/traefik.yml:/etc/traefik/traefik.yml
-      - $PWD/acme.json:/acme.json
+      - $PWD/acme.json:/letsencrypt/acme.json
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.strip-www.redirectregex.regex=^https?://(www\\.)(.+)"
