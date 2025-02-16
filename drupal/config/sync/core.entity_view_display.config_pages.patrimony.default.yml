@@ -5,6 +5,7 @@ dependencies:
   config:
     - config_pages.type.patrimony
     - field.field.config_pages.patrimony.field_patrimony_last_import_date
+    - field.field.config_pages.patrimony.field_patrimony_token
     - field.field.config_pages.patrimony.field_patrimony_url
   module:
     - datetime
@@ -21,6 +22,14 @@ content:
       format_type: medium
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_patrimony_token:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_patrimony_url:
     type: string

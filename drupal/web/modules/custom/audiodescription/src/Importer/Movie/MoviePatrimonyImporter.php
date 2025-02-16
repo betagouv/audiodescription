@@ -43,14 +43,20 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
     // Import movies.
     $client = \Drupal::httpClient();
 
+    $config_pages = $this->configPagesLoader;
+    $patrimony = $config_pages->load('patrimony');
+    $token = $patrimony->get('field_patrimony_token')->value;
+
     try {
       $next = 1;
 
       do {
         dump($next);
-        $response = $client->request('GET', $this->buildUrl($next), [
+
+        $response = $client->request('GET', $this->buildUrl($patrimony, $next), [
           'headers' => [
             'Accept' => 'application/ld+json',
+            'Authorization' => 'Bearer ' . $token,
           ],
         ]);
 
@@ -166,13 +172,11 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
     $this->entityTypeManager->clearCachedDefinitions();
   }
 
-  private function buildUrl($page) {
-    $config_pages = $this->configPagesLoader;
-    $patrimony = $config_pages->load('patrimony');
-    $last_import_date = $patrimony->get('field_patrimony_last_import_date')->value;
-    $url = $patrimony->get('field_patrimony_url')->value;
+  private function buildUrl($configPage, $page) {
+    $last_import_date = $configPage->get('field_patrimony_last_import_date')->value;
+    $url = $configPage->get('field_patrimony_url')->value;
 
-    $baseUrl = $url . '/movies?updatedAt[after]=' . $last_import_date;
+    $baseUrl = $url . '/api/v1/movies?updatedAt[after]=' . $last_import_date;
 
     return sprintf(
       '%s&page=%s&itemsPerPage=%s',

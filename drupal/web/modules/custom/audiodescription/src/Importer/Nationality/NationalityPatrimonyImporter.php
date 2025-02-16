@@ -36,7 +36,7 @@ class NationalityPatrimonyImporter implements LoggerAwareInterface {
     $url = $patrimony->get('field_patrimony_url')->value;
 
     try {
-      $response = $client->request('GET', $url . '/nationalities?updatedAt%5Bafter%5D=' . $last_import_date, [
+      $response = $client->request('GET', $url . '/api/v1/nationalities?updatedAt%5Bafter%5D=' . $last_import_date, [
         'headers' => [
           'Accept' => 'application/ld+json',
         ],
