@@ -92,6 +92,8 @@ class MyCanalApiImporter implements MovieImporterInterface
             $response = $this->httpClient->request('GET', $programUrl, $headers);
             $program = $response->toArray();
 
+
+
             if ($program['contentType'] == 'film') {
                 if (in_array('fr', $program['language']['qad'])) {
 
@@ -100,8 +102,6 @@ class MyCanalApiImporter implements MovieImporterInterface
                         'internalPartnerId' => $program['id'],
                         'partner' => $partner,
                     ]);
-
-                    $ids['canalVodId'] = $program['id'];
 
                     $title = $program['title'];
                     dump($title);
@@ -188,6 +188,7 @@ class MyCanalApiImporter implements MovieImporterInterface
                     $sourceMovie->setDuration($duration);
 
                     $ids = [];
+                    $ids['canalVodId'] = $program['id'];
                     // External ids.
                     if (!empty($program['externalIds']['ALLOCINE'])) {
                         $externalIds = [

@@ -18,6 +18,24 @@ up:
 down:
 	docker compose down -t 0
 
+.PHONY:pt-import-all
+pt-import-all:
+	docker compose exec patrimony php bin/console ad:import:cnc-public
+	docker compose exec patrimony php bin/console ad:import:mycanal-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:orangevod-csv --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+
+.PHONY:pt-import
+pt-import:
+	docker compose exec patrimony php bin/console ad:import:mycanal-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+
+.PHONY:d-import
+d-import:
+	docker compose exec drupal vendor/bin/drush adia
+
 .PHONY:sh
 sh:
 	docker compose exec drupal bash

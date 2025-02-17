@@ -11,6 +11,7 @@ use App\EntityManager\SolutionManager;
 use App\EntityManager\SourceMovieManager;
 use App\Enum\OfferCode;
 use App\Enum\PartnerCode;
+use App\Repository\MovieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -28,6 +29,7 @@ class ArteTvApiImporter implements MovieImporterInterface
         private MovieManager $movieManager,
         private ParameterBagInterface $parameterBag,
         private HttpClientInterface $httpClient,
+        private MovieRepository $movieRepository
     )
     {
     }
@@ -46,8 +48,8 @@ class ArteTvApiImporter implements MovieImporterInterface
         $programs = $response->toArray()['programs'];
 
         // Create partner ARTE if not exists.
-        $repository = $this->entityManager->getRepository(Partner::class);
-        $partner = $repository->findOneBy(['name' => PartnerCode::ARTE->value]);
+        $partnerRepository = $this->entityManager->getRepository(Partner::class);
+        $partner = $partnerRepository->findOneBy(['name' => PartnerCode::ARTE->value]);
 
         if (is_null($partner)) {
             $partner = new Partner();
@@ -57,8 +59,8 @@ class ArteTvApiImporter implements MovieImporterInterface
         }
 
         // Create offer STREAMING if not exists.
-        $repository = $this->entityManager->getRepository(Offer::class);
-        $offer = $repository->findOneBy(['code' => OfferCode::STREAMING->value]);
+        $offerRepository = $this->entityManager->getRepository(Offer::class);
+        $offer = $offerRepository->findOneBy(['code' => OfferCode::STREAMING->value]);
 
         if (is_null($offer)) {
             $offer = new Offer();
@@ -69,6 +71,9 @@ class ArteTvApiImporter implements MovieImporterInterface
 
         foreach ($programs as $program) {
             if ($program['genrePresse'] !== 'Téléfilm') {
+                $partner = $partnerRepository->findOneBy(['code' => PartnerCode::CANAL_VOD->value]);
+                $offer = $offerRepository->findOneBy(['code' => OfferCode::TVOD->value]);
+
                 $repository = $this->entityManager->getRepository(SourceMovie::class);
                 $sourceMovie = $repository->findOneBy([
                     'internalPartnerId' => $program['programId'],
@@ -129,13 +134,13 @@ class ArteTvApiImporter implements MovieImporterInterface
 
                 $this->entityManager->persist($solution);
 
+                $movie = null;
                 if ($createMoviesOption) {
-                    $repository = $this->entityManager->getRepository(Movie::class);
-                    $movie = $repository->findOneBy([
-                        'arteId' => $program['programId'],
-                    ]);
+                    $ids = [];
+                    $ids['arteId'] = $program['programId'];
+                    $movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
 
-                    if (empty($movie)) {
+                    if (is_null($movie)) {
                         $movie = $this->movieManager->create($sourceMovie);
                         $this->entityManager->persist($movie);
                     }
@@ -145,9 +150,7 @@ class ArteTvApiImporter implements MovieImporterInterface
                 }
 
                 $this->entityManager->flush();
-
-                $this->entityManager->detach($sourceMovie);
-                $this->entityManager->detach($solution);
+                $this->entityManager->clear();
             }
         }
     }

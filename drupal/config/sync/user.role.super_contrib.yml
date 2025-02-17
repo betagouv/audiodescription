@@ -3,6 +3,8 @@ langcode: fr
 status: true
 dependencies:
   config:
+    - filter.format.full_html
+    - filter.format.restricted_html
     - media.type.document
     - media.type.image
     - node.type.article
@@ -10,19 +12,24 @@ dependencies:
     - node.type.page
     - taxonomy.vocabulary.actor
     - taxonomy.vocabulary.collection
+    - taxonomy.vocabulary.content_type
     - taxonomy.vocabulary.director
     - taxonomy.vocabulary.genre
     - taxonomy.vocabulary.nationality
+    - taxonomy.vocabulary.offer
+    - taxonomy.vocabulary.partner
     - taxonomy.vocabulary.public
   module:
     - config_pages
     - contextual
     - file
+    - filter
     - media
     - navigation
     - node
     - paragraphs
     - path
+    - pathauto
     - system
     - taxonomy
 id: super_contrib
@@ -37,29 +44,39 @@ permissions:
   - 'access files overview'
   - 'access media overview'
   - 'access navigation'
+  - 'access site in maintenance mode'
   - 'access taxonomy overview'
+  - 'access user profiles'
+  - 'administer menu'
   - 'administer url aliases'
+  - 'bulk update aliases'
   - 'create article content'
   - 'create document media'
   - 'create image media'
+  - 'create media'
   - 'create movie content'
   - 'create page content'
   - 'create terms in actor'
   - 'create terms in collection'
+  - 'create terms in content_type'
   - 'create terms in director'
   - 'create terms in genre'
   - 'create terms in nationality'
+  - 'create terms in offer'
+  - 'create terms in partner'
   - 'create terms in public'
   - 'create url aliases'
+  - 'delete all taxonomy revisions'
   - 'delete any article content'
   - 'delete any document media'
   - 'delete any document media revisions'
-  - 'delete any file'
   - 'delete any image media'
   - 'delete any image media revisions'
+  - 'delete any media'
   - 'delete any movie content'
   - 'delete any page content'
   - 'delete article revisions'
+  - 'delete media'
   - 'delete movie revisions'
   - 'delete own article content'
   - 'delete own document media'
@@ -69,15 +86,21 @@ permissions:
   - 'delete page revisions'
   - 'delete term revisions in actor'
   - 'delete term revisions in collection'
+  - 'delete term revisions in content_type'
   - 'delete term revisions in director'
   - 'delete term revisions in genre'
   - 'delete term revisions in nationality'
+  - 'delete term revisions in offer'
+  - 'delete term revisions in partner'
   - 'delete term revisions in public'
   - 'delete terms in actor'
   - 'delete terms in collection'
+  - 'delete terms in content_type'
   - 'delete terms in director'
   - 'delete terms in genre'
   - 'delete terms in nationality'
+  - 'delete terms in offer'
+  - 'delete terms in partner'
   - 'delete terms in public'
   - 'edit any article content'
   - 'edit any document media'
@@ -94,11 +117,15 @@ permissions:
   - 'edit search config page entity'
   - 'edit terms in actor'
   - 'edit terms in collection'
+  - 'edit terms in content_type'
   - 'edit terms in director'
   - 'edit terms in genre'
   - 'edit terms in nationality'
+  - 'edit terms in offer'
+  - 'edit terms in partner'
   - 'edit terms in public'
   - 'edit wordings config page entity'
+  - 'revert all taxonomy revisions'
   - 'revert any document media revisions'
   - 'revert any image media revisions'
   - 'revert article revisions'
@@ -106,25 +133,41 @@ permissions:
   - 'revert page revisions'
   - 'revert term revisions in actor'
   - 'revert term revisions in collection'
+  - 'revert term revisions in content_type'
   - 'revert term revisions in director'
   - 'revert term revisions in genre'
   - 'revert term revisions in nationality'
+  - 'revert term revisions in offer'
+  - 'revert term revisions in partner'
   - 'revert term revisions in public'
+  - 'update any media'
+  - 'update media'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view all media revisions'
+  - 'view all taxonomy revisions'
   - 'view any document media revisions'
   - 'view any image media revisions'
   - 'view article revisions'
+  - 'view config_pages entity'
   - 'view homepage config page entity'
   - 'view movie revisions'
   - 'view movies config page entity'
   - 'view own unpublished content'
+  - 'view own unpublished media'
   - 'view page revisions'
   - 'view search config page entity'
   - 'view term revisions in actor'
   - 'view term revisions in collection'
+  - 'view term revisions in content_type'
   - 'view term revisions in director'
   - 'view term revisions in genre'
   - 'view term revisions in nationality'
+  - 'view term revisions in offer'
+  - 'view term revisions in partner'
   - 'view term revisions in public'
   - 'view the administration theme'
   - 'view unpublished paragraphs'
+  - 'view user email addresses'
+  - 'view vocabulary labels'
   - 'view wordings config page entity'
