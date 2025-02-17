@@ -134,10 +134,13 @@ class FranceTvCsvImporter implements MovieImporterInterface
 
           $sourceMovie->setCasting($casting);
 
+          $synopsis = strip_tags($line['description']);
+          $sourceMovie->setSynopsis($synopsis);
+
           $this->entityManager->persist($sourceMovie);
 
-          $startRights = DateTime::createFromFormat("d/m/y", $line['date_debut_droits']);
-          $endRights = DateTime::createFromFormat("d/m/y", $line['date_fin_droits']);
+          $startRights = $line['date_debut_droits'];
+          $endRights = $line['date_fin_droits'];
 
           $solution = $this->solutionManager->createOrUpdate(
             $internalPartnerId,
@@ -154,7 +157,7 @@ class FranceTvCsvImporter implements MovieImporterInterface
           $ids = [];
           $movie = null;
           if ($createMoviesOption) {
-            $ids['franceTvId'] = $line['con_id'];
+            $ids['franceTvId'] = $internalPartnerId;
             $movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
 
             if (is_null($movie)) {

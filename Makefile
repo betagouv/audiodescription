@@ -32,6 +32,11 @@ pt-import-orange:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
 	docker compose exec patrimony php bin/console ad:import:orangevod-csv --create-movies=true
 
+.PHONY:pt-import-francetv
+pt-import-francetv:
+	docker compose exec patrimony php bin/console ad:import:cnc-public
+	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
+
 .PHONY:pt-import
 pt-import:
 	docker compose exec patrimony php bin/console ad:import:mycanal-api --create-movies=true

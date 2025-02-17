@@ -196,7 +196,7 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                     }
                 }
 
-                $synopsis = 'Default punchline 3';
+                $synopsis = $line['Default punchline 3'];
                 $sourceMovie->setSynopsis($synopsis);
 
                 $this->entityManager->persist($sourceMovie);
