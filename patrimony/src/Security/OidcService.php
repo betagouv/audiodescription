@@ -55,7 +55,7 @@ class OidcService
         $oidcUrl = $this->oidcAdPublicUrl .
             '/oauth/authorize?response_type=code&client_id=' . $this->oidcAdClientId .
             '&redirect_uri=' . $this->oidcAdRedirectBaseUrl . '/oidc/callback' .
-            '&scope=admin&state=' . $uniqid;
+            '&scope=admin+super_contrib&state=' . $uniqid;
 
         return $oidcUrl;
     }

@@ -9,4 +9,5 @@ enum PartnerCode: string
     case CANAL_VOD = "CANAL_VOD";
     case LACINETEK = "LACINETEK";
     case ORANGE_VOD = "ORANGE_VOD";
+    case FRANCE_TV = "FRANCE_TV";
 }

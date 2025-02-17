@@ -1,0 +1,22 @@
+uuid: 552edc26-d8de-4e40-b8eb-d8c3aaf5fde7
+langcode: fr
+status: true
+dependencies: {  }
+id: super_contrib
+name: super_contrib
+description: 'SUPER CONTRIB'
+grant_types:
+  refresh_token:
+    status: false
+    description: ''
+  authorization_code:
+    status: true
+    description: ''
+  client_credentials:
+    status: false
+    description: ''
+umbrella: false
+parent: _none
+granularity: role
+permission: ''
+role: super_contrib

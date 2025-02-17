@@ -14,6 +14,7 @@ use App\Parser\CsvParser;
 use App\Repository\MovieRepository;
 use App\Repository\SolutionRepository;
 use App\Repository\SourceMovieRepository;
+use App\Util\EntityCodeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -35,6 +36,7 @@ class OrangeVodCsvImporter implements MovieImporterInterface
         private SourceMovieManager $sourceMovieManager,
         private SolutionManager $solutionManager,
         private MovieManager $movieManager,
+        private EntityCodeService $entityCodeService,
 
     )
     {
@@ -103,8 +105,6 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                 dump($title);
 
                 $productionYear = $line['Production year'];
-                $ids['orangeVodId'] = $internalPartnerId;
-                $ids['isanId'] = $line['Isan'];
 
                 if (is_null($sourceMovie)) {
                     $sourceMovie = $this->sourceMovieManager->findOrcreate(
@@ -115,6 +115,17 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                         TRUE
                     );
                 }
+
+                $ids = [];
+                $externalIds = [];
+                $ids['orangeVodId'] = $internalPartnerId;
+
+                if (isset($line['Isan']) && !empty($line['Isan'])) {
+                    $ids['isanId'] = $line['Isan'];
+                    $externalIds['isan'] = $line['Isan'];
+                }
+
+                $sourceMovie->setExternalIds($externalIds);
 
                 if (!empty($line['Réalisateur'])) {
                     $directors = [
@@ -158,25 +169,35 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                 $duration = ((int)$hours * 60) + (int)$minutes;
                 $sourceMovie->setDuration($duration);
 
-                // External ids.
-                if (!empty($ids)) {
-                    $externalIds = [
-                        'isan' => $ids['isanId'],
-                    ];
-                    $sourceMovie->setExternalIds($externalIds);
-                }
-
                 // Public.
-                if (isset($line['Parental rating'])) {
+                if (isset($line['Parental rating']) && !empty($line['Parental rating'])) {
+                    dump($line['Parental rating']);
                     switch ($line['Parental rating']) {
                         case 'tous publics':
                             // Tous publics.
                             $sourceMovie->setPublic('TP');
                             break;
+                        case "déc. -10":
+                            // - 10 ans.
+                            $sourceMovie->setPublic('10');
+                            break;
+                        case 'déc. -12':
+                        case 'int. -12':
+                            // - 12 ans.
+                            $sourceMovie->setPublic('12');
+                            break;
+                        case 'déc. -16':
+                        case 'int. -16':
+                            // - 16 ans.
+                            $sourceMovie->setPublic('16');
+                            break;
                         default:
                             break;
                     }
                 }
+
+                $synopsis = 'Default punchline 3';
+                $sourceMovie->setSynopsis($synopsis);
 
                 $this->entityManager->persist($sourceMovie);
 
@@ -194,12 +215,21 @@ class OrangeVodCsvImporter implements MovieImporterInterface
 
                 $movie = null;
                 if ($createMoviesOption) {
-                  if ($title == "Des hommes") {
-                    dump($ids);
-                    dump($sourceMovie->getCode());
-                  }
-
                     $movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+
+                    if (is_null($movie)) {
+                        $yearAfter = $productionYear + 1;
+                        $codeAfter = $this->entityCodeService->computeCode($title . '__' . $yearAfter);
+
+                        $movie = $this->movieRepository->findByIds($ids, $codeAfter);
+                    }
+
+                    if (is_null($movie)) {
+                        $yearBefore = $productionYear - 1;
+                        $codeBefore = $this->entityCodeService->computeCode($title . '__' . $yearBefore);
+
+                        $movie = $this->movieRepository->findByIds($ids, $codeBefore);
+                    }
 
                     if (is_null($movie)) {
                         $movie = $this->movieManager->create($sourceMovie);

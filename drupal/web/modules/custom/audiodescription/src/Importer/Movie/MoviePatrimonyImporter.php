@@ -116,6 +116,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             switch ($solution['partner']['code']) {
               case 'ARTE':
               case 'LACINETEK':
+              case 'FRANCE_TV':
                 $offerCode = 'STREAMING';
                 break;
               case 'CANAL_VOD':

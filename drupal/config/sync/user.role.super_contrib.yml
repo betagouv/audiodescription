@@ -30,6 +30,7 @@ dependencies:
     - paragraphs
     - path
     - pathauto
+    - simple_oauth
     - system
     - taxonomy
 id: super_contrib
@@ -125,6 +126,7 @@ permissions:
   - 'edit terms in partner'
   - 'edit terms in public'
   - 'edit wordings config page entity'
+  - 'grant simple_oauth codes'
   - 'revert all taxonomy revisions'
   - 'revert any document media revisions'
   - 'revert any image media revisions'

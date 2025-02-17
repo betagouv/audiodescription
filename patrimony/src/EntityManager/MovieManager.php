@@ -47,6 +47,9 @@ class MovieManager
             case PartnerCode::LACINETEK->value:
               $idName = 'laCinetekId';
               break;
+            case PartnerCode::FRANCE_TV->value:
+                $idName = 'franceTvId';
+                break;
             case PartnerCode::CNC->value:
             default:
                 $idName = 'cncId';
@@ -77,6 +80,9 @@ class MovieManager
                 case PartnerCode::LACINETEK->value:
                   $movie->setLaCinetekId($sourceMovie->getInternalPartnerId());
                   break;
+                case PartnerCode::FRANCE_TV->value:
+                    $movie->setFranceTvId($sourceMovie->getInternalPartnerId());
+                    break;
                 default:
                     break;
             }

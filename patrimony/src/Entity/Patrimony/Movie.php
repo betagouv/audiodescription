@@ -74,9 +74,13 @@ class Movie
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $allocineId;
 
-  #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-  #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-  private string $laCinetekId;
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private string $laCinetekId;
+
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private string $franceTvId;
 
     #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
@@ -230,6 +234,16 @@ class Movie
     $this->laCinetekId = $laCinetekId;
   }
 
+  public function getFranceTvId(): string
+  {
+    return $this->franceTvId;
+  }
+
+  public function setFranceTvId(string $franceTvId): void
+  {
+    $this->franceTvId = $franceTvId;
+  }
+
   public function getIsanId(): string
   {
     return $this->isanId;
@@ -320,16 +334,6 @@ class Movie
     $this->genres = $genres;
   }
 
-  public function getDirectors(): Collection
-  {
-    return $this->directors;
-  }
-
-  public function setDirectors(Collection $directors): void
-  {
-    $this->directors = $directors;
-  }
-
   public function getPublic(): PublicRestriction
   {
     return $this->public;
@@ -370,7 +374,6 @@ class Movie
     $this->sourceMovies = $sourceMovies;
   }
 
-
     public function __toString(): string
     {
         $directors = array_map(function (Director $director) {
@@ -386,4 +389,14 @@ class Movie
             $directorsString
         );
     }
+
+  public function getDirectors(): Collection
+  {
+    return $this->directors;
+  }
+
+  public function setDirectors(Collection $directors): void
+  {
+    $this->directors = $directors;
+  }
 }

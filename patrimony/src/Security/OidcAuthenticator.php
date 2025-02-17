@@ -56,6 +56,7 @@ class OidcAuthenticator extends AbstractAuthenticator
         }
 
         $code = $request->get('code');
+
         try {
             $tokens = $this->oidcService->getTokens($code);
         } catch (ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
