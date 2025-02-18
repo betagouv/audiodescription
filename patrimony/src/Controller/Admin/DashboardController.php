@@ -6,6 +6,7 @@ use App\Entity\Patrimony\Genre;
 use App\Entity\Patrimony\Movie;
 use App\Entity\Patrimony\Offer;
 use App\Entity\Patrimony\Partner;
+use App\Entity\Patrimony\PublicRestriction;
 use App\Entity\Patrimony\Solution;
 use App\Entity\Source\SourceMovie;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -41,6 +42,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Genres', 'fas fa-list', Genre::class);
         yield MenuItem::linkToCrud('Partenaires', 'fas fa-list', Partner::class);
         yield MenuItem::linkToCrud('Offres', 'fas fa-list', Offer::class);
+        yield MenuItem::linkToCrud('Publics', 'fas fa-list', PublicRestriction::class);
 
 
         yield MenuItem::section('Source');

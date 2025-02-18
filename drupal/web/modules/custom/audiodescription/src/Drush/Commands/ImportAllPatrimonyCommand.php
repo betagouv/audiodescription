@@ -59,8 +59,8 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
       $this->genrePatrimonyImporter->import();
       $this->logger()->success('Import des genres terminé');
 
-      //$this->publicPatrimonyImporter->import();
-      //$this->logger()->success('Import des publics terminé');
+      $this->publicPatrimonyImporter->import();
+      $this->logger()->success('Import des publics terminé');
 
       //$this->nationalityPatrimonyImporter->import();
       //$this->logger()->success('Import des nationalités terminé');
@@ -74,8 +74,8 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
       $this->offerPatrimonyImporter->import();
       $this->logger()->success('Import des offres terminé');
 
-      //$this->moviePatrimonyImporter->import();
-      //$this->logger()->success('Import des films terminé');
+      $this->moviePatrimonyImporter->import();
+      $this->logger()->success('Import des films terminé');
 
       $index = Index::load('movies');
 
