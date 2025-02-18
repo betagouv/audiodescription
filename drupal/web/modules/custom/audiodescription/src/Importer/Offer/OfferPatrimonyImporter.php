@@ -46,9 +46,14 @@ class OfferPatrimonyImporter implements LoggerAwareInterface {
 
       // Output the result.
       foreach ($data['hydra:member'] as $offer) {
-        $name = $offer['name'];
-        $code = $offer['code'];
-        $this->offerManager->createOrUpdate($code, $name);
+
+        $data = [
+          'name' => $offer['name'],
+          'code' => $offer['code'],
+          'order' => $offer['displayOrder']
+        ];
+
+        $this->offerManager->createOrUpdate($data);
       }
     } catch( RequestException $e) {
       $this->logger->info('Error fetching partners');

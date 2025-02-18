@@ -35,11 +35,13 @@ class PublicManager {
 
     if (is_null($public)) {
       $public = Term::create($properties);
+      if (is_null($publicName)) $publicName = $publicCode;
+      $public->setName($publicName);
+
+      $public->save();
     }
 
-    if (is_null($publicName)) $publicName = $publicCode;
-    $public->setName($publicName);
-    $public->save();
+
 
     return $public;
   }

@@ -43,6 +43,10 @@ class Offer
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $code;
 
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?int $displayOrder;
+
     #[ORM\OneToMany(targetEntity: Solution::class, mappedBy: 'offer')]
     private Collection $solutions;
 
@@ -78,6 +82,16 @@ class Offer
     public function setCode(string $code): void
     {
         $this->code = $code;
+    }
+
+    public function getDisplayOrder(): ?int
+    {
+        return $this->displayOrder;
+    }
+
+    public function setDisplayOrder(?int $displayOrder): void
+    {
+        $this->displayOrder = $displayOrder;
     }
 
     public function getSolutions(): Collection

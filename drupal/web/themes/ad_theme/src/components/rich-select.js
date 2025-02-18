@@ -179,21 +179,6 @@ export class RichSelect extends LitElement {
           aria-hidden="${!this.visible}"
         >
 
-          <button class="fr-btn ad-rich-select__dropdown-button fr-mb-3v" type="button" @click="${this._selectAll}">
-            <span class="ad-rich-select__icon fr-icon--sm ${this.btnSelectAll.icon}" aria-hidden="true"></span> ${this.btnSelectAll.text}
-          </button>
-
-          <label class="fr-label fr-sr-only" for="filter-${this.plural_title}">Rechercher</label>
-          <div class="fr-input-wrap fr-icon-search-line fr-mb-3v">
-            <input
-              id="filter-${this.plural_title}"
-              class="fr-input"
-              type="text"
-              @input="${this._onSearch}"
-              placeholder="Rechercher"
-            >
-          </div>
-
           <fieldset class="fr-fieldset" id="checkboxes-${this.plural_title}" aria-labelledby="checkboxes-legend-${this.plural_title} checkboxes-messages-${this.plural_title}">
             <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="checkboxes-legend-${this.plural_title}">
               Liste des ${this.plural_title}

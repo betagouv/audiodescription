@@ -47,7 +47,8 @@ class GenrePatrimonyImporter implements LoggerAwareInterface {
       // Output the result.
       foreach ($data['hydra:member'] as $genre) {
         $name = trim($genre['name']);
-        $this->genreManager->createOrUpdate($name);
+        $code = trim($genre['code']);
+        $this->genreManager->createOrUpdate($name, $code);
       }
     } catch( RequestException $e) {
       $this->logger->info('Error fetching genres');

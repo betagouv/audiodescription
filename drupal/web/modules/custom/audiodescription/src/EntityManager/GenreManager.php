@@ -21,24 +21,22 @@ class GenreManager {
    * @return \Drupal\taxonomy\Entity\Term
    *   Genre created or updated.
    */
-  public function createOrUpdate(string $genreName): ?Term {
-    $genreCode = $this->computeCode($genreName);
-
+  public function createOrUpdate(string $name, string $code): ?Term {
     $genres = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
-      'field_taxo_code' => $genreCode,
+      'field_taxo_code' => $code,
       'vid' => Taxonomy::GENRE->value,
     ]);
 
     $genre = NULL;
     if (count($genres) !== 0) {
       $genre = array_shift($genres);
-      $genre->setName($genreName);
+      $genre->setName($name);
     }
 
     if (is_null($genre)) {
       $genre = Term::create([
-        'name' => $genreName,
-        'field_taxo_code' => $genreCode,
+        'name' => $name,
+        'field_taxo_code' => $code,
         'vid' => Taxonomy::GENRE->value,
       ]);
     }

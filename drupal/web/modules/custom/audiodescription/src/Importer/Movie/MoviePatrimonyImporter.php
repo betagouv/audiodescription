@@ -64,7 +64,6 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
         foreach ($data['hydra:member'] as $movie) {
           $title = $movie['title'];
-
           dump($title);
 
           $code = $movie['code'];
@@ -73,8 +72,6 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           $allocineId = $movie['allocineId'] ?? null;
           $orangeVodId = $movie['orangeVodId'] ?? null;
           $laCinetekId = $movie['laCinetekId'] ?? null;
-
-          if (is_null($laCinetekId)) continue;
 
           $hasAd = $movie['hasAd'];
           $productionYear = $movie['productionYear'] ?? null;
@@ -98,10 +95,10 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           foreach ($movie['genres'] as $genre) {
             if (isset($genre['mainGenre'])) {
               if (is_array($genre['mainGenre'])) {
-                $genres[] = $this->genreManager->createOrUpdate($genre['mainGenre']['name']);
+                $genres[] = $this->genreManager->createOrUpdate($genre['mainGenre']['name'], $genre['mainGenre']['code']);
               } else {
                 if ($genre['@id'] == $genre['mainGenre']) {
-                  $genres[] = $this->genreManager->createOrUpdate($genre['name']);
+                  $genres[] = $this->genreManager->createOrUpdate($genre['name'], $genre['code']);
                 }
               }
             }

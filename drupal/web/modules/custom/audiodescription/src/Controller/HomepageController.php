@@ -188,7 +188,6 @@ class HomepageController extends ControllerBase {
   private function countMoviesWithAtLeastOneSolution():int {
     $connection = Database::getConnection();
 
-    // Requête SQL brute
     $sql = "
     SELECT COUNT(m_sub.nid) as cnt
     FROM node_field_data m_sub
@@ -210,7 +209,6 @@ class HomepageController extends ControllerBase {
       )
     )";
 
-    // Exécution de la requête
     $result = $connection->query($sql)->fetchField();
 
     return $result;

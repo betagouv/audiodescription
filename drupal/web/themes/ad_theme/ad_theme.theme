@@ -157,12 +157,50 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
     }
   }
 
+  // Order solutions.
+  $offers = [];
+  $node = $variables['node'];
+  $pg_offers = $node->get('field_offers')->referencedEntities();
+  usort($pg_offers, function($a, $b) {
+    $a = intval($a->get('field_pg_offer')->entity->get('field_taxo_order')->value);
+    $b = intval($b->get('field_pg_offer')->entity->get('field_taxo_order')->value);
+
+    if ($a == $b) {
+      return 0;
+    }
+    return ($a < $b) ? -1 : 1;
+  });
+
+
+  foreach($pg_offers as $pg_offer) {
+    $pg_partners = $pg_offer->get('field_pg_partners')->referencedEntities();
+
+    usort($pg_partners, function($a, $b) {
+      $a = intval($a->get('field_pg_partner')->entity->get('field_taxo_order')->value);
+      $b = intval($b->get('field_pg_partner')->entity->get('field_taxo_order')->value);
+
+      if ($a == $b) {
+        return 0;
+      }
+      return ($a < $b) ? -1 : 1;
+    });
+
+
+    $offers[] = [
+      'offer' => $pg_offer,
+      'partners' => $pg_partners
+    ];
+  }
+
+
   $variables['block_platforms'] = [
     'title' => $config->get('field_block_platforms_title')->value,
-    'no_result' => $config->get('field_block_platforms_no_result')->value
+    'no_result' => $config->get('field_block_platforms_no_result')->value,
+    'offers' => $offers,
   ];
 
   $variables['collections'] = $collections;
+
 
   $cache_tags = [];
   $offers = $variables['elements']['#node']->get('field_offers')->referencedEntities();
@@ -363,58 +401,35 @@ function ad_theme_preprocess_html(&$variables)
  */
 function ad_theme_preprocess_node__movie__card(&$variables)
 {
+  // Order solutions.
+  $offers = [];
+  $node = $variables['node'];
+  $pg_offers = $node->get('field_offers')->referencedEntities();
+  usort($pg_offers, function($a, $b) {
+    $a = intval($a->get('field_pg_offer')->entity->get('field_taxo_order')->value);
+    $b = intval($b->get('field_pg_offer')->entity->get('field_taxo_order')->value);
 
-  $database = \Drupal::database();
+    if ($a == $b) {
+      return 0;
+    }
+    return ($a < $b) ? -1 : 1;
+  });
 
-  $offerQuery = $database->select('node__field_offers', 'nfo')
-    ->fields('t', ['name'])
-    ->condition('nfo.entity_id', $variables['node']->nid->value);
+  $pg_partners = $pg_offers[0]->get('field_pg_partners')->referencedEntities();
 
-  $offerQuery->join('paragraph__field_pg_offer', 'pfo', 'pfo.entity_id = nfo.field_offers_target_id');
-  $offerQuery->addField('pfo', 'entity_id', 'pid');
+  usort($pg_partners, function($a, $b) {
+    $a = intval($a->get('field_pg_partner')->entity->get('field_taxo_order')->value);
+    $b = intval($b->get('field_pg_partner')->entity->get('field_taxo_order')->value);
 
-  $offerQuery->join('taxonomy_term_field_data', 't', 't.tid = pfo.field_pg_offer_target_id');
-  $offerQuery->addField('t', 'tid');
+    if ($a == $b) {
+      return 0;
+    }
+    return ($a < $b) ? -1 : 1;
+  });
 
-  $offerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
-  $offerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
 
-  $offerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
-  $offerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
-
-  $offerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
-  $offerQuery->orderBy('t.name', 'ASC');
-
-  $offer = $offerQuery->execute()->fetch();
-
-  $partnerQuery = $database->select('paragraphs_item_field_data', 'pifd')
-    ->fields('t', ['name'])
-    ->condition('pifd.parent_id', $offer->pid);
-
-  $partnerQuery->leftJoin('paragraph__field_pg_partner', 'pfpp', 'pfpp.entity_id = pifd.id');
-  $partnerQuery->addField('pfpp', 'entity_id', 'pid');
-
-  $partnerQuery->leftJoin('taxonomy_term_field_data', 't', 't.tid = pfpp.field_pg_partner_target_id');
-  $partnerQuery->addField('t', 'tid');
-
-  $partnerQuery->leftJoin('taxonomy_term__field_taxo_order', 'tto', 'tto.entity_id = t.tid');
-  $partnerQuery->addField('tto', 'field_taxo_order_value', 'field_taxo_order');
-
-  $partnerQuery->leftJoin('taxonomy_term__field_taxo_pronunciation', 'ttp', 'ttp.entity_id = t.tid');
-  $partnerQuery->addField('ttp', 'field_taxo_pronunciation_value', 'field_taxo_pronunciation');
-
-  $partnerQuery->leftJoin('taxonomy_term__field_taxo_code', 'ttc', 'ttc.entity_id = t.tid');
-  $partnerQuery->addField('ttc', 'field_taxo_code_value', 'field_taxo_code');
-
-  $partnerQuery->orderBy('tto.field_taxo_order_value', 'ASC');
-  $partnerQuery->orderBy('t.name', 'ASC');
-
-  $partner = $partnerQuery->execute()->fetch();
-
-  if (!is_null($partner->pid)){
-    $entityManager = \Drupal::entityTypeManager();
-    $pgEntityManager = $entityManager->getStorage('paragraph');
-    $pg = $pgEntityManager->load($partner->pid);
+  if (!is_null($pg_partners[0])){
+    $pg = $pg_partners[0];
     $endDate = $pg->get('field_pg_end_rights') ?? NULL;
 
     if (!is_null($endDate->value)) {
@@ -426,8 +441,8 @@ function ad_theme_preprocess_node__movie__card(&$variables)
     }
 
     $variables['partner'] = [
-      'name' => $partner->name ?? NULL,
-      'pronunciation' => $partner->field_taxo_pronunciation ?? NULL,
+      'name' => $pg->get('field_pg_partner')->entity->getName() ?? NULL,
+      'pronunciation' => $pg->get('field_pg_partner')->entity->get('field_taxo_pronunciation')->value ?? NULL,
       'end_date' => $formatted_date ?? NULL,
     ];
   }

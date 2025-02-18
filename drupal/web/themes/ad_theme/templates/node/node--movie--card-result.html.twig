@@ -49,7 +49,6 @@
               <p class="fr-card__desc">{{ sentence|join(', ')|raw }}</p>
               <p class="fr-card__desc">
                 {% if synopsis|length > 315 %}
-                  {{ dump(synopsis) }}
                   {{ synopsis|slice(0, 315) ~ '...' }}
                 {% else %}
                   {{ synopsis }}
