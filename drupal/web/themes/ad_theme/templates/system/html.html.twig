@@ -1,0 +1,67 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the basic structure of a single Drupal page.
+ *
+ * Variables:
+ * - logged_in: A flag indicating if user is logged in.
+ * - root_path: The root path of the current page (e.g., node, admin, user).
+ * - node_type: The content type for the current node, if the page is a node.
+ * - head_title: List of text elements that make up the head_title variable.
+ *   May contain one or more of the following:
+ *   - title: The title of the page.
+ *   - name: The name of the site.
+ *   - slogan: The slogan of the site.
+ * - page_top: Initial rendered markup. This should be printed before 'page'.
+ * - page: The rendered page markup.
+ * - page_bottom: Closing rendered markup. This variable should be printed after
+ *   'page'.
+ * - db_offline: A flag indicating if the database is offline.
+ * - placeholder_token: The token for generating head, css, js and js-bottom
+ *   placeholders.
+ *
+ * @see template_preprocess_html()
+ *
+ * @ingroup themeable
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+<head>
+  <link rel="apple-touch-icon" href="/libraries/dsfr/dist/favicon/apple-touch-icon.png"><!-- 180×180 -->
+  <link rel="icon" href="/libraries/dsfr/dist/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/libraries/dsfr/dist/favicon/favicon.ico" type="image/x-icon"><!-- 32×32 -->
+  <link rel="manifest" href="/libraries/dsfr/dist/favicon/manifest.webmanifest" crossorigin="use-credentials">
+  <head-placeholder token="{{ placeholder_token }}">
+  <title>{{ head_title|safe_join(' | ') }}</title>
+  <css-placeholder token="{{ placeholder_token }}">
+  <js-placeholder token="{{ placeholder_token }}">
+  <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+
+  {% if matomo.enabled %}
+    <!-- Matomo -->
+    <script>
+      var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+      _paq.push(["setDomains", ["*.audiodescription.beta.gouv.fr"]]);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://stats.beta.gouv.fr/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '196']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+  {% endif %}
+</head>
+<body{{ attributes }}>
+  {{ page_top }}
+  {{ page }}
+  {{ page_bottom }}
+  <js-bottom-placeholder token="{{ placeholder_token }}">
+</body>
+</html>

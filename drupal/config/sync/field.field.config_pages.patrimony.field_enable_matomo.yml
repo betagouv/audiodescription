@@ -1,0 +1,21 @@
+uuid: 3aec0469-f0f7-4c1a-89f4-0e7ac5cc57a4
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.patrimony
+    - field.storage.config_pages.field_enable_matomo
+id: config_pages.patrimony.field_enable_matomo
+field_name: field_enable_matomo
+entity_type: config_pages
+bundle: patrimony
+label: 'Activer Matomo'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

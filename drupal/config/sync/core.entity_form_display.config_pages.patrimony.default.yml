@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - config_pages.type.patrimony
+    - field.field.config_pages.patrimony.field_enable_matomo
     - field.field.config_pages.patrimony.field_patrimony_token
     - field.field.config_pages.patrimony.field_patrimony_url
 id: config_pages.patrimony.default
@@ -11,6 +12,13 @@ targetEntityType: config_pages
 bundle: patrimony
 mode: default
 content:
+  field_enable_matomo:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_patrimony_token:
     type: string_textfield
     weight: 2

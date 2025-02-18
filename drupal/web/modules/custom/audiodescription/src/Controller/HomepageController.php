@@ -98,7 +98,8 @@ class HomepageController extends ControllerBase {
       'chapo' => $homepage->get('field_header_chapo')->value,
       'has_search_bar' => $homepage->get('field_header_with_search_bar')->value,
       'cta' => $cta,
-      'stats' => $this->countMoviesWithAtLeastOneSolution(),
+      //'stats' => $this->countMoviesWithAtLeastOneSolution(),
+      'stats' => '0',
       'partners' => Term::loadMultiple($term_ids),
       'image' => $homepage->get('field_header_image')->entity->field_media_image->entity->uri->value
     ];
