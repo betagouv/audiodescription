@@ -12,6 +12,7 @@ parameters:
   oidc_ad.redirect_base_url: '%env(OIDC_AD_REDIRECT_BASE_URL)%'
   oidc_ad.public_key: '%env(OIDC_AD_PUBLIC_KEY)%'
   canal_vod.api.url: '%env(CANAL_VOD_API_URL)%'
+  canal_replay.api.url: '%env(CANAL_REPLAY_API_URL)%'
   canal_vod.api.auth_token: '%env(CANAL_VOD_API_AUTH_TOKEN)%'
   arte_tv.api.url: '%env(ARTE_TV_API_URL)%'
   orange_vod.filename: '%env(ORANGE_VOD_FILENAME)%'

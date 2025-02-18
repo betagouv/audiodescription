@@ -13,6 +13,7 @@ class ImporterFactory {
   public function __construct(
     private ArteTvApiImporter    $arteTvApiImporter,
     private CanalVodApiImporter  $canalVodApiImporter,
+    private CanalReplayApiImporter  $canalReplayApiImporter,
     private OrangeVodCsvImporter $orangeVodCsvImporter,
     private LaCinetekApiImporter $laCinetekApiImporter,
     private FranceTvCsvImporter  $franceTvCsvImporter,
@@ -36,6 +37,9 @@ class ImporterFactory {
         break;
       case ImportSourceType::CANAL_VOD_API:
         return $this->canalVodApiImporter;
+        break;
+      case ImportSourceType::CANAL_REPLAY_API:
+        return $this->canalReplayApiImporter;
         break;
       case ImportSourceType::ORANGE_VOD_CSV:
         return $this->orangeVodCsvImporter;

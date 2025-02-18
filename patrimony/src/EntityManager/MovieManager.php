@@ -39,6 +39,7 @@ class MovieManager
                 $idName = 'arteId';
                 break;
             case PartnerCode::CANAL_VOD->value:
+            case PartnerCode::CANAL_REPLAY->value:
                 $idName = 'canalVodId';
                 break;
             case PartnerCode::ORANGE_VOD->value:
@@ -73,6 +74,7 @@ class MovieManager
                     $movie->setArteId($sourceMovie->getInternalPartnerId());
                     break;
                 case PartnerCode::CANAL_VOD->value:
+                case PartnerCode::CANAL_REPLAY->value:
                     $movie->setCanalVodId($sourceMovie->getInternalPartnerId());
                     break;
                 case PartnerCode::ORANGE_VOD->value:
