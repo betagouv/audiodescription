@@ -122,9 +122,10 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
                 $offerCode = 'FREE_ACCESS';
                 break;
               case 'ORANGE_VOD':
+              case 'LACINETEK_TVOD':
                 $offerCode = 'TVOD';
                 break;
-              case 'LACINETEK':
+              case 'LACINETEK_SVOD':
               case 'CANAL_VOD':
                 $offerCode = 'SVOD';
                 break;

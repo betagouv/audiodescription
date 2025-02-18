@@ -171,7 +171,6 @@ class OrangeVodCsvImporter implements MovieImporterInterface
 
                 // Public.
                 if (isset($line['Parental rating']) && !empty($line['Parental rating'])) {
-                    dump($line['Parental rating']);
                     switch ($line['Parental rating']) {
                         case 'tous publics':
                             // Tous publics.

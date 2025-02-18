@@ -47,6 +47,11 @@ pt-import-canal:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
 	docker compose exec patrimony php bin/console ad:import:canalvod-api --create-movies=true
 
+.PHONY:pt-import-lacinetek
+pt-import-lacinetek:
+	docker compose exec patrimony php bin/console ad:import:cnc-public
+	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
+
 .PHONY:pt-import
 pt-import:
 	docker compose exec patrimony php bin/console ad:import:mycanal-api --create-movies=true

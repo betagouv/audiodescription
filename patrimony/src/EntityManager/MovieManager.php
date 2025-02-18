@@ -44,7 +44,8 @@ class MovieManager
             case PartnerCode::ORANGE_VOD->value:
                 $idName = 'orangeVodId';
                 break;
-            case PartnerCode::LACINETEK->value:
+            case PartnerCode::LACINETEK_SVOD->value:
+            case PartnerCode::LACINETEK_TVOD->value:
               $idName = 'laCinetekId';
               break;
             case PartnerCode::FRANCE_TV->value:
@@ -77,7 +78,8 @@ class MovieManager
                 case PartnerCode::ORANGE_VOD->value:
                     $movie->setOrangeVodId($sourceMovie->getInternalPartnerId());
                     break;
-                case PartnerCode::LACINETEK->value:
+                case PartnerCode::LACINETEK_TVOD->value:
+                case PartnerCode::LACINETEK_SVOD->value:
                   $movie->setLaCinetekId($sourceMovie->getInternalPartnerId());
                   break;
                 case PartnerCode::FRANCE_TV->value:

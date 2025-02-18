@@ -30,7 +30,7 @@ class SourceMovieManager
     public function findOrcreate(
         string $title,
         string $internalPartnerId,
-        string $productionYear,
+        ?string $productionYear,
         Partner $partner,
         bool $hasAd
     ): SourceMovie
@@ -50,7 +50,14 @@ class SourceMovieManager
 
             $sourceMovie->setInternalPartnerId($internalPartnerId);
             $sourceMovie->setPartner($partner);
-            $sourceMovie->setProductionYear($productionYear);
+
+            if (!is_null($productionYear)) {
+                preg_match('/^(\d{4})/', $productionYear, $matches);
+                if (isset($matches[1])) {
+                    $sourceMovie->setProductionYear($matches[1]);
+                }
+            }
+
 
             $sourceMovie->setHasAd($hasAd);
         }
