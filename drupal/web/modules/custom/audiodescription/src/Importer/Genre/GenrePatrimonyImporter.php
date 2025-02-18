@@ -31,12 +31,11 @@ class GenrePatrimonyImporter implements LoggerAwareInterface {
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
-    $last_import_date = $patrimony->get('field_patrimony_last_import_date')->value;
     $url = $patrimony->get('field_patrimony_url')->value;
     $token = $patrimony->get('field_patrimony_token')->value;
 
     try {
-      $response = $client->request('GET', $url . '/api/v1/genres?updatedAt%5Bafter%5D=' . $last_import_date, [
+      $response = $client->request('GET', $url . '/api/v1/genres/main', [
         'headers' => [
           'Accept' => 'application/ld+json',
           'Authorization' => 'Bearer ' . $token,

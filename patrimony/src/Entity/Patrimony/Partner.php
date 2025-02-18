@@ -41,13 +41,17 @@ class Partner
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $name;
 
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $pronunciation;
+
     #[ORM\Column(type: Types::STRING, unique: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $code;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $logo;
+    private ?int $displayOrder;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
@@ -84,6 +88,16 @@ class Partner
         $this->name = $name;
     }
 
+    public function getPronunciation(): ?string
+    {
+        return $this->pronunciation;
+    }
+
+    public function setPronunciation(?string $pronunciation): void
+    {
+        $this->pronunciation = $pronunciation;
+    }
+
     public function getCode(): string
     {
         return $this->code;
@@ -94,14 +108,14 @@ class Partner
         $this->code = $code;
     }
 
-    public function getLogo(): ?string
+    public function getDisplayOrder(): ?int
     {
-        return $this->logo;
+        return $this->displayOrder;
     }
 
-    public function setLogo(?string $logo): void
+    public function setDisplayOrder(?int $displayOrder): void
     {
-        $this->logo = $logo;
+        $this->displayOrder = $displayOrder;
     }
 
     public function getCondition(): ?string

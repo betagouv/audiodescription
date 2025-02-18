@@ -31,12 +31,11 @@ class PartnerPatrimonyImporter implements LoggerAwareInterface {
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
-    $last_import_date = $patrimony->get('field_patrimony_last_import_date')->value;
     $url = $patrimony->get('field_patrimony_url')->value;
     $token = $patrimony->get('field_patrimony_token')->value;
 
     try {
-      $response = $client->request('GET', $url . '/api/v1/partners?updatedAt%5Bafter%5D=' . $last_import_date, [
+      $response = $client->request('GET', $url . '/api/v1/partners', [
         'headers' => [
           'Accept' => 'application/ld+json',
           'Authorization' => 'Bearer ' . $token,
@@ -47,8 +46,7 @@ class PartnerPatrimonyImporter implements LoggerAwareInterface {
 
       // Output the result.
       foreach ($data['hydra:member'] as $partner) {
-        $name = trim($partner['name']);
-        $this->partnerManager->createOrUpdate($name);
+        $this->partnerManager->createOrUpdate($partner);
       }
     } catch( RequestException $e) {
       $this->logger->info('Error fetching partners');

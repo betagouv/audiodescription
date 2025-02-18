@@ -1,6 +1,0 @@
-services:
-  python:
-    build:
-        dockerfile: ./Dockerfile
-    volumes:
-        - ./src/:/usr/app/src/

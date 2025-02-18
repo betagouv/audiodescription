@@ -7,4 +7,4 @@ doctrine_migrations:
     storage:
         # Default (SQL table) metadata storage configuration
         table_storage:
-            table_name: 'public.doctrine_migration_versions'
+            table_name: 'doctrine_migration_versions'

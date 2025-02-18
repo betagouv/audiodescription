@@ -6,6 +6,7 @@ use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\GetCollection;
 use App\Entity\Trait\Timestampable;
+use App\Provider\MainGenresProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -21,6 +22,15 @@ use Symfony\Component\Uid\Uuid;
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
     ]],
+)]
+#[GetCollection(
+    uriTemplate: '/genres/main',
+    routePrefix: '/api/v1',
+    paginationEnabled: false,
+    normalizationContext: ['groups' => [
+        self::SCOPE_LIST,
+    ]],
+    provider: MainGenresProvider::class,
 )]
 #[ApiFilter(DateFilter::class)]
 #[ORM\Entity]

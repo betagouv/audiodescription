@@ -36,7 +36,7 @@ services:
       - ad-network
 
   db:
-    image: postgres:latest
+    image: postgres:16-bookworm
     command: -c 'max_connections=10'
     volumes:
       - db-data:/var/lib/postgresql/data

@@ -11,11 +11,11 @@ use App\Importer\ImportException;
 class ImporterFactory {
 
   public function __construct(
-    private ArteTvApiImporter  $arteTvApiImporter,
-    private MyCanalApiImporter $myCanalApiImporter,
+    private ArteTvApiImporter    $arteTvApiImporter,
+    private CanalVodApiImporter  $canalVodApiImporter,
     private OrangeVodCsvImporter $orangeVodCsvImporter,
     private LaCinetekApiImporter $laCinetekApiImporter,
-    private FranceTvCsvImporter $franceTvCsvImporter,
+    private FranceTvCsvImporter  $franceTvCsvImporter,
   ) {
 
   }
@@ -34,8 +34,8 @@ class ImporterFactory {
       case ImportSourceType::ARTE_TV_API:
         return $this->arteTvApiImporter;
         break;
-      case ImportSourceType::MY_CANAL_API:
-        return $this->myCanalApiImporter;
+      case ImportSourceType::CANAL_VOD_API:
+        return $this->canalVodApiImporter;
         break;
       case ImportSourceType::ORANGE_VOD_CSV:
         return $this->orangeVodCsvImporter;

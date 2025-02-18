@@ -110,13 +110,16 @@ class Movie
     private ?int $productionYear;
 
     #[ORM\ManyToMany(targetEntity: Nationality::class, inversedBy: 'movies', cascade: ['detach'])]
+    #[ORM\JoinTable(name: 'patrimony.movie_nationality')]
     private Collection $nationalities;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'movies', cascade: ['detach'])]
+    #[ORM\JoinTable(name: 'patrimony.movie_genre')]
     #[Groups([self::SCOPE_LIST])]
     private Collection $genres;
 
     #[ORM\ManyToMany(targetEntity: Director::class, inversedBy: 'movies', cascade: ['detach'])]
+    #[ORM\JoinTable(name: 'patrimony.movie_director')]
     #[Groups([self::SCOPE_LIST])]
     private Collection $directors;
 

@@ -12,6 +12,8 @@ use App\EntityManager\SourceMovieManager;
 use App\Enum\OfferCode;
 use App\Enum\PartnerCode;
 use App\Repository\MovieRepository;
+use App\Repository\SolutionRepository;
+use App\Repository\SourceMovieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -29,7 +31,9 @@ class ArteTvApiImporter implements MovieImporterInterface
         private MovieManager $movieManager,
         private ParameterBagInterface $parameterBag,
         private HttpClientInterface $httpClient,
-        private MovieRepository $movieRepository
+        private MovieRepository $movieRepository,
+        private SolutionRepository $solutionRepository,
+        private SourceMovieRepository $sourceMovieRepository,
     )
     {
     }
@@ -49,7 +53,7 @@ class ArteTvApiImporter implements MovieImporterInterface
 
         // Create partner ARTE if not exists.
         $partnerRepository = $this->entityManager->getRepository(Partner::class);
-        $partner = $partnerRepository->findOneBy(['name' => PartnerCode::ARTE->value]);
+        $partner = $partnerRepository->findOneBy(['code' => PartnerCode::ARTE->value]);
 
         if (is_null($partner)) {
             $partner = new Partner();
@@ -69,10 +73,16 @@ class ArteTvApiImporter implements MovieImporterInterface
             $this->entityManager->persist($offer);
         }
 
+        $this->movieRepository->updatedAllMovieWithPartner($partner);
+        $this->solutionRepository->deleteAllByPartner($partner);
+        $this->sourceMovieRepository->deleteAllByPartner($partner);
+
+        $this->entityManager->flush();
+
         foreach ($programs as $program) {
             if ($program['genrePresse'] !== 'Téléfilm') {
-                $partner = $partnerRepository->findOneBy(['code' => PartnerCode::CANAL_VOD->value]);
-                $offer = $offerRepository->findOneBy(['code' => OfferCode::TVOD->value]);
+                $partner = $partnerRepository->findOneBy(['code' => PartnerCode::ARTE->value]);
+                $offer = $offerRepository->findOneBy(['code' => OfferCode::STREAMING->value]);
 
                 $repository = $this->entityManager->getRepository(SourceMovie::class);
                 $sourceMovie = $repository->findOneBy([
@@ -84,7 +94,6 @@ class ArteTvApiImporter implements MovieImporterInterface
                 dump($title);
 
                 if (is_null($sourceMovie)) {
-
                     $sourceMovie = $this->sourceMovieManager->findOrcreate(
                         $title,
                         $program['programId'],

@@ -21,9 +21,9 @@ down:
 .PHONY:pt-import-all
 pt-import-all:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
-	docker compose exec patrimony php bin/console ad:import:mycanal-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:canalvod-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:orangevod-csv --create-movies=true
-	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
+	#docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
 
@@ -36,6 +36,16 @@ pt-import-orange:
 pt-import-francetv:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
 	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
+
+.PHONY:pt-import-artetv
+pt-import-artetv:
+	docker compose exec patrimony php bin/console ad:import:cnc-public
+	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+
+.PHONY:pt-import-canal
+pt-import-canal:
+	docker compose exec patrimony php bin/console ad:import:cnc-public
+	docker compose exec patrimony php bin/console ad:import:canalvod-api --create-movies=true
 
 .PHONY:pt-import
 pt-import:

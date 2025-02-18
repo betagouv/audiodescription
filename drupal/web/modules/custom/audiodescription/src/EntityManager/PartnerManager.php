@@ -18,12 +18,13 @@ class PartnerManager {
   /**
    * Create or update partner taxonomy term.
    */
-  public function createOrUpdate(
-    string $partnerCode,
-    ?string $partnerName = NULL
-  ): ?Term {
+  public function createOrUpdate(array $data): ?Term {
+
+    $name = trim($data['name']);
+    $code = trim($data['code']);
+
     $properties = [
-      'field_taxo_code' => $partnerCode,
+      'field_taxo_code' => $code,
       'vid' => Taxonomy::PARTNER->value,
     ];
 
@@ -37,8 +38,17 @@ class PartnerManager {
     }
 
     if (is_null($partner)) {
-      $properties['name'] = $partnerName ?? $partnerCode;
       $partner = Term::create($properties);
+    }
+
+    $partner->setName($name);
+
+    if (isset($data['pronunciation']) && !empty($data['pronunciation'])) {
+      $partner->set('field_taxo_pronunciation', $data['pronunciation']);
+    }
+
+    if (isset($data['displayOrder']) && !empty($data['displayOrder'])) {
+      $partner->set('field_taxo_order', $data['displayOrder']);
     }
 
     $partner->save();

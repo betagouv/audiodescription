@@ -9,18 +9,17 @@ dependencies:
   module:
     - media_library
     - path
-    - text
 id: taxonomy_term.genre.default
 targetEntityType: taxonomy_term
 bundle: genre
 mode: default
 content:
-  description:
-    type: text_textarea
-    weight: 2
+  field_taxo_code:
+    type: string_textfield
+    weight: 1
     region: content
     settings:
-      rows: 5
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_taxo_icon:
@@ -45,11 +44,11 @@ content:
     settings: {  }
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_taxo_code: true
+  description: true
   langcode: true
   status: true

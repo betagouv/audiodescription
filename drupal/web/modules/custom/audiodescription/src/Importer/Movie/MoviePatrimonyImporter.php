@@ -174,10 +174,9 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
   }
 
   private function buildUrl($configPage, $page) {
-    $last_import_date = $configPage->get('field_patrimony_last_import_date')->value;
     $url = $configPage->get('field_patrimony_url')->value;
 
-    $baseUrl = $url . '/api/v1/movies?updatedAt[after]=' . $last_import_date;
+    $baseUrl = $url . '/api/v1/movies?';
 
     return sprintf(
       '%s&page=%s&itemsPerPage=%s',
