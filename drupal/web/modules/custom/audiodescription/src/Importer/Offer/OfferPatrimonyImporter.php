@@ -3,6 +3,7 @@
 namespace Drupal\audiodescription\Importer\Offer;
 
 use Drupal\audiodescription\EntityManager\OfferManager;
+use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
@@ -17,6 +18,7 @@ class OfferPatrimonyImporter implements LoggerAwareInterface {
   public function __construct(
     private EntityTypeManager $entityTypeManager,
     private OfferManager $offerManager,
+    private ConfigPagesLoaderServiceInterface $configPagesLoader,
   ) {
   }
 
@@ -25,15 +27,27 @@ class OfferPatrimonyImporter implements LoggerAwareInterface {
    */
   public function import(): void {
     // Import offers.
+    $client = \Drupal::httpClient();
+
+    $config_pages = $this->configPagesLoader;
+    $patrimony = $config_pages->load('patrimony');
+    $url = $patrimony->get('field_patrimony_url')->value;
+    $token = $patrimony->get('field_patrimony_token')->value;
 
     try {
-      $offers = [
-        'STREAMING' => 'En streaming',
-        'TVOD' => 'En vidéo à la demande (achat ou location)',
-      ];
+      $response = $client->request('GET', $url . '/api/v1/offers', [
+        'headers' => [
+          'Accept' => 'application/ld+json',
+          'Authorization' => 'Bearer ' . $token,
+        ],
+      ]);
+
+      $data = json_decode($response->getBody()->getContents(), TRUE);
 
       // Output the result.
-      foreach ($offers as $code => $name) {
+      foreach ($data['hydra:member'] as $offer) {
+        $name = $offer['name'];
+        $code = $offer['code'];
         $this->offerManager->createOrUpdate($code, $name);
       }
     } catch( RequestException $e) {

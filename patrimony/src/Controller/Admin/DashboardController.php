@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Patrimony\Genre;
 use App\Entity\Patrimony\Movie;
+use App\Entity\Patrimony\Offer;
 use App\Entity\Patrimony\Partner;
 use App\Entity\Patrimony\Solution;
 use App\Entity\Source\SourceMovie;
@@ -35,11 +36,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('Patrimoine');
 
-
-        yield MenuItem::linkToCrud('Genres', 'fas fa-list', Genre::class);
-        yield MenuItem::linkToCrud('Partenaires', 'fas fa-list', Partner::class);
         yield MenuItem::linkToCrud('Films', 'fas fa-list', Movie::class);
         yield MenuItem::linkToCrud('Solutions', 'fas fa-list', Solution::class);
+        yield MenuItem::linkToCrud('Genres', 'fas fa-list', Genre::class);
+        yield MenuItem::linkToCrud('Partenaires', 'fas fa-list', Partner::class);
+        yield MenuItem::linkToCrud('Offres', 'fas fa-list', Offer::class);
+
 
         yield MenuItem::section('Source');
         yield MenuItem::linkToCrud('Source films', 'fas fa-list', SourceMovie::class);

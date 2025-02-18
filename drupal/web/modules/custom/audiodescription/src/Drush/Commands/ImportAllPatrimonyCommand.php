@@ -71,8 +71,8 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
       $this->partnerPatrimonyImporter->import();
       $this->logger()->success('Import des partenaires terminé');
 
-      //$this->offerPatrimonyImporter->import();
-      //$this->logger()->success('Import des offres terminé');
+      $this->offerPatrimonyImporter->import();
+      $this->logger()->success('Import des offres terminé');
 
       //$this->moviePatrimonyImporter->import();
       //$this->logger()->success('Import des films terminé');

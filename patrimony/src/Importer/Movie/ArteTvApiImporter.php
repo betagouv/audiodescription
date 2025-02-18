@@ -62,14 +62,14 @@ class ArteTvApiImporter implements MovieImporterInterface
             $this->entityManager->persist($partner);
         }
 
-        // Create offer STREAMING if not exists.
+        // Create offer FREE_ACCESS if not exists.
         $offerRepository = $this->entityManager->getRepository(Offer::class);
-        $offer = $offerRepository->findOneBy(['code' => OfferCode::STREAMING->value]);
+        $offer = $offerRepository->findOneBy(['code' => OfferCode::FREE_ACCESS->value]);
 
         if (is_null($offer)) {
             $offer = new Offer();
-            $offer->setCode(OfferCode::STREAMING->value);
-            $offer->setName(ucfirst(OfferCode::STREAMING->value));
+            $offer->setCode(OfferCode::FREE_ACCESS->value);
+            $offer->setName(ucfirst(OfferCode::FREE_ACCESS->value));
             $this->entityManager->persist($offer);
         }
 
@@ -82,7 +82,7 @@ class ArteTvApiImporter implements MovieImporterInterface
         foreach ($programs as $program) {
             if ($program['genrePresse'] !== 'Téléfilm') {
                 $partner = $partnerRepository->findOneBy(['code' => PartnerCode::ARTE->value]);
-                $offer = $offerRepository->findOneBy(['code' => OfferCode::STREAMING->value]);
+                $offer = $offerRepository->findOneBy(['code' => OfferCode::FREE_ACCESS->value]);
 
                 $repository = $this->entityManager->getRepository(SourceMovie::class);
                 $sourceMovie = $repository->findOneBy([

@@ -71,14 +71,14 @@ class LaCinetekApiImporter implements MovieImporterInterface
             $this->entityManager->persist($partner);
         }
 
-        // Create offer STREAMING if not exists.
+        // Create offer SVOD if not exists.
         $offerRepository = $this->entityManager->getRepository(Offer::class);
-        $offer = $offerRepository->findOneBy(['code' => OfferCode::STREAMING->value]);
+        $offer = $offerRepository->findOneBy(['code' => OfferCode::SVOD->value]);
 
         if (is_null($offer)) {
             $offer = new Offer();
-            $offer->setCode(OfferCode::STREAMING->value);
-            $offer->setName(ucfirst(OfferCode::STREAMING->value));
+            $offer->setCode(OfferCode::SVOD->value);
+            $offer->setName(ucfirst(OfferCode::SVOD->value));
             $this->entityManager->persist($offer);
         }
 
@@ -100,7 +100,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
               dump($title);
 
               $partner = $partnerRepository->findOneBy(['code' => PartnerCode::LACINETEK->value]);
-              $offer = $offerRepository->findOneBy(['code' => OfferCode::STREAMING->value]);
+              $offer = $offerRepository->findOneBy(['code' => OfferCode::SVOD->value]);
 
               $internalPartnerId = $movie['id'];
               $repository = $this->entityManager->getRepository(SourceMovie::class);

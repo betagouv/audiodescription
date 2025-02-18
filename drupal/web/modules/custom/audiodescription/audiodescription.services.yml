@@ -66,6 +66,7 @@ services:
     arguments:
       - '@entity_type.manager'
       - '@audiodescription.manager.offer'
+      - '@config_pages.loader'
 
   audiodescription.public_patrimony_importer:
     class: Drupal\audiodescription\Importer\Public\PublicPatrimonyImporter
