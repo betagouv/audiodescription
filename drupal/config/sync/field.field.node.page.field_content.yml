@@ -5,7 +5,10 @@ dependencies:
   config:
     - field.storage.node.field_content
     - node.type.page
+    - paragraphs.paragraphs_type.pg_cards
+    - paragraphs.paragraphs_type.pg_horizontal_card
     - paragraphs.paragraphs_type.pg_paragraph
+    - paragraphs.paragraphs_type.pg_video_iframe
   module:
     - entity_reference_revisions
 id: node.page.field_content
@@ -23,15 +26,36 @@ settings:
   handler_settings:
     target_bundles:
       pg_paragraph: pg_paragraph
+      pg_cards: pg_cards
+      pg_horizontal_card: pg_horizontal_card
+      pg_video_iframe: pg_video_iframe
     negate: 0
     target_bundles_drag_drop:
+      pg_card:
+        weight: 10
+        enabled: false
+      pg_cards:
+        weight: 11
+        enabled: true
       pg_cta:
         weight: 5
         enabled: false
       pg_documents:
         weight: 5
         enabled: false
+      pg_horizontal_card:
+        weight: 14
+        enabled: true
+      pg_offer:
+        weight: 15
+        enabled: false
       pg_paragraph:
         weight: 6
+        enabled: true
+      pg_partner:
+        weight: 17
+        enabled: false
+      pg_video_iframe:
+        weight: 18
         enabled: true
 field_type: entity_reference_revisions
