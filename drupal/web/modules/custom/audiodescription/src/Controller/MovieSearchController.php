@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Controller for building the search page V2 content.
  */
 class MovieSearchController extends ControllerBase {
-  private const PAGE_SIZE = 12;
+  private const PAGE_SIZE = 20;
 
   // Display 2 pages before current and 2 pages after current.
   private const PAGINATION_SIZE = 2;

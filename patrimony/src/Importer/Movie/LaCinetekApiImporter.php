@@ -24,6 +24,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class LaCinetekApiImporter implements MovieImporterInterface
 {
     const NB_PER_PAGE = 200;
+    const LACINETEK_ROOT_PATH = 'https://www.lacinetek.com';
 
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -154,7 +155,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                 $synopsis = '';
                 foreach ($movie['description'] as $description) {
                     if ($description['language'] == 'fr') {
-                        $synopsis = strip_tags($description['value']);
+                        $synopsis = html_entity_decode(strip_tags($description['value']));
                     }
                 }
 
@@ -195,7 +196,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                       $synopsis,
                       $partnerTvod,
                       $offerTvod,
-                      $movie['urls']['film']['fr'],
+                      self::LACINETEK_ROOT_PATH . $movie['urls']['film']['fr'],
                   );
 
                   $sourceMovieTvod = $entitiesTvod['sourceMovie'];
@@ -215,7 +216,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                         $synopsis,
                         $partnerSvod,
                         $offerSvod,
-                        $movie['urls']['svod']['fr'],
+                        self::LACINETEK_ROOT_PATH . $movie['urls']['svod']['fr'],
                     );
 
                     $sourceMovieSvod = $entitiesSvod['sourceMovie'];

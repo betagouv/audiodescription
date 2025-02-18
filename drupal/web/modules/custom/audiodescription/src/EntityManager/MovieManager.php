@@ -186,6 +186,7 @@ class MovieManager {
       $movie->set('field_public', $public->tid->value);
     }
 
+
     if (!is_null($synopsis)) {
       $movie->set('field_synopsis', [
         'value' => $synopsis,

@@ -4,6 +4,7 @@ namespace Drupal\audiodescription\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Database;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
@@ -98,8 +99,8 @@ class HomepageController extends ControllerBase {
       'chapo' => $homepage->get('field_header_chapo')->value,
       'has_search_bar' => $homepage->get('field_header_with_search_bar')->value,
       'cta' => $cta,
-      //'stats' => $this->countMoviesWithAtLeastOneSolution(),
-      'stats' => '0',
+      'stats' => $this->countMoviesWithAtLeastOneSolution(),
+      //'stats' => '0',
       'partners' => Term::loadMultiple($term_ids),
       'image' => $homepage->get('field_header_image')->entity->field_media_image->entity->uri->value
     ];
@@ -185,6 +186,37 @@ class HomepageController extends ControllerBase {
   }
 
   private function countMoviesWithAtLeastOneSolution():int {
+    $connection = Database::getConnection();
+
+    // Requête SQL brute
+    $sql = "
+    SELECT COUNT(m_sub.nid) as cnt
+    FROM node_field_data m_sub
+    WHERE m_sub.nid IN (
+      SELECT DISTINCT m.nid AS nid
+      FROM node_field_data m
+      LEFT JOIN paragraph__field_pg_offer po ON po.entity_id = m.nid
+      LEFT JOIN paragraph__field_pg_partners ps ON ps.entity_id = po.field_pg_offer_target_id
+      LEFT JOIN paragraphs_item s ON s.id = ps.field_pg_partners_target_id
+      LEFT JOIN paragraph__field_pg_start_rights sr ON s.id = sr.entity_id
+      LEFT JOIN paragraph__field_pg_end_rights er ON s.id = er.entity_id
+      WHERE m.type = 'movie'
+      AND m.status = 1
+      AND (
+        to_date(sr.field_pg_start_rights_value, 'YYYY-MM-DD') < NOW()
+        OR sr.field_pg_start_rights_value IS NULL
+        AND to_date(er.field_pg_end_rights_value, 'YYYY-MM-DD') > NOW()
+        OR er.field_pg_end_rights_value IS NULL
+      )
+    )";
+
+    // Exécution de la requête
+    $result = $connection->query($sql)->fetchField();
+
+    return $result;
+  }
+
+  private function countMoviesWithAtLeastOneSolution2():int {
     $current_date = new DrupalDateTime('now');
 
     $query = \Drupal::entityQuery('node')

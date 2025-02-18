@@ -74,6 +74,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           $orangeVodId = $movie['orangeVodId'] ?? null;
           $laCinetekId = $movie['laCinetekId'] ?? null;
 
+          if (is_null($laCinetekId)) continue;
+
           $hasAd = $movie['hasAd'];
           $productionYear = $movie['productionYear'] ?? null;
           $synopsis = $movie['synopsis'] ?? null;
