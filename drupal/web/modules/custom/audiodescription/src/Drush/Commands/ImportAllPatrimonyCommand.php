@@ -78,7 +78,6 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
       $this->logger()->success('Import des films terminé');
 
       $index = Index::load('movies');
-
       if ($index) {
         $this->output()->writeln('Indexation des films en cours...');
         $index->indexItems();

@@ -92,6 +92,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             $nationalities[] = $this->nationalityManager->createOrUpdate($nationality['name']);
           }**/
 
+
           foreach ($movie['genres'] as $genre) {
             if (isset($genre['mainGenre'])) {
               if (is_array($genre['mainGenre'])) {
@@ -110,18 +111,22 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
           foreach($movie['solutions'] as $solution) {
             $partner = $this->partnerManager->createOrUpdate(
-              $solution['partner']['code']
+              [
+                'code' => $solution['partner']['code']
+              ]
             );
 
             switch ($solution['partner']['code']) {
               case 'ARTE':
-              case 'LACINETEK':
               case 'FRANCE_TV':
-                $offerCode = 'STREAMING';
+                $offerCode = 'FREE_ACCESS';
                 break;
-              case 'CANAL_VOD':
               case 'ORANGE_VOD':
                 $offerCode = 'TVOD';
+                break;
+              case 'LACINETEK':
+              case 'CANAL_VOD':
+                $offerCode = 'SVOD';
                 break;
             }
 

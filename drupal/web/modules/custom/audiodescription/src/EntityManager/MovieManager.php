@@ -221,9 +221,6 @@ class MovieManager {
     foreach($solutions as $offerCode => $data) {
       $pg_partners = [];
       foreach ($data as $solution)  {
-        $start_rights = (new DateTime($solution['startRights']))->format('Y-m-d');
-        $end_rights = (new DateTime($solution['endRights']))->format('Y-m-d');
-
         $pg_partner = Paragraph::create([
           'type' => 'pg_partner',
           'field_pg_link' => [
@@ -231,10 +228,19 @@ class MovieManager {
           ],
           'field_pg_partner' => [
             'target_id' => $solution['partner']->id(),
-          ],
-          'field_pg_start_rights' => $start_rights,
-          'field_pg_end_rights' => $end_rights,
+          ]
         ]);
+
+        if (!is_null($solution['startRights'])) {
+          $start_rights = (new DateTime($solution['startRights']))->format('Y-m-d');
+          $pg_partner->set('field_pg_start_rights', $start_rights);
+        }
+
+        if (!is_null($solution['endRights'])) {
+          $end_rights = (new DateTime($solution['endRights']))->format('Y-m-d');
+          $pg_partner->set('field_pg_end_rights', $end_rights);
+        }
+
         $pg_partner->save();
 
         $pg_partners[] = [

@@ -19,8 +19,6 @@ class PartnerManager {
    * Create or update partner taxonomy term.
    */
   public function createOrUpdate(array $data): ?Term {
-
-    $name = trim($data['name']);
     $code = trim($data['code']);
 
     $properties = [
@@ -38,10 +36,13 @@ class PartnerManager {
     }
 
     if (is_null($partner)) {
+      $properties['name'] = $data['name'] ?? $data['code'];
       $partner = Term::create($properties);
     }
 
-    $partner->setName($name);
+    if (isset($data['name']) && !is_null($data['name'])) {
+      $partner->setName($data['name']);
+    }
 
     if (isset($data['pronunciation']) && !empty($data['pronunciation'])) {
       $partner->set('field_taxo_pronunciation', $data['pronunciation']);
