@@ -64,6 +64,9 @@ class HeaderSearchFormBlock extends BlockBase implements ContainerFactoryPluginI
     return [
       '#theme' => 'header_search_form_block',
       '#form' => $form,
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 
