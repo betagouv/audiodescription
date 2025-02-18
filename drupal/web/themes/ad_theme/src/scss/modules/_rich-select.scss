@@ -43,6 +43,11 @@
       overflow-y: scroll;
       scrollbar-color: lightgrey white;
       scrollbar-width: thin;
+      width: 100%;
+
+      .fr-fieldset__element {
+        margin-bottom: .5rem;
+      }
     }
 
     .fr-fieldset {
@@ -67,4 +72,8 @@
   .fr-text {
     margin: 0;
   }
+}
+
+.fr-select-group {
+  margin-bottom: .5rem !important;
 }

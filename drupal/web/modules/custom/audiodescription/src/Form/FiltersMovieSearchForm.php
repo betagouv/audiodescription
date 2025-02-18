@@ -160,13 +160,26 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#suffix' => '</div>',
     ];**/
 
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('public');
+    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['vid' => 'public']);
     $options = [];
 
-    foreach ($terms as $term) {
-      $options[$term->tid] = $term->name;
-    }
+    usort($terms, function($a, $b) {
+      $a = $a->get('field_taxo_code')->value;
+      $b = $b->get('field_taxo_code')->value;
 
+      if ($a == 'TP') $a = 0;
+      if ($b == 'TP') $b = 0;
+
+      if ($a == $b) {
+        return 0;
+      }
+      return ($a < $b) ? -1 : 1;
+    });
+
+    foreach ($terms as $term) {
+      $options[$term->get('tid')->value] = $term->getName();
+    }
+    
     $form['infos']['fields']['public'] = [
       '#type' => 'select',
       '#title' => $this->t('Public'),
@@ -180,6 +193,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       '#singular_title' => 'public',
       '#plural_title' => 'publics',
       '#is_female' => FALSE,
+      '#options_sorted' => FALSE
     ];
 
     /**$form['viewing'] = [
@@ -198,7 +212,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
 
     $form['infos']['fields']['partner'] = [
       '#type' => 'select',
-      '#title' => $this->t('Plateformes'),
+      '#title' => $this->t('Plateforme'),
       '#options' => $options,
       // Mettre à TRUE si vous voulez un select multiple.
       '#multiple' => TRUE,
