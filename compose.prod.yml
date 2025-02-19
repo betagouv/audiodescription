@@ -43,7 +43,8 @@ services:
       - "traefik.http.routers.audiodescription.entrypoints=websecure"
 
   db:
-    image: postgres:latest
+    image: postgres:16-bookworm
+    restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./docker/postgres/init-patrimony-db.sh:/docker-entrypoint-initdb.d/init-patrimony-db.sh
