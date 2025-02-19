@@ -4,6 +4,7 @@ namespace Drupal\audiodescription\Breadcrumb;
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\views\Views;
@@ -26,13 +27,10 @@ class MovieBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
-    $breadcrumb->addCacheContexts(['url.path']);
-    $breadcrumb->addCacheContexts(['url']);
 
     $breadcrumb->addLink(Link::createFromRoute(t('Home'), '<front>'));
 
     $node = $route_match->getParameter('node');
-    $breadcrumb->addCacheTags(["node:{$node->id()}"]);
 
     $genres = $node->get('field_genres')->referencedEntities();
 
@@ -65,6 +63,9 @@ class MovieBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $breadcrumb->addLink(
       Link::createFromRoute($node->getTitle(), 'entity.node.canonical', ['node' => $node->nid->value])
     );
+
+    // Désactiver totalement le cache en supprimant toutes les métadonnées
+    $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
 
     return $breadcrumb;
   }

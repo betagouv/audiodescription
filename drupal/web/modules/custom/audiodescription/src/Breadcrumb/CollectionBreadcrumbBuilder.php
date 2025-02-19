@@ -4,6 +4,7 @@ namespace Drupal\audiodescription\Breadcrumb;
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -32,8 +33,11 @@ class CollectionBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     $taxonomy_term = $route_match->getParameter('taxonomy_term');
     $tid = $taxonomy_term->id();
-    $breadcrumb->addCacheTags(["taxonomy_term:{$tid}"]);
+
     $breadcrumb->addLink(Link::createFromRoute($taxonomy_term->getName(), 'entity.taxonomy_term.canonical', ['taxonomy_term' => $tid]));
+
+    // Désactiver totalement le cache en supprimant toutes les métadonnées
+    $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
 
     return $breadcrumb;
   }

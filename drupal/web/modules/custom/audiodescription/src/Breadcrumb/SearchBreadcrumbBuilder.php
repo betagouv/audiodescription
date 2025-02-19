@@ -4,6 +4,7 @@ namespace Drupal\audiodescription\Breadcrumb;
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -23,8 +24,6 @@ class SearchBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
-    $breadcrumb->addCacheContexts(['url']);
-    $breadcrumb->addCacheTags(["node:list"]);
 
     $breadcrumb->addLink(Link::createFromRoute(t('Home'), '<front>'));
 
@@ -34,6 +33,9 @@ class SearchBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         $route_match->getRouteName()
       )
     );
+
+    // Désactiver totalement le cache en supprimant toutes les métadonnées
+    $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
 
     return $breadcrumb;
   }

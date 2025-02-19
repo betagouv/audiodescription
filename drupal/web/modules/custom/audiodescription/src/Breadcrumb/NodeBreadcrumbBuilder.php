@@ -4,6 +4,7 @@ namespace Drupal\audiodescription\Breadcrumb;
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Menu\MenuLinkTreeInterface;
@@ -92,11 +93,14 @@ class NodeBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     if (count($parameters->activeTrail) == 0) {
       $node = $route_match->getParameter('node');
-      $breadcrumb->addCacheTags(["node:{$node->id()}"]);
+
       $breadcrumb->addLink(
         Link::createFromRoute($node->getTitle(), 'entity.node.canonical', ['node' => $node->nid->value])
       );
     }
+
+    // Désactiver totalement le cache en supprimant toutes les métadonnées
+    $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
 
     return $breadcrumb;
   }
