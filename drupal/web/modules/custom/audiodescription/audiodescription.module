@@ -153,6 +153,10 @@ function audiodescription_block_view_alter(array &$build, BlockPluginInterface $
       $build = [];
     }
   }
+
+  if ($block->getBaseId() === 'system_breadcrumb_block') {
+    $build['#cache']['max-age'] = 0;
+  }
 }
 
 function audiodescription_node_update(EntityInterface $entity) {
