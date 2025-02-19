@@ -447,4 +447,3 @@ function ad_theme_preprocess_node__movie__card(&$variables)
     ];
   }
 }
-

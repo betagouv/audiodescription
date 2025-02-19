@@ -7,7 +7,9 @@ logo:
   use_default: 0
   path: ''
 favicon:
-  use_default: 1
+  use_default: 0
+  path: 'public://favicon.svg'
+  mimetype: image/svg+xml
 container: fr-container--fluid
 available_colors: {  }
 logo_text: 'Ministère \nde la Culture'
