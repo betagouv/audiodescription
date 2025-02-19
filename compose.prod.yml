@@ -55,15 +55,16 @@ services:
       - ad-network
 
   elasticsearch:
+    restart: always
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - ES_JAVA_OPTS=-Xms2048m -Xmx2048m
     deploy:
       resources:
         limits:
-          memory: 1500M
+          memory: 2048M
     volumes:
       - elastic-data:/usr/share/elasticsearch/data
     networks:

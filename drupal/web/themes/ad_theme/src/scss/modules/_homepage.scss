@@ -2,6 +2,7 @@
   &__infos {
     &-content {
       order: 2;
+      padding-right: 0;
     }
 
     &-image {
@@ -46,13 +47,17 @@
     &__infos {
       &-content {
         order: 1;
+        padding-right: 1.5rem;
       }
 
       &-image {
         order: 2;
+        align-self: center;
 
         img {
           width: initial;
+          object-fit: cover;
+          display: block;
         }
       }
     }
