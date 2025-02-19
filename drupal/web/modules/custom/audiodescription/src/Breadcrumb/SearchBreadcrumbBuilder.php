@@ -24,6 +24,7 @@ class SearchBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
     $breadcrumb->addCacheContexts(['url']);
+    $breadcrumb->addCacheTags(["node:list"]);
 
     $breadcrumb->addLink(Link::createFromRoute(t('Home'), '<front>'));
 

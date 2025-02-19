@@ -65,6 +65,7 @@ class NodeBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
+    $breadcrumb->addCacheContexts(['url.path']);
     $breadcrumb->addCacheContexts(['url']);
 
     // Add the 'Home' link.
@@ -91,6 +92,7 @@ class NodeBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     if (count($parameters->activeTrail) == 0) {
       $node = $route_match->getParameter('node');
+      $breadcrumb->addCacheTags(["node:{$node->id()}"]);
       $breadcrumb->addLink(
         Link::createFromRoute($node->getTitle(), 'entity.node.canonical', ['node' => $node->nid->value])
       );

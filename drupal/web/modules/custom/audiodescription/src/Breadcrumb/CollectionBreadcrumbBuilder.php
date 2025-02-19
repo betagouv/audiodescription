@@ -32,6 +32,7 @@ class CollectionBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     $taxonomy_term = $route_match->getParameter('taxonomy_term');
     $tid = $taxonomy_term->id();
+    $breadcrumb->addCacheTags(["taxonomy_term:{$tid}"]);
     $breadcrumb->addLink(Link::createFromRoute($taxonomy_term->getName(), 'entity.taxonomy_term.canonical', ['taxonomy_term' => $tid]));
 
     return $breadcrumb;
