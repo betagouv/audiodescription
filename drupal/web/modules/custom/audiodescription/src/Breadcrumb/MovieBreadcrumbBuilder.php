@@ -26,11 +26,15 @@ class MovieBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = new Breadcrumb();
+    $breadcrumb->addCacheContexts(['url.path']);
+
     $breadcrumb->addCacheContexts(['url']);
 
     $breadcrumb->addLink(Link::createFromRoute(t('Home'), '<front>'));
 
     $node = $route_match->getParameter('node');
+    $breadcrumb->addCacheTags(["node:{$node->id()}"]);
+
     $genres = $node->get('field_genres')->referencedEntities();
 
     if (!empty($genres)) {
