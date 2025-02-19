@@ -91,7 +91,9 @@ class HomepageController extends ControllerBase {
     $query = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', 'partner')
       ->exists('field_taxo_logo_black_square')
-      ->accessCheck(FALSE);
+      ->accessCheck(FALSE)
+      ->sort('field_taxo_order', 'ASC');
+
     $term_ids = $query->execute();
 
     $header = [
