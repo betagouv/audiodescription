@@ -6,6 +6,7 @@ use App\Entity\Patrimony\Movie;
 use App\Entity\Patrimony\Offer;
 use App\Entity\Patrimony\Partner;
 use App\Entity\Source\SourceMovie;
+use App\EntityManager\DirectorManager;
 use App\EntityManager\MovieManager;
 use App\EntityManager\SolutionManager;
 use App\EntityManager\SourceMovieManager;
@@ -14,6 +15,7 @@ use App\Enum\PartnerCode;
 use App\Repository\MovieRepository;
 use App\Repository\SolutionRepository;
 use App\Repository\SourceMovieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -36,6 +38,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
         private SolutionRepository $solutionRepository,
         private SourceMovieRepository $sourceMovieRepository,
         private MovieRepository $movieRepository,
+        private DirectorManager $directorManager,
     )
     {
     }
@@ -129,6 +132,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                 }
 
                 dump($title);
+
                 $internalPartnerId = $movie['id'];
                 $ids = [];
                 $ids['laCinetekId'] = $internalPartnerId;
@@ -166,16 +170,15 @@ class LaCinetekApiImporter implements MovieImporterInterface
                     $duration = ((int)$hours * 60) + (int)$minutes;
                 }
 
+                $directors = [];
+                foreach ($movie['directors'] as $director) {
+                    $directors[] = [
+                        'fullname' => $director
+                    ];
+                }
+
                 $isTvod = $movie['availability']['tvod']['fr'];
                 $isSvod = $movie['availability']['svod']['fr'];
-
-                if($isTvod && $isSvod) {
-                    //dd($movie['availability']);
-                }
-                dump($movie['availability']);
-
-                dump($isTvod);
-                dump($isSvod);
 
 
               $partnerTvod = $partnerRepository->findOneBy(['code' => PartnerCode::LACINETEK_TVOD->value]);
@@ -194,6 +197,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                       $casting,
                       $duration,
                       $synopsis,
+                      $directors,
                       $partnerTvod,
                       $offerTvod,
                       self::LACINETEK_ROOT_PATH . $movie['urls']['film']['fr'],
@@ -214,6 +218,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                         $casting,
                         $duration,
                         $synopsis,
+                        $directors,
                         $partnerSvod,
                         $offerSvod,
                         self::LACINETEK_ROOT_PATH . $movie['urls']['svod']['fr'],
@@ -237,6 +242,14 @@ class LaCinetekApiImporter implements MovieImporterInterface
                     if (is_null($movie)) {
                         $movie = $this->movieManager->create($sourceMovie);
                         $this->entityManager->persist($movie);
+                    } else {
+                        $sourceDirectors = $sourceMovie->getDirectors();
+                        $directors = [];
+
+                        foreach ($sourceDirectors as $sourceDirector) {
+                            $directors[] = $this->directorManager->findOrCreate($sourceDirector);
+                        }
+                        $movie->setDirectors(new ArrayCollection($directors));
                     }
 
                     if ($isSvod) {
@@ -266,6 +279,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
         $casting,
         $duration,
         $synopsis,
+        $directors,
         $partner,
         $offer,
         $url
@@ -294,6 +308,8 @@ class LaCinetekApiImporter implements MovieImporterInterface
         $sourceMovie->setSynopsis($synopsis);
 
         $sourceMovie->setExternalIds($externalIds);
+
+        $sourceMovie->setDirectors($directors);
 
         $this->entityManager->persist($sourceMovie);
 

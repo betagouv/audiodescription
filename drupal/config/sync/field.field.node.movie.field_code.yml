@@ -1,0 +1,19 @@
+uuid: 1cff2e84-d4fc-41ef-917b-f7a6a65800f7
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_code
+    - node.type.movie
+id: node.movie.field_code
+field_name: field_code
+entity_type: node
+bundle: movie
+label: Code
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

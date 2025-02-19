@@ -13,6 +13,7 @@ use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\User;
 use Drupal\file\Entity\File;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * Create test users.

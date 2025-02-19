@@ -179,7 +179,7 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
     foreach ($terms as $term) {
       $options[$term->get('tid')->value] = $term->getName();
     }
-    
+
     $form['infos']['fields']['public'] = [
       '#type' => 'select',
       '#title' => $this->t('Public'),

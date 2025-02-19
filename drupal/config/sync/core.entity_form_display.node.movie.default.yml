@@ -7,8 +7,10 @@ dependencies:
     - field.field.node.movie.field_allocine_id
     - field.field.node.movie.field_arte_id
     - field.field.node.movie.field_canal_vod_id
+    - field.field.node.movie.field_code
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
+    - field.field.node.movie.field_france_tv_id
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_lacinetek_id
@@ -34,6 +36,7 @@ third_party_settings:
         - field_allocine_id
         - field_arte_id
         - field_canal_vod_id
+        - field_france_tv_id
         - field_lacinetek_id
         - field_orange_vod_id
       label: Identifiants
@@ -89,6 +92,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_code:
+    type: string_textfield
+    weight: 32
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_directors:
     type: entity_reference_autocomplete
     weight: 9
@@ -104,6 +115,14 @@ content:
     weight: 11
     region: content
     settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_france_tv_id:
+    type: string_textfield
+    weight: 29
+    region: content
+    settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_genres:
@@ -125,7 +144,7 @@ content:
     third_party_settings: {  }
   field_lacinetek_id:
     type: string_textfield
-    weight: 29
+    weight: 30
     region: content
     settings:
       size: 60
@@ -161,7 +180,7 @@ content:
     third_party_settings: {  }
   field_orange_vod_id:
     type: string_textfield
-    weight: 30
+    weight: 31
     region: content
     settings:
       size: 60

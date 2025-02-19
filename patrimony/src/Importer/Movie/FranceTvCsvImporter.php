@@ -134,7 +134,8 @@ class FranceTvCsvImporter implements MovieImporterInterface
 
           $sourceMovie->setCasting($casting);
 
-          $synopsis = strip_tags($line['description']);
+          $synopsis = html_entity_decode(strip_tags($line['description']));
+
           $sourceMovie->setSynopsis($synopsis);
 
           $this->entityManager->persist($sourceMovie);

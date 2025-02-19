@@ -4,9 +4,7 @@ namespace Drupal\audiodescription\EntityManager;
 
 use DateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileExists;
 use Drupal\file\FileRepositoryInterface;
-use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Term;
@@ -125,6 +123,8 @@ class MovieManager {
     ?string $canalVodId,
     ?string $laCinetekId,
     ?string $orangeVodId,
+    ?string $franceTvId,
+    string $code,
     string $hasAd,
     ?string $productionYear,
     Term|null $public,
@@ -134,7 +134,7 @@ class MovieManager {
     ?string $synopsis,
     ?string $poster,
   ): Node {
-    $movies = $this->findExistingMovies($allocineId, $arteId, $canalVodId);
+    $movies = $this->findExistingMovies($code);
 
     // BUG.
     if (count($movies) > 1) {
@@ -179,8 +179,10 @@ class MovieManager {
     if (!is_null($allocineId)) $movie->set('field_allocine_id', $allocineId);
     if (!is_null($arteId)) $movie->set('field_arte_id', $arteId);
     if (!is_null($canalVodId)) $movie->set('field_canal_vod_id', $canalVodId);
+    if (!is_null($franceTvId)) $movie->set('field_france_tv_id', $franceTvId);
     if (!is_null($laCinetekId)) $movie->set('field_lacinetek_id', $laCinetekId);
     if (!is_null($orangeVodId)) $movie->set('field_orange_vod_id', $orangeVodId);
+    if (!is_null($code)) $movie->set('field_code', $code);
 
     if (!is_null($public)) {
       $movie->set('field_public', $public->tid->value);
@@ -188,7 +190,7 @@ class MovieManager {
 
     if (!is_null($synopsis)) {
       $movie->set('field_synopsis', [
-        'value' => $synopsis,
+        'value' => html_entity_decode(strip_tags($synopsis)),
         'format' => 'basic_html',
       ]);
     }
@@ -274,17 +276,13 @@ class MovieManager {
     return $movie;
   }
 
-  private function findExistingMovies($allocineId, $arteId, $canalVodId): array {
+  private function findExistingMovies(
+    $code
+  ) : array {
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'movie')
+      ->condition('field_code', $code)
       ->accessCheck(TRUE);
-
-    $orGroup = $query->orConditionGroup()
-      ->condition('field_allocine_id', $allocineId)
-      ->condition('field_arte_id', $arteId)
-      ->condition('field_canal_vod_id', $canalVodId);
-
-    $query->condition($orGroup);
 
     // Exécute la requête pour récupérer les IDs des entités correspondantes.
     $nids = $query->execute();

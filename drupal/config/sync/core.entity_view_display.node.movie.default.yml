@@ -7,8 +7,10 @@ dependencies:
     - field.field.node.movie.field_allocine_id
     - field.field.node.movie.field_arte_id
     - field.field.node.movie.field_canal_vod_id
+    - field.field.node.movie.field_code
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
+    - field.field.node.movie.field_france_tv_id
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_lacinetek_id
@@ -62,6 +64,14 @@ content:
     third_party_settings: {  }
     weight: 120
     region: content
+  field_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 125
+    region: content
   field_directors:
     type: entity_reference_label
     label: above
@@ -78,6 +88,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 107
+    region: content
+  field_france_tv_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 124
     region: content
   field_genres:
     type: entity_reference_label

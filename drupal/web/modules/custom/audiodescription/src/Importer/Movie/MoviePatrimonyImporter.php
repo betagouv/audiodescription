@@ -72,10 +72,11 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           $allocineId = $movie['allocineId'] ?? null;
           $orangeVodId = $movie['orangeVodId'] ?? null;
           $laCinetekId = $movie['laCinetekId'] ?? null;
+          $franceTvId = $movie['franceTvId'] ?? null;
 
           $hasAd = $movie['hasAd'];
           $productionYear = $movie['productionYear'] ?? null;
-          $synopsis = $movie['synopsis'] ?? null;
+          $synopsis = html_entity_decode(strip_tags($movie['synopsis'])) ?? null;
           //$nationalities = [];
           $genres = [];
           $directors = [];
@@ -150,6 +151,8 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             $canalVodId,
             $laCinetekId,
             $orangeVodId,
+            $franceTvId,
+            $code,
             $hasAd,
             $productionYear,
             $public,

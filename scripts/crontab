@@ -1,0 +1,1 @@
+5 1 * * * cd /opt/application/audiodescription && docker compose exec -T php vendor/bin/drush adia >> /opt/application/audiodescription/logs/adia.log

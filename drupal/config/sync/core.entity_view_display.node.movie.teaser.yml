@@ -8,8 +8,10 @@ dependencies:
     - field.field.node.movie.field_allocine_id
     - field.field.node.movie.field_arte_id
     - field.field.node.movie.field_canal_vod_id
+    - field.field.node.movie.field_code
     - field.field.node.movie.field_directors
     - field.field.node.movie.field_duration
+    - field.field.node.movie.field_france_tv_id
     - field.field.node.movie.field_genres
     - field.field.node.movie.field_has_ad
     - field.field.node.movie.field_lacinetek_id
@@ -34,8 +36,10 @@ hidden:
   field_allocine_id: true
   field_arte_id: true
   field_canal_vod_id: true
+  field_code: true
   field_directors: true
   field_duration: true
+  field_france_tv_id: true
   field_genres: true
   field_has_ad: true
   field_lacinetek_id: true
