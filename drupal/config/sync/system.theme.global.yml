@@ -2,9 +2,9 @@ _core:
   default_config_hash: KZiV2LB312xgJBphfq5BTjmp16xiR5KM8InBJ-pff7Y
 favicon:
   mimetype: image/vnd.microsoft.icon
-  path: ''
+  path: 'public://favicon.ico'
   url: ''
-  use_default: true
+  use_default: false
 features:
   comment_user_picture: true
   comment_user_verification: true
@@ -13,4 +13,4 @@ features:
 logo:
   path: 'public://Capture d’écran 2024-07-25 à 11.17.21.png'
   url: null
-  use_default: true
+  use_default: false
