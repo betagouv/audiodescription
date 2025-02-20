@@ -3,7 +3,7 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.taxonomy_term.list
+    - core.entity_view_mode.taxonomy_term.tile
     - taxonomy.vocabulary.genre
   module:
     - taxonomy
@@ -141,7 +141,7 @@ display:
         type: 'entity:taxonomy_term'
         options:
           relationship: none
-          view_mode: list
+          view_mode: tile
       query:
         type: views_query
         options:

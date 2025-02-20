@@ -7,6 +7,7 @@ use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\views\Views;
 
 /**
@@ -54,15 +55,17 @@ class MovieBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       );
 
       $genre = $genres[0];
+      $search_url = Url::fromUri('internal:/recherche', [
+        'query' => [
+          'genre[0]' => $genre->tid->value,
+        ],
+      ]);
 
+      $breadcrumb->addLink(Link::fromTextAndUrl($genre->getName(), $search_url));
       $breadcrumb->addLink(
         Link::createFromRoute($genre->name->value, 'entity.taxonomy_term.canonical', ['taxonomy_term' => $genre->tid->value])
       );
     }
-
-    $breadcrumb->addLink(
-      Link::createFromRoute($node->getTitle(), 'entity.node.canonical', ['node' => $node->nid->value])
-    );
 
     // Désactiver totalement le cache en supprimant toutes les métadonnées
     $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
