@@ -32,10 +32,12 @@
   {% set movies = term.field_taxo_movies %}
 
 
+
   <div class="fr-pt-3w fr-pb-3w">
     {% for data in movies %}
       {% set movie = data.entity %}
-      {% include '@ad_theme/node/node--movie--teaser.html.twig' with { 'node': movie, 'url': urls[movie.nid.value] } %}
+      {% set url = path('entity.node.canonical', {'node': movie.id()}) %}
+      {% include '@ad_theme/node/node--movie--teaser.html.twig' with { 'node': movie, 'url': url } %}
     {% endfor %}
   </div>
 </div>

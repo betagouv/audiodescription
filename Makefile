@@ -18,6 +18,53 @@ up:
 down:
 	docker compose down -t 0
 
+.PHONY: prd-up
+prd-up:
+	cd /opt/audiodescription
+	docker compose -f compose.prod.yml up -d --build --remove-orphans -t 0
+
+.PHONY: prd-down
+prd-down:
+	cd /opt/audiodescription
+	docker compose -f compose.prod.yml down -t 0
+
+.PHONY: prd-install
+prd-install:
+	make prd-install-patrimony
+	make prd-install-drupal
+
+.PHONY: prd-install-drupal
+prd-install-drupal:
+	docker compose exec drupal composer install
+	docker compose exec drupal vendor/bin/drush si -y
+	docker compose exec drupal vendor/bin/drush cset system.site uuid e6c1838c-d5b1-4d0c-8c20-9405ca9991f6 -y
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush entity:delete shortcut
+	docker compose exec drupal vendor/bin/drush cim -y || true
+	docker compose exec drupal vendor/bin/drush cim -y
+	docker compose exec drupal vendor/bin/drush updb -y
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush locale:check
+	docker compose exec drupal vendor/bin/drush locale:update
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush adia
+	docker compose exec drupal vendor/bin/drush adum
+	docker compose exec drupal vendor/bin/drush cr
+
+.PHONY: prd-install-patrimony
+prd-install-patrimony:
+	docker compose exec patrimony composer install
+	docker compose exec patrimony php bin/console doctrine:database:create
+	docker compose exec patrimony php bin/console doctrine:migrations:migrate --no-interaction
+	docker compose exec patrimony php bin/console c:c
+	docker compose exec patrimony php bin/console ad:import:cnc-public
+	docker compose exec patrimony php bin/console ad:import:canalvod-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:canalreplay-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:orangevod-csv --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
+
 .PHONY:pt-import-all
 pt-import-all:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
@@ -68,6 +115,8 @@ pt-import:
 .PHONY:d-import
 d-import:
 	docker compose exec drupal vendor/bin/drush adia
+	docker compose exec drupal vendor/bin/drush adum
+	docker compose exec drupal vendor/bin/drush cr
 
 .PHONY:sh
 sh:
