@@ -1,0 +1,14 @@
+uuid: e1cc0f35-3a56-4ff2-993b-98d7832ea885
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.dev
+  module:
+    - user
+id: user_remove_role_action.dev
+label: 'Enlever le rôle Développeur des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: dev

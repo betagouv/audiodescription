@@ -1,0 +1,23 @@
+uuid: cfd67b90-5f22-4eed-9662-36f70719781e
+langcode: fr
+status: true
+dependencies:
+  module:
+    - contextual
+    - devel
+    - help
+    - navigation
+    - system
+id: dev
+label: Développeur
+weight: 6
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access contextual links'
+  - 'access devel information'
+  - 'access help pages'
+  - 'access navigation'
+  - 'access site in maintenance mode'
+  - 'administer site configuration'
+  - 'view the administration theme'

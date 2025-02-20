@@ -1,0 +1,14 @@
+uuid: 599d2fc2-fffb-4584-929f-511412883743
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.dev
+  module:
+    - user
+id: user_add_role_action.dev
+label: 'Ajouter le rôle Développeur aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: dev
