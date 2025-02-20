@@ -1,0 +1,9 @@
+/var/log/audiodescription/cron-import.log {
+	daily
+	rotate 15
+	compress
+	delaycompress
+	missingok
+	notifempty
+	create 644 deployer deployer
+}
