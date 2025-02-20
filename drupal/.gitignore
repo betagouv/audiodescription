@@ -65,3 +65,5 @@
 /drupal
 
 elasticsearch/
+
+keys/*.key
