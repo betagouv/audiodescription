@@ -185,13 +185,23 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
       return ($a < $b) ? -1 : 1;
     });
 
+    foreach($pg_partners as $key => $partner) {
+      $today = new DateTime();
+      $startDate = $partner->get('field_pg_start_rights')->value ?? null;
+      $endDate = $partner->get('field_pg_end_rights')->value ?? null;
 
-    $offers[] = [
-      'offer' => $pg_offer,
-      'partners' => $pg_partners
-    ];
+      if ($today > $startDate || $endDate > $today) {
+        unset($pg_partners[$key]);
+      }
+    }
+
+    if (!empty($pg_partners)) {
+      $offers[] = [
+        'offer' => $pg_offer,
+        'partners' => $pg_partners
+      ];
+    }
   }
-
 
   $variables['block_platforms'] = [
     'title' => $config->get('field_block_platforms_title')->value,
