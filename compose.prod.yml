@@ -41,7 +41,7 @@ services:
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.audiodescription.rule=Host(`audiodescription.beta.gouv.fr`)"
+      - "traefik.http.routers.audiodescription.rule=Host(`audiodescription.beta.gouv.fr`, `www.audiodescription.beta.gouv.fr`)"
       - "traefik.http.routers.audiodescription.entrypoints=websecure"
       - "traefik.http.routers.audiodescription.middlewares=strip-www"
       - "traefik.http.middlewares.strip-www.redirectregex.regex=^https?://www\\.(.*)"
