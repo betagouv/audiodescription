@@ -189,7 +189,7 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
       $today = (new DateTime())->format('Y-m-d');
       $startDate = $partner->get('field_pg_start_rights')->value ?? null;
       $endDate = $partner->get('field_pg_end_rights')->value ?? null;
-      
+
       if ($today < $startDate || $endDate < $today) {
         unset($pg_partners[$key]);
       }
