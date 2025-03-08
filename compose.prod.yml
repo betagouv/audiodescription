@@ -16,10 +16,8 @@ services:
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.audiodescription_patrimony.rule=Host(`audiodescription.beta.gouv.fr`) && PathPrefix(`/patrimony`)"
+      - "traefik.http.routers.audiodescription_patrimony.rule=Host(`patrimony.audiodescription.beta.gouv.fr`)"
       - "traefik.http.routers.audiodescription_patrimony.entrypoints=websecure"
-      - "traefik.http.middlewares.remove-prefix.stripprefix.prefixes=/patrimony"
-      - "traefik.http.routers.audiodescription_patrimony.middlewares=remove-prefix"
       - "traefik.http.routers.audiodescription_patrimony.middlewares=strip-www"
 
   drupal:
@@ -44,9 +42,6 @@ services:
       - "traefik.http.routers.audiodescription.rule=Host(`audiodescription.beta.gouv.fr`) || Host(`www.audiodescription.beta.gouv.fr`)"
       - "traefik.http.routers.audiodescription.entrypoints=websecure"
       - "traefik.http.routers.audiodescription.middlewares=strip-www"
-      - "traefik.http.middlewares.strip-www.redirectregex.regex=^https?://www\\.(.*)"
-      - "traefik.http.middlewares.strip-www.redirectregex.replacement=https://$1"
-      - "traefik.http.middlewares.strip-www.redirectregex.permanent=true"
 
   db:
     image: postgres:17-bookworm
