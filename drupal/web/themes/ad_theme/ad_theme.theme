@@ -397,12 +397,15 @@ function ad_theme_preprocess_html(&$variables)
 {
   $config_pages = \Drupal::service('config_pages.loader');
   $config = $config_pages->load('patrimony');
-  $isEnabled = $config->get('field_enable_matomo')->value ?? null;
 
-  if ($isEnabled) {
-    $variables['matomo'] = [
-      'enabled' => $isEnabled,
-    ];
+  if (!is_null($config)) {
+    $isEnabled = $config->get('field_enable_matomo')->value ?? null;
+
+    if ($isEnabled) {
+      $variables['matomo'] = [
+        'enabled' => $isEnabled,
+      ];
+    }
   }
 }
 
