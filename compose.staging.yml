@@ -1,64 +1,78 @@
 services:
-  nginx:
-    image: nginx:latest
+  patrimony:
+    build:
+      context: .
+      dockerfile: ./docker/patrimony/prod/php/Dockerfile
+    restart: always
+    working_dir: /app/public/patrimony
     ports:
-      - "8097:80"
+      - 8100:80
     volumes:
-      - ./drupal:/var/www/html
-      - ./docker/prod/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - php
+      - .:/app/public
+      - ./docker/patrimony/prod/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/patrimony/prod/php/php.ini:/usr/local/etc/php/php.ini
     networks:
-      - drupal-network
+      - ad-network
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.audiodescription.rule=Host(`audiodescription.corfm.at`, `audiodescription.incubateur.net`)"
-      - "traefik.http.routers.audiodescription.entrypoints=websecure"
+      - "traefik.http.routers.audiodescription_patrimony.rule=Host(`patrimony.corfm.at`)"
+      - "traefik.http.routers.audiodescription_patrimony.entrypoints=websecure"
+      - "traefik.http.routers.audiodescription_patrimony.middlewares=strip-www"
 
-  php:
+  drupal:
+    restart: always
     build:
       context: .
-      dockerfile: docker/prod/php/Dockerfile
+      dockerfile: docker/drupal/prod/php/Dockerfile
+    ports:
+      - 8097:80
+    working_dir: /app/public/drupal
     volumes:
-      - ./drupal:/var/www/html
-      - ./docker/prod/php/php.ini:/usr/local/etc/php/php.ini
+      - .:/app/public
+      - ./docker/drupal/prod/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/drupal/prod/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
     networks:
-      - drupal-network
+      - ad-network
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.audiodescription.rule=Host(`audiodescription.corfm.at`) || Host(`www.audiodescription.corfm.at`)"
+      - "traefik.http.routers.audiodescription.entrypoints=websecure"
+      - "traefik.http.routers.audiodescription.middlewares=strip-www"
 
   db:
-    image: postgres:latest
+    image: postgres:17-bookworm
+    restart: always
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./docker/postgres/init-patrimony-db.sh:/docker-entrypoint-initdb.d/init-patrimony-db.sh
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
-      - drupal-network
+      - ad-network
 
   elasticsearch:
+    restart: always
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-    deploy:
-      resources:
-        limits:
-          memory: 1500M
+      - ES_JAVA_OPTS=-Xms2048m -Xmx2048m
     volumes:
       - elastic-data:/usr/share/elasticsearch/data
     networks:
-      - drupal-network
+      - ad-network
 
 volumes:
   db-data:
   elastic-data:
 
 networks:
-  drupal-network:
+  ad-network:
   web:
     external: true
