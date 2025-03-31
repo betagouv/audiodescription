@@ -42,7 +42,9 @@ class OfferManager {
     }
 
     $name = $data['name'] ?? null;
-    if (is_null($name)) $name = $offer->getName() ?? $code;
+    if (is_null($name)) {
+      $name = !empty($offer->getName()) ? $offer->getName() : $code;
+    }
     $offer->setName($name);
 
     if (isset($data['order']) && !is_null($data['order'])) {
