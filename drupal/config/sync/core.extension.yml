@@ -11,6 +11,7 @@ module:
   ckeditor5: 0
   config: 0
   config_pages: 0
+  config_split: 0
   consumers: 0
   contextual: 0
   datetime: 0
@@ -39,7 +40,6 @@ module:
   media_library: 0
   menu_link_content: 0
   menu_ui: 0
-  metatag: 0
   navigation: 0
   navigation_top_bar: 0
   node: 0

@@ -7,6 +7,5 @@ _core:
 id: '403'
 label: 'page 403 accès refusé'
 tags:
-  robots: noindex
   canonical_url: '[site:url]'
   shortlink: '[site:url]'

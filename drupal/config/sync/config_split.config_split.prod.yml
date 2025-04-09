@@ -1,0 +1,17 @@
+uuid: 0f47b9d9-ffeb-4a2d-8607-c4e2510bf931
+langcode: fr
+status: false
+dependencies: {  }
+id: prod
+label: Production
+description: ''
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/prod
+module:
+  metatag: 0
+theme: {  }
+complete_list: {  }
+partial_list: {  }

@@ -87,6 +87,8 @@ class FranceTvCsvImporter implements MovieImporterInterface
         $this->entityManager->flush();
 
         foreach ($lines as $line) {
+          //@TODO : catch Throwable + Write a log + send Mattermost notif
+
           $internalPartnerId = $line['con_id'];
 
           $partner = $partnerRepository->findOneBy(['code' => PartnerCode::FRANCE_TV->value]);

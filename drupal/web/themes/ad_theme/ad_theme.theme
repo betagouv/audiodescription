@@ -428,35 +428,37 @@ function ad_theme_preprocess_node__movie__card(&$variables)
     return ($a < $b) ? -1 : 1;
   });
 
-  $pg_partners = $pg_offers[0]->get('field_pg_partners')->referencedEntities();
+  if (!empty($pg_offers)) {
+    $pg_partners = $pg_offers[0]->get('field_pg_partners')->referencedEntities();
 
-  usort($pg_partners, function($a, $b) {
-    $a = intval($a->get('field_pg_partner')->entity->get('field_taxo_order')->value);
-    $b = intval($b->get('field_pg_partner')->entity->get('field_taxo_order')->value);
+    usort($pg_partners, function($a, $b) {
+      $a = intval($a->get('field_pg_partner')->entity->get('field_taxo_order')->value);
+      $b = intval($b->get('field_pg_partner')->entity->get('field_taxo_order')->value);
 
-    if ($a == $b) {
-      return 0;
+      if ($a == $b) {
+        return 0;
+      }
+      return ($a < $b) ? -1 : 1;
+    });
+
+
+    if (!is_null($pg_partners[0])){
+      $pg = $pg_partners[0];
+      $endDate = $pg->get('field_pg_end_rights') ?? NULL;
+
+      if (!is_null($endDate->value)) {
+        /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
+        $date_formatter = \Drupal::service('date.formatter');
+
+        $timestamp = strtotime($endDate->value);
+        $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
+      }
+
+      $variables['partner'] = [
+        'name' => $pg->get('field_pg_partner')->entity->getName() ?? NULL,
+        'pronunciation' => $pg->get('field_pg_partner')->entity->get('field_taxo_pronunciation')->value ?? NULL,
+        'end_date' => $formatted_date ?? NULL,
+      ];
     }
-    return ($a < $b) ? -1 : 1;
-  });
-
-
-  if (!is_null($pg_partners[0])){
-    $pg = $pg_partners[0];
-    $endDate = $pg->get('field_pg_end_rights') ?? NULL;
-
-    if (!is_null($endDate->value)) {
-      /** @var \Drupal\Core\Datetime\DateFormatterInterface $date_formatter */
-      $date_formatter = \Drupal::service('date.formatter');
-
-      $timestamp = strtotime($endDate->value);
-      $formatted_date = $date_formatter->format($timestamp, 'custom', 'd/m/Y');
-    }
-
-    $variables['partner'] = [
-      'name' => $pg->get('field_pg_partner')->entity->getName() ?? NULL,
-      'pronunciation' => $pg->get('field_pg_partner')->entity->get('field_taxo_pronunciation')->value ?? NULL,
-      'end_date' => $formatted_date ?? NULL,
-    ];
   }
 }

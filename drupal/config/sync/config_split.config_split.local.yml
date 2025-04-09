@@ -1,0 +1,18 @@
+uuid: e34669e4-c4bb-43c5-aabf-a789ec60e4f9
+langcode: fr
+status: false
+dependencies: {  }
+id: local
+label: Local
+description: ''
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/local
+module:
+  devel: 0
+  metatag: 0
+theme: {  }
+complete_list: {  }
+partial_list: {  }
