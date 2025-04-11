@@ -39,7 +39,10 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
   #[CLI\Command(name: 'ad:unpublish-movies', aliases: ['adum'])]
   #[CLI\Usage(name: 'ad:unpublish-movies', description: 'Unpublish movies with no active solution.')]
   public function unpublishMovies(): void {
+    // Delete pg_partners.
+    $this->deleteObsoletePgPartners();
 
+    // Unpublish movies.
     $storage = $this->entityTypeManager->getStorage('node');
     $query = $storage->getQuery()
       ->condition('type', 'movie')
@@ -67,15 +70,15 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
           $this->logger()->warning("Movie '{$movie->label()}' (ID: {$movie->id()}) dépublié.");
         }
       }
+    }
 
-      $index = Index::load('movies');
+    $index = Index::load('movies');
 
-      if ($index) {
-        $this->output()->writeln('Indexation des films en cours...');
-        $index->indexItems();
-      } else {
-        $this->output()->writeln('Index non trouvé.');
-      }
+    if ($index) {
+      $this->output()->writeln('Indexation des films en cours...');
+      $index->indexItems();
+    } else {
+      $this->output()->writeln('Index non trouvé.');
     }
 
     $this->logger()->success(dt('Achievement unlocked.'));
@@ -129,4 +132,75 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
     return FALSE;
   }
 
+  private function deleteObsoletePgPartners() {
+    $paragraph_storage = $this->entityTypeManager->getStorage('paragraph');
+    $query = $paragraph_storage->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('type', 'pg_partner');
+
+    $now = date('Y-m-d');
+
+    $group = $query->orConditionGroup()
+      ->condition('field_pg_start_rights.value', $now, '>')
+      ->condition('field_pg_end_rights.value', $now, '<');
+
+    $query->condition($group);
+    $ids = $query->execute();
+
+    if (empty($ids)) {
+      $this->logger()->notice('Aucun paragraphe pg_partner obsolète trouvé.');
+    } else {
+      $paragraphs = $paragraph_storage->loadMultiple($ids);
+      $paragraph_storage->delete($paragraphs);
+
+      $this->logger()->success(count($paragraphs) . ' paragraphes pg_partner supprimés.');
+    }
+
+    // On charge tous les paragraphes pg_offer.
+    $query = $paragraph_storage->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('type', 'pg_offer');
+
+    $pg_offer_ids = $query->execute();
+
+    if (empty($pg_offer_ids)) {
+      $this->logger()->notice('Aucun paragraphe pg_offer trouvé.');
+    } else {
+      $pg_offers = $paragraph_storage->loadMultiple($pg_offer_ids);
+
+      $ids_to_delete = [];
+
+      foreach ($pg_offers as $pg_offer) {
+        /** @var \Drupal\paragraphs\Entity\Paragraph $pg_offer */
+        if (!$pg_offer->hasField('field_pg_partners')) {
+          continue;
+        }
+
+        $valid = false;
+        foreach ($pg_offer->get('field_pg_partners')->referencedEntities() as $partner) {
+          // Si au moins un partenaire référencé existe, on garde le pg_offer.
+          if ($partner && $partner->bundle() === 'pg_partner') {
+            $valid = true;
+            break;
+          }
+        }
+
+        if (!$valid) {
+          $ids_to_delete[] = $pg_offer->id();
+        }
+      }
+
+      if (empty($ids_to_delete)) {
+        $this->logger()->notice('Aucun paragraphe pg_offer avec référence cassée trouvé.');
+        return;
+      }
+
+      $to_delete = $paragraph_storage->loadMultiple($ids_to_delete);
+      $paragraph_storage->delete($to_delete);
+
+      $this->logger()->success(count($to_delete) . ' paragraphes pg_offer supprimés car référence(s) vers pg_partner invalide(s).');
+    }
+
+
+  }
 }

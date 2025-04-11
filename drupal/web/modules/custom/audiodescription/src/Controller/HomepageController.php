@@ -155,11 +155,11 @@ class HomepageController extends ControllerBase {
 
     $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
 
-    $block = Block::load('ad_hp_last_movies_block');
+    $block = Block::load('ad_hp_free_movies_block');
 
-    $lastMovies = [];
+    $freeMovies = [];
     if ($block) {
-      $lastMovies = $this->entityTypeManager
+      $freeMovies = $this->entityTypeManager
         ->getViewBuilder('block')
         ->view($block);
     }
@@ -173,7 +173,7 @@ class HomepageController extends ControllerBase {
       '#about' => $about,
       '#highlighted_collections' => $highlightedCollections,
       '#collections' => $collections,
-      '#last_movies' => $lastMovies,
+      '#free_movies' => $freeMovies,
       '#search_form' => $search_form,
       '#cache' => [
         'tags' => ['node_list', 'taxonomy_term_list', $configPagesTag],
@@ -215,51 +215,4 @@ class HomepageController extends ControllerBase {
 
     return $result;
   }
-
-  private function countMoviesWithAtLeastOneSolution2():int {
-    $current_date = new DrupalDateTime('now');
-
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'movie') // Récupérer uniquement les nodes de type "movie"
-      ->exists('field_offers') // Vérifier que le champ 'field_offers' est renseigné (c'est une référence à des Paragraphes)
-      ->accessCheck(FALSE); // Ignorer les vérifications d'accès si nécessaire
-    $movie_ids = $query->execute();
-
-    // Initialisation du compteur
-    $movie_ids_with_partners = [];
-
-    foreach ($movie_ids as $movie_id) {
-      $movie = Node::load($movie_id);
-
-
-      $offers = $movie->get('field_offers')->referencedEntities();
-      foreach ($offers as $offer) {
-        if ($offer->getType() == 'pg_offer') {
-          $partners = $offer->get('field_pg_partners')->referencedEntities();
-
-          foreach ($partners as $partner) {
-            if ($partner->getType() == 'pg_partner') {
-              $start_date = $partner->get('field_pg_start_rights')->value;
-              $end_date = $partner->get('field_pg_end_rights')->value;
-
-              if ($start_date && $end_date) {
-                $start_date = new DrupalDateTime($start_date);
-                $end_date = new DrupalDateTime($end_date);
-
-                if ($start_date->getTimestamp() < $current_date->getTimestamp() &&
-                  $end_date->getTimestamp() > $current_date->getTimestamp()) {
-                  if (!in_array($movie->id(), $movie_ids_with_partners)) {
-                    $movie_ids_with_partners[] = $movie->id();
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    return count($movie_ids_with_partners);
-  }
-
 }

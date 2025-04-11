@@ -14,5 +14,6 @@ module:
   devel: 0
   metatag: 0
 theme: {  }
-complete_list: {  }
+complete_list:
+  - system.logging
 partial_list: {  }

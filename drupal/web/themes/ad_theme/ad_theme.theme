@@ -441,8 +441,7 @@ function ad_theme_preprocess_node__movie__card(&$variables)
       return ($a < $b) ? -1 : 1;
     });
 
-
-    if (!is_null($pg_partners[0])){
+    if (!empty($pg_partners) && !is_null($pg_partners[0])){
       $pg = $pg_partners[0];
       $endDate = $pg->get('field_pg_end_rights') ?? NULL;
 

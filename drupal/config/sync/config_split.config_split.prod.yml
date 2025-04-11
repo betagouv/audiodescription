@@ -13,5 +13,6 @@ folder: ../config/prod
 module:
   metatag: 0
 theme: {  }
-complete_list: {  }
+complete_list:
+  - system.logging
 partial_list: {  }
