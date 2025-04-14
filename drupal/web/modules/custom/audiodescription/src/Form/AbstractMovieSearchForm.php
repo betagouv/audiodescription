@@ -20,24 +20,20 @@ abstract class AbstractMovieSearchForm extends FormBase {
       $parameters['search'] = $userInput['search'];
     }
 
-    if (array_key_exists('with_ad', $userInput) && !is_null($userInput['with_ad'])) {
+    /**if (array_key_exists('with_ad', $userInput) && !is_null($userInput['with_ad'])) {
       $parameters['with_ad'] = $userInput['with_ad'];
-    }
+    }**/
 
-    if (array_key_exists('genre', $userInput) && !is_null($userInput['genre'])) {
-      $parameters['genre'] = $userInput['genre'];
-    }
-
-    if (array_key_exists('nationality', $userInput) && !is_null($userInput['nationality'])) {
-      $parameters['nationality'] = $userInput['nationality'];
-    }
-
-    if (array_key_exists('public', $userInput) && !is_null($userInput['public'])) {
-      $parameters['public'] = $userInput['public'];
+    if (array_key_exists('is_free', $userInput) && !is_null($userInput['is_free'])) {
+      $parameters['is_free'] = $userInput['is_free'];
     }
 
     if (array_key_exists('partner', $userInput) && !is_null($userInput['partner'])) {
       $parameters['partner'] = $userInput['partner'];
+    }
+
+    if (array_key_exists('genre', $userInput) && !is_null($userInput['genre'])) {
+      $parameters['genre'] = $userInput['genre'];
     }
 
     $request = $this->requestStack->getCurrentRequest();

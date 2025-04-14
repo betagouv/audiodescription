@@ -78,7 +78,7 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
       $form['submit']['#attributes']['title'] = $this->t('Search');
     }
 
-    $form['#action'] = '/recherche';
+    $form['#action'] = '/recherche#liste';
 
     return $form;
   }

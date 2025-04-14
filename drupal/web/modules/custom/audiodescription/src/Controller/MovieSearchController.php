@@ -3,7 +3,6 @@
 namespace Drupal\audiodescription\Controller;
 
 use Drupal\block\Entity\Block;
-use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
@@ -132,11 +131,9 @@ class MovieSearchController extends ControllerBase {
       '#filters' => [
         'search' => $params->search,
         'genres' => $this->getCurrentFilters($params->genre),
-        'nationalities' => $this->getCurrentFilters($params->nationality),
-        'publics' => $this->getCurrentFilters($params->public),
-        'partenaires' => $this->getCurrentFilters($params->partner),
+        'plateformes' => $this->getCurrentFilters($params->partner),
+        'films gratuit uniquement' => $params->isFree ? 'oui' : null,
       ],
-      '#filtersExpanded' => !$params->isEmptyParametersBag(),
       '#blockContact' => $blockContact,
       '#cache' => [
         'max-age' => 0,

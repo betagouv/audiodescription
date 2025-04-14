@@ -14,9 +14,8 @@ class MovieSearchParametersBag {
     public readonly int $page,
     public readonly bool $withAd,
     public readonly array $genre,
-    public readonly array $nationality,
-    public readonly array $public,
     public readonly array $partner,
+    public readonly bool $isFree,
   ) {
   }
 
@@ -27,16 +26,15 @@ class MovieSearchParametersBag {
     $params = $request->query;
     $search = $params->get('search', '');
     $withAD = $params->get('with_ad', 0);
+    $isFree = $params->get('is_free', 0);
 
     $page = $params->get('page', 1);
     $page = empty($page) ? 1 : $page;
 
     $genre = $params->getIterator()['genre'] ?? [];
-    $nationality = $params->getIterator()['nationality'] ?? [];
-    $public = $params->getIterator()['public'] ?? [];
     $partner = $params->getIterator()['partner'] ?? [];
 
-    return new self($search, $page, $withAD, $genre, $nationality, $public, $partner);
+    return new self($search, $page, $withAD, $genre, $partner, $isFree);
   }
 
   public function filtersToArray()
@@ -53,14 +51,6 @@ class MovieSearchParametersBag {
       $array['genre'] = $this->genre;
     }
 
-    if (!empty($this->nationality)){
-      $array['nationality'] = $this->nationality;
-    }
-
-    if (!empty($this->public)){
-      $array['public'] = $this->public;
-    }
-
     if (!empty($this->partner)){
       $array['partner'] = $this->partner;
     }
@@ -73,9 +63,8 @@ class MovieSearchParametersBag {
       $this->search == '' &&
       !$this->withAd &&
       empty($this->genre) &&
-      empty($this->nationality) &&
       empty($this->partner) &&
-      empty($this->public)
+      !$this->isFree
     ) {
       return TRUE;
     }

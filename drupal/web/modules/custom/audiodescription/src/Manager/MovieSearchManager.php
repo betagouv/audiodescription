@@ -2,7 +2,9 @@
 
 namespace Drupal\audiodescription\Manager;
 
+use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\audiodescription\Popo\MovieSearchParametersBag;
+use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\search_api\Entity\Index;
 
@@ -52,33 +54,53 @@ class MovieSearchManager {
       }
 
       $query->addConditionGroup($andGroup);
-
-    }
-
-    if (!empty($params->nationality)) {
-      $andGroup = $query->createConditionGroup('AND');
-
-      foreach ($params->nationality as $nationality) {
-        $andGroup->addCondition('field_nationalities', $nationality, '=');
-      }
-
-      $query->addConditionGroup($andGroup);
-    }
-
-    if (!empty($params->public)) {
-      $andGroup = $query->createConditionGroup('OR');
-
-      foreach ($params->public as $public) {
-        $andGroup->addCondition('field_public', $public, '=');
-      }
-
-      $query->addConditionGroup($andGroup);
     }
 
     if (!empty($params->partner)) {
       $andGroup = $query->createConditionGroup('OR');
 
       foreach ($params->partner as $partner) {
+        $andGroup->addCondition('field_pg_partner', $partner, '=');
+      }
+
+      $query->addConditionGroup($andGroup);
+    }
+
+    if ($params->isFree) {
+      $offers = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
+        'field_taxo_code' => "FREE_ACCESS",
+        'vid' => Taxonomy::OFFER->value,
+      ]);
+
+      $offer = reset($offers)->tid->value;
+
+      $connection = Database::getConnection();
+
+      $sql = "
+        SELECT DISTINCT pg_partner.field_pg_partner_target_id
+        FROM node_field_data m
+        LEFT JOIN node__field_offers fo ON fo.entity_id = m.nid
+        LEFT JOIN paragraphs_item offer_paragraph ON offer_paragraph.id = fo.field_offers_target_id
+        LEFT JOIN paragraph__field_pg_offer taxo_ref ON taxo_ref.entity_id = offer_paragraph.id
+        LEFT JOIN paragraph__field_pg_partners pg_partners on pg_partners.entity_id = taxo_ref.entity_id
+        LEFT JOIN paragraph__field_pg_partner pg_partner on pg_partner.entity_id = pg_partners.field_pg_partners_target_id
+        LEFT JOIN paragraphs_item s ON s.id = pg_partners.field_pg_partners_target_id
+        LEFT JOIN paragraph__field_pg_start_rights sr ON s.id = sr.entity_id
+        LEFT JOIN paragraph__field_pg_end_rights er ON s.id = er.entity_id
+        WHERE taxo_ref.field_pg_offer_target_id = ". $offer ."
+        AND (
+          to_date(sr.field_pg_start_rights_value, 'YYYY-MM-DD') < NOW()
+          OR sr.field_pg_start_rights_value IS NULL
+          AND to_date(er.field_pg_end_rights_value, 'YYYY-MM-DD') > NOW()
+          OR er.field_pg_end_rights_value IS NULL
+        )
+        ";
+
+      $partners = $connection->query($sql)->fetchCol();
+
+      $andGroup = $query->createConditionGroup('OR');
+
+      foreach ($partners as $partner) {
         $andGroup->addCondition('field_pg_partner', $partner, '=');
       }
 
@@ -126,26 +148,6 @@ class MovieSearchManager {
 
       foreach ($params->genre as $genre) {
         $andGroup->addCondition('field_genres', $genre, '=');
-      }
-
-      $queryWithAd->addConditionGroup($andGroup);
-    }
-
-    if (!empty($params->nationality)) {
-      $andGroup = $queryWithAd->createConditionGroup('AND');
-
-      foreach ($params->nationality as $nationality) {
-        $andGroup->addCondition('field_nationalities', $nationality, '=');
-      }
-
-      $queryWithAd->addConditionGroup($andGroup);
-    }
-
-    if (!empty($params->public)) {
-      $andGroup = $queryWithAd->createConditionGroup('OR');
-
-      foreach ($params->public as $public) {
-        $andGroup->addCondition('field_public', $public, '=');
       }
 
       $queryWithAd->addConditionGroup($andGroup);

@@ -1,7 +1,5 @@
 <div class="ad-search-page fr-container">
   <div class="fr-mb-2w fr-mt-2w">
-    <p>{{ movies.total }} résultats pour "{{ filters.search }}" dont {{ movies.totalWithAd }} résultats avec audiodescription</p>
-
     {% set f = [] %}
     {% for key, filter in filters %}
       {% if key != "search" %}
@@ -21,22 +19,17 @@
     {% endif %}
   </div>
 
-  {# <div class="fr-mb-7w fr-grid-row">
-    <div class="fr-col-12 fr-col-lg-8">
-      {{ form }}
-    </div>
-  </div> #}
-
   <div class="fr-mb-7w">
-    {{ pattern('accordion', {
-      title: 'Filtrer les résultats',
-      content: filtersForm,
-      expanded: filtersExpanded,
-    }) }}
+    {{ filtersForm }}
   </div>
 
   <div class="fr-mb-7w" id="liste">
-    <h2>{{ movies.total }} films trouvés</h2>
+    {% if filters.search is not empty %}
+      <h2>{{ movies.total }} films trouvés pour "{{ filters.search }}"</h2>
+    {% else %}
+      <h2>{{ movies.total }} films trouvés</h2>
+    {% endif %}
+
     <p>{{ movies.pageSize }} résultats par page - {{ movies.pagesCount }} pages</p>
     {{ movies.items }}
     {% if movies.pagination is not null %}
