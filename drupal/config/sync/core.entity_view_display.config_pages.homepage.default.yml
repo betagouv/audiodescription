@@ -12,6 +12,8 @@ dependencies:
     - field.field.config_pages.homepage.field_collections_collections
     - field.field.config_pages.homepage.field_collections_title
     - field.field.config_pages.homepage.field_collections_with_genres
+    - field.field.config_pages.homepage.field_free_movies_movies
+    - field.field.config_pages.homepage.field_free_movies_title
     - field.field.config_pages.homepage.field_header_chapo
     - field.field.config_pages.homepage.field_header_cta
     - field.field.config_pages.homepage.field_header_image
@@ -21,10 +23,6 @@ dependencies:
     - field.field.config_pages.homepage.field_infos_description
     - field.field.config_pages.homepage.field_infos_image
     - field.field.config_pages.homepage.field_infos_title
-    - field.field.config_pages.homepage.field_last_movies_cta
-    - field.field.config_pages.homepage.field_last_movies_description
-    - field.field.config_pages.homepage.field_last_movies_movies
-    - field.field.config_pages.homepage.field_last_movies_title
   module:
     - entity_reference_revisions
     - text
@@ -97,6 +95,22 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 11
+    region: content
+  field_free_movies_movies:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_free_movies_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 23
     region: content
   field_header_chapo:
     type: text_default
@@ -173,38 +187,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 6
-    region: content
-  field_last_movies_cta:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 15
-    region: content
-  field_last_movies_description:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 14
-    region: content
-  field_last_movies_movies:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 22
-    region: content
-  field_last_movies_title:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 13
     region: content
 hidden:
   search_api_excerpt: true

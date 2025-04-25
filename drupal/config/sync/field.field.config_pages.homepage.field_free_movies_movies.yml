@@ -1,17 +1,17 @@
-uuid: 73dabce3-9492-46a8-a03e-79a793ea4ec7
+uuid: 74260372-8707-4172-a9d9-67a60dc0ea60
 langcode: fr
 status: true
 dependencies:
   config:
     - config_pages.type.homepage
-    - field.storage.config_pages.field_last_movies_movies
+    - field.storage.config_pages.field_free_movies_movies
     - node.type.movie
-id: config_pages.homepage.field_last_movies_movies
-field_name: field_last_movies_movies
+id: config_pages.homepage.field_free_movies_movies
+field_name: field_free_movies_movies
 entity_type: config_pages
 bundle: homepage
 label: Films
-description: ''
+description: 'Ce champ est rempli chaque jour avec des films aléatoires.'
 required: true
 translatable: false
 default_value: {  }
@@ -25,5 +25,5 @@ settings:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: article
 field_type: entity_reference

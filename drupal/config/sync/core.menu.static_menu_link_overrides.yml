@@ -8,9 +8,9 @@ definitions:
     expanded: false
     enabled: true
   standard__front_page:
-    weight: -47
     menu_name: main
     parent: ''
+    weight: -47
     expanded: false
     enabled: false
   navigation__create:

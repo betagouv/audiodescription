@@ -1,12 +1,12 @@
-uuid: c14d28ac-43d3-44ba-9b7e-b7a994523245
+uuid: 98505ad7-5dd5-40e0-80f7-7ba63fce3f04
 langcode: fr
 status: true
 dependencies:
   config:
     - config_pages.type.homepage
-    - field.storage.config_pages.field_last_movies_title
-id: config_pages.homepage.field_last_movies_title
-field_name: field_last_movies_title
+    - field.storage.config_pages.field_free_movies_title
+id: config_pages.homepage.field_free_movies_title
+field_name: field_free_movies_title
 entity_type: config_pages
 bundle: homepage
 label: Titre
@@ -15,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: 'Disponibles actuellement'
+    value: 'Films audiodécrits disponibles gratuitement'
 default_value_callback: ''
 settings: {  }
 field_type: string

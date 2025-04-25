@@ -1,0 +1,20 @@
+uuid: d48d413d-c467-4c7c-8e2c-e2b745854369
+langcode: fr
+status: false
+dependencies:
+  module:
+    - audiodescription
+  theme:
+    - ad_theme
+id: ad_hp_free_movies_block
+theme: ad_theme
+region: not_displayed
+weight: 0
+provider: null
+plugin: hp_free_movies_block
+settings:
+  id: hp_free_movies_block
+  label: '[HP] Films audiodécrits disponibles gratuitement'
+  label_display: '0'
+  provider: audiodescription
+visibility: {  }

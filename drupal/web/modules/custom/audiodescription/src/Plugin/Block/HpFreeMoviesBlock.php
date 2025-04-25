@@ -2,6 +2,7 @@
 
 namespace Drupal\audiodescription\Plugin\Block;
 
+use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Database\Database;
@@ -94,6 +95,13 @@ class HpFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
   }
 
   private function countMoviesWithFreeSolution():int {
+    $term = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
+      'field_taxo_code' => 'FREE_ACCESS',
+      'vid' => Taxonomy::OFFER->value,
+    ]);
+
+    $tid = array_shift($term)->id();
+
     $connection = Database::getConnection();
 
     $sql = "
@@ -110,7 +118,7 @@ class HpFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
       LEFT JOIN paragraph__field_pg_start_rights sr ON s.id = sr.entity_id
       LEFT JOIN paragraph__field_pg_end_rights er ON s.id = er.entity_id
       WHERE m.type = 'movie'
-      AND taxo_ref.field_pg_offer_target_id = 19010
+      AND taxo_ref.field_pg_offer_target_id = " . $tid ."
       AND m.status = 1
       AND (
         to_date(sr.field_pg_start_rights_value, 'YYYY-MM-DD') < NOW()

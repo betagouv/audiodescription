@@ -2,6 +2,7 @@
 
 namespace Drupal\audiodescription\Drush\Commands;
 
+use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\audiodescription\Importer\Director\DirectorPatrimonyImporter;
 use Drupal\audiodescription\Importer\Genre\GenrePatrimonyImporter;
 use Drupal\audiodescription\Importer\Movie\MoviePatrimonyImporter;
@@ -47,6 +48,13 @@ final class UpdateHpConfigPageCommand extends DrushCommands {
   #[CLI\Usage(name: 'ad:update:hp', description: 'Programatically update homepage.')]
   public function import(): void {
 
+    $term = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
+      'field_taxo_code' => 'FREE_ACCESS',
+      'vid' => Taxonomy::OFFER->value,
+    ]);
+
+    $tid = array_shift($term)->id();
+
     $connection = Database::getConnection();
 
     $sql = "
@@ -63,7 +71,7 @@ final class UpdateHpConfigPageCommand extends DrushCommands {
         left join paragraph__field_pg_end_rights er on s.id = er.entity_id
       WHERE
         m.type = 'movie'
-        and taxo_ref.field_pg_offer_target_id = 19010
+        and taxo_ref.field_pg_offer_target_id = " . $tid ."
         AND m.status = 1
       and (
             to_date(sr.field_pg_start_rights_value, 'YYYY-MM-DD') < NOW()

@@ -55,7 +55,7 @@ prd-install-drupal:
 .PHONY: prd-install-patrimony
 prd-install-patrimony:
 	docker compose exec patrimony composer install
-	docker compose exec patrimony php bin/console doctrine:database:create
+	docker compose exec patrimony php bin/console doctrine:database:create --if-not-exists
 	docker compose exec patrimony php bin/console doctrine:migrations:migrate --no-interaction
 	docker compose exec patrimony php bin/console c:c
 	docker compose exec patrimony php bin/console ad:import:cnc-public

@@ -42,7 +42,7 @@ class MovieSearchManager {
       $query->keys($search);
     }
 
-    if ($params->withAd) {
+    if (!is_null($params->withAd) && $params->withAd) {
       $query->addCondition('field_has_ad', 1);
     }
 
@@ -66,7 +66,7 @@ class MovieSearchManager {
       $query->addConditionGroup($andGroup);
     }
 
-    if ($params->isFree) {
+    if (!is_null($params->isFree) && $params->isFree) {
       $offers = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
         'field_taxo_code' => "FREE_ACCESS",
         'vid' => Taxonomy::OFFER->value,
