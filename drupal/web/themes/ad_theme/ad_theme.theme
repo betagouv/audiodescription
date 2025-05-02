@@ -96,13 +96,23 @@ if (
 }
 
 function ad_theme_theme_suggestions_input_alter(array &$suggestions, array &$variables) {
-  if ($variables['element']['#name'] === 'search') {
+  if (array_key_exists('#name', $variables['element']) && $variables['element']['#name'] === 'search') {
     $suggestions[] = 'input__search';
   }
 
   if ($variables['theme_hook_original'] === 'input__submit') {
     $suggestions[] = 'input__submit__search_submit';
     $suggestions[] = 'input__submit__search';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function ad_theme_theme_suggestions_fieldset_alter(array &$suggestions, array &$variables)
+{
+  if (isset($variables['element']['#is_rich_select'])) {
+    $suggestions[] = 'fieldset__rich_select';
   }
 }
 
@@ -270,6 +280,33 @@ function ad_theme_preprocess_taxonomy_term__director__full(&$variables)
 function ad_theme_preprocess_form_element__select(&$variables)
 {
   $variables['title'] = $variables['element']['#title']->getUntranslatedString();
+
+  if (isset($variables['element']['#singular_title'])) {
+    $variables['singular_title'] = $variables['element']['#singular_title'];
+  }
+
+  if (isset($variables['element']['#plural_title'])) {
+    $variables['plural_title'] = $variables['element']['#plural_title'];
+  }
+
+  if (isset($variables['element']['#is_female'])) {
+    $variables['is_female'] = $variables['element']['#is_female'];
+  }
+
+  if (isset($variables['element']['#options'])) {
+    $variables['options'] = json_encode($variables['element']['#options']);
+  }
+
+  if (isset($variables['element']['#value'])) {
+    $variables['selected'] = json_encode($variables['element']['#value']);
+  }
+}
+
+function ad_theme_preprocess_checkboxes(&$variables)
+{
+  $variables['title'] = $variables['element']['#title']->getUntranslatedString();
+  $variables['name'] = $variables['element']['#name'];
+  $variables['id'] = $variables['element']['#id'];
 
   if (isset($variables['element']['#singular_title'])) {
     $variables['singular_title'] = $variables['element']['#singular_title'];

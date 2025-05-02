@@ -28,7 +28,7 @@ export class RichSelect extends LitElement {
     super.connectedCallback();
 
     this.currentOptions = this._formatOptions();
-    this.selectedOptions = JSON.parse(this.selected);
+    this.selectedOptions = Object.keys(JSON.parse(this.selected));
 
     this.fuse = new Fuse(this.currentOptions, this.fuseOptions);
 
@@ -162,7 +162,12 @@ export class RichSelect extends LitElement {
     };
 
     return html`
-      <div class="ad-rich-select">
+      <div
+        class="ad-rich-select"
+        data-drupal-selector="edit-${this.plural_title}"
+        data-once="drupal-ajax"
+        id="edit-partner"
+      >
         <button
           type="button"
           class="ad-rich-select__btn-control-dropdown fr-btn--icon-right ${this.icon}"
@@ -190,15 +195,16 @@ export class RichSelect extends LitElement {
               <div class="fr-fieldset__element">
                 <div class="fr-checkbox-group">
                   <input
-                    name="${this.name}[]"
-                    id="checkboxes-${this.plural_title}-${item.key}"
+                    name="${this.name}[${item.key}]"
+                    id="edit-${this.name}-${item.key}"
                     type="checkbox"
                     aria-describedby="checkboxes-${this.plural_title}-messages-${item.key}"
                     value="${item.key}"
                     ?checked="${this._isSelected(item.key)}"
                     @change="${this._handleCheckboxChange}"
+                    data-drupal-selector="edit-${this.name}-${item.key}"
                   >
-                  <label class="fr-label" for="checkboxes-${this.plural_title}-${item.key}">
+                  <label class="fr-label" for="edit-${this.name}-${item.key}">
                     ${item.value}
                   </label>
                   </div>

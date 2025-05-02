@@ -98,12 +98,12 @@ class MovieSearchController extends ControllerBase {
 
     $pagination = NULL;
     if ($pagesCount > 1) {
-      $pagination = $this->buildPagination($params, $pagesCount);
+      $pagination = $this->movieSearchManager->buildPagination($params, $pagesCount);
     }
 
     $pageSize = ($pagesCount > 1) ? self::PAGE_SIZE : $total;
 
-    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
+    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg', 'Effectuer une nouvelle recherche', TRUE);
     $filtersForm = $this->formBuilder->getForm('Drupal\audiodescription\Form\FiltersMovieSearchForm');
 
     $block = Block::load('ad_search_contact_block');
@@ -153,84 +153,4 @@ class MovieSearchController extends ControllerBase {
 
     return $values ?? NULL;
   }
-
-  /**
-   * Build pagination.
-   */
-  private function buildPagination(MovieSearchParametersBag $params, int $pagesCount) {
-    $parameters = $params->filtersToArray();
-    $urlParameters = $parameters;
-    $urlParameters['page'] = 1;
-
-    $first = ($params->page == 1) ? FALSE : $this->buildUrl($urlParameters);
-
-    $urlParameters['page'] = $params->page - 1;
-    $prev = ($params->page == 1) ? FALSE : $this->buildUrl($urlParameters);
-
-    $urlParameters['page'] = $params->page + 1;
-    $next = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($urlParameters);
-
-    $urlParameters['page'] = $pagesCount;
-    $last = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($urlParameters);
-
-    $befores = [];
-    $afters = [];
-
-    for ($i = 1; $i <= self::PAGINATION_SIZE; $i++) {
-      $indexBefore = $params->page - $i;
-      $indexAfter = $params->page + $i;
-
-      if ($indexBefore > 0) {
-        $befores[] = $indexBefore;
-      }
-
-      if ($indexAfter < $pagesCount) {
-        $afters[] = $indexAfter;
-      }
-    }
-
-    sort($befores);
-    $pages = [];
-    foreach ($befores as $before) {
-      $urlParameters['page'] = $before;
-
-      $pages[] = [
-        'title' => $before,
-        'url' => $this->buildUrl($urlParameters),
-      ];
-    }
-
-    $pages[] = [
-      'title' => $params->page,
-    ];
-
-    foreach ($afters as $after) {
-      $urlParameters['page'] = $after;
-      $pages[] = [
-        'title' => $after,
-        'url' => $this->buildUrl($urlParameters),
-      ];
-    }
-
-    return [
-      'first' => $first,
-      'prev' => $prev,
-      'pages' => $pages,
-      'next' => $next,
-      'last' => $last,
-    ];
-  }
-
-  /**
-   * Build URL with params.
-   *
-   * @return string
-   *   URL stringified.
-   */
-  private function buildUrl(array $params) {
-    $url = Url::fromRoute('audiodescription.movie_search', $params);
-
-    return $url->toString();
-  }
-
 }

@@ -6,12 +6,16 @@ use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\audiodescription\Popo\MovieSearchParametersBag;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Url;
 use Drupal\search_api\Entity\Index;
 
 /**
  * Service to search movies.
  */
 class MovieSearchManager {
+  // Display 2 pages before current and 2 pages after current.
+  private const PAGINATION_SIZE = 2;
+
   /**
    * The entity type manager service.
    *
@@ -37,14 +41,15 @@ class MovieSearchManager {
   public function queryMovies(int $offset, int $pageSize, ?MovieSearchParametersBag $params) :array {
     $query = $this->moviesIndex->query();
 
-    $search = $params->search ?? null;
+    $search = !empty($params->search) ? $params->search : null;
+
     if (!is_null($search)) {
       $query->keys($search);
     }
 
-    if (!is_null($params->withAd) && $params->withAd) {
+    /**if (!is_null($params->withAd) && $params->withAd) {
       $query->addCondition('field_has_ad', 1);
-    }
+    }**/
 
     if (!empty($params->genre)) {
       $andGroup = $query->createConditionGroup('AND');
@@ -159,4 +164,82 @@ class MovieSearchManager {
     return $results->getResultCount();
   }
 
+  /**
+   * Build pagination.
+   */
+  public function buildPagination(MovieSearchParametersBag $params, int $pagesCount) {
+    $parameters = $params->filtersToArray();
+    $urlParameters = $parameters;
+    $urlParameters['page'] = 1;
+
+    $first = ($params->page == 1) ? FALSE : $this->buildUrl($urlParameters);
+
+    $urlParameters['page'] = $params->page - 1;
+    $prev = ($params->page == 1) ? FALSE : $this->buildUrl($urlParameters);
+
+    $urlParameters['page'] = $params->page + 1;
+    $next = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($urlParameters);
+
+    $urlParameters['page'] = $pagesCount;
+    $last = ($params->page == $pagesCount) ? FALSE : $this->buildUrl($urlParameters);
+
+    $befores = [];
+    $afters = [];
+
+    for ($i = 1; $i <= self::PAGINATION_SIZE; $i++) {
+      $indexBefore = $params->page - $i;
+      $indexAfter = $params->page + $i;
+
+      if ($indexBefore > 0) {
+        $befores[] = $indexBefore;
+      }
+
+      if ($indexAfter < $pagesCount) {
+        $afters[] = $indexAfter;
+      }
+    }
+
+    sort($befores);
+    $pages = [];
+    foreach ($befores as $before) {
+      $urlParameters['page'] = $before;
+
+      $pages[] = [
+        'title' => $before,
+        'url' => $this->buildUrl($urlParameters),
+      ];
+    }
+
+    $pages[] = [
+      'title' => $params->page,
+    ];
+
+    foreach ($afters as $after) {
+      $urlParameters['page'] = $after;
+      $pages[] = [
+        'title' => $after,
+        'url' => $this->buildUrl($urlParameters),
+      ];
+    }
+
+    return [
+      'first' => $first,
+      'prev' => $prev,
+      'pages' => $pages,
+      'next' => $next,
+      'last' => $last,
+    ];
+  }
+
+  /**
+   * Build URL with params.
+   *
+   * @return string
+   *   URL stringified.
+   */
+  private function buildUrl(array $params) {
+    $url = Url::fromRoute('audiodescription.movie_search', $params);
+
+    return $url->toString();
+  }
 }

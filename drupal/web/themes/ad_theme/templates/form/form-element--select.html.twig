@@ -66,6 +66,19 @@
     <span class="field-prefix">{{ prefix }}</span>
   {% endif %}
 
+  <rich-select
+    title="{{ title }}"
+    singular_title="{{ singular_title }}"
+    plural_title="{{ plural_title }}"
+    options="{{ options }}"
+    name="{{ name }}"
+    selected="{{ selected }}"
+    {% if is_female %} is_female {% endif %}
+    data-drupal-selector="edit-partner"
+    id="edit-partner"
+  >
+  </rich-select>
+
   {% if suffix is not empty %}
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
@@ -83,13 +96,4 @@
   {% endif %}
 </div>
 
-<rich-select
-  title="{{ title }}"
-  singular_title="{{ singular_title }}"
-  plural_title="{{ plural_title }}"
-  options="{{ options }}"
-  name="{{ name }}"
-  selected="{{ selected }}"
-  {% if is_female %} is_female {% endif %}
-></rich-select>
 

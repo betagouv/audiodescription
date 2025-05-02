@@ -29,11 +29,11 @@ abstract class AbstractMovieSearchForm extends FormBase {
     }
 
     if (array_key_exists('partner', $userInput) && !is_null($userInput['partner'])) {
-      $parameters['partner'] = $userInput['partner'];
+      $parameters['partner'] = array_filter($userInput['partner']);
     }
 
     if (array_key_exists('genre', $userInput) && !is_null($userInput['genre'])) {
-      $parameters['genre'] = $userInput['genre'];
+      $parameters['genre'] = array_filter($userInput['genre']);
     }
 
     $request = $this->requestStack->getCurrentRequest();

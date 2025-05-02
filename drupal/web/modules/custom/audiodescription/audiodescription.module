@@ -101,6 +101,14 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'blockContact' => NULL,
       ],
     ],
+    'movie_search_ajax' => [
+      'render element' => 'children',
+      'template' => 'movie-search-ajax',
+      'path' => $path . '/templates',
+      'variables' => [
+        'movies' => NULL,
+      ],
+    ],
     'header_search_form_block' => [
       'render element' => 'children',
       'template' => 'header-search-form-block',

@@ -1,1 +1,3 @@
-
+ajax_filter_update:
+  js:
+    js/search-ajax-url-update.js: {}

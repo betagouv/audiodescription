@@ -1,0 +1,22 @@
+<div class="fr-mb-7w" id="liste">
+  <div id="ajax">
+    {% if filters.search is not empty %}
+      <h2 aria-live="polite">{{ movies.total }} films trouvés pour "{{ filters.search }}"</h2>
+    {% else %}
+      <h2 aria-live="polite">{{ movies.total }} films trouvés</h2>
+    {% endif %}
+
+    <p>{{ movies.pageSize }} résultats par page - {{ movies.pagesCount }} pages</p>
+
+    {{ movies.items }}
+    {% if movies.pagination is not null %}
+      {{ pattern('pagination', {
+        first: movies.pagination.first,
+        prev: movies.pagination.prev,
+        pages: movies.pagination.pages,
+        next: movies.pagination.next,
+        last: movies.pagination.last,
+      }) }}
+    {% endif %}
+  </div>
+</div>

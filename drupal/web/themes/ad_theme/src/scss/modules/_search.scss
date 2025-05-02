@@ -12,6 +12,14 @@
   line-height: 1.5rem !important;
 }
 
+.ad-search__reset-btn {
+  align-self: end;
+
+  button {
+    margin-bottom: .8rem;
+  }
+}
+
 @media (min-width: 768px) {
   .ad-legend {
     font-size: 1.25rem !important;
