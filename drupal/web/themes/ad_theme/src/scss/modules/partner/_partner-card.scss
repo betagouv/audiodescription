@@ -14,7 +14,25 @@
 
   &__title {
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
+
+    a {
+      &::after {
+        bottom: 1rem;
+        position: absolute;
+        right: 1rem;
+        background-color: currentColor;
+        content: "";
+        display: inline-block;
+        flex: 0 0 auto;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-left: .5rem;
+        mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEwIDZ2Mkg1djExaDExdi01aDJ2NmExIDEgMCAwIDEtMSAxSDRhMSAxIDAgMCAxLTEtMVY3YTEgMSAwIDAgMSAxLTFoNlptMTEtM3Y5bC0zLjc5NC0zLjc5My01Ljk5OSA2LTEuNDE0LTEuNDE0IDUuOTk5LTZMMTIgM2g5WiIvPjwvc3ZnPg==);
+        mask-size: 100% 100%;
+        color: var(--text-active-blue-france);
+      }
+    }
   }
 
   &__condition {
@@ -23,6 +41,14 @@
     p {
       margin: 0;
       font-size: .9rem;
+    }
+  }
+
+  &__availability {
+    p {
+      margin: 0;
+      font-size: .9rem;
+      color: var(--text-mention-grey);
     }
   }
 

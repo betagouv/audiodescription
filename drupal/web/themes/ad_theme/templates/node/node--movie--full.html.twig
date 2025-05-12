@@ -142,12 +142,12 @@
               {% set title = partner.field_pg_partner.entity.name.value %}
               {% set pronunciation = partner.field_pg_partner.entity.field_taxo_pronunciation.value %}
 
-              <div class="fr-grid-row ad-partner-card">
+              <div class="fr-grid-row ad-partner-card fr-enlarge-link">
                 {% if logo is not empty %}
                 <div class="fr-col-12 fr-col-sm-3 fr-col-md-4 fr-col-xl-3">
                   <img src="{{ file_url(logo) }}" alt="" />
                 </div>
-                <div class="fr-col-12 fr-col-sm-9 fr-col-md-8 fr-col-xl-9 ad-partner-card__content">
+                <div class="fr-col-12 fr-col-sm-9 fr-col-md-8 fr-col-xl-8 ad-partner-card__content">
                 {% else %}
                   <div class="fr-col-12 ad-partner-card__content">
                 {% endif%}
@@ -155,27 +155,36 @@
                     <p class="fr-text--lg ad-partner-card__title">
                       {% if pronunciation is not empty %}
                         <span aria-label="{{ pronunciation }}">
-                          {{ title }}
+                          <a
+                            href="{{ partner.field_pg_link.uri }}"
+                            target="_blank"
+                            title="{{ partner.field_pg_partner.entity.field_taxo_label_button.value ~ ' ' ~ title }}"
+                          >
+                            {{ title }}
+                          </a>
                         </span>
                       {% else %}
-                        {{ title }}
+                        <a
+                          href="{{ partner.field_pg_link.uri }}"
+                          target="_blank"
+                          title="{{ partner.field_pg_partner.entity.field_taxo_label_button.value ~ ' ' ~ title }}"
+                        >
+                          {{ title }}
+                        </a>
                       {% endif %}
                     </p>
-                    <div class="ad-partner-card__condition">
-                      {{ condition|raw }}
-                    </div>
+                    {% if condition is not empty %}
+                      <div class="ad-partner-card__condition">
+                        {{ condition|raw }}
+                      </div>
+                    {% endif %}
+
+                    {% if partner.field_pg_end_rights is not empty %}
+                      <div class="ad-partner-card__availability">
+                        <p>Disponible jusqu'au {{ partner.field_pg_end_rights.value|date('d/m/Y') }}</p>
+                      </div>
+                    {% endif %}
                   </div>
-                  {% set partner_name = title %}
-                  {% if pronunciation is not empty %}
-                      {% set partner_name = ' <span aria-label="' ~ pronunciation ~ '">' ~ title ~ '</span>' %}
-                  {% endif %}
-                  {{ pattern('button', {
-                    label: partner.field_pg_partner.entity.field_taxo_label_button.value ~ '&nbsp;' ~ partner_name,
-                    title: partner.field_pg_partner.entity.field_taxo_label_button.value ~ ' ' ~ title,
-                    url: partner.field_pg_link.uri,
-                    target: '_blank',
-                    external: 1
-                  }, 'primary') }}
                 </div>
               </div>
               {% endfor %}
