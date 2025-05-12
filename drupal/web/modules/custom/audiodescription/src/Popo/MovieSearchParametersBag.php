@@ -23,7 +23,7 @@ class MovieSearchParametersBag {
    * Create instance of MovieSearchParametersBag from Request.
    */
   public static function createFromRequest(Request $request) {
-    $params = $request->request;
+    $params = $request->query;
 
     $search = $params->get('search', '');
     $withAD = $params->get('with_ad', 0);

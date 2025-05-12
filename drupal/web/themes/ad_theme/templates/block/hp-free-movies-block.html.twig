@@ -16,7 +16,7 @@
         {% set label = 'Découvrir ' ~ number ~ ' films gratuits' %}
         {{ pattern('button', {
           label: label,
-          url: '/recherche',
+          url: '/recherche?is_free=1#liste',
         }) }}
       </div>
     </div>
