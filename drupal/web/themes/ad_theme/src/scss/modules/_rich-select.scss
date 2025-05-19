@@ -28,7 +28,7 @@
     filter: drop-shadow(rgba(0, 0, 18, 0.16) 0px 1px 3px);
     background: white;
     position: absolute;
-    z-index: 1;
+    z-index: 100;
 
     * {
       filter: none;
