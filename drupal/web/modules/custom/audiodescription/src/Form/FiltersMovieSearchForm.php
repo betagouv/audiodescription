@@ -252,7 +252,9 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
     // Set params value from $form_state.
     $userInput = $form_state->getUserInput();
 
-    $request->request->set('is_free', $userInput["is_free"] ?? 0);
+    $request->query->set('is_free', $userInput["is_free"] ?? 0);
+    $request->query->set('genre', array_filter($userInput["genre"]) ?? []);
+    $request->query->set('partner', array_filter($userInput["partner"]) ?? []);
 
     $params = MovieSearchParametersBag::createFromRequest($request);
 
