@@ -1,0 +1,150 @@
+uuid: 430774b3-e984-4820-92ae-b2405088453f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.newsletter
+    - field.field.config_pages.newsletter.field_news_api_key
+    - field.field.config_pages.newsletter.field_news_confirm_cta
+    - field.field.config_pages.newsletter.field_news_confirm_text
+    - field.field.config_pages.newsletter.field_news_confirm_under_cta
+    - field.field.config_pages.newsletter.field_news_list
+    - field.field.config_pages.newsletter.field_newsletter_infos_rgpd
+    - field.field.config_pages.newsletter.field_newsletter_infos_unsub
+    - field.field.config_pages.newsletter.field_newsletter_introduction
+  module:
+    - field_group
+    - paragraphs
+    - text
+third_party_settings:
+  field_group:
+    group_newsletter_subscription:
+      children:
+        - field_newsletter_introduction
+        - field_newsletter_infos_rgpd
+        - field_newsletter_infos_unsub
+      label: "S'inscrire à l'infolettre"
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+    group_newsletter_confirmation:
+      children:
+        - field_news_confirm_text
+        - field_news_confirm_cta
+        - field_news_confirm_under_cta
+      label: "Confirmation d'inscription"
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+    group_newsletter_configuration:
+      children:
+        - field_news_api_key
+        - field_news_list
+      label: Configuration
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+id: config_pages.newsletter.default
+targetEntityType: config_pages
+bundle: newsletter
+mode: default
+content:
+  field_news_api_key:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_news_confirm_cta:
+    type: paragraphs
+    weight: 3
+    region: content
+    settings:
+      title: Paragraphe
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_news_confirm_text:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_news_confirm_under_cta:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_news_list:
+    type: number
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_newsletter_infos_rgpd:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_newsletter_infos_unsub:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_newsletter_introduction:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  label: true

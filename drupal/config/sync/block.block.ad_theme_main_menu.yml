@@ -24,4 +24,8 @@ settings:
   level: 1
   depth: 2
   expand_all_items: true
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '/newsletter*'

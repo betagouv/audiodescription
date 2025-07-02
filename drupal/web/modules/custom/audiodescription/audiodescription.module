@@ -127,7 +127,29 @@ function audiodescription_theme($existing, $type, $theme, $path) {
       'template' => 'error-404',
       'path' => $path . '/templates',
     ],
-
+    'newsletter_subscription' => [
+      'render element' => 'children',
+      'template' => 'newsletter-subscription',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => NULL,
+        'form' => NULL,
+        'introduction' => NULL,
+        'rgpd' => NULL,
+        'unsubscribe' => NULL,
+      ],
+    ],
+    'newsletter_confirmation' => [
+      'render element' => 'children',
+      'template' => 'newsletter-confirmation',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => NULL,
+        'text' => NULL,
+        'cta' => NULL,
+        'under_cta' => NULL,
+      ],
+    ],
     'back_to_top_block' => [
       'variables' => [
         'custom_data' => [],

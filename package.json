@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "La plateforme consiste en un **catalogue de films audiodécrits** lisibles directement, ou bien renvoyant vers une plateforme de diffusion tierce. Ce catalogue est consultable par recherche ou via des entrées par thématique, par réalisateur ou réalisatrice, par année, ou encore par sélection avec par exemple le prix Marius de l’audiodescription. **Il est utilisable en autonomie par toutes et tous, quelle que soit sa perception visuelle.**",
+  "main": "index.js",
+  "scripts": {
+    "lighthouse": "lhci autorun",
+    "cypress": "cypress open"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lhci/cli": "^0.15.0",
+    "@testing-library/cypress": "^10.0.3",
+    "cypress": "^14.4.1"
+  }
+}

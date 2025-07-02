@@ -1,0 +1,17 @@
+uuid: 6c80ac6f-4b7c-416d-96f8-6f4a2750f2e3
+langcode: fr
+status: true
+dependencies: {  }
+id: newsletter
+label: Newsletter
+token: false
+context:
+  show_warning: true
+  group:
+    language: false
+  fallback:
+    language: ''
+menu:
+  path: ''
+  weight: 0
+  description: ''

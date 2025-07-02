@@ -1,0 +1,85 @@
+uuid: 690912b0-a23d-4964-9f40-a5df4adaba43
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.newsletter
+    - field.field.config_pages.newsletter.field_news_api_key
+    - field.field.config_pages.newsletter.field_news_confirm_cta
+    - field.field.config_pages.newsletter.field_news_confirm_text
+    - field.field.config_pages.newsletter.field_news_confirm_under_cta
+    - field.field.config_pages.newsletter.field_news_list
+    - field.field.config_pages.newsletter.field_newsletter_infos_rgpd
+    - field.field.config_pages.newsletter.field_newsletter_infos_unsub
+    - field.field.config_pages.newsletter.field_newsletter_introduction
+  module:
+    - entity_reference_revisions
+    - text
+id: config_pages.newsletter.default
+targetEntityType: config_pages
+bundle: newsletter
+mode: default
+content:
+  field_news_api_key:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_news_confirm_cta:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_news_confirm_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_news_confirm_under_cta:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_news_list:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_newsletter_infos_rgpd:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_newsletter_infos_unsub:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_newsletter_introduction:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

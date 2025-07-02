@@ -29,3 +29,17 @@ audiodescription.error.403:
     _title: 'Accès refusé'
   requirements:
     _permission: 'access content'
+audiodescription.newsletter.subscription:
+  path: '/newsletter'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\NewsletterController:subscription'
+    _title: 'L''infolettre "Les films gratuits en audiodescription de la semaine'
+  requirements:
+    _permission: 'access content'
+audiodescription.newsletter.confirmation:
+  path: '/newsletter/confirmation'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\NewsletterController:confirmation'
+    _title: 'Votre inscription à l’infolettre a bien été prise en compte'
+  requirements:
+    _permission: 'access content'

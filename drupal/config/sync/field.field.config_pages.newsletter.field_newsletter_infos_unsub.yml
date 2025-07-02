@@ -1,0 +1,25 @@
+uuid: b3ea5a9e-1655-4366-ba47-4a8f26f9fec3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.newsletter
+    - field.storage.config_pages.field_newsletter_infos_unsub
+  module:
+    - text
+id: config_pages.newsletter.field_newsletter_infos_unsub
+field_name: field_newsletter_infos_unsub
+entity_type: config_pages
+bundle: newsletter
+label: 'Infos désinscription'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '<p>Vous pouvez vous désinscrire à tout moment en écrivant à contact@audiodescription.beta.gouv.fr ou en cliquant sur “se désinscrire” en bas de l’infolettre.&nbsp;</p>'
+    format: basic_html
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "989ed022547ca7b1d82b39195ea40835",
+    "content-hash": "3b204d5fb8b6445ce5b99b32eacee25b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3783,6 +3783,69 @@
                 "source": "https://github.com/elastic/elasticsearch-php/tree/v8.16.0"
             },
             "time": "2024-11-14T22:23:33+00:00"
+        },
+        {
+            "name": "getbrevo/brevo-php",
+            "version": "v2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getbrevo/brevo-php.git",
+                "reference": "31e0054ac54c3358ac3c7c8e816f7994f0924319"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getbrevo/brevo-php/zipball/31e0054ac54c3358ac3c7c8e816f7994f0924319",
+                "reference": "31e0054ac54c3358ac3c7c8e816f7994f0924319",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "guzzlehttp/guzzle": "^7.4.0",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~1.12",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Brevo\\Client\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brevo Developers",
+                    "email": "contact@brevo.com",
+                    "homepage": "https://www.brevo.com/"
+                }
+            ],
+            "description": "Official Brevo provided RESTFul API V3 php library",
+            "homepage": "https://github.com/getbrevo/brevo-php",
+            "keywords": [
+                "api",
+                "brevo",
+                "php",
+                "sdk",
+                "swagger"
+            ],
+            "support": {
+                "issues": "https://github.com/getbrevo/brevo-php/issues",
+                "source": "https://github.com/getbrevo/brevo-php/tree/v2.0.8"
+            },
+            "time": "2025-06-24T07:06:49+00:00"
         },
         {
             "name": "gouv/dsfr",
@@ -10526,7 +10589,7 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": {},
-    "platform-dev": {},
+    "platform": [],
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

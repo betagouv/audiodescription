@@ -1,0 +1,19 @@
+uuid: 2d7cc3df-d79f-44f3-a9f6-147885923882
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+    - text
+id: config_pages.field_newsletter_infos_rgpd
+field_name: field_newsletter_infos_rgpd
+entity_type: config_pages
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

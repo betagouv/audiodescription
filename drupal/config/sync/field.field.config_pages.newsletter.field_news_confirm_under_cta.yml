@@ -1,0 +1,25 @@
+uuid: 66e1a87a-32c0-4ab6-8768-f5083c6f9331
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.newsletter
+    - field.storage.config_pages.field_news_confirm_under_cta
+  module:
+    - text
+id: config_pages.newsletter.field_news_confirm_under_cta
+field_name: field_news_confirm_under_cta
+entity_type: config_pages
+bundle: newsletter
+label: 'Texte sous CTA'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '<p>À très bientôt !</p>'
+    format: basic_html
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

@@ -50,6 +50,7 @@
         "drupal/simple_sitemap": "^4.2",
         "drupal/ui_suite_dsfr": "^1.0",
         "drush/drush": "^13.3",
+        "getbrevo/brevo-php": "^2.0",
         "gouv/dsfr": "^1.11"
     },
     "conflict": {

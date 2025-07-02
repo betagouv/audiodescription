@@ -69,6 +69,13 @@ function ad_theme_theme_suggestions_page_title_alter(array &$suggestions, array 
     $suggestions[] = 'page_title__' . $view_mode;
     $suggestions[] = 'page_title__' . $vid . '__' . $view_mode;
   }
+
+  if (\Drupal::routeMatch()->getRouteName() === 'audiodescription.newsletter.subscription') {
+    $suggestions[] = 'page_title__newsletter_subscription';
+  }
+  if (\Drupal::routeMatch()->getRouteName() === 'audiodescription.newsletter.confirmation') {
+    $suggestions[] = 'page_title__newsletter_confirmation';
+  }
 }
 
 /**

@@ -1,0 +1,25 @@
+uuid: 972ec8ff-f678-4968-8943-7efcda66070a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.newsletter
+    - field.storage.config_pages.field_newsletter_infos_rgpd
+  module:
+    - text
+id: config_pages.newsletter.field_newsletter_infos_rgpd
+field_name: field_newsletter_infos_rgpd
+entity_type: config_pages
+bundle: newsletter
+label: 'Infos RGPD'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '<p>Votre adresse e-mail est uniquement utilisée pour vous envoyer l’infolettre “Les films gratuits en audiodescription de la semaine”.&nbsp;</p>'
+    format: basic_html
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

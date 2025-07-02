@@ -56,7 +56,7 @@ class FranceTvCsvImporter implements MovieImporterInterface
             $this->parameterBag->get('france_tv.filename')
         );
 
-        $lines = $this->csvParser->parseCsv($file, ';');
+        $lines = $this->csvParser->parseCsv($file, ',');
 
         // Create partner France TV if not exists.
         $partnerRepository = $this->entityManager->getRepository(Partner::class);
@@ -127,7 +127,7 @@ class FranceTvCsvImporter implements MovieImporterInterface
 
           $casting = [];
 
-          $actors = explode(', ', $line['csting']);
+          $actors = explode(', ', $line['casting']);
           foreach ($actors as $actor) {
             $casting[] = [
               'fullname' => $actor,

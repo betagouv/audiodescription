@@ -42,7 +42,7 @@ class HomepageController extends ControllerBase {
   protected $formBuilder;
 
   /**
-   * Constructs a new PocController.
+   * Constructs a new Homepage.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager service.

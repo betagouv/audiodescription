@@ -1,0 +1,23 @@
+uuid: c6c45dd3-9b3c-450d-9922-392bf718230e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.newsletter
+    - field.storage.config_pages.field_news_list
+id: config_pages.newsletter.field_news_list
+field_name: field_news_list
+entity_type: config_pages
+bundle: newsletter
+label: Liste
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

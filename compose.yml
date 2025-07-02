@@ -71,6 +71,14 @@ services:
     entrypoint: "tail -f /dev/null"
     working_dir: "/usr/app"
 
+  a11y:
+    image: node:20
+    volumes:
+      - ./:/usr/app
+    restart: on-failure
+    entrypoint: "tail -f /dev/null"
+    working_dir: "/usr/app"
+
 volumes:
   db-data:
 

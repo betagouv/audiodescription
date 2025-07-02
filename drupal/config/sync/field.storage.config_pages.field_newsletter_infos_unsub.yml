@@ -1,0 +1,19 @@
+uuid: 6780029e-ca28-4073-917b-06460e3cfc20
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+    - text
+id: config_pages.field_newsletter_infos_unsub
+field_name: field_newsletter_infos_unsub
+entity_type: config_pages
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

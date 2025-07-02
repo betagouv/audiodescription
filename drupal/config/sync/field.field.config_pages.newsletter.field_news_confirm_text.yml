@@ -1,0 +1,25 @@
+uuid: 304964bf-1dbb-4ee8-93e1-8ceacc8368ef
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.newsletter
+    - field.storage.config_pages.field_news_confirm_text
+  module:
+    - text
+id: config_pages.newsletter.field_news_confirm_text
+field_name: field_news_confirm_text
+entity_type: config_pages
+bundle: newsletter
+label: 'Texte de confirmation'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '<p>Merci pour votre inscription&nbsp;! En attendant de recevoir la prochaine sélection hebdomadaire, vous pouvez consulter la liste de tous les films gratuits disponibles avec audiodescription.</p>'
+    format: basic_html
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

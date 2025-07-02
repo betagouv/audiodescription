@@ -1,0 +1,20 @@
+uuid: 4b6d24d0-3488-4b2c-af86-741915809904
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+id: config_pages.field_news_list
+field_name: field_news_list
+entity_type: config_pages
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

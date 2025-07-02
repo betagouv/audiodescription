@@ -1,0 +1,19 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 1,
+      "url": [
+        "https://beta.gouv.fr"
+      ]
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": "off",
+        "categories:pwa": "off",
+        "categories:accessiblity": ["error", {
+          "minScore": 1
+        }]
+      }
+    }
+  }
+}
