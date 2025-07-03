@@ -9,6 +9,9 @@ dependencies:
     - field.field.config_pages.newsletter.field_news_confirm_text
     - field.field.config_pages.newsletter.field_news_confirm_under_cta
     - field.field.config_pages.newsletter.field_news_list
+    - field.field.config_pages.newsletter.field_news_unsub_confirm_cta
+    - field.field.config_pages.newsletter.field_news_unsub_confirm_text
+    - field.field.config_pages.newsletter.field_news_unsub_text
     - field.field.config_pages.newsletter.field_newsletter_infos_rgpd
     - field.field.config_pages.newsletter.field_newsletter_infos_unsub
     - field.field.config_pages.newsletter.field_newsletter_introduction
@@ -59,6 +62,29 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     weight: 8
+    region: content
+  field_news_unsub_confirm_cta:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_news_unsub_confirm_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_news_unsub_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_newsletter_infos_rgpd:
     type: text_default

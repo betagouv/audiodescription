@@ -11,7 +11,7 @@ features:
 logo:
   path: 'public://Capture d’écran 2024-07-25 à 11.17.21.png'
   use_default: true
-ui_skins_theme: system
+ui_skins_theme: dark
 container: fr-container--fluid
 available_colors:
   green-tilleul-verveine: green-tilleul-verveine

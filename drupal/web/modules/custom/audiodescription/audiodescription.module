@@ -150,6 +150,26 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'under_cta' => NULL,
       ],
     ],
+    'newsletter_unsubscription' => [
+      'render element' => 'children',
+      'template' => 'newsletter-unsubscription',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => NULL,
+        'text' => NULL,
+        'form' => NULL,
+      ],
+    ],
+    'newsletter_unsubscription_confirmation' => [
+      'render element' => 'children',
+      'template' => 'newsletter-unsubscription-confirmation',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => NULL,
+        'text' => NULL,
+        'cta' => NULL,
+      ],
+    ],
     'back_to_top_block' => [
       'variables' => [
         'custom_data' => [],

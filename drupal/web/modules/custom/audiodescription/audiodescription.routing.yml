@@ -43,3 +43,18 @@ audiodescription.newsletter.confirmation:
     _title: 'Votre inscription à l’infolettre a bien été prise en compte'
   requirements:
     _permission: 'access content'
+audiodescription.newsletter.unsubscription:
+  path: '/newsletter/desinscription'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\NewsletterController:unsubscription'
+    _title: 'Désinscription de la liste de diffusion "Les films gratuits en audiodescription"'
+  requirements:
+    _permission: 'access content'
+audiodescription.newsletter.unsubscription.confirmation:
+  path: '/newsletter/desinscription/confirmation'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\NewsletterController:unsubscriptionConfirmation'
+    _title: 'Votre désinscription a bien été prise en compte.'
+  requirements:
+    _permission: 'access content'
+

@@ -114,4 +114,54 @@ class NewsletterController extends ControllerBase {
     return $build;
   }
 
+  /**
+   * Provides the render array for the newsletter subscription page.
+   *
+   * @return array
+   *   A render array representing the content of the newsletter subscription page.
+   */
+  public function unsubscription() {
+    $config_pages = $this->configPagesLoader;
+    $newsletter = $config_pages->load('newsletter');
+
+    $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\NewsletterUnsubscriptionForm');
+
+    $title = 'Désinscription de la liste de diffusion "Les films gratuits en audiodescription"';
+
+    $build = [
+      '#theme' => 'newsletter_unsubscription',
+      '#form' => $form,
+      '#title' => $title,
+      '#text' => $newsletter->get('field_news_unsub_text')->value,
+    ];
+
+    return $build;
+  }
+
+  public function unsubscriptionConfirmation() {
+    $config_pages = $this->configPagesLoader;
+    $newsletter = $config_pages->load('newsletter');
+
+    $title = 'Votre désinscription a bien été prise en compte.';
+    $text = $newsletter->get('field_news_unsub_confirm_text')->value;
+    $entity = $newsletter->get('field_news_unsub_confirm_cta')->referencedEntities()[0];
+
+    $cta = [
+      'url' => $entity->get('field_pg_link')->first()->getUrl()->toString(),
+      'text' => $entity->get('field_pg_link')->first()->title,
+      'target' => ($entity->get('field_pg_is_external')->value == TRUE) ? 'blank' : 'self',
+      'external' => ($entity->get('field_pg_is_external')->value == TRUE),
+      'style' => $entity->get('field_pg_style')->value,
+    ];
+
+    $build = [
+      '#theme' => 'newsletter_unsubscription_confirmation',
+      '#title' => $title,
+      '#text' => $text,
+      '#cta' => $cta,
+    ];
+
+    return $build;
+  }
+
 }

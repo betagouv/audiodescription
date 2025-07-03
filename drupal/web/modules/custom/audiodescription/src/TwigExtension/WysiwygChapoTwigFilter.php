@@ -28,7 +28,10 @@ class WysiwygChapoTwigFilter extends AbstractExtension {
    *   The modified HTML.
    */
   public function addClassToWysiwygParagraph($html, $class = 'fr-text--lead') {
-    return str_replace('<p>', '<p class="' . $class . '">', $html);
+    if (!is_null($html)) {
+      return str_replace('<p>', '<p class="' . $class . '">', $html);
+    }
+    return $html;
   }
 
 }

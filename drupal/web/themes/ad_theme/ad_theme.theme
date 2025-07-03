@@ -76,6 +76,12 @@ function ad_theme_theme_suggestions_page_title_alter(array &$suggestions, array 
   if (\Drupal::routeMatch()->getRouteName() === 'audiodescription.newsletter.confirmation') {
     $suggestions[] = 'page_title__newsletter_confirmation';
   }
+  if (\Drupal::routeMatch()->getRouteName() === 'audiodescription.newsletter.unsubscription') {
+    $suggestions[] = 'page_title__newsletter_unsubscription';
+  }
+  if (\Drupal::routeMatch()->getRouteName() === 'audiodescription.newsletter.unsubscription.confirmation') {
+    $suggestions[] = 'page_title__newsletter_unsubscription_confirmation';
+  }
 }
 
 /**
