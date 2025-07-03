@@ -164,6 +164,19 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
+    $entity = $homepage->get('field_newsletter_cta')->referencedEntities()[0];
+    $newsletter = [
+      'title' => $homepage->get('field_newsletter_title')->value,
+      'description' => $homepage->get('field_newsletter_description')->value,
+      'cta' => [
+        'url' => $entity->get('field_pg_link')->first()->getUrl()->toString(),
+        'text' => $entity->get('field_pg_link')->first()->title,
+        'target' => ($entity->get('field_pg_is_external')->value == TRUE) ? 'blank' : 'self',
+        'external' => ($entity->get('field_pg_is_external')->value == TRUE),
+        'style' => $entity->get('field_pg_style')->value,
+      ],
+    ];
+
     $configPagesTag = $homepage->getCacheTagsToInvalidate()[0];
 
     $build = [
@@ -173,6 +186,7 @@ class HomepageController extends ControllerBase {
       '#about' => $about,
       '#highlighted_collections' => $highlightedCollections,
       '#collections' => $collections,
+      '#newsletter' => $newsletter,
       '#free_movies' => $freeMovies,
       '#search_form' => $search_form,
       '#cache' => [

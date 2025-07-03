@@ -66,6 +66,26 @@
   {{ collections }}
 {% endif %}
 
+<div class="block">
+  <div class="fr-container">
+    <div class="fr-grid-row">
+      <div class="fr-col-12">
+        <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
+          <h2>{{ newsletter.title }}</h2>
+          {{ newsletter.description|class2wysiwygP('fr-text--lead')|raw }}
+          {% set button = pattern('button', {
+            label: newsletter.cta.text,
+            url: newsletter.cta.url,
+            target: newsletter.cta.target,
+            external: newsletter.cta.external
+          }, newsletter.cta.style) %}
+          {{ button }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="block ad-homepage__infos">
   <div class="fr-container">
       <div class="fr-grid-row">

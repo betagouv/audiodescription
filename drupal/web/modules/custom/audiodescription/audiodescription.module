@@ -24,6 +24,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'about' => NULL,
         'highlighted_collections' => NULL,
         'collections' => NULL,
+        'newsletter' => NULL,
         'search_form' => NULL,
         'free_movies' => NULL,
       ],

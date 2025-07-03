@@ -1,0 +1,19 @@
+uuid: bb529dea-c24e-429d-a1a7-23476380e89b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_newsletter_title
+id: config_pages.homepage.field_newsletter_title
+field_name: field_newsletter_title
+entity_type: config_pages
+bundle: homepage
+label: Titre
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

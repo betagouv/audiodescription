@@ -1,0 +1,21 @@
+uuid: 6542f6d4-a467-464c-8184-71a9f0ada7c9
+langcode: fr
+status: true
+dependencies:
+  module:
+    - config_pages
+    - entity_reference_revisions
+    - paragraphs
+id: config_pages.field_newsletter_cta
+field_name: field_newsletter_cta
+entity_type: config_pages
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
