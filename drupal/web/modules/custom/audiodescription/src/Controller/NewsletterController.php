@@ -65,7 +65,7 @@ class NewsletterController extends ControllerBase {
 
     $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\NewsletterSubscriptionForm');
 
-    $title = 'L\'infolettre "Les films gratuits en audiodescription de la semaine';
+    $title = 'L\'infolettre "Les films gratuits en audiodescription de la semaine"';
 
     $build = [
       '#theme' => 'newsletter_subscription',
