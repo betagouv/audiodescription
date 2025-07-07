@@ -58,14 +58,6 @@
   {{ free_movies }}
 {% endif %}
 
-{% if highlighted_collections is not empty %}
-  {{ highlighted_collections }}
-{% endif %}
-
-{% if collections is not empty %}
-  {{ collections }}
-{% endif %}
-
 <div class="block">
   <div class="fr-container">
     <div class="fr-grid-row">
@@ -85,6 +77,14 @@
     </div>
   </div>
 </div>
+
+{% if collections is not empty %}
+  {{ collections }}
+{% endif %}
+
+{% if highlighted_collections is not empty %}
+  {{ highlighted_collections }}
+{% endif %}
 
 <div class="block ad-homepage__infos">
   <div class="fr-container">

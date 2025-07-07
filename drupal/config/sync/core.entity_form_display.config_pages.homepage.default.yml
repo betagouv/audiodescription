@@ -97,7 +97,7 @@ third_party_settings:
       label: Collections
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -130,7 +130,7 @@ third_party_settings:
       label: Newsletter
       region: content
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''

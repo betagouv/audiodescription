@@ -65,7 +65,7 @@ class NewsletterController extends ControllerBase {
 
     $form = $this->formBuilder->getForm('Drupal\audiodescription\Form\NewsletterSubscriptionForm');
 
-    $title = 'L\'infolettre "Les films gratuits en audiodescription de la semaine"';
+    $title = 'Les films gratuits de la semaine en audiodescription dans votre boîte e-mail';
 
     $build = [
       '#theme' => 'newsletter_subscription',
@@ -89,7 +89,7 @@ class NewsletterController extends ControllerBase {
     $config_pages = $this->configPagesLoader;
     $newsletter = $config_pages->load('newsletter');
 
-    $title = 'Votre inscription à l’infolettre a bien été prise en compte.';
+    $title = 'Votre inscription a bien été prise en compte.';
     $text = $newsletter->get('field_news_confirm_text')->value;
     $entity = $newsletter->get('field_news_confirm_cta')->referencedEntities()[0];
 

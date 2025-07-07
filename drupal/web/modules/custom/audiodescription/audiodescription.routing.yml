@@ -33,14 +33,14 @@ audiodescription.newsletter.subscription:
   path: '/newsletter'
   defaults:
     _controller: '\Drupal\audiodescription\Controller\NewsletterController:subscription'
-    _title: 'L''infolettre "Les films gratuits en audiodescription de la semaine'
+    _title: 'Les films gratuits de la semaine en audiodescription dans votre boîte e-mail'
   requirements:
     _permission: 'access content'
 audiodescription.newsletter.confirmation:
   path: '/newsletter/confirmation'
   defaults:
     _controller: '\Drupal\audiodescription\Controller\NewsletterController:confirmation'
-    _title: 'Votre inscription à l’infolettre a bien été prise en compte'
+    _title: 'Votre inscription a bien été prise en compte.'
   requirements:
     _permission: 'access content'
 audiodescription.newsletter.unsubscription:
