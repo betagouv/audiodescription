@@ -101,7 +101,6 @@ pt-import-canal-replay:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
 	docker compose exec patrimony php bin/console ad:import:canalreplay-api --create-movies=true
 
-
 .PHONY:pt-import-lacinetek
 pt-import-lacinetek:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
@@ -169,7 +168,6 @@ drush:
 	@docker compose exec drupal vendor/bin/drush $(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
-
 
 .PHONY: pt-up
 pt-up:
@@ -269,7 +267,6 @@ pt-tests-setup:
 pt-tests-run:
 	make tests-setup
 	docker compose exec patrimony php vendor/bin/codecept run $(filter-out $@,$(MAKECMDGOALS))
-
 
 .PHONY:cron-import
 cron-import:
