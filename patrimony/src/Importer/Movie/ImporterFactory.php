@@ -17,6 +17,7 @@ class ImporterFactory {
     private OrangeVodCsvImporter $orangeVodCsvImporter,
     private LaCinetekApiImporter $laCinetekApiImporter,
     private FranceTvCsvImporter  $franceTvCsvImporter,
+    private Tf1ApiImporter  $tf1ApiImporter,
   ) {
 
   }
@@ -49,6 +50,9 @@ class ImporterFactory {
         break;
       case ImportSourceType::FRANCE_TV_CSV:
         return $this->franceTvCsvImporter;
+        break;
+      case ImportSourceType::TF1_API:
+        return $this->tf1ApiImporter;
         break;
       default:
         throw new ImportException();

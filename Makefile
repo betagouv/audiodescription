@@ -64,6 +64,7 @@ prd-install-patrimony:
 	docker compose exec patrimony php bin/console ad:import:orangevod-csv --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
 
 .PHONY:pt-import-all
@@ -74,6 +75,7 @@ pt-import-all:
 	docker compose exec patrimony php bin/console ad:import:orangevod-csv --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
 
 .PHONY:pt-import-orange
@@ -90,6 +92,12 @@ pt-import-francetv:
 pt-import-artetv:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+
+.PHONY:pt-import-tf1
+pt-import-tf1:
+	docker compose exec patrimony php bin/console ad:import:cnc-public
+	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true
+
 
 .PHONY:pt-import-canal
 pt-import-canal:
@@ -111,6 +119,7 @@ pt-import:
 	docker compose exec patrimony php bin/console ad:import:mycanal-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true
 
 .PHONY:d-import
 d-import:
@@ -274,6 +283,7 @@ cron-import:
 	docker compose exec -T patrimony php bin/console ad:import:canalreplay-api --create-movies=true || true
 	docker compose exec -T patrimony php bin/console ad:import:lacinetek-api --create-movies=true || true
 	docker compose exec -T patrimony php bin/console ad:import:artetv-api --create-movies=true || true
+	docker compose exec -T patrimony php bin/console ad:import:tf1-api --create-movies=true || true
 	docker compose exec -T patrimony php bin/console ad:import:francetv-csv --create-movies=true || true
 	docker compose exec -T drupal vendor/bin/drush adia || true
 	docker compose exec -T drupal vendor/bin/drush adum || true

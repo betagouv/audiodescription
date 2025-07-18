@@ -52,6 +52,9 @@ class MovieManager
             case PartnerCode::FRANCE_TV->value:
                 $idName = 'franceTvId';
                 break;
+            case PartnerCode::TF1->value:
+                $idName = 'tf1Id';
+                break;
             case PartnerCode::CNC->value:
             default:
                 $idName = 'cncId';
@@ -87,6 +90,9 @@ class MovieManager
                 case PartnerCode::FRANCE_TV->value:
                     $movie->setFranceTvId($sourceMovie->getInternalPartnerId());
                     break;
+                case PartnerCode::TF1->value:
+                    $movie->setTf1Id($sourceMovie->getInternalPartnerId());
+                    break;
                 default:
                     break;
             }
@@ -102,6 +108,14 @@ class MovieManager
 
         if (isset($externalIds['isan']) && !empty($externalIds['isan'])) {
             $movie->setIsanId($externalIds['isan']);
+        }
+
+        if (isset($externalIds['imdb']) && !empty($externalIds['imdb'])) {
+            $movie->setIsanId($externalIds['imdb']);
+        }
+
+        if (isset($externalIds['plurimedia']) && !empty($externalIds['plurimedia'])) {
+            $movie->setIsanId($externalIds['plurimedia']);
         }
 
         $movie->setHasAd($sourceMovie->isHasAd());

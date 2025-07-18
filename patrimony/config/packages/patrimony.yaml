@@ -19,3 +19,6 @@ parameters:
   france_tv.filename: '%env(FRANCE_TV_FILENAME)%'
   lacinetek.api.url: '%env(LACINETEK_API_URL)%'
   lacinetek.api.auth_token: '%env(LACINETEK_API_AUTH_TOKEN)%'
+  tf1.api.user: '%env(TF1_API_USER)%'
+  tf1.api.password: '%env(TF1_API_PASSWORD)%'
+  tf1.api.url: '%env(TF1_API_URL)%'

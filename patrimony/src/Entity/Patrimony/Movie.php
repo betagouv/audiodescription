@@ -4,7 +4,6 @@ namespace App\Entity\Patrimony;
 
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Entity\Source\SourceMovie;
 use App\Entity\Trait\Timestampable;
@@ -13,7 +12,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 #[GetCollection(
   routePrefix: '/api/v1',
@@ -81,6 +79,18 @@ class Movie
     #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $franceTvId;
+
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private string $tf1Id;
+
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private string $imdbId;
+
+    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private string $plurimediaId;
 
     #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
@@ -402,4 +412,34 @@ class Movie
   {
     $this->directors = $directors;
   }
+
+  public function getTf1Id(): string
+  {
+      return $this->tf1Id;
+  }
+
+  public function setTf1Id(string $tf1Id): void
+  {
+      $this->tf1Id = $tf1Id;
+  }
+
+    public function getImdbId(): string
+    {
+        return $this->imdbId;
+    }
+
+    public function setImdbId(string $imdbId): void
+    {
+        $this->imdbId = $imdbId;
+    }
+
+    public function getPlurimediaId(): string
+    {
+        return $this->plurimediaId;
+    }
+
+    public function setPlurimediaId(string $plurimediaId): void
+    {
+        $this->plurimediaId = $plurimediaId;
+    }
 }

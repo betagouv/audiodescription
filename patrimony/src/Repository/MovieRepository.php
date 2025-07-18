@@ -62,6 +62,21 @@ class MovieRepository extends ServiceEntityRepository
             ->setParameter('franceTvId', $ids['franceTvId']);
         }
 
+        if (isset($ids['tf1Id']) && !empty($ids['tf1Id'])) {
+            $qb = $qb->orWhere('m.tf1Id = :tf1Id')
+                ->setParameter('tf1Id', $ids['tf1Id']);
+        }
+
+        if (isset($ids['imdbId']) && !empty($ids['imdbId'])) {
+            $qb = $qb->orWhere('m.imdbId = :imdbId')
+                ->setParameter('imdbId', $ids['imdbId']);
+        }
+
+        if (isset($ids['plurimediaId']) && !empty($ids['plurimediaId'])) {
+            $qb = $qb->orWhere('m.plurimediaId = :plurimediaId')
+                ->setParameter('plurimediaId', $ids['plurimediaId']);
+        }
+
         if (isset($code)) {
             $qb = $qb->orWhere('m.code = :code')
                 ->setParameter('code', $code);

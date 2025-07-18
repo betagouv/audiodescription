@@ -13,4 +13,5 @@ enum ImportSourceType: string {
   case LACINETEK_API = 'LACINETEK_API';
   case ORANGE_VOD_CSV = 'ORANGE_VOD_CSV';
   case FRANCE_TV_CSV = 'FRANCE_TV_CSV';
+  case TF1_API = 'TF1_API';
 }
