@@ -77,10 +77,16 @@ export class RichSelect extends LitElement {
   get btnLabel() {
     let length = this.selectedOptions.length;
     if (length === 1) {
+      if (this.is_female) {
+        return '1 ' + this.singular_title + ' sélectionnée';
+      }
       return '1 ' + this.singular_title + ' sélectionné';
     }
 
     if (length > 1) {
+      if (this.is_female) {
+        return length + ' ' + this.plural_title + ' sélectionnées';
+      }
       return length + ' ' + this.plural_title + ' sélectionnés';
     }
 

@@ -8,28 +8,16 @@
 
           <div class="ad-homepage__stats">
             <p class="fr-text--lead ad-homepage__stats-text">
-              <strong>{{ header.stats }} films</strong> disponibles sur
-            <ul class="ad-homepage__stats-list">
+              <strong>{{ header.stats }} films</strong> disponibles sur {{ ' ' }}
               {% for partner in header.partners %}
-                <li class="ad-homepage__stats-list-item">
-                  {% set media = partner.field_taxo_logo_black_square.entity %}
-                  {% set pronunciation = partner.field_taxo_pronunciation.value %}
-
-                  {% if media.field_media_image.entity %}
-                    {% set uri = media.field_media_image.entity.uri.value %}
-                    {% set alt = media.field_media_image.alt %}
-                    <img
-                      src="{{ file_url(uri) }}"
-                      alt="{{ alt }}"
-                      title="{{ alt }}"
-                      {% if pronunciation is not empty %}
-                        aria-label="{{ pronunciation }}"
-                      {% endif %}
-                    >
-                  {% endif %}
-                </li>
+                {% if loop.index == 1 %}
+                  {{ partner.name.value }}
+                {% elseif loop.index == loop.last %}
+                  {{ ' et ' ~ partner.name.value ~ '.' }}
+                {% else %}
+                  , {{ partner.name.value }}
+                {% endif %}
               {% endfor %}
-            </ul>
             </p>
           </div>
 
