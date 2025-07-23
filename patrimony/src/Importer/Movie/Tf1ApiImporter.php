@@ -2,7 +2,6 @@
 
 namespace App\Importer\Movie;
 
-use App\Entity\Patrimony\Movie;
 use App\Entity\Patrimony\Offer;
 use App\Entity\Patrimony\Partner;
 use App\Entity\Source\SourceMovie;
@@ -61,7 +60,6 @@ class Tf1ApiImporter implements MovieImporterInterface
         $partnerRepository = $this->entityManager->getRepository(Partner::class);
         $partner = $partnerRepository->findOneBy(['code' => PartnerCode::TF1->value]);
 
-        dump($partner);
         if (is_null($partner)) {
             $partner = new Partner();
             $partner->setCode(PartnerCode::TF1->value);
@@ -161,7 +159,6 @@ class Tf1ApiImporter implements MovieImporterInterface
             if (!empty($genres)) {
                 $sourceMovie->setGenres($program['genres']);
             }
-
 
             $synopsis = $program['synopsis'];
             $sourceMovie->setSynopsis($synopsis);
