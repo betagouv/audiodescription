@@ -169,9 +169,6 @@ class Tf1ApiImporter implements MovieImporterInterface
             $poster = $program['poster'];
             $sourceMovie->setPoster($poster);
 
-            dump($poster);
-            dump($sourceMovie);
-
             $this->entityManager->persist($sourceMovie);
 
             $ids = [];
