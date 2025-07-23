@@ -163,8 +163,14 @@ class Tf1ApiImporter implements MovieImporterInterface
             $synopsis = $program['synopsis'];
             $sourceMovie->setSynopsis($synopsis);
 
-            $duration = intdiv($program['duration'], 60);;
+            $duration = $program['duration'];
             $sourceMovie->setDuration($duration);
+
+            $poster = $program['poster'];
+            $sourceMovie->setPoster($poster);
+
+            dump($poster);
+            dump($sourceMovie);
 
             $this->entityManager->persist($sourceMovie);
 
