@@ -1,0 +1,14 @@
+.pg-quote {
+ .fr-quote {
+   padding-left: 0;
+
+   .pg-quote__text {
+     width: 100%;
+     margin: auto;
+   }
+
+   @media (min-width: 768px) {
+     padding-left: 2rem;
+   }
+ }
+}

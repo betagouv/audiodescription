@@ -1,0 +1,10 @@
+uuid: f2d6f7e7-25fe-4fe8-a6a5-82167f9c0a3e
+langcode: fr
+status: true
+dependencies: {  }
+id: pg_quote
+label: Citation
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.paragraph.full
+    - field.field.paragraph.pg_cards.field_pg_anchor
     - field.field.paragraph.pg_cards.field_pg_background
     - field.field.paragraph.pg_cards.field_pg_cards
     - field.field.paragraph.pg_cards.field_pg_text
@@ -27,6 +28,7 @@ content:
     weight: 0
     region: content
 hidden:
+  field_pg_anchor: true
   field_pg_background: true
   field_pg_text: true
   field_pg_text_position: true

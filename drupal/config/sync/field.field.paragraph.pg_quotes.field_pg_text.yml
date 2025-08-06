@@ -1,0 +1,22 @@
+uuid: 62bf0e38-4fa7-45e6-b620-396f0211663a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_text
+    - paragraphs.paragraphs_type.pg_quotes
+  module:
+    - text
+id: paragraph.pg_quotes.field_pg_text
+field_name: field_pg_text
+entity_type: paragraph
+bundle: pg_quotes
+label: Texte
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

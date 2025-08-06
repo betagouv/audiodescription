@@ -1,0 +1,19 @@
+uuid: dfa40b1c-6848-4fd3-9650-19b6fad3e46d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_anchor
+    - paragraphs.paragraphs_type.pg_quotes
+id: paragraph.pg_quotes.field_pg_anchor
+field_name: field_pg_anchor
+entity_type: paragraph
+bundle: pg_quotes
+label: Ancre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

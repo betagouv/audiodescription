@@ -1,0 +1,29 @@
+uuid: 04dfe1e2-c995-4fa7-adaf-6ad78f64f681
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_movies
+    - node.type.movie
+    - paragraphs.paragraphs_type.pg_movies
+id: paragraph.pg_movies.field_pg_movies
+field_name: field_pg_movies
+entity_type: paragraph
+bundle: pg_movies
+label: Films
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      movie: movie
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

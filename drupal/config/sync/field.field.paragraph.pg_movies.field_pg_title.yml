@@ -1,0 +1,19 @@
+uuid: 4531e0ba-1020-4d90-b48c-d90d60757396
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_title
+    - paragraphs.paragraphs_type.pg_movies
+id: paragraph.pg_movies.field_pg_title
+field_name: field_pg_title
+entity_type: paragraph
+bundle: pg_movies
+label: 'Titre du paragraphe'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

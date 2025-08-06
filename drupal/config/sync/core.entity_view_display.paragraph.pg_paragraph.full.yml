@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.paragraph.full
+    - field.field.paragraph.pg_paragraph.field_pg_anchor
     - field.field.paragraph.pg_paragraph.field_pg_background
     - field.field.paragraph.pg_paragraph.field_pg_cta
     - field.field.paragraph.pg_paragraph.field_pg_image
@@ -58,6 +59,7 @@ content:
     weight: 0
     region: content
 hidden:
+  field_pg_anchor: true
   field_pg_background: true
   field_pg_image_is_decorative: true
   search_api_excerpt: true

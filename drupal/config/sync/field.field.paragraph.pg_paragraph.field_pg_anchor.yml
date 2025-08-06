@@ -1,0 +1,19 @@
+uuid: 47e553e7-416a-4e6d-9431-4c84768eb354
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_anchor
+    - paragraphs.paragraphs_type.pg_paragraph
+id: paragraph.pg_paragraph.field_pg_anchor
+field_name: field_pg_anchor
+entity_type: paragraph
+bundle: pg_paragraph
+label: Ancre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

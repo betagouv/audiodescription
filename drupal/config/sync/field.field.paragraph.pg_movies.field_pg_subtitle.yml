@@ -1,0 +1,19 @@
+uuid: 0184b77a-b90f-4bc0-9f7c-e96fc436f13f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_subtitle
+    - paragraphs.paragraphs_type.pg_movies
+id: paragraph.pg_movies.field_pg_subtitle
+field_name: field_pg_subtitle
+entity_type: paragraph
+bundle: pg_movies
+label: Sous-titre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

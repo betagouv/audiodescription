@@ -1,0 +1,19 @@
+uuid: 1de150a9-b6dd-4a88-92fc-63ccc57f728a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_author
+    - paragraphs.paragraphs_type.pg_quote
+id: paragraph.pg_quote.field_pg_author
+field_name: field_pg_author
+entity_type: paragraph
+bundle: pg_quote
+label: Auteur
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

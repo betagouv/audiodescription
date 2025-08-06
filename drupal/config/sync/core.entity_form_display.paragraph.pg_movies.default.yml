@@ -1,21 +1,22 @@
-uuid: 27bb4fc9-60c2-4294-8b31-6ac385133387
+uuid: 0eb77620-73d6-442d-ade3-b976d24bbf92
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.pg_cards.field_pg_anchor
-    - field.field.paragraph.pg_cards.field_pg_background
-    - field.field.paragraph.pg_cards.field_pg_cards
-    - field.field.paragraph.pg_cards.field_pg_text
-    - field.field.paragraph.pg_cards.field_pg_text_position
-    - field.field.paragraph.pg_cards.field_pg_title
-    - paragraphs.paragraphs_type.pg_cards
+    - field.field.paragraph.pg_movies.field_pg_anchor
+    - field.field.paragraph.pg_movies.field_pg_background
+    - field.field.paragraph.pg_movies.field_pg_cta
+    - field.field.paragraph.pg_movies.field_pg_movies
+    - field.field.paragraph.pg_movies.field_pg_subtitle
+    - field.field.paragraph.pg_movies.field_pg_text
+    - field.field.paragraph.pg_movies.field_pg_title
+    - paragraphs.paragraphs_type.pg_movies
   module:
     - paragraphs
     - text
-id: paragraph.pg_cards.default
+id: paragraph.pg_movies.default
 targetEntityType: paragraph
-bundle: pg_cards
+bundle: pg_movies
 mode: default
 content:
   field_pg_anchor:
@@ -28,13 +29,13 @@ content:
     third_party_settings: {  }
   field_pg_background:
     type: options_select
-    weight: 1
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_pg_cards:
+  field_pg_cta:
     type: paragraphs
-    weight: 3
+    weight: 6
     region: content
     settings:
       title: Paragraphe
@@ -50,19 +51,31 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
+  field_pg_movies:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_subtitle:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_pg_text:
     type: text_textarea
-    weight: 1
+    weight: 3
     region: content
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-  field_pg_text_position:
-    type: options_buttons
-    weight: 2
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_pg_title:
     type: string_textfield

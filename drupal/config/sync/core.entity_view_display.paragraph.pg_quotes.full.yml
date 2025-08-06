@@ -1,0 +1,39 @@
+uuid: a12980d7-5b3a-4394-91fd-9c10a6e39078
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.full
+    - field.field.paragraph.pg_quotes.field_pg_anchor
+    - field.field.paragraph.pg_quotes.field_pg_background
+    - field.field.paragraph.pg_quotes.field_pg_quotes
+    - field.field.paragraph.pg_quotes.field_pg_text
+    - field.field.paragraph.pg_quotes.field_pg_title
+    - paragraphs.paragraphs_type.pg_quotes
+  module:
+    - entity_reference_revisions
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: paragraph.pg_quotes.full
+targetEntityType: paragraph
+bundle: pg_quotes
+mode: full
+content:
+  field_pg_quotes:
+    type: entity_reference_revisions_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: full
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_pg_anchor: true
+  field_pg_background: true
+  field_pg_text: true
+  field_pg_title: true
+  search_api_excerpt: true

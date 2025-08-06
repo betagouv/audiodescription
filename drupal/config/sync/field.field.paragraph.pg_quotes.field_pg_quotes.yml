@@ -1,0 +1,64 @@
+uuid: 5bf5963a-8052-440c-b879-d3a8d8d64934
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_quotes
+    - paragraphs.paragraphs_type.pg_quote
+    - paragraphs.paragraphs_type.pg_quotes
+  module:
+    - entity_reference_revisions
+id: paragraph.pg_quotes.field_pg_quotes
+field_name: field_pg_quotes
+entity_type: paragraph
+bundle: pg_quotes
+label: Citations
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_quote: pg_quote
+    negate: 0
+    target_bundles_drag_drop:
+      pg_card:
+        weight: 14
+        enabled: false
+      pg_cards:
+        weight: 15
+        enabled: false
+      pg_cta:
+        weight: 16
+        enabled: false
+      pg_documents:
+        weight: 17
+        enabled: false
+      pg_horizontal_card:
+        weight: 18
+        enabled: false
+      pg_movies:
+        weight: 19
+        enabled: false
+      pg_offer:
+        weight: 20
+        enabled: false
+      pg_paragraph:
+        weight: 21
+        enabled: false
+      pg_partner:
+        weight: 22
+        enabled: false
+      pg_quote:
+        weight: 23
+        enabled: true
+      pg_quotes:
+        weight: 13
+        enabled: false
+      pg_video_iframe:
+        weight: 24
+        enabled: false
+field_type: entity_reference_revisions

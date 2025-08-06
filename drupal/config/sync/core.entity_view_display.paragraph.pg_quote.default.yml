@@ -1,0 +1,40 @@
+uuid: 98b4604a-2b87-4dec-b3cc-f6652544505a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_quote.field_pg_author
+    - field.field.paragraph.pg_quote.field_pg_quote
+    - field.field.paragraph.pg_quote.field_pg_text
+    - paragraphs.paragraphs_type.pg_quote
+  module:
+    - text
+id: paragraph.pg_quote.default
+targetEntityType: paragraph
+bundle: pg_quote
+mode: default
+content:
+  field_pg_author:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_pg_quote:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pg_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

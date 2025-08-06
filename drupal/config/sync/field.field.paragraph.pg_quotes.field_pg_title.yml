@@ -1,0 +1,19 @@
+uuid: 1eb5d980-d899-444b-a3da-07a6927fde4c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_title
+    - paragraphs.paragraphs_type.pg_quotes
+id: paragraph.pg_quotes.field_pg_title
+field_name: field_pg_title
+entity_type: paragraph
+bundle: pg_quotes
+label: 'Titre du paragraphe'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

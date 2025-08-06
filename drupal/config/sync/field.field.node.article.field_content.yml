@@ -7,7 +7,9 @@ dependencies:
     - node.type.article
     - paragraphs.paragraphs_type.pg_cards
     - paragraphs.paragraphs_type.pg_horizontal_card
+    - paragraphs.paragraphs_type.pg_movies
     - paragraphs.paragraphs_type.pg_paragraph
+    - paragraphs.paragraphs_type.pg_quotes
     - paragraphs.paragraphs_type.pg_video_iframe
   module:
     - entity_reference_revisions
@@ -29,6 +31,8 @@ settings:
       pg_cards: pg_cards
       pg_horizontal_card: pg_horizontal_card
       pg_video_iframe: pg_video_iframe
+      pg_movies: pg_movies
+      pg_quotes: pg_quotes
     negate: 0
     target_bundles_drag_drop:
       pg_card:
@@ -46,6 +50,9 @@ settings:
       pg_horizontal_card:
         weight: 9
         enabled: true
+      pg_movies:
+        weight: 11
+        enabled: true
       pg_offer:
         weight: 12
         enabled: false
@@ -55,6 +62,12 @@ settings:
       pg_partner:
         weight: 14
         enabled: false
+      pg_quote:
+        weight: 23
+        enabled: false
+      pg_quotes:
+        weight: 13
+        enabled: true
       pg_video_iframe:
         weight: 10
         enabled: true

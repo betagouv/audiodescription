@@ -1,0 +1,27 @@
+uuid: d06fe4a1-0409-4f87-aa01-06607a4477df
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pg_movies.field_pg_anchor
+    - field.field.paragraph.pg_movies.field_pg_background
+    - field.field.paragraph.pg_movies.field_pg_cta
+    - field.field.paragraph.pg_movies.field_pg_movies
+    - field.field.paragraph.pg_movies.field_pg_subtitle
+    - field.field.paragraph.pg_movies.field_pg_text
+    - field.field.paragraph.pg_movies.field_pg_title
+    - paragraphs.paragraphs_type.pg_movies
+id: paragraph.pg_movies.default
+targetEntityType: paragraph
+bundle: pg_movies
+mode: default
+content: {  }
+hidden:
+  field_pg_anchor: true
+  field_pg_background: true
+  field_pg_cta: true
+  field_pg_movies: true
+  field_pg_subtitle: true
+  field_pg_text: true
+  field_pg_title: true
+  search_api_excerpt: true

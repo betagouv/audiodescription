@@ -1,0 +1,19 @@
+uuid: 1622959e-e147-4861-8cca-92d0bb2be399
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_quote
+    - paragraphs.paragraphs_type.pg_quote
+id: paragraph.pg_quote.field_pg_quote
+field_name: field_pg_quote
+entity_type: paragraph
+bundle: pg_quote
+label: Citation
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

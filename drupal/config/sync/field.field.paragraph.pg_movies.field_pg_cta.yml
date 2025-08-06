@@ -1,0 +1,58 @@
+uuid: 254fdb76-3410-45e1-b2d1-9bd2cf128481
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_cta
+    - paragraphs.paragraphs_type.pg_cta
+    - paragraphs.paragraphs_type.pg_movies
+  module:
+    - entity_reference_revisions
+id: paragraph.pg_movies.field_pg_cta
+field_name: field_pg_cta
+entity_type: paragraph
+bundle: pg_movies
+label: "Appel à l'action"
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      pg_cta: pg_cta
+    negate: 0
+    target_bundles_drag_drop:
+      pg_card:
+        weight: 12
+        enabled: false
+      pg_cards:
+        weight: 13
+        enabled: false
+      pg_cta:
+        weight: 3
+        enabled: true
+      pg_documents:
+        weight: 5
+        enabled: false
+      pg_horizontal_card:
+        weight: 16
+        enabled: false
+      pg_movies:
+        weight: 11
+        enabled: false
+      pg_offer:
+        weight: 17
+        enabled: false
+      pg_paragraph:
+        weight: 4
+        enabled: false
+      pg_partner:
+        weight: 19
+        enabled: false
+      pg_video_iframe:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions

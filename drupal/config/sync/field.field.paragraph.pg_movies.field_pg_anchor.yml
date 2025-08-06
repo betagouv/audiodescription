@@ -1,0 +1,19 @@
+uuid: be7913ba-a305-43d2-81df-67966331b19e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_anchor
+    - paragraphs.paragraphs_type.pg_movies
+id: paragraph.pg_movies.field_pg_anchor
+field_name: field_pg_anchor
+entity_type: paragraph
+bundle: pg_movies
+label: Ancre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

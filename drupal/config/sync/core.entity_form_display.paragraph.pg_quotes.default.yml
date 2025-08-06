@@ -1,29 +1,37 @@
-uuid: 7fddbd83-e188-4118-8291-447ae996f02d
+uuid: 1ca7a26f-b954-483f-a82b-a9bf7519d8ee
 langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.node.article.field_content
-    - field.field.node.article.field_text
-    - node.type.article
+    - field.field.paragraph.pg_quotes.field_pg_anchor
+    - field.field.paragraph.pg_quotes.field_pg_background
+    - field.field.paragraph.pg_quotes.field_pg_quotes
+    - field.field.paragraph.pg_quotes.field_pg_text
+    - field.field.paragraph.pg_quotes.field_pg_title
+    - paragraphs.paragraphs_type.pg_quotes
   module:
     - paragraphs
-    - path
     - text
-_core:
-  default_config_hash: ewbd6G2uX456-bgwseM2Q-KQG3RkASoyHmTh-XR3oLU
-id: node.article.default
-targetEntityType: node
-bundle: article
+id: paragraph.pg_quotes.default
+targetEntityType: paragraph
+bundle: pg_quotes
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 3
+  field_pg_anchor:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_pg_background:
+    type: options_select
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_content:
+  field_pg_quotes:
     type: paragraphs
     weight: 2
     region: content
@@ -41,7 +49,7 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
-  field_text:
+  field_pg_text:
     type: text_textarea
     weight: 1
     region: content
@@ -49,25 +57,7 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  simple_sitemap:
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 5
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  title:
+  field_pg_title:
     type: string_textfield
     weight: 0
     region: content
@@ -76,7 +66,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  langcode: true
-  promote: true
-  sticky: true
-  uid: true
+  created: true
+  status: true

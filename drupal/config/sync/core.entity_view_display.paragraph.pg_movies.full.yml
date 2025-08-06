@@ -1,0 +1,36 @@
+uuid: 5bea7749-1e34-48d3-a980-f3669d3aa52e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.full
+    - field.field.paragraph.pg_movies.field_pg_anchor
+    - field.field.paragraph.pg_movies.field_pg_background
+    - field.field.paragraph.pg_movies.field_pg_cta
+    - field.field.paragraph.pg_movies.field_pg_movies
+    - field.field.paragraph.pg_movies.field_pg_subtitle
+    - field.field.paragraph.pg_movies.field_pg_text
+    - field.field.paragraph.pg_movies.field_pg_title
+    - paragraphs.paragraphs_type.pg_movies
+id: paragraph.pg_movies.full
+targetEntityType: paragraph
+bundle: pg_movies
+mode: full
+content:
+  field_pg_movies:
+    type: entity_reference_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: card_result
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_pg_anchor: true
+  field_pg_background: true
+  field_pg_cta: true
+  field_pg_subtitle: true
+  field_pg_text: true
+  field_pg_title: true
+  search_api_excerpt: true

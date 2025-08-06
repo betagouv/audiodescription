@@ -4,9 +4,19 @@
     <div class="block--is-blue">
       <div class="fr-container fr-pt-3w fr-pb-3w">
 
-        {% if summary is not empty %}
-          <h1>{{ node.title.value }}</h1>
+       {% if (node.field_text.value is empty) and (summary is not empty) %}
+         <h1>{{ node.title.value }}</h1>
+       {% else %}
+         <h1 class="mb-0">{{ node.title.value }}</h1>
+       {% endif %}
 
+        {% if node.field_text.value is not empty %}
+          <div class="wysiwyg">
+            {{ node.field_text.value|raw }}
+          </div>
+        {% endif %}
+
+        {% if summary is not empty %}
           <nav class="fr-summary" role="navigation" aria-labelledby="fr-summary-title">
             <h2 class="fr-summary__title" id="fr-summary-title">Sommaire de page</h2>
             <ol>
@@ -17,8 +27,6 @@
               {% endfor %}
             </ol>
           </nav>
-        {% else %}
-          <h1 class="fr-mb-0">{{ node.title.value }}</h1>
         {% endif %}
       </div>
     </div>

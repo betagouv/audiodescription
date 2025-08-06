@@ -1,0 +1,19 @@
+uuid: 45062735-67ac-4c3f-bfe0-5b0b20c11016
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_anchor
+    - paragraphs.paragraphs_type.pg_cards
+id: paragraph.pg_cards.field_pg_anchor
+field_name: field_pg_anchor
+entity_type: paragraph
+bundle: pg_cards
+label: Ancre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
