@@ -382,6 +382,27 @@ function ad_theme_preprocess_paragraph__pg_paragraph__full(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
+function ad_theme_preprocess_paragraph__pg_movies__full(&$variables)
+{
+  $cta = $variables['paragraph']->get('field_pg_cta')->referencedEntities();
+  if (!empty($cta) && !is_null($cta[0]->get('field_pg_link')->first())) {
+    $variables['cta'] = [
+      'url' => $cta[0]->get('field_pg_link')->first()->getUrl()->toString(),
+      'text' => $cta[0]->get('field_pg_link')->first()->title,
+      'target' => ($cta[0]->get('field_pg_is_external')->value == TRUE) ? 'blank' : 'self',
+      'external' => ($cta[0]->get('field_pg_is_external')->value == TRUE),
+      'style' => $cta[0]->get('field_pg_style')->value,
+    ];
+
+    if ($cta[0]->get('field_pg_is_external')->value) {
+      $variables['cta']['title'] = $cta[0]->get('field_pg_link')->first()->title;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
 function ad_theme_preprocess_paragraph__pg_card__full(&$variables)
 {
   $paragraph = $variables['paragraph'];
@@ -510,4 +531,26 @@ function ad_theme_preprocess_node__movie__card(&$variables)
       ];
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ad_theme_preprocess_node__article__full(&$variables) {
+  $node = $variables['node'];
+  $paragraphs = $node->get('field_content')->referencedEntities();
+
+  $summary = [];
+  foreach ($paragraphs as $paragraph) {
+    if (isset($paragraph->field_pg_title) && !empty($paragraph->field_pg_title->value)) {
+      if (isset($paragraph->field_pg_anchor) && !empty($paragraph->field_pg_anchor->value)) {
+        $summary[] = [
+          'text' => $paragraph->field_pg_title->value,
+          'anchor' => $paragraph->field_pg_anchor->value,
+        ];
+      }
+    }
+  }
+
+  $variables['summary'] = $summary;
 }

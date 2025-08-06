@@ -4,6 +4,7 @@
 @use "movies";
 @use "rich-select";
 @use "search";
+@use "summary";
 @use "wysiwyg";
 
 @use "movie/card";
@@ -14,6 +15,7 @@
 @use "paragraph/pg-card";
 @use "paragraph/pg-cards";
 @use "paragraph/pg-horizontal-card";
+@use "paragraph/pg-movies";
 @use "paragraph/pg-paragraph";
 @use "paragraph/pg-video-iframe";
 

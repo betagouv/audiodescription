@@ -3,7 +3,23 @@
   <div{{ content_attributes }}>
     <div class="block--is-blue">
       <div class="fr-container fr-pt-3w fr-pb-3w">
-        <h1>{{ node.title.value }}</h1>
+
+        {% if summary is not empty %}
+          <h1>{{ node.title.value }}</h1>
+
+          <nav class="fr-summary" role="navigation" aria-labelledby="fr-summary-title">
+            <h2 class="fr-summary__title" id="fr-summary-title">Sommaire de page</h2>
+            <ol>
+              {% for item in summary %}
+                <li>
+                  <a class="fr-summary__link" id="summary-link-1" href="#{{ item.anchor}}">{{ item.text|remove_prefix_number }}</a>
+                </li>
+              {% endfor %}
+            </ol>
+          </nav>
+        {% else %}
+          <h1 class="fr-mb-0">{{ node.title.value }}</h1>
+        {% endif %}
       </div>
     </div>
     {{ content }}

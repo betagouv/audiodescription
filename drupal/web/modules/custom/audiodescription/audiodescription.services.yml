@@ -179,6 +179,10 @@ services:
     class: Drupal\audiodescription\TwigExtension\WysiwygChapoTwigFilter
     tags:
       - { name: twig.extension }
+  audiodescription.remove_prefix_number_twig_filter:
+    class: Drupal\audiodescription\TwigExtension\RemovePrefixNumberTwigFilter
+    tags:
+      - { name: twig.extension }
 
 
 parameters:

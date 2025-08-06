@@ -54,7 +54,11 @@
   {% if paragraph.field_pg_background.value == 'blue' %}
     <div class="block--is-blue">
   {% endif %}
-  <div{{ attributes.addClass(classes) }}>
+  {% if paragraph.field_pg_anchor.value is not empty %}
+    <div{{ attributes.addClass(classes).setAttribute('id', paragraph.field_pg_anchor.value) }}>
+  {% else %}
+     <div{{ attributes.addClass(classes) }}>
+  {% endif %}
     {% block content %}
       {% if paragraph.field_pg_title.value is not empty %}
         <h2>{{ paragraph.field_pg_title.value }}</h2>
