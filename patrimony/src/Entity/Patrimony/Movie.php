@@ -53,51 +53,51 @@ class Movie
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $code;
 
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    private string $cncId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $arteId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $canalVodId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $orangeVodId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $allocineId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $laCinetekId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $franceTvId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $tf1Id;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $imdbId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $plurimediaId;
-
-    #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]
-    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $isanId;
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $cncId = NULL;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    private ?string $visa;
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $arteId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $canalVodId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $orangeVodId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $allocineId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $laCinetekId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $franceTvId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $tf1Id = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $imdbId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $plurimediaId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
+    private ?string $isanId = NULL;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $visa = NULL;
 
     #[ORM\Column(type: Types::BOOLEAN)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
@@ -135,7 +135,7 @@ class Movie
 
     #[ORM\ManyToOne(targetEntity: PublicRestriction::class, inversedBy: 'movies', cascade: ['detach'])]
     #[Groups([self::SCOPE_LIST])]
-    private PublicRestriction $public;
+    private ?PublicRestriction $public = NULL;
 
     #[ORM\OneToMany(targetEntity: ActorMovie::class, mappedBy: 'movie', cascade: ['detach'])]
     #[Groups([self::SCOPE_LIST])]
@@ -187,82 +187,82 @@ class Movie
     $this->code = $code;
   }
 
-  public function getCncId(): string
+  public function getCncId(): string|null
   {
     return $this->cncId;
   }
 
-  public function setCncId(string $cncId): void
+  public function setCncId(?string $cncId): void
   {
     $this->cncId = $cncId;
   }
 
-  public function getArteId(): string
+  public function getArteId(): string|null
   {
     return $this->arteId;
   }
 
-  public function setArteId(string $arteId): void
+  public function setArteId(?string $arteId): void
   {
     $this->arteId = $arteId;
   }
 
-  public function getCanalVodId(): string
+  public function getCanalVodId(): string|null
   {
     return $this->canalVodId;
   }
 
-  public function setCanalVodId(string $canalVodId): void
+  public function setCanalVodId(?string $canalVodId): void
   {
     $this->canalVodId = $canalVodId;
   }
 
-  public function getOrangeVodId(): string
+  public function getOrangeVodId(): string|null
   {
     return $this->orangeVodId;
   }
 
-  public function setOrangeVodId(string $orangeVodId): void
+  public function setOrangeVodId(?string $orangeVodId): void
   {
     $this->orangeVodId = $orangeVodId;
   }
 
-  public function getAllocineId(): string
+  public function getAllocineId(): string|null
   {
     return $this->allocineId;
   }
 
-  public function setAllocineId(string $allocineId): void
+  public function setAllocineId(?string $allocineId): void
   {
     $this->allocineId = $allocineId;
   }
 
-  public function getLaCinetekId(): string
+  public function getLaCinetekId(): string|null
   {
     return $this->laCinetekId;
   }
 
-  public function setLaCinetekId(string $laCinetekId): void
+  public function setLaCinetekId(?string $laCinetekId): void
   {
     $this->laCinetekId = $laCinetekId;
   }
 
-  public function getFranceTvId(): string
+  public function getFranceTvId(): string|null
   {
     return $this->franceTvId;
   }
 
-  public function setFranceTvId(string $franceTvId): void
+  public function setFranceTvId(?string $franceTvId): void
   {
     $this->franceTvId = $franceTvId;
   }
 
-  public function getIsanId(): string
+  public function getIsanId(): string|null
   {
     return $this->isanId;
   }
 
-  public function setIsanId(string $isanId): void
+  public function setIsanId(?string $isanId): void
   {
     $this->isanId = $isanId;
   }
@@ -347,7 +347,7 @@ class Movie
     $this->genres = $genres;
   }
 
-  public function getPublic(): PublicRestriction
+  public function getPublic(): ?PublicRestriction
   {
     return $this->public;
   }
@@ -413,7 +413,7 @@ class Movie
     $this->directors = $directors;
   }
 
-  public function getTf1Id(): string
+  public function getTf1Id(): string|null
   {
       return $this->tf1Id;
   }
@@ -423,7 +423,7 @@ class Movie
       $this->tf1Id = $tf1Id;
   }
 
-    public function getImdbId(): string
+    public function getImdbId(): string|null
     {
         return $this->imdbId;
     }
@@ -433,7 +433,7 @@ class Movie
         $this->imdbId = $imdbId;
     }
 
-    public function getPlurimediaId(): string
+    public function getPlurimediaId(): string|null
     {
         return $this->plurimediaId;
     }

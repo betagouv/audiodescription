@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Patrimony\Movie;
+use App\Entity\Patrimony\Partner;
 use App\Importer\ImportException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Types\Types;
@@ -23,7 +24,7 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
-    public function findByIds($ids, $code): Movie|null {
+    public function findByIds($ids, $code): array {
         $qb = $this->createQueryBuilder('m')
             ->select();
 
@@ -84,7 +85,9 @@ class MovieRepository extends ServiceEntityRepository
 
         $result = $qb->getQuery()->execute();
 
-        if (empty($result)) {
+        return $result;
+
+        /**if (empty($result)) {
             return NULL;
         }
 
@@ -92,10 +95,13 @@ class MovieRepository extends ServiceEntityRepository
             return $result[0];
         }
 
-        throw new ImportException('Find more than one result');
+        dump(count($result));
+        dump($result);
+
+        throw new ImportException('Find more than one result');**/
     }
 
-    public function updatedAllMovieWithPartner($partner) {
+    public function updatedAllMovieWithPartner(Partner $partner) {
         $qb = $this->createQueryBuilder('a');
 
         $qb->update(Movie::class, 'm')

@@ -14,6 +14,7 @@ use App\Enum\PartnerCode;
 use App\Repository\MovieRepository;
 use App\Repository\SolutionRepository;
 use App\Repository\SourceMovieRepository;
+use App\Service\MovieFetcher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -34,6 +35,7 @@ class CanalVodApiImporter implements MovieImporterInterface
         private SolutionRepository $solutionRepository,
         private SourceMovieRepository $sourceMovieRepository,
         private MovieRepository $movieRepository,
+        private MovieFetcher $movieFetcher,
     )
     {
     }
@@ -247,10 +249,10 @@ class CanalVodApiImporter implements MovieImporterInterface
 
                     $movie = null;
                     if ($createMoviesOption) {
+                      //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                      $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
-                        $movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
-
-                        if (is_null($movie)) {
+                      if (is_null($movie)) {
                             $movie = $this->movieManager->create($sourceMovie);
                             $this->entityManager->persist($movie);
                         }

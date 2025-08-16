@@ -14,6 +14,7 @@ use App\Parser\CsvParser;
 use App\Repository\MovieRepository;
 use App\Repository\SolutionRepository;
 use App\Repository\SourceMovieRepository;
+use App\Service\MovieFetcher;
 use App\Util\EntityCodeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -37,6 +38,7 @@ class OrangeVodCsvImporter implements MovieImporterInterface
         private SolutionManager $solutionManager,
         private MovieManager $movieManager,
         private EntityCodeService $entityCodeService,
+        private MovieFetcher $movieFetcher,
 
     )
     {
@@ -214,9 +216,10 @@ class OrangeVodCsvImporter implements MovieImporterInterface
 
                 $movie = null;
                 if ($createMoviesOption) {
-                    $movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                  //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                  $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
-                    if (is_null($movie)) {
+                  if (is_null($movie)) {
                         $yearAfter = $productionYear + 1;
                         $codeAfter = $this->entityCodeService->computeCode($title . '__' . $yearAfter);
 
@@ -235,9 +238,16 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                         $this->entityManager->persist($movie);
                     }
 
-                    $sourceMovie->setMovie($movie);
-                    $solution->setMovie($movie);
+                    if (!is_null($movie)) {
+                      if (is_array($movie) && !empty($movie)) {
+                        $movie = $movie[0];
+                      }
 
+                      if (gettype($movie) === 'object') {
+                        $sourceMovie->setMovie($movie);
+                        $solution->setMovie($movie);
+                      }
+                    }
                 }
 
                 $this->entityManager->flush();

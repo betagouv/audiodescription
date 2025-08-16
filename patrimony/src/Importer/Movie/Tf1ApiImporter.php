@@ -13,6 +13,7 @@ use App\Enum\PartnerCode;
 use App\Repository\MovieRepository;
 use App\Repository\SolutionRepository;
 use App\Repository\SourceMovieRepository;
+use App\Service\MovieFetcher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -33,6 +34,7 @@ class Tf1ApiImporter implements MovieImporterInterface
         private MovieRepository $movieRepository,
         private SolutionRepository $solutionRepository,
         private SourceMovieRepository $sourceMovieRepository,
+        private MovieFetcher $movieFetcher,
     )
     {
     }
@@ -196,9 +198,10 @@ class Tf1ApiImporter implements MovieImporterInterface
 
             $movie = null;
             if ($createMoviesOption) {
-                $movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
-                if (is_null($movie)) {
+              if (is_null($movie)) {
                     $movie = $this->movieManager->create($sourceMovie);
                     $this->entityManager->persist($movie);
                 }

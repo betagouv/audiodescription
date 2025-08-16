@@ -15,6 +15,7 @@ use App\Enum\PartnerCode;
 use App\Repository\MovieRepository;
 use App\Repository\SolutionRepository;
 use App\Repository\SourceMovieRepository;
+use App\Service\MovieFetcher;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -39,6 +40,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
         private SourceMovieRepository $sourceMovieRepository,
         private MovieRepository $movieRepository,
         private DirectorManager $directorManager,
+        private MovieFetcher $movieFetcher,
     )
     {
     }
@@ -237,9 +239,10 @@ class LaCinetekApiImporter implements MovieImporterInterface
                         $sourceMovie = $sourceMovieTvod;
                     }
 
-                    $movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                    //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                    $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
-                    if (is_null($movie)) {
+                  if (is_null($movie)) {
                         $movie = $this->movieManager->create($sourceMovie);
                         $this->entityManager->persist($movie);
                     } else {

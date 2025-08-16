@@ -76,7 +76,7 @@ pt-import-all:
 	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true
-	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:francetv-api --create-movies=true
 
 .PHONY:pt-import-orange
 pt-import-orange:
@@ -86,7 +86,7 @@ pt-import-orange:
 .PHONY:pt-import-francetv
 pt-import-francetv:
 	docker compose exec patrimony php bin/console ad:import:cnc-public
-	docker compose exec patrimony php bin/console ad:import:francetv-csv --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:francetv-api --create-movies=true
 
 .PHONY:pt-import-artetv
 pt-import-artetv:
@@ -120,6 +120,7 @@ pt-import:
 	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:francetv-api --create-movies=true
 
 .PHONY:d-import
 d-import:
