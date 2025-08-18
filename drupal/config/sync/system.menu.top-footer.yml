@@ -1,0 +1,8 @@
+uuid: c778e37d-2145-4d93-b560-70ddd8070478
+langcode: fr
+status: true
+dependencies: {  }
+id: top-footer
+label: 'Menu supérieur du footer'
+description: ''
+locked: false
