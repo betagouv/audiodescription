@@ -177,6 +177,13 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'custom_string' => '',
       ],
     ],
+    'back_button_block' => [
+      'render element' => 'children',
+      'template' => 'back-button-block',
+      'path' => $path . '/templates',
+      'variables' => [
+      ],
+    ],
   ];
 }
 

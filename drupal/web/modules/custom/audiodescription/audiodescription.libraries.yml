@@ -3,3 +3,9 @@ ajax_filter_update:
     js/search-ajax-url-update.js: {}
   dependencies:
     - core/drupal.ajax
+back_button_block:
+  js:
+    js/back-button.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
