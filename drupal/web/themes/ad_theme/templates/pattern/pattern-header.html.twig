@@ -61,9 +61,7 @@
           {% if service_title %}
             <div class="fr-header__service">
               {# Header service title #}
-              <a href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ service_title }} - {{ logo_text }}">
-                <p class="fr-header__service-title">{{ service_title }}</p>
-              </a>
+              <p class="fr-header__service-title">{{ service_title }}</p>
               {# Header service tagline #}
               {% if service_tagline %}
                 <p class="fr-header__service-tagline">{{ service_tagline }}</p>

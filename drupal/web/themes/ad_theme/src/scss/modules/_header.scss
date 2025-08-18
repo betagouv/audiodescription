@@ -1,0 +1,13 @@
+header.fr-header {
+  @media (hover: hover) and (pointer: fine) {
+    .fr-enlarge-link:hover {
+      background-color: #FFFFFF !important;
+    }
+  }
+}
+
+.fr-header__body {
+  @media (min-width: 992px) {
+    max-height: 112px;
+  }
+}

@@ -6,7 +6,7 @@
           <h1>{{ header.title }}</h1>
           {{ header.chapo|class2wysiwygP('fr-text--lead')|raw }}
 
-          <div class="ad-homepage__stats">
+          {# <div class="ad-homepage__stats">
             <p class="fr-text--lead ad-homepage__stats-text">
               <strong>{{ header.stats }} films</strong> disponibles sur {{ ' ' }}
               {% for partner in header.partners %}
@@ -28,7 +28,7 @@
             external: header.cta.external
           }, header.cta.style) %}
 
-          {{ header_cta }}
+          {{ header_cta }} #}
 
           {% if header.has_search_bar %}
             {{ search_form }}

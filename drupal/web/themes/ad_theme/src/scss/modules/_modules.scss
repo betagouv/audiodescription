@@ -1,7 +1,9 @@
 @use "block";
 @use "back-to-top";
+@use "header";
 @use "homepage";
 @use "movies";
+@use "newsletter";
 @use "rich-select";
 @use "search";
 @use "summary";
@@ -9,8 +11,6 @@
 
 @use "movie/card";
 @use "movie/teaser";
-
-@use "newsletter";
 
 @use "paragraph/pg-card";
 @use "paragraph/pg-cards";
