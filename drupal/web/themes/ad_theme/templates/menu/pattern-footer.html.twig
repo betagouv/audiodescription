@@ -1,0 +1,64 @@
+<footer{{ attributes.addClass('fr-footer').setAttribute('role', 'contentinfo').setAttribute('id', 'footer') }}>
+  {% if top %}
+  <div class="fr-footer__top">
+    <div class="fr-container">
+      <div class="fr-grid-row fr-grid-row--start fr-grid-row--gutters">
+          {% for category in top %}
+          <div class="fr-col-12 fr-col-sm-6">
+              <h3 class="fr-footer__top-cat">{{ category.title }}</h3>
+              <ul class="fr-footer__top-list">
+                {% for item in category.below %}
+                <li>
+                    <a class="fr-footer__top-link" href="{{ item.url }}">{{ item.title }}</a>
+                </li>
+               {% endfor %}
+              </ul>
+          </div>
+       {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="fr-container">
+    <div class="fr-footer__body">
+      <div class="fr-footer__brand fr-enlarge-link">
+
+        {% set logo_text = logo_text|default('République\nFrançaise') %}
+
+        {% if not operator_logo %}
+          <a href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ service_title }} - {{ logo_text }}">
+        {% endif %}
+        <p class="fr-logo">
+          {{ logo_text|nl2br }}
+        </p>
+        {% if not operator_logo %}
+          </a>
+        {% endif %}
+        {% if operator_logo %}
+          <a class="fr-footer__brand-link" href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ operator_logo_alt|default(service_title) }} - {{ logo_text }}">
+            {{ operator_logo }}
+          </a>
+        {% endif %}
+      </div>
+      {% if content or content_desc %}
+        <div class="fr-footer__content">
+          {% if content_desc %}
+          <div class="fr-footer__content-desc">{{ content_desc }}</div>
+          {% endif %}
+          {{ content }}
+        </div>
+      {% endif %}
+    </div>
+    {{ partners }}
+    {% if bottom or bottom_copy %}
+      <div class="fr-footer__bottom">
+        {{ bottom }}
+        {% if bottom_copy %}
+        <div class="fr-footer__bottom-copy">
+          <div>{{ bottom_copy }}</div>
+        </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</footer>
