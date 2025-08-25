@@ -55,28 +55,27 @@
     <div class="fr-grid-row">
       <div class="fr-col-12">
         <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
-          <h2>{{ newsletter.title }}</h2>
-          {{ newsletter.description|class2wysiwygP('fr-text--lead')|raw }}
-          {% set button = pattern('button', {
-            label: newsletter.cta.text,
-            url: newsletter.cta.url,
-            target: newsletter.cta.target,
-            external: newsletter.cta.external
-          }, newsletter.cta.style) %}
-          {{ button }}
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <div class="fr-col-12 fr-col-lg-10">
+              <h2>{{ newsletter.title }}</h2>
+              {{ newsletter.description|class2wysiwygP('fr-text--lead')|raw }}
+              {% set button = pattern('button', {
+                label: newsletter.cta.text,
+                url: newsletter.cta.url,
+                target: newsletter.cta.target,
+                external: newsletter.cta.external
+              }, newsletter.cta.style) %}
+              {{ button }}
+            </div>
+            <div class="fr-col-12 fr-col-lg-2">
+              <img src="{{ file_url(newsletter.icon) }}" alt="" class="ad-homepage__icon"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-{% if collections is not empty %}
-  {{ collections }}
-{% endif %}
-
-{% if highlighted_collections is not empty %}
-  {{ highlighted_collections }}
-{% endif %}
 
 <div class="block ad-homepage__infos">
   <div class="fr-container">
@@ -115,11 +114,11 @@
     </div>
 </div>
 
-<div class="block">
+<div class="block ad-homepage__contact">
   <div class="fr-container fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
-    <div class="fr-grid-row">
+    <div class="fr-grid-row fr-grid-row--gutters">
       <div class="fr-col-12 fr-col-lg-2">
-        <img src="{{ file_url(about.icon) }}" alt="" />
+        <img src="{{ file_url(about.icon) }}" alt="" class="ad-homepage__icon"/>
       </div>
       <div class="fr-col-12 fr-col-lg-10">
         <h2>{{ about.title }}</h2>

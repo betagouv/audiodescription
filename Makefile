@@ -116,7 +116,8 @@ pt-import-lacinetek:
 
 .PHONY:pt-import
 pt-import:
-	docker compose exec patrimony php bin/console ad:import:mycanal-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:canalvod-api --create-movies=true
+	docker compose exec patrimony php bin/console ad:import:canalreplay-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:lacinetek-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:artetv-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true

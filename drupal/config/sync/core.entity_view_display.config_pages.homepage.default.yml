@@ -22,6 +22,7 @@ dependencies:
     - field.field.config_pages.homepage.field_new_movies_title
     - field.field.config_pages.homepage.field_newsletter_cta
     - field.field.config_pages.homepage.field_newsletter_description
+    - field.field.config_pages.homepage.field_newsletter_icon
     - field.field.config_pages.homepage.field_newsletter_title
   module:
     - entity_reference_revisions
@@ -177,6 +178,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 26
+    region: content
+  field_newsletter_icon:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 30
     region: content
   field_newsletter_title:
     type: string

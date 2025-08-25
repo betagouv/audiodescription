@@ -123,15 +123,6 @@ class HomepageController extends ControllerBase {
       'email' => $homepage->get('field_about_email')->value,
     ];
 
-    $block = Block::load('ad_hp_highlighted_collections_block');
-
-    $highlightedCollections = [];
-    if ($block) {
-      $highlightedCollections = $this->entityTypeManager
-        ->getViewBuilder('block')
-        ->view($block);
-    }
-
     $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
 
     $block = Block::load('ad_hp_new_free_movies_block');
@@ -162,6 +153,7 @@ class HomepageController extends ControllerBase {
         'external' => ($entity->get('field_pg_is_external')->value == TRUE),
         'style' => $entity->get('field_pg_style')->value,
       ],
+      'icon' => $homepage->get('field_newsletter_icon')->entity->field_media_image->entity->uri->value,
     ];
 
     $configPagesTag = $homepage->getCacheTagsToInvalidate()[0];
@@ -171,8 +163,6 @@ class HomepageController extends ControllerBase {
       '#header' => $header,
       '#infos' => $infos,
       '#about' => $about,
-      '#highlighted_collections' => $highlightedCollections,
-      //'#collections' => $collections,
       '#newsletter' => $newsletter,
       '#new_free_movies' => $newFreeMovies,
       '#near_end_free_movies' => $nearEndFreeMovies,
