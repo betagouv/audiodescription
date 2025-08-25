@@ -26,7 +26,8 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'collections' => NULL,
         'newsletter' => NULL,
         'search_form' => NULL,
-        'free_movies' => NULL,
+        'new_free_movies' => NULL,
+        'near_end_free_movies' => NULL,
       ],
     ],
     'hp_highlighted_collections_block' => [
@@ -47,14 +48,23 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'title' => NULL,
       ],
     ],
-    'hp_free_movies_block' => [
+    'hp_new_free_movies_block' => [
       'render element' => 'children',
-      'template' => 'hp-free-movies-block',
+      'template' => 'hp-new-free-movies-block',
       'path' => $path . '/templates',
       'variables' => [
         'title' => NULL,
         'movies' => NULL,
-        'number' => NULL,
+      ],
+    ],
+    'hp_near_end_free_movies_block' => [
+      'render element' => 'children',
+      'template' => 'hp-near-end-free-movies-block',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => NULL,
+        'movies' => NULL,
+        'cta' => NULL,
       ],
     ],
     'movies_contact_block' => [

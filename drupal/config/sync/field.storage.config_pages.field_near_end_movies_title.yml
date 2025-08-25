@@ -1,19 +1,20 @@
-uuid: 016fa1a7-03bc-47e4-90de-1bf0c8c31b80
+uuid: 40f7b442-062d-4f08-8ead-612691c924e4
 langcode: fr
 status: true
 dependencies:
   module:
     - config_pages
-    - node
-id: config_pages.field_free_movies_movies
-field_name: field_free_movies_movies
+id: config_pages.field_near_end_movies_title
+field_name: field_near_end_movies_title
 entity_type: config_pages
-type: entity_reference
+type: string
 settings:
-  target_type: node
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
-cardinality: 4
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

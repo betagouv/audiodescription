@@ -1,0 +1,19 @@
+uuid: 46ddc095-8d19-4810-8bce-b74f8f2c1813
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_new_movies_title
+id: config_pages.homepage.field_new_movies_title
+field_name: field_new_movies_title
+entity_type: config_pages
+bundle: homepage
+label: 'Titre "Derniers films gratuits ajoutés"'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

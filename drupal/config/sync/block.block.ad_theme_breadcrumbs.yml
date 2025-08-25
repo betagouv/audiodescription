@@ -1,6 +1,6 @@
 uuid: d527da5d-80fc-45f2-acd8-ec51d6a9e752
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -11,7 +11,7 @@ _core:
 id: ad_theme_breadcrumbs
 theme: ad_theme
 region: content
-weight: -10
+weight: -2
 provider: null
 plugin: system_breadcrumb_block
 settings:

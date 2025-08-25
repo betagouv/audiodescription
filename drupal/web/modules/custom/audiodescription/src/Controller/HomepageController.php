@@ -87,23 +87,11 @@ class HomepageController extends ControllerBase {
       'style' => $entity->get('field_pg_style')->value,
     ];
 
-    // Get partners.
-    $query = \Drupal::entityQuery('taxonomy_term')
-      ->condition('vid', 'partner')
-      ->exists('field_taxo_logo_black_square')
-      ->accessCheck(FALSE)
-      ->sort('field_taxo_order', 'ASC');
-
-    $term_ids = $query->execute();
-
     $header = [
       'title' => $homepage->get('field_header_title')->value,
       'chapo' => $homepage->get('field_header_chapo')->value,
       'has_search_bar' => $homepage->get('field_header_with_search_bar')->value,
       'cta' => $cta,
-      'stats' => $this->countMoviesWithAtLeastOneSolution(),
-      //'stats' => '0',
-      'partners' => Term::loadMultiple($term_ids),
       'image' => $homepage->get('field_header_image')->entity->field_media_image->entity->uri->value
     ];
 
@@ -144,25 +132,24 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
-    $block = Block::load('ad_hp_collections_block');
-
-    $collections = [];
-    if ($block) {
-      $collections = $this->entityTypeManager
-        ->getViewBuilder('block')
-        ->view($block);
-    }
-
     $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');
 
-    $block = Block::load('ad_hp_free_movies_block');
-
-    $freeMovies = [];
+    $block = Block::load('ad_hp_new_free_movies_block');
+    $newFreeMovies = [];
     if ($block) {
-      $freeMovies = $this->entityTypeManager
+      $newFreeMovies = $this->entityTypeManager
         ->getViewBuilder('block')
         ->view($block);
     }
+
+    $block = Block::load('ad_hp_near_end_free_movies_block');
+    $nearEndFreeMovies = [];
+    if ($block) {
+      $nearEndFreeMovies = $this->entityTypeManager
+        ->getViewBuilder('block')
+        ->view($block);
+    }
+
 
     $entity = $homepage->get('field_newsletter_cta')->referencedEntities()[0];
     $newsletter = [
@@ -185,9 +172,10 @@ class HomepageController extends ControllerBase {
       '#infos' => $infos,
       '#about' => $about,
       '#highlighted_collections' => $highlightedCollections,
-      '#collections' => $collections,
+      //'#collections' => $collections,
       '#newsletter' => $newsletter,
-      '#free_movies' => $freeMovies,
+      '#new_free_movies' => $newFreeMovies,
+      '#near_end_free_movies' => $nearEndFreeMovies,
       '#search_form' => $search_form,
       '#cache' => [
         'tags' => ['node_list', 'taxonomy_term_list', $configPagesTag],

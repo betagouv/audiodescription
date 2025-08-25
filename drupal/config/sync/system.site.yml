@@ -4,7 +4,7 @@ langcode: fr
 uuid: e6c1838c-d5b1-4d0c-8c20-9405ca9991f6
 name: "Portail de l'audiodescription"
 mail: contact@audiodescription.beta.gouv.fr
-slogan: ''
+slogan: 'Catalogue de films disponibles en version audiodécrite'
 page:
   403: /error-403
   404: /error-404

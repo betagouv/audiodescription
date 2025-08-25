@@ -1,6 +1,6 @@
 uuid: bd7ca0e5-1ba5-4ad4-9ab7-920be3d11283
 langcode: fr
-status: true
+status: false
 dependencies:
   module:
     - audiodescription

@@ -102,6 +102,7 @@ class HpFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
 
     $tid = array_shift($term)->id();
 
+    die($tid);
     $connection = Database::getConnection();
 
     $sql = "

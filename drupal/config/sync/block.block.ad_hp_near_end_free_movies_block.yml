@@ -1,4 +1,4 @@
-uuid: 113669c7-416a-4f58-947a-847f977e6692
+uuid: 245ad8f7-875c-4cd8-b7fe-2f95d90a8ce3
 langcode: fr
 status: false
 dependencies:
@@ -6,15 +6,15 @@ dependencies:
     - audiodescription
   theme:
     - ad_theme
-id: ad_hp_highlighted_collections_block
+id: ad_hp_near_end_free_movies_block
 theme: ad_theme
 region: not_displayed
-weight: -9
+weight: 0
 provider: null
-plugin: highlighted_collections_block
+plugin: hp_near_end_free_movies_block
 settings:
-  id: highlighted_collections_block
-  label: '[HP] Collections mises en avant'
+  id: hp_near_end_free_movies_block
+  label: 'Films gratuits qui expirent bientôt'
   label_display: '0'
   provider: audiodescription
 visibility: {  }

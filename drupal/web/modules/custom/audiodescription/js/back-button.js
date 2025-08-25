@@ -5,7 +5,7 @@
         const referrer = document.referrer;
         const currentHost = window.location.host;
         const isSameSite = referrer && new URL(referrer).host === currentHost;
-        
+
         if (!isSameSite) {
           el.textContent = 'Retour à la page d’accueil';
         }

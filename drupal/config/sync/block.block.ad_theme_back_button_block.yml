@@ -1,0 +1,25 @@
+uuid: d38c7541-56a8-4a01-8564-13489aac8404
+langcode: fr
+status: true
+dependencies:
+  module:
+    - audiodescription
+    - system
+  theme:
+    - ad_theme
+id: ad_theme_back_button_block
+theme: ad_theme
+region: content
+weight: -10
+provider: null
+plugin: back_button_block
+settings:
+  id: back_button_block
+  label: 'Back Button Block'
+  label_display: '0'
+  provider: audiodescription
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '<front>'

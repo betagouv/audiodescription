@@ -42,8 +42,12 @@
   </div>
 </div>
 
-{% if free_movies is not empty %}
-  {{ free_movies }}
+{% if new_free_movies is not empty %}
+  {{ new_free_movies }}
+{% endif %}
+
+{% if near_end_free_movies is not empty %}
+  {{ near_end_free_movies }}
 {% endif %}
 
 <div class="block">

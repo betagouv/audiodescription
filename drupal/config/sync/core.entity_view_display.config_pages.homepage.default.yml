@@ -9,11 +9,6 @@ dependencies:
     - field.field.config_pages.homepage.field_about_icon
     - field.field.config_pages.homepage.field_about_pre_contact
     - field.field.config_pages.homepage.field_about_title
-    - field.field.config_pages.homepage.field_collections_collections
-    - field.field.config_pages.homepage.field_collections_title
-    - field.field.config_pages.homepage.field_collections_with_genres
-    - field.field.config_pages.homepage.field_free_movies_movies
-    - field.field.config_pages.homepage.field_free_movies_title
     - field.field.config_pages.homepage.field_header_chapo
     - field.field.config_pages.homepage.field_header_cta
     - field.field.config_pages.homepage.field_header_image
@@ -23,6 +18,8 @@ dependencies:
     - field.field.config_pages.homepage.field_infos_description
     - field.field.config_pages.homepage.field_infos_image
     - field.field.config_pages.homepage.field_infos_title
+    - field.field.config_pages.homepage.field_near_end_movies_title
+    - field.field.config_pages.homepage.field_new_movies_title
     - field.field.config_pages.homepage.field_newsletter_cta
     - field.field.config_pages.homepage.field_newsletter_description
     - field.field.config_pages.homepage.field_newsletter_title
@@ -72,48 +69,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
-    region: content
-  field_collections_collections:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_collections_title:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  field_collections_with_genres:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 11
-    region: content
-  field_free_movies_movies:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 24
-    region: content
-  field_free_movies_title:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 23
     region: content
   field_header_chapo:
     type: text_default
@@ -190,6 +145,22 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_near_end_movies_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 29
+    region: content
+  field_new_movies_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 28
     region: content
   field_newsletter_cta:
     type: entity_reference_revisions_entity_view

@@ -1,14 +1,17 @@
-uuid: 6acce9fb-6458-417c-befc-caa07ffbcb6d
+uuid: 26528e84-1dd5-4ffd-a749-81fe1332d974
 langcode: fr
 status: true
 dependencies:
   module:
     - config_pages
-id: config_pages.field_collections_with_genres
-field_name: field_collections_with_genres
+id: config_pages.field_new_movies_title
+field_name: field_new_movies_title
 entity_type: config_pages
-type: boolean
-settings: {  }
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1
