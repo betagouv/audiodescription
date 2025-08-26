@@ -3,6 +3,16 @@
     max-width: 100%;
   }
 
+  .fr-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+
+    @media (min-width: 576px) {
+      width: fit-content;
+    }
+  }
+
   @media (min-width: 768px) {
     &__2-columns {
       flex-direction: row-reverse;

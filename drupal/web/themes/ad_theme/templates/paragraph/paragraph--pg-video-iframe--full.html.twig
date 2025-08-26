@@ -44,9 +44,8 @@
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   not paragraph.isPublished() ? 'paragraph--unpublished',
   'fr-container',
-  'fr-pt-3w',
-  'fr-pb-3w',
-  'fr-pb-md-7w',
+  paragraph.field_pg_title.value is not empty ? 'fr-pt-6w',
+  'fr-pb-6w',
   'pg-video-iframe'
 ] %}
 {% block paragraph %}
@@ -56,8 +55,7 @@
     <div{{ attributes.addClass(classes) }}>
       {% block content %}
       <div class="fr-grid-row fr-grid-row--gutters">
-        <div class="fr-col-12 fr-col-md-6">
-
+        <div class="fr-col-12 fr-col-xl-6">
           {% if paragraph.field_pg_title.value is not empty %}
             <h2>{{ paragraph.field_pg_title.value }}</h2>
           {% endif %}
