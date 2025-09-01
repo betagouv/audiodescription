@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^3.3",
+        "beberlei/doctrineextensions": "*",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/doctrine-migrations-bundle": "^3.3",
@@ -38,7 +39,9 @@
         "symfony/uid": "7.1.*",
         "symfony/validator": "7.1.*",
         "symfony/yaml": "7.1.*",
-        "teamtnt/tntsearch": "^4.4"
+        "teamtnt/tntsearch": "^4.4",
+        "twig/extra-bundle": "^3.21",
+        "twig/intl-extra": "^3.21"
     },
     "config": {
         "allow-plugins": {

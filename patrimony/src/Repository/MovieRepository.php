@@ -122,4 +122,129 @@ class MovieRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
+  public function findNewFreeMovies($platformCode = null): array
+  {
+    $qb = $this->createQueryBuilder('m');
+
+    $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
+      ->addSelect('s')
+      ->addSelect('o')
+      ->addSelect('p')
+      ->leftJoin('m.solutions', 's')
+      ->leftJoin('s.offer', 'o')
+      ->leftJoin('s.partner', 'p')
+      ->where('o.code = :freeAccess')
+      ->andWhere($qb->expr()->orX(
+        's.endRights >= :minEndDate',
+        's.endRights IS NULL'
+      ))
+      ->andWhere($qb->expr()->orX(
+        's.startRights <= :now',
+        's.startRights IS NULL'
+      ))
+      ->andWhere($qb->expr()->orX(
+        $qb->expr()->andX(
+          's.startRights IS NULL',
+          's.createdAt >= :recentDate'
+        ),
+        $qb->expr()->andX(
+          's.startRights IS NOT NULL',
+          's.startRights >= :recentDate'
+        )
+      ))
+      ->andWhere('m.hasAd = true')
+      ->setParameter('freeAccess', 'FREE_ACCESS')
+      ->setParameter('now', new \DateTime())
+      ->setParameter('minEndDate', new \DateTime('+7 days'))
+      ->setParameter('recentDate', new \DateTime('-7 days'));
+
+    if (!is_null($platformCode)) {
+      $qb->andWhere('p.code = :platform')
+        ->setParameter('platform', $platformCode);
+    }
+
+    return $qb->getQuery()->getResult();
+  }
+
+  public function findNearEndFreeMovies(array $alreadySelected, int $maxResult): array
+  {
+    $qb = $this->createQueryBuilder('m');
+
+    $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
+    ->addSelect('s')
+      ->addSelect('o')
+      ->addSelect('p')
+      ->leftJoin('m.solutions', 's')
+      ->leftJoin('s.offer', 'o')
+      ->leftJoin('s.partner', 'p')
+      ->where('o.code = :freeAccess')
+      ->andWhere('s.endRights IS NOT NULL')
+      ->andWhere('s.endRights <= :nearEndDate')
+      ->andWhere('s.endRights >= :nearNowDate')
+      ->andWhere('m.hasAd = true')
+      ->andWhere($qb->expr()->notIn('m', ':excluded'))
+      ->orderBy('s.endRights', 'ASC')
+      ->setParameter('excluded', $alreadySelected)
+      ->setParameter('freeAccess', 'FREE_ACCESS')
+      ->setParameter('nearEndDate', new \DateTime('+15 days'))
+      ->setParameter('nearNowDate', new \DateTime('+3 days'))
+      ->setMaxResults($maxResult)
+    ;
+
+    return $qb->getQuery()->getResult();
+  }
+
+  public function findNotSelectedFreeMovies(array $alreadySelected): array
+  {
+    $qb = $this->createQueryBuilder('m');
+
+    $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
+    ->addSelect('s')
+      ->addSelect('o')
+      ->addSelect('p')
+      ->leftJoin('m.solutions', 's')
+      ->leftJoin('s.offer', 'o')
+      ->leftJoin('s.partner', 'p')
+      ->where('o.code = :freeAccess')
+      ->andWhere($qb->expr()->orX(
+        's.endRights >= :now',
+        's.endRights IS NULL'
+      ))
+      ->andWhere($qb->expr()->orX(
+        's.startRights <= :now',
+        's.startRights IS NULL'
+      ))
+      ->andWhere($qb->expr()->notIn('m', ':excluded'))
+      ->setParameter('excluded', $alreadySelected)
+      ->setParameter('freeAccess', 'FREE_ACCESS')
+      ->setParameter('now', new \DateTime());
+
+    return $qb->getQuery()->getResult();
+  }
+
+  public function countFreeMovies(): int {
+    $qb = $this->createQueryBuilder('m');
+
+    $qb->select('COUNT(DISTINCT m.id)') // HIDDEN pour pouvoir trier sans le retourner directement
+      ->leftJoin('m.solutions', 's')
+      ->leftJoin('s.offer', 'o')
+      ->leftJoin('s.partner', 'p')
+      ->where('o.code = :freeAccess')
+      ->andWhere($qb->expr()->orX(
+        's.endRights >= :now',
+        's.endRights IS NULL'
+      ))
+      ->andWhere($qb->expr()->orX(
+        's.startRights <= :now',
+        's.startRights IS NULL'
+      ))
+      ->andWhere('m.hasAd = true')
+      ->setParameter('freeAccess', 'FREE_ACCESS')
+      ->setParameter('now', new \DateTime());
+
+    $count = $qb->getQuery()->getSingleScalarResult();
+
+    return $count;
+  }
 }

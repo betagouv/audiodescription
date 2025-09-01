@@ -50,11 +50,11 @@ class Solution
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private DateTimeInterface $startRights;
+    private ?DateTimeInterface $startRights = NULL;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private DateTimeInterface $endRights;
+    private ?DateTimeInterface $endRights = NULL;
 
     #[ORM\ManyToOne(targetEntity: SourceMovie::class, inversedBy: 'solutions')]
     private SourceMovie $sourceMovie;
@@ -110,7 +110,7 @@ class Solution
         $this->link = $link;
     }
 
-    public function getStartRights(): DateTimeInterface
+    public function getStartRights(): ?DateTimeInterface
     {
         return $this->startRights;
     }
@@ -120,7 +120,7 @@ class Solution
         $this->startRights = $startRights;
     }
 
-    public function getEndRights(): DateTimeInterface
+    public function getEndRights(): ?DateTimeInterface
     {
         return $this->endRights;
     }
