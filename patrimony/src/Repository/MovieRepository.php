@@ -153,6 +153,7 @@ class MovieRepository extends ServiceEntityRepository
           's.startRights >= :recentDate'
         )
       ))
+      ->andWhere('s.link IS NOT NULL')
       ->andWhere('m.hasAd = true')
       ->setParameter('freeAccess', 'FREE_ACCESS')
       ->setParameter('now', new \DateTime())
@@ -182,6 +183,7 @@ class MovieRepository extends ServiceEntityRepository
       ->andWhere('s.endRights IS NOT NULL')
       ->andWhere('s.endRights <= :nearEndDate')
       ->andWhere('s.endRights >= :nearNowDate')
+      ->andWhere('s.link IS NOT NULL')
       ->andWhere('m.hasAd = true')
       ->andWhere($qb->expr()->notIn('m', ':excluded'))
       ->orderBy('s.endRights', 'ASC')
@@ -215,6 +217,7 @@ class MovieRepository extends ServiceEntityRepository
         's.startRights <= :now',
         's.startRights IS NULL'
       ))
+      ->andWhere('s.link IS NOT NULL')
       ->andWhere($qb->expr()->notIn('m', ':excluded'))
       ->setParameter('excluded', $alreadySelected)
       ->setParameter('freeAccess', 'FREE_ACCESS')
