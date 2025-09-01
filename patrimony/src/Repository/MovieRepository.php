@@ -135,15 +135,17 @@ class MovieRepository extends ServiceEntityRepository
       ->leftJoin('s.offer', 'o')
       ->leftJoin('s.partner', 'p')
       ->where('o.code = :freeAccess')
-      ->andWhere($qb->expr()->orX(
+      /**->andWhere($qb->expr()->orX(
         's.endRights >= :minEndDate',
         's.endRights IS NULL'
       ))
       ->andWhere($qb->expr()->orX(
         's.startRights <= :now',
         's.startRights IS NULL'
-      ))
-      ->andWhere($qb->expr()->orX(
+      ))**/
+      ->andWhere('s.endRights >= :minEndDate')
+      ->andWhere('s.startRights <= :now')
+      /**->andWhere($qb->expr()->orX(
         $qb->expr()->andX(
           's.startRights IS NULL',
           's.createdAt >= :recentDate'
@@ -152,6 +154,10 @@ class MovieRepository extends ServiceEntityRepository
           's.startRights IS NOT NULL',
           's.startRights >= :recentDate'
         )
+      ))**/
+      ->andWhere($qb->expr()->andX(
+        's.startRights IS NOT NULL',
+        's.startRights >= :recentDate'
       ))
       ->andWhere('s.link IS NOT NULL')
       ->andWhere('m.hasAd = true')
@@ -209,14 +215,16 @@ class MovieRepository extends ServiceEntityRepository
       ->leftJoin('s.offer', 'o')
       ->leftJoin('s.partner', 'p')
       ->where('o.code = :freeAccess')
-      ->andWhere($qb->expr()->orX(
+      /**->andWhere($qb->expr()->orX(
         's.endRights >= :now',
         's.endRights IS NULL'
       ))
       ->andWhere($qb->expr()->orX(
         's.startRights <= :now',
         's.startRights IS NULL'
-      ))
+      ))**/
+      ->andWhere('s.endRights >= :now')
+      ->andWhere('s.startRights <= :now')
       ->andWhere('s.link IS NOT NULL')
       ->andWhere($qb->expr()->notIn('m', ':excluded'))
       ->setParameter('excluded', $alreadySelected)
@@ -234,14 +242,16 @@ class MovieRepository extends ServiceEntityRepository
       ->leftJoin('s.offer', 'o')
       ->leftJoin('s.partner', 'p')
       ->where('o.code = :freeAccess')
-      ->andWhere($qb->expr()->orX(
+      /**->andWhere($qb->expr()->orX(
         's.endRights >= :now',
         's.endRights IS NULL'
       ))
       ->andWhere($qb->expr()->orX(
         's.startRights <= :now',
         's.startRights IS NULL'
-      ))
+      ))**/
+      ->andWhere('s.endRights >= :now')
+      ->andWhere('s.startRights <= :now')
       ->andWhere('m.hasAd = true')
       ->setParameter('freeAccess', 'FREE_ACCESS')
       ->setParameter('now', new \DateTime());
