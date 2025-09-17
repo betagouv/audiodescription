@@ -49,7 +49,6 @@ prd-install-drupal:
 	docker compose exec drupal vendor/bin/drush cr
 	docker compose exec drupal vendor/bin/drush adia
 	docker compose exec drupal vendor/bin/drush adum
-	docker compose exec drupal vendor/bin/drush aduhp
 	docker compose exec drupal vendor/bin/drush cr
 
 .PHONY: prd-install-patrimony
@@ -127,7 +126,6 @@ pt-import:
 d-import:
 	docker compose exec drupal vendor/bin/drush adia
 	docker compose exec drupal vendor/bin/drush adum
-	docker compose exec drupal vendor/bin/drush aduhp
 	docker compose exec drupal vendor/bin/drush cr
 
 .PHONY:sh
@@ -289,5 +287,4 @@ cron-import:
 	docker compose exec -T patrimony php bin/console ad:import:francetv-api --create-movies=true || true
 	docker compose exec -T drupal vendor/bin/drush adia || true
 	docker compose exec -T drupal vendor/bin/drush adum || true
-	docker compose exec -T drupal vendor/bin/drush aduhp || true
 	docker compose exec -T drupal vendor/bin/drush cr
