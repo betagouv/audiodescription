@@ -84,6 +84,7 @@ class CollectionsController extends ControllerBase {
     $build = [
       '#theme' => 'collections_list',
       '#collections' => $collections,
+      '#title' => 'Collections de films',
       '#cache' => [
         'tags' => ['taxonomy_term_list'],
       ],
