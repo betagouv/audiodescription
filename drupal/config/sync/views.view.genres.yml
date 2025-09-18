@@ -1,6 +1,6 @@
 uuid: 278ffefc-7e5d-423f-874f-5e6b78f3056a
 langcode: fr
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.tile

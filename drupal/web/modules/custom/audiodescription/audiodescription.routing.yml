@@ -6,6 +6,14 @@ audiodescription.homepage:
   requirements:
     _permission: 'access content'
 
+audiodescription.collections.list:
+  path: '/collections'
+  defaults:
+    _controller: '\Drupal\audiodescription\Controller\CollectionsController:list'
+    _title: 'Collections de films'
+  requirements:
+    _permission: 'access content'
+
 audiodescription.movie_search:
   path: '/recherche'
   defaults:

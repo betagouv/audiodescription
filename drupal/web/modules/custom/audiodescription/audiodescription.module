@@ -30,6 +30,14 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'near_end_free_movies' => NULL,
       ],
     ],
+    'collections_list' => [
+      'render element' => 'children',
+      'template' => 'collections-list',
+      'path' => $path . '/templates',
+      'variables' => [
+        'collections' => NULL,
+      ],
+    ],
     'hp_highlighted_collections_block' => [
       'render element' => 'children',
       'template' => 'hp-highlighted-collections-block',
