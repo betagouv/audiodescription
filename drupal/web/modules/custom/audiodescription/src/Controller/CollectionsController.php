@@ -63,6 +63,7 @@ class CollectionsController extends ControllerBase {
 
     $query = $term_storage->getQuery()
       ->condition('vid', 'genre')
+      ->sort('name', 'ASC')
       ->accessCheck(FALSE);
 
     $tidsGenre = $query->execute();
