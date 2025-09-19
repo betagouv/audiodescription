@@ -56,6 +56,10 @@ class MovieSearchParametersBag {
       $array['partner'] = $this->partner;
     }
 
+    if ($this->isFree) {
+      $array['is_free'] = $this->isFree;
+    }
+
     return $array;
   }
 
