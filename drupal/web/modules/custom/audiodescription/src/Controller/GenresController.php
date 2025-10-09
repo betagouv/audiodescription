@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Controller for building the collection pages content.
  */
-class CollectionsController extends ControllerBase {
+class GenresController extends ControllerBase {
 
   /**
    * The entity type manager service.
@@ -54,37 +54,29 @@ class CollectionsController extends ControllerBase {
    */
   public function list() {
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
-    $query = $term_storage->getQuery()
-      ->condition('field_taxo_is_highlighted', TRUE)
-      ->condition('vid', 'collection')
-      ->accessCheck(FALSE);
-
-    $tidsCollection = $query->execute();
 
     $query = $term_storage->getQuery()
       ->condition('vid', 'genre')
       ->sort('name', 'ASC')
       ->accessCheck(FALSE);
 
-    $tidsGenre = $query->execute();
+    $tids = $query->execute();
 
-    $tids = array_merge($tidsCollection, $tidsGenre);
-
-    $collections = [];
+    $genres = [];
 
     foreach ($tids as $tid) {
       $term = Term::load($tid);
       $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
       $render_array = $view_builder->view($term, 'tile');
 
-      $collections[] = $render_array;
+      $genres[] = $render_array;
     }
 
 
     $build = [
-      '#theme' => 'collections_list',
-      '#collections' => $collections,
-      '#title' => 'Collections de films',
+      '#theme' => 'genres_list',
+      '#genres' => $genres,
+      '#title' => 'Films par genre',
       '#cache' => [
         'tags' => ['taxonomy_term_list'],
       ],

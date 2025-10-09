@@ -6,11 +6,11 @@ audiodescription.homepage:
   requirements:
     _permission: 'access content'
 
-audiodescription.collections.list:
-  path: '/collections'
+audiodescription.genres.list:
+  path: '/genres'
   defaults:
-    _controller: '\Drupal\audiodescription\Controller\CollectionsController:list'
-    _title: 'Collections de films'
+    _controller: '\Drupal\audiodescription\Controller\GenresController:list'
+    _title: 'Films par genre'
   requirements:
     _permission: 'access content'
 
