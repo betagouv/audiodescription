@@ -22,4 +22,5 @@ parameters:
   tf1.api.user: '%env(TF1_API_USER)%'
   tf1.api.password: '%env(TF1_API_PASSWORD)%'
   tf1.api.url: '%env(TF1_API_URL)%'
-  france_tv.api.url: '%env(FRANCE_TV_API_URL)%'
+  france_tv_100_num.api.url: '%env(FRANCE_TV_API_URL_100_NUM)%'
+  france_tv_premium.api.url: '%env(FRANCE_TV_API_URL_PREMIUM)%'
