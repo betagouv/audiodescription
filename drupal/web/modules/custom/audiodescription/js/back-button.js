@@ -4,6 +4,7 @@
       for (const el of once('back-button', '#back-button', context)) {
         const referrer = document.referrer;
         const currentHost = window.location.host;
+
         const isSameSite = referrer && new URL(referrer).host === currentHost;
 
         if (!isSameSite) {
@@ -14,7 +15,11 @@
           e.preventDefault();
 
           if (isSameSite) {
-            window.history.back();
+            if (window.location.hash === '#top') {
+              window.history.go(-2);
+            } else {
+              window.history.back();
+            }
           } else {
             window.location.href = '/';
           }
