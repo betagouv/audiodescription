@@ -1,0 +1,25 @@
+uuid: 9f82a7c1-e21e-4c19-bc79-3b06cb4f6cd5
+langcode: fr
+status: true
+dependencies:
+  module:
+    - audiodescription
+    - system
+  theme:
+    - ad_theme
+id: ad_search_block
+theme: ad_theme
+region: content
+weight: 0
+provider: null
+plugin: search_block
+settings:
+  id: search_block
+  label: 'Bloc "Recherche"'
+  label_display: '0'
+  provider: audiodescription
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "<front>\r\n/recherche\r\n"

@@ -1,0 +1,19 @@
+uuid: 50df2b9a-3e8b-4009-8a00-2a9fe29cd212
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.search
+    - field.storage.config_pages.field_search_title
+id: config_pages.search.field_search_title
+field_name: field_search_title
+entity_type: config_pages
+bundle: search
+label: Titre
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

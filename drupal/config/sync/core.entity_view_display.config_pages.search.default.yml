@@ -8,6 +8,7 @@ dependencies:
     - field.field.config_pages.search.field_contact_email
     - field.field.config_pages.search.field_contact_pre_contact
     - field.field.config_pages.search.field_contact_title
+    - field.field.config_pages.search.field_search_title
   module:
     - text
 id: config_pages.search.default
@@ -44,6 +45,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_search_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
     region: content
 hidden:
   search_api_excerpt: true

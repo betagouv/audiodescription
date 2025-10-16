@@ -8,6 +8,7 @@ dependencies:
     - field.field.config_pages.search.field_contact_email
     - field.field.config_pages.search.field_contact_pre_contact
     - field.field.config_pages.search.field_contact_title
+    - field.field.config_pages.search.field_search_title
   module:
     - field_group
     - text
@@ -23,6 +24,21 @@ third_party_settings:
       region: content
       parent_name: ''
       weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+    group_search_block:
+      children:
+        - field_search_title
+      label: 'Bloc "Recherche"'
+      region: content
+      parent_name: ''
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -63,6 +79,14 @@ content:
   field_contact_title:
     type: string_textfield
     weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_search_title:
+    type: string_textfield
+    weight: 2
     region: content
     settings:
       size: 60

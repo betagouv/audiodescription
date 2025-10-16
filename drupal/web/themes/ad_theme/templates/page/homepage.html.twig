@@ -2,33 +2,9 @@
   <div class="fr-container">
     <div class="fr-grid-row">
       <div class="fr-col-12 fr-col-lg-6">
-        <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w">
+        <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w" id="search" tabindex="-1">
           <h1>{{ header.title }}</h1>
           {{ header.chapo|class2wysiwygP('fr-text--lead')|raw }}
-
-          {# <div class="ad-homepage__stats">
-            <p class="fr-text--lead ad-homepage__stats-text">
-              <strong>{{ header.stats }} films</strong> disponibles sur {{ ' ' }}
-              {% for partner in header.partners %}
-                {% if loop.index == 1 %}
-                  {{ partner.name.value }}
-                {% elseif loop.index == loop.last %}
-                  {{ ' et ' ~ partner.name.value ~ '.' }}
-                {% else %}
-                  , {{ partner.name.value }}
-                {% endif %}
-              {% endfor %}
-            </p>
-          </div>
-
-          {% set header_cta = pattern('button', {
-            label: header.cta.text,
-            url: header.cta.url,
-            target: header.cta.target,
-            external: header.cta.external
-          }, header.cta.style) %}
-
-          {{ header_cta }} #}
 
           {% if header.has_search_bar %}
             {{ search_form }}

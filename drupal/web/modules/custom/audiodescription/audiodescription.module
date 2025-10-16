@@ -99,6 +99,15 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'email' => NULL,
       ],
     ],
+    'search_block' => [
+      'render element' => 'children',
+      'template' => 'search-block',
+      'path' => $path . '/templates',
+      'variables' => [
+        'title' => NULL,
+        'form' => NULL,
+      ],
+    ],
     'info_banner_block' => [
       'render element' => 'children',
       'template' => 'info_banner-block',

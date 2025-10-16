@@ -1,9 +1,8 @@
-uuid: 278ffefc-7e5d-423f-874f-5e6b78f3056a
+uuid: c04e5fda-f8b1-46e3-8f17-345e94ad1702
 langcode: fr
-status: false
+status: true
 dependencies:
   config:
-    - core.entity_view_mode.taxonomy_term.tile
     - taxonomy.vocabulary.genre
   module:
     - taxonomy
@@ -22,7 +21,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Films par genre'
+      title: Genres
       fields:
         name:
           id: name
@@ -73,10 +72,24 @@ display:
           field_api_classes: false
           convert_spaces: false
       pager:
-        type: none
+        type: mini
         options:
           offset: 0
-          items_per_page: null
+          pagination_heading_level: h4
+          items_per_page: 10
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Éléments par page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- Tout -'
+            offset: false
+            offset_label: Décalage
       exposed_form:
         type: basic
         options:
@@ -95,20 +108,7 @@ display:
         type: tag
         options: {  }
       empty: {  }
-      sorts:
-        field_taxo_code_value:
-          id: field_taxo_code_value
-          table: taxonomy_term__field_taxo_code
-          field: field_taxo_code_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: standard
-          order: ASC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
+      sorts: {  }
       arguments: {  }
       filters:
         status:
@@ -133,15 +133,8 @@ display:
             genre: genre
       style:
         type: default
-        options:
-          row_class: ''
-          default_row_class: false
-          uses_fields: false
       row:
-        type: 'entity:taxonomy_term'
-        options:
-          relationship: none
-          view_mode: tile
+        type: fields
       query:
         type: views_query
         options:
@@ -159,15 +152,15 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url.query_args
         - user.permissions
       tags: {  }
-  page:
-    id: page
-    display_title: 'Films par genre'
+  page_1:
+    id: page_1
+    display_title: Page
     display_plugin: page
     position: 1
     display_options:
-      display_description: ''
       display_extenders: {  }
       path: genres
     cache_metadata:
@@ -175,5 +168,6 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url.query_args
         - user.permissions
       tags: {  }

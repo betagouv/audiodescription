@@ -45,17 +45,13 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, string $format = 'lg', string $label = "Rechercher un film", bool $visibleLabel = false) {
+  public function buildForm(array $form, FormStateInterface $form_state, string $format = 'lg', string $label = "Rechercher un film") {
     $request = $this->requestStack->getCurrentRequest();
     $search = $request->query->get('search');
 
     $prefixClasses = 'fr-search-bar';
     if ($format == 'lg') {
       $prefixClasses .= ' fr-search-bar--lg';
-    }
-
-    if ($visibleLabel) {
-      //$prefixClasses .= ' ad-search__label--visible';
     }
 
     $form['search'] = [
