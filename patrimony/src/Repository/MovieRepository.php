@@ -135,26 +135,8 @@ class MovieRepository extends ServiceEntityRepository
       ->leftJoin('s.offer', 'o')
       ->leftJoin('s.partner', 'p')
       ->where('o.code = :freeAccess')
-      /**->andWhere($qb->expr()->orX(
-        's.endRights >= :minEndDate',
-        's.endRights IS NULL'
-      ))
-      ->andWhere($qb->expr()->orX(
-        's.startRights <= :now',
-        's.startRights IS NULL'
-      ))**/
       ->andWhere('s.endRights >= :minEndDate')
       ->andWhere('s.startRights <= :now')
-      /**->andWhere($qb->expr()->orX(
-        $qb->expr()->andX(
-          's.startRights IS NULL',
-          's.createdAt >= :recentDate'
-        ),
-        $qb->expr()->andX(
-          's.startRights IS NOT NULL',
-          's.startRights >= :recentDate'
-        )
-      ))**/
       ->andWhere($qb->expr()->andX(
         's.startRights IS NOT NULL',
         's.startRights >= :recentDate'

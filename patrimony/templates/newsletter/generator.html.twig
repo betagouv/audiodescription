@@ -160,23 +160,9 @@
                                                                             <div fr-original-style=""
                                                                                  style="font-size: 16px; font-family: Arial;">
 
-                                                                                <p style="margin: 0px; font-size: 16px; font-family: Arial;"
-                                                                                   fr-original-style="margin: 0;">Cette
-                                                                                    semaine, découvrez une sélection de {{ totalMoviesCount }}
-                                                                                    films gratuits : {{ newMovies|length }} nouveautés, {{ randomMovies|length }} titres
-                                                                                    encore à l'affiche et {{ nearEndMovies|length }} œuvres à voir rapidement avant leur
-                                                                                    disparition du catalogue.&nbsp;
-                                                                                    <br>Une sélection variée pour profiter
-                                                                                    pleinement du cinéma avec
-                                                                                    l'audiodescription.
-                                                                                </p>
-
-                                                                                <p style="margin: 0px; font-size: 16px; font-family: Arial;"
-                                                                                   fr-original-style="margin: 0;">
-                                                                                    <br>
-                                                                                </p>Sommaire cliquable (il se peut que les
+                                                                                <p>Sommaire cliquable (il se peut que les
                                                                                 liens ne fonctionnent pas selon votre boîte
-                                                                                de messagerie) :
+                                                                                    de messagerie) :</p>
 
                                                                                 <ul fr-original-style=""
                                                                                     style="font-size: 16px; font-family: Arial;">
@@ -192,7 +178,7 @@
                                                                                             disponibles</a></li>
                                                                                     <li><a href="#expirent-bientot"
                                                                                            fr-original-style=""
-                                                                                           style="user-select: auto;">Les
+                                                                                           style="user-select: auto;">Les {{ nearEndMovies|length }}
                                                                                             films gratuits qui expirent
                                                                                             bientôt</a></li>
                                                                                     <li><a href="#portail"
@@ -478,13 +464,8 @@
                                                                                     class="default-heading2"
                                                                                     style="margin: 0; color: #1f2d3d; font-family: Arial; font-size: 24px; word-break: break-word; --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-shadow: 0 0 #0000; font-style: normal; font-weight: 700; text-decoration-style: initial; text-decoration-thickness: initial; padding-bottom: 15px;">
     <span style="font-family: Arial; font-size: 32px;">
-     <strong fr-original-style="" style="font-weight: 700;">Les films gratuits qui expirent bientôt</strong>
+     <strong fr-original-style="" style="font-weight: 700;">Les {{ nearEndMovies|length }} films gratuits qui expirent bientôt</strong>
      &nbsp;</span></h2>
-
-                                                                                <p style="margin: 0px; --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-shadow: 0 0 #0000; font-style: normal; font-weight: 400; text-decoration-style: initial; font-family: Arial; font-size: 18px; word-break: break-word; text-decoration-thickness: initial;"
-                                                                                   fr-original-style="margin: 0; --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-shadow: 0 0 #0000; font-style: normal; font-weight: 400; text-decoration-style: initial; font-family: Arial; font-size: 18px; word-break: break-word; text-decoration-thickness: initial;">
-                                                                                    Les {{ nearEndMovies|length }} films suivants ne seront bientôt
-                                                                                    plus disponibles au visionnage :</p>
                                                                                 <br>
 
                                                                                 {% for movie in nearEndMovies %}
