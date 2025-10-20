@@ -46,7 +46,7 @@ class NewsletterController extends AbstractController
       $newMovies = array_merge($newMoviesArte, $newMoviesTf1, $newMoviesFranceTv);
       shuffle($newMovies);
 
-      $nearEndMovies = $movieRepository->findNearEndFreeMovies($newMoviesArte, self::MAX_NEAR_END_MOVIES);
+      $nearEndMovies = $movieRepository->findNearEndFreeMovies($newMovies, self::MAX_NEAR_END_MOVIES);
 
       $alreadySelectedMovies = array_merge($newMovies, $nearEndMovies);
       $randomMovies = $movieRepository->findNotSelectedFreeMovies($alreadySelectedMovies);

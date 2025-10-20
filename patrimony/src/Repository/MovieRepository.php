@@ -173,15 +173,19 @@ class MovieRepository extends ServiceEntityRepository
       ->andWhere('s.endRights >= :nearNowDate')
       ->andWhere('s.link IS NOT NULL')
       ->andWhere('m.hasAd = true')
-      ->andWhere($qb->expr()->notIn('m', ':excluded'))
+      
       ->orderBy('s.endRights', 'ASC')
-      ->setParameter('excluded', $alreadySelected)
       ->setParameter('freeAccess', 'FREE_ACCESS')
       ->setParameter('nearEndDate', new \DateTime('+15 days'))
       ->setParameter('nearNowDate', new \DateTime('+3 days'))
       ->setMaxResults($maxResult)
     ;
-
+    
+    if(!empty($alreadySelected)) {
+      $qb->andWhere($qb->expr()->notIn('m', ':excluded'))
+        ->setParameter('excluded', $alreadySelected);
+    }
+    
     return $qb->getQuery()->getResult();
   }
 
