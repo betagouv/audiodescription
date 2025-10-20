@@ -152,14 +152,6 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
   ];
 
   $block = Block::load('ad_movies_contact_block');
-  $blockContact = [];
-  if ($block) {
-    $blockContact = \Drupal::entityTypeManager()
-      ->getViewBuilder('block')
-      ->view($block);
-  }
-
-  $variables['block_contact'] = $blockContact;
 
   $collections = [];
   $terms = \Drupal::entityTypeManager()
