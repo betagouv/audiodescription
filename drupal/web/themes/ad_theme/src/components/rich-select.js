@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import Fuse from 'fuse.js'
 
-// Gestionnaire global pour coordonner toutes les instances
+// Global manager for all rich select.
 class RichSelectManager {
   constructor() {
     this.instances = new Set();
@@ -25,7 +25,7 @@ class RichSelectManager {
   }
 }
 
-// Instance unique du gestionnaire
+// Unique manager.
 const manager = new RichSelectManager();
 
 export class RichSelect extends LitElement {
@@ -70,10 +70,10 @@ export class RichSelect extends LitElement {
       }
     }
 
-    // Enregistrer cette instance auprès du gestionnaire
+    // Save this richSelect in manager.
     manager.register(this);
 
-    // Ajouter un écouteur global pour les clics à l'extérieur
+    // Add a listener to close richSelect on outside click.
     this._handleOutsideClick = this._handleOutsideClick.bind(this);
     document.addEventListener('click', this._handleOutsideClick);
   }
@@ -81,10 +81,7 @@ export class RichSelect extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
 
-    // Désinscrire cette instance
     manager.unregister(this);
-
-    // Retirer l'écouteur de clics
     document.removeEventListener('click', this._handleOutsideClick);
   }
 
@@ -193,28 +190,26 @@ export class RichSelect extends LitElement {
     this.requestUpdate();
   }
 
-  // Nouvelle méthode pour gérer les clics à l'extérieur
+  // Manage outside clicks.
   _handleOutsideClick(event) {
-    // Si le dropdown n'est pas visible, ne rien faire
     if (!this.visible) return;
 
-    // Vérifier si le clic est à l'intérieur du composant
     const isClickInside = this.contains(event.target);
 
-    // Si le clic est à l'extérieur, fermer le dropdown
+    // If click is outside the component close it.
     if (!isClickInside) {
       this.close();
     }
   }
 
-  // Nouvelle méthode pour fermer proprement le dropdown
+  // Close dropdown.
   close() {
     this.visible = false;
     this.icon = 'fr-icon-arrow-down-s-line';
     this.requestUpdate();
   }
 
-  // Nouvelle méthode pour ouvrir proprement le dropdown
+  // Open dropdown.
   open() {
     this.visible = true;
     this.icon = 'fr-icon-arrow-up-s-line';
@@ -288,14 +283,12 @@ export class RichSelect extends LitElement {
   }
 
   _toggleDropdown(e) {
-    // Empêcher la propagation pour éviter de déclencher le _handleOutsideClick immédiatement
     e.stopPropagation();
 
     if (this.visible) {
-      // Si on ferme, juste fermer
       this.close();
     } else {
-      // Si on ouvre, fermer les autres d'abord
+      // If new component opened, close others.
       manager.closeAllExcept(this);
       this.open();
     }
