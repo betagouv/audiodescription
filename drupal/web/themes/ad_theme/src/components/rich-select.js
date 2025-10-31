@@ -2,6 +2,32 @@ import { LitElement, html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import Fuse from 'fuse.js'
 
+// Gestionnaire global pour coordonner toutes les instances
+class RichSelectManager {
+  constructor() {
+    this.instances = new Set();
+  }
+
+  register(instance) {
+    this.instances.add(instance);
+  }
+
+  unregister(instance) {
+    this.instances.delete(instance);
+  }
+
+  closeAllExcept(exceptInstance) {
+    this.instances.forEach(instance => {
+      if (instance !== exceptInstance && instance.visible) {
+        instance.close();
+      }
+    });
+  }
+}
+
+// Instance unique du gestionnaire
+const manager = new RichSelectManager();
+
 export class RichSelect extends LitElement {
   static properties = {
     title: { type: String },
@@ -43,6 +69,23 @@ export class RichSelect extends LitElement {
         'text': 'Tout désélectionner'
       }
     }
+
+    // Enregistrer cette instance auprès du gestionnaire
+    manager.register(this);
+
+    // Ajouter un écouteur global pour les clics à l'extérieur
+    this._handleOutsideClick = this._handleOutsideClick.bind(this);
+    document.addEventListener('click', this._handleOutsideClick);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
+    // Désinscrire cette instance
+    manager.unregister(this);
+
+    // Retirer l'écouteur de clics
+    document.removeEventListener('click', this._handleOutsideClick);
   }
 
   constructor() {
@@ -52,18 +95,9 @@ export class RichSelect extends LitElement {
 
     this.fuseOptions = {
       isCaseSensitive: false,
-      //includeScore: true,
-      // shouldSort: true,
-      // includeMatches: true,
-      // findAllMatches: false,
-      //minMatchCharLength: 3,
-      // location: 0,
       threshold: 0.6,
       distance: 0,
       useExtendedSearch: true,
-      // ignoreLocation: false,
-      // ignoreFieldNorm: false,
-      // fieldNormWeight: 1,
       keys: [
         'value'
       ]
@@ -123,11 +157,10 @@ export class RichSelect extends LitElement {
   _onSearch(e) {
     if (e.target.value.length === 0) {
       this.currentOptions = this._formatOptions();
-
       return;
     }
 
-    // Extended search : add ' for include match (https://www.fusejs.io/examples.html#extended-search)
+    // Extended search : add ' for include match
     const results = this.fuse.search("'" + e.target.value);
 
     let ar = [];
@@ -157,6 +190,34 @@ export class RichSelect extends LitElement {
       }
     }
 
+    this.requestUpdate();
+  }
+
+  // Nouvelle méthode pour gérer les clics à l'extérieur
+  _handleOutsideClick(event) {
+    // Si le dropdown n'est pas visible, ne rien faire
+    if (!this.visible) return;
+
+    // Vérifier si le clic est à l'intérieur du composant
+    const isClickInside = this.contains(event.target);
+
+    // Si le clic est à l'extérieur, fermer le dropdown
+    if (!isClickInside) {
+      this.close();
+    }
+  }
+
+  // Nouvelle méthode pour fermer proprement le dropdown
+  close() {
+    this.visible = false;
+    this.icon = 'fr-icon-arrow-down-s-line';
+    this.requestUpdate();
+  }
+
+  // Nouvelle méthode pour ouvrir proprement le dropdown
+  open() {
+    this.visible = true;
+    this.icon = 'fr-icon-arrow-up-s-line';
     this.requestUpdate();
   }
 
@@ -197,7 +258,7 @@ export class RichSelect extends LitElement {
 
             <div class="ad-rich-select__dropdown-options">
               ${this.currentOptions.map(
-                (item) => html`
+      (item) => html`
               <div class="fr-fieldset__element">
                 <div class="fr-checkbox-group">
                   <input
@@ -217,7 +278,7 @@ export class RichSelect extends LitElement {
                 </div>
               </div>
             `
-              )}
+    )}
             </div>
           </fieldset>
         </div>
@@ -227,8 +288,17 @@ export class RichSelect extends LitElement {
   }
 
   _toggleDropdown(e) {
-    this.visible = !this.visible;
-    this.icon = this.visible ? 'fr-icon-arrow-up-s-line' : 'fr-icon-arrow-down-s-line';
+    // Empêcher la propagation pour éviter de déclencher le _handleOutsideClick immédiatement
+    e.stopPropagation();
+
+    if (this.visible) {
+      // Si on ferme, juste fermer
+      this.close();
+    } else {
+      // Si on ouvre, fermer les autres d'abord
+      manager.closeAllExcept(this);
+      this.open();
+    }
   }
 }
 
