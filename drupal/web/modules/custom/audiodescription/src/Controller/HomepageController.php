@@ -121,6 +121,8 @@ class HomepageController extends ControllerBase {
       'icon' => $homepage->get('field_about_icon')->entity->field_media_image->entity->uri->value,
       'pre_contact' => $homepage->get('field_about_pre_contact')->value,
       'email' => $homepage->get('field_about_email')->value,
+      'button_text' => $homepage->get('field_about_button_text')->value,
+      'subbutton_text' => $homepage->get('field_about_subbutton_text')->value,
     ];
 
     $search_form = $this->formBuilder->getForm('Drupal\audiodescription\Form\SimpleMovieSearchForm', 'lg');

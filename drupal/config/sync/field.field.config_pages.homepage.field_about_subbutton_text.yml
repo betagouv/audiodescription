@@ -1,0 +1,19 @@
+uuid: 2c5607cc-4939-4e25-8657-647744d289af
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.homepage
+    - field.storage.config_pages.field_about_subbutton_text
+id: config_pages.homepage.field_about_subbutton_text
+field_name: field_about_subbutton_text
+entity_type: config_pages
+bundle: homepage
+label: 'Texte sous bouton'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -4,10 +4,12 @@ status: true
 dependencies:
   config:
     - config_pages.type.homepage
+    - field.field.config_pages.homepage.field_about_button_text
     - field.field.config_pages.homepage.field_about_description
     - field.field.config_pages.homepage.field_about_email
     - field.field.config_pages.homepage.field_about_icon
     - field.field.config_pages.homepage.field_about_pre_contact
+    - field.field.config_pages.homepage.field_about_subbutton_text
     - field.field.config_pages.homepage.field_about_title
     - field.field.config_pages.homepage.field_header_chapo
     - field.field.config_pages.homepage.field_header_cta
@@ -32,6 +34,14 @@ targetEntityType: config_pages
 bundle: homepage
 mode: default
 content:
+  field_about_button_text:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 31
+    region: content
   field_about_description:
     type: text_default
     label: above
@@ -62,6 +72,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 12
+    region: content
+  field_about_subbutton_text:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 32
     region: content
   field_about_title:
     type: string

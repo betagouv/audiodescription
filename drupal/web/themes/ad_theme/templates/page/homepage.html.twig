@@ -100,7 +100,9 @@
         <h2>{{ about.title }}</h2>
         {{ about.description|class2wysiwygP('fr-text--lead')|raw }}
 
-        <p class="fr-text--lead">{{ about.pre_contact }} <a href="{{ 'mailto:' ~ about.email }}">{{ about.email }}</a></p>
+        <p class="fr-text--lead">{{ about.pre_contact }}</p>
+        <a href="{{ 'mailto:' ~ about.email }}" class="fr-btn">{{ about.button_text }}</a>
+        <p class="fr-mt-3w fr-text--sm">{{ about.subbutton_text }}</p>
       </div>
     </div>
 
