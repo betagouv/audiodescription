@@ -1,0 +1,8 @@
+$white: #fff;
+$purple-glycine-contrasted: #4b2639;
+
+[data-fr-theme="light"] {
+  .fr-badge--purple-glycine {
+    color: $purple-glycine-contrasted;
+  }
+}

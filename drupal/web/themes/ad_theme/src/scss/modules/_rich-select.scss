@@ -26,7 +26,7 @@
     width: 100%;
     padding: 1rem;
     filter: drop-shadow(rgba(0, 0, 18, 0.16) 0px 1px 3px);
-    background: white;
+    background: var(--background-default-grey);
     position: absolute;
     z-index: 100;
 
@@ -42,7 +42,7 @@
     &-options {
       max-height: 300px;
       overflow-y: scroll;
-      scrollbar-color: lightgrey white;
+      scrollbar-color: lightgrey var(--background-default-grey);
       scrollbar-width: thin;
       width: 100%;
 
