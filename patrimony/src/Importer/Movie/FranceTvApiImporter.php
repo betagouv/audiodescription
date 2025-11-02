@@ -10,7 +10,6 @@ use App\EntityManager\SolutionManager;
 use App\EntityManager\SourceMovieManager;
 use App\Enum\OfferCode;
 use App\Enum\PartnerCode;
-use App\Parser\CsvParser;
 use App\Repository\MovieRepository;
 use App\Repository\SolutionRepository;
 use App\Repository\SourceMovieRepository;
@@ -123,8 +122,9 @@ class FranceTvApiImporter implements MovieImporterInterface
         !$isTelefilm
         && ($dateStartRights <= $today)
         && ($dateEndRights > $today)
-        && !empty($program['deep_links_v2'])
+        && (!empty($program['deep_links_v2'] || !empty($program['ftv_raw_url'])))
       ) {
+
         //@TODO : catch Throwable + Write a log + send Mattermost notif
         $partner = $this->partnerRepository->findOneBy(['code' => PartnerCode::FRANCE_TV->value]);
         $offer = $this->offerRepository->findOneBy(['code' => OfferCode::FREE_ACCESS->value]);
@@ -251,15 +251,18 @@ class FranceTvApiImporter implements MovieImporterInterface
           $ids['allocineId'] = $program['allocine']['movie_id'];
         }
 
-        //dump($ids);
-
         $link = '';
-        foreach ($program['deep_links_v2'] as $deepLink) {
-          if ($deepLink['type'] == 'Google') {
-            foreach ($deepLink['targets'] as $target) {
-              if ($target['offer'] == 'ftv') {
-                if (in_array('androidTV', $target['platforms'])) {
-                  $link = $target['url'];
+
+        if (isset($program['ftv_raw_url']) && !empty($program['ftv_raw_url'])) {
+          $link = $program['ftv_raw_url'];
+        } else {
+          foreach ($program['deep_links_v2'] as $deepLink) {
+            if ($deepLink['type'] == 'Google') {
+              foreach ($deepLink['targets'] as $target) {
+                if ($target['offer'] == 'ftv') {
+                  if (in_array('androidTV', $target['platforms'])) {
+                    $link = $target['url'];
+                  }
                 }
               }
             }
@@ -278,10 +281,7 @@ class FranceTvApiImporter implements MovieImporterInterface
 
         $this->entityManager->persist($solution);
 
-        $movie = null;
         if ($createMoviesOption) {
-          //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
-
           $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
           if (is_null($movie)) {
