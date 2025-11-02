@@ -129,7 +129,7 @@ class FranceTvApiImporter implements MovieImporterInterface
         $partner = $this->partnerRepository->findOneBy(['code' => PartnerCode::FRANCE_TV->value]);
         $offer = $this->offerRepository->findOneBy(['code' => OfferCode::FREE_ACCESS->value]);
 
-        $internalPartnerId = $program['program_id'];
+        $internalPartnerId = $program['id'];
 
         $repository = $this->entityManager->getRepository(SourceMovie::class);
         $sourceMovie = $repository->findOneBy([
