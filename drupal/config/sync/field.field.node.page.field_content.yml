@@ -7,6 +7,7 @@ dependencies:
     - node.type.page
     - paragraphs.paragraphs_type.pg_cards
     - paragraphs.paragraphs_type.pg_horizontal_card
+    - paragraphs.paragraphs_type.pg_iframe
     - paragraphs.paragraphs_type.pg_movies
     - paragraphs.paragraphs_type.pg_paragraph
     - paragraphs.paragraphs_type.pg_video_iframe
@@ -27,8 +28,9 @@ settings:
   handler_settings:
     target_bundles:
       pg_paragraph: pg_paragraph
-      pg_movies: pg_movies
       pg_cards: pg_cards
+      pg_movies: pg_movies
+      pg_iframe: pg_iframe
       pg_horizontal_card: pg_horizontal_card
       pg_video_iframe: pg_video_iframe
     negate: 0
@@ -48,6 +50,9 @@ settings:
       pg_horizontal_card:
         weight: 14
         enabled: true
+      pg_iframe:
+        weight: 14
+        enabled: true
       pg_movies:
         weight: 11
         enabled: true
@@ -59,6 +64,12 @@ settings:
         enabled: true
       pg_partner:
         weight: 17
+        enabled: false
+      pg_quote:
+        weight: 24
+        enabled: false
+      pg_quotes:
+        weight: 25
         enabled: false
       pg_video_iframe:
         weight: 18

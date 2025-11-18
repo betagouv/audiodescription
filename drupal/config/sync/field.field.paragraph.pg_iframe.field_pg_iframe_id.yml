@@ -1,0 +1,19 @@
+uuid: c823ecda-b78c-4c41-8a54-205cc763754d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_iframe_id
+    - paragraphs.paragraphs_type.pg_iframe
+id: paragraph.pg_iframe.field_pg_iframe_id
+field_name: field_pg_iframe_id
+entity_type: paragraph
+bundle: pg_iframe
+label: 'Iframe ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

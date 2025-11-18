@@ -1,0 +1,22 @@
+uuid: 3f75adb6-0763-4d2f-aff1-d9d6d43c8453
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_text
+    - paragraphs.paragraphs_type.pg_iframe
+  module:
+    - text
+id: paragraph.pg_iframe.field_pg_text
+field_name: field_pg_text
+entity_type: paragraph
+bundle: pg_iframe
+label: Texte
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

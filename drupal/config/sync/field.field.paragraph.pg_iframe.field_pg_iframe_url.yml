@@ -1,0 +1,19 @@
+uuid: 15f46fd6-f561-4329-a93a-6aa7e5501f2b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_iframe_url
+    - paragraphs.paragraphs_type.pg_iframe
+id: paragraph.pg_iframe.field_pg_iframe_url
+field_name: field_pg_iframe_url
+entity_type: paragraph
+bundle: pg_iframe
+label: "URL de l'iframe"
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -9,3 +9,9 @@ back_button_block:
   dependencies:
     - core/drupal
     - core/once
+iframe_responsive:
+  js:
+    js/iframe-responsive.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

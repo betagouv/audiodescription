@@ -52,7 +52,7 @@ class MovieSearchManager {
     }**/
 
     if (!empty($params->genre)) {
-      $andGroup = $query->createConditionGroup('AND');
+      $andGroup = $query->createConditionGroup('OR');
 
       foreach ($params->genre as $genre) {
         $andGroup->addCondition('field_genres', $genre, '=');

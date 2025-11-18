@@ -1,0 +1,23 @@
+uuid: 42908f31-500f-4fa2-9730-73d8b9cbd34f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_iframe_height
+    - paragraphs.paragraphs_type.pg_iframe
+id: paragraph.pg_iframe.field_pg_iframe_height
+field_name: field_pg_iframe_height
+entity_type: paragraph
+bundle: pg_iframe
+label: "Hauteur de l'iframe"
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ' px'
+field_type: integer

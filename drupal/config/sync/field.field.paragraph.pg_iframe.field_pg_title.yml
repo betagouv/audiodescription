@@ -1,0 +1,19 @@
+uuid: 2edb5499-93d0-4927-8b9d-d3fac1816ef2
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_title
+    - paragraphs.paragraphs_type.pg_iframe
+id: paragraph.pg_iframe.field_pg_title
+field_name: field_pg_title
+entity_type: paragraph
+bundle: pg_iframe
+label: 'Titre du paragraphe'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

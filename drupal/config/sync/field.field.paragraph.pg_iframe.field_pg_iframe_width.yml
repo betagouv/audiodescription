@@ -1,0 +1,23 @@
+uuid: b917d531-0da7-4ae8-a57d-3fd77171b5ed
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_iframe_width
+    - paragraphs.paragraphs_type.pg_iframe
+id: paragraph.pg_iframe.field_pg_iframe_width
+field_name: field_pg_iframe_width
+entity_type: paragraph
+bundle: pg_iframe
+label: "Largeur de l'iframe"
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 1200
+  prefix: ''
+  suffix: ' px'
+field_type: integer

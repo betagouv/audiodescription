@@ -1,0 +1,20 @@
+uuid: 04fd0d97-e562-44bc-b064-8e51fc7043eb
+langcode: fr
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_pg_iframe_width
+field_name: field_pg_iframe_width
+entity_type: paragraph
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

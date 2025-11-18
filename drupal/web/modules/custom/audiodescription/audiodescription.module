@@ -271,3 +271,7 @@ function audiodescription_node_update(EntityInterface $entity) {
 function audiodescription_preprocess_breadcrumb(array &$variables) {
   $variables['#cache']['max-age'] = 0;
 }
+
+function audiodescription_preprocess_node__page(array &$variables) {
+  $variables['#attached']['library'][] = 'audiodescription/iframe_responsive';
+}
