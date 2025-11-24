@@ -41,3 +41,5 @@
 | ID IMDB                                | `['imdb']['episode_id']`                                   | string            |                                                                                                                         |
 | ID Plurimedia                          | `['plurimedia_broadcast_id']`                              | string            |                                                                                                                         |
 | ID Allociné                            | `['allocine']['movie_id']`                                 | string            |                                                                                                                         |
+
+// @TODO : ajouter le lien de FranceTVApiImporter
