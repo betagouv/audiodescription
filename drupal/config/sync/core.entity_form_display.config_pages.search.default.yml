@@ -4,9 +4,10 @@ status: true
 dependencies:
   config:
     - config_pages.type.search
+    - field.field.config_pages.search.field_contact_button_text
     - field.field.config_pages.search.field_contact_description
     - field.field.config_pages.search.field_contact_email
-    - field.field.config_pages.search.field_contact_pre_contact
+    - field.field.config_pages.search.field_contact_subbutton_text
     - field.field.config_pages.search.field_contact_title
     - field.field.config_pages.search.field_search_title
   module:
@@ -19,7 +20,9 @@ third_party_settings:
         - field_contact_title
         - field_contact_description
         - field_contact_pre_contact
+        - field_contact_button_text
         - field_contact_email
+        - field_contact_subbutton_text
       label: 'Block contact'
       region: content
       parent_name: ''
@@ -52,6 +55,14 @@ targetEntityType: config_pages
 bundle: search
 mode: default
 content:
+  field_contact_button_text:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_contact_description:
     type: text_textarea
     weight: 2
@@ -62,15 +73,15 @@ content:
     third_party_settings: {  }
   field_contact_email:
     type: email_default
-    weight: 4
+    weight: 5
     region: content
     settings:
       placeholder: ''
       size: 60
     third_party_settings: {  }
-  field_contact_pre_contact:
+  field_contact_subbutton_text:
     type: string_textfield
-    weight: 3
+    weight: 6
     region: content
     settings:
       size: 60

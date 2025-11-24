@@ -54,8 +54,9 @@ class SearchContactBlock extends BlockBase implements ContainerFactoryPluginInte
       '#theme' => 'search_contact_block',
       '#title' => $searchCp->get('field_contact_title')->value,
       '#description' => $searchCp->get('field_contact_description')->value,
-      '#pre_contact' => $searchCp->get('field_contact_pre_contact')->value,
       '#email' => $searchCp->get('field_contact_email')->value,
+      '#button_text' => $searchCp->get('field_contact_button_text')->value,
+      '#subbutton_text' => $searchCp->get('field_contact_subbutton_text')->value,
     ];
   }
 

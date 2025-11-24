@@ -1,0 +1,19 @@
+uuid: a7246872-9b97-4f27-afba-4ca3229240cc
+langcode: fr
+status: true
+dependencies:
+  config:
+    - config_pages.type.search
+    - field.storage.config_pages.field_contact_subbutton_text
+id: config_pages.search.field_contact_subbutton_text
+field_name: field_contact_subbutton_text
+entity_type: config_pages
+bundle: search
+label: 'Texte sous bouton'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

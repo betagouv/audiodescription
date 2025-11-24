@@ -1,15 +1,15 @@
-uuid: da199f15-691b-442b-8dfc-93fd6a70c440
+uuid: 804ca1a5-c78a-4d8a-b517-22df04c14362
 langcode: fr
 status: true
 dependencies:
   config:
     - config_pages.type.search
-    - field.storage.config_pages.field_contact_pre_contact
-id: config_pages.search.field_contact_pre_contact
-field_name: field_contact_pre_contact
+    - field.storage.config_pages.field_contact_button_text
+id: config_pages.search.field_contact_button_text
+field_name: field_contact_button_text
 entity_type: config_pages
 bundle: search
-label: 'Phrase de pré-contact'
+label: 'Texte bouton'
 description: ''
 required: true
 translatable: false

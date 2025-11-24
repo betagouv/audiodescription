@@ -76,18 +76,6 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'cta' => NULL,
       ],
     ],
-    'movies_contact_block' => [
-      'render element' => 'children',
-      'template' => 'movies-contact-block',
-      'path' => $path . '/templates',
-      'variables' => [
-        'title' => NULL,
-        'description' => NULL,
-        'email' => NULL,
-        'pre_contact' => NULL,
-        'image' => NULL,
-      ],
-    ],
     'search_contact_block' => [
       'render element' => 'children',
       'template' => 'search-contact-block',
@@ -95,8 +83,9 @@ function audiodescription_theme($existing, $type, $theme, $path) {
       'variables' => [
         'title' => NULL,
         'description' => NULL,
-        'pre_contact' => NULL,
         'email' => NULL,
+        'button_text' => NULL,
+        'subbutton_text' => NULL,
       ],
     ],
     'search_block' => [

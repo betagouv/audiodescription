@@ -2,7 +2,8 @@
   <div class="fr-container fr-pb-3w fr-pb-md-7w fr-pt-3w fr-pt-md-7w">
     <h2>{{ title }}</h2>
     {{ description|class2wysiwygP('fr-text--lead')|raw }}
-    <p class="fr-text--lead">{{ pre_contact }} <a href="{{ 'mailto:' ~ email }}">{{ email }}</a></p>
+    <a href="{{ 'mailto:' ~ email }}" class="fr-btn">{{ button_text }}</a>
+    <p class="fr-mt-3w fr-text--sm">{{ subbutton_text }}</p>
   </div>
 
 </div>

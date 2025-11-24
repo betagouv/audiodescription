@@ -4,9 +4,10 @@ status: true
 dependencies:
   config:
     - config_pages.type.search
+    - field.field.config_pages.search.field_contact_button_text
     - field.field.config_pages.search.field_contact_description
     - field.field.config_pages.search.field_contact_email
-    - field.field.config_pages.search.field_contact_pre_contact
+    - field.field.config_pages.search.field_contact_subbutton_text
     - field.field.config_pages.search.field_contact_title
     - field.field.config_pages.search.field_search_title
   module:
@@ -16,6 +17,14 @@ targetEntityType: config_pages
 bundle: search
 mode: default
 content:
+  field_contact_button_text:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_contact_description:
     type: text_default
     label: above
@@ -30,13 +39,13 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_contact_pre_contact:
+  field_contact_subbutton_text:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 6
     region: content
   field_contact_title:
     type: string
