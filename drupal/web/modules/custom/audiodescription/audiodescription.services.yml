@@ -184,7 +184,17 @@ services:
     tags:
       - { name: twig.extension }
 
+  audiodescription.exception_subscriber:
+    class: Drupal\audiodescription\EventSubscriber\MovieExceptionSubscriber
+    arguments: ['@current_route_match', '@renderer']
+    tags:
+      - { name: event_subscriber }
 
+  audiodescription.error_410_response_subscriber:
+    class: Drupal\audiodescription\EventSubscriber\Error410ResponseSubscriber
+    arguments: ['@renderer']
+    tags:
+      - { name: event_subscriber }
 parameters:
   cnc_movies_file: 'modules/custom/audiodescription/files/full-movies.csv'
   cnc_publics_file: 'modules/custom/audiodescription/files/publics.csv'

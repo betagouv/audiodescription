@@ -145,6 +145,11 @@ function audiodescription_theme($existing, $type, $theme, $path) {
       'template' => 'error-404',
       'path' => $path . '/templates',
     ],
+    'error_410' => [
+      'render element' => 'children',
+      'template' => 'error-410',
+      'path' => $path . '/templates',
+    ],
     'newsletter_subscription' => [
       'render element' => 'children',
       'template' => 'newsletter-subscription',
