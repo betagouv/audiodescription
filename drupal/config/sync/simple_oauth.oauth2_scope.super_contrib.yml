@@ -17,6 +17,5 @@ grant_types:
     description: ''
 umbrella: false
 parent: _none
-granularity: role
-permission: ''
-role: super_contrib
+granularity_id: null
+granularity_configuration: null
