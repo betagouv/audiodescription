@@ -60,7 +60,7 @@
 
         <div class="fr-card__body">
           <div class="fr-card__content">
-            <h3 class="fr-card__title">
+            <h4 class="fr-card__title">
               {% if paragraph.field_pg_click_area.value == 'card' %}
                 <a
                   href="{{ link.url }}"
@@ -74,7 +74,7 @@
               {% if paragraph.field_pg_click_area.value == 'card' %}
                 </a>
               {% endif %}
-            </h3>
+            </h4>
             {% if paragraph.field_pg_text_area.value is not empty %}
               <p class="fr-card__desc">{{ paragraph.field_pg_text_area.value }}</p>
             {% endif %}

@@ -1,6 +1,5 @@
 (function ($, Drupal) {
   Drupal.AjaxCommands.prototype.searchAjaxUpdateUrl = function (ajax, response, status) {
-
     const form = document.getElementById('filter-movie-search-form');
 
     if (form) {

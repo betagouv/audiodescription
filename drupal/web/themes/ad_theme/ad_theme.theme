@@ -47,6 +47,10 @@ function ad_theme_theme_suggestions_views_view_alter(array &$suggestions, array 
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function ad_theme_theme_suggestions_page_title_alter(array &$suggestions, array &$variables) {
+  if (\Drupal::routeMatch()->getRouteName() === 'audiodescription.movie_search') {
+    $suggestions[] = 'page_title__movie_search';
+  }
+
   if (\Drupal::routeMatch()->getRouteName() === 'entity.node.canonical') {
     $node = \Drupal::routeMatch()->getParameter('node');
 
@@ -319,6 +323,10 @@ function ad_theme_preprocess_checkboxes(&$variables)
 
   if (isset($variables['element']['#plural_title'])) {
     $variables['plural_title'] = $variables['element']['#plural_title'];
+  }
+
+  if (isset($variables['element']['#ad_plugin_type'])) {
+    $variables['ad_plugin_type'] = $variables['element']['#ad_plugin_type'];
   }
 
   if (isset($variables['element']['#is_female'])) {

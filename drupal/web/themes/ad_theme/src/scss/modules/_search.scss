@@ -2,6 +2,23 @@
   justify-content: center;
 }
 
+.ad-search-page {
+  .ad-filters-list {
+    list-style-type: none;
+    display: inline-block;
+    padding: 0;
+
+    &__item {
+      display: inline-block;
+    }
+
+    &__text {
+      display: inline-block;
+      margin: 0 .5rem 0 0;
+    }
+  }
+}
+
 .ad-search__block-contact {
   background: var(--background-alt-blue-france);
 }

@@ -15,16 +15,21 @@
  This is identical to core/modules/system/templates/container.html.twig
 #}
 <div{{ attributes.addClass('form-checkboxes') }}>
-  <rich-select
-    title="{{ title }}"
-    singular_title="{{ singular_title }}"
-    plural_title="{{ plural_title }}"
-    options="{{ options }}"
-    name="{{ name }}"
-    selected="{{ selected }}"
-    {% if is_female %} is_female {% endif %}
-    data-drupal-selector="{{ id }}"
-    id="{{ id }}"
-  >
-  </rich-select>
+
+  {% if ad_plugin_type == 'partners-select' %}
+    <partners-select></partners-select>
+  {% else %}
+    <rich-select
+      title="{{ title }}"
+      singular_title="{{ singular_title }}"
+      plural_title="{{ plural_title }}"
+      options="{{ options }}"
+      name="{{ name }}"
+      selected="{{ selected }}"
+      {% if is_female %} is_female {% endif %}
+      data-drupal-selector="{{ id }}"
+      id="{{ id }}"
+    >
+    </rich-select>
+  {% endif %}
 </div>

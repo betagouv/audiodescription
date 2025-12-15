@@ -1,48 +1,78 @@
-<div class="ad-search-page fr-container" id="results">
-  <div class="fr-mb-2w fr-mt-2w">
-    {% set f = [] %}
-    {% for key, filter in filters %}
-      {% if key != "search" %}
-        {% if filter is not null %}
-          {% set f = f|merge({(key): filter}) %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
+<div class="ad-search-page" id="results">
 
-    {% if f|length > 0 %}
-      <p>Les filtres appliqués sont : </p>
-      <ul>
-        {% for key, filter in f %}
-          <li>{{ key|capitalize }} : {{ filter|join(', ') }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+  <div class="block">
+    <div class="fr-container fr-pt-3w fr-pb-5w fr-mb-3w fr-pt-md-7w fr-pb-md-8w fr-mb-md-5w">
+      <div class="fr-grid-row">
+        <h1>Résultats de recherche</h1>
+        <div class="fr-col-lg-8 fr-col-12">
+          {{ form }}
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="fr-mb-4w">
-    {{ filtersForm }}
-  </div>
+  <div class="block">
+    <div class="fr-container">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-mb-4w fr-col-12 fr-col-lg-3">
+          <h2>
+            <span class="fr-icon-filter-line fr-icon--lg" aria-hidden="true"></span> Filtres
+          </h2>
+          {{ filtersForm }}
+        </div>
 
-  <div class="fr-mb-7w" id="liste">
-    <div id="ajax">
-      {% if filters.search is not empty %}
-        <h2>{{ movies.total }} films trouvés pour "{{ filters.search }}"</h2>
-      {% else %}
-        <h2>{{ movies.total }} films trouvés</h2>
-      {% endif %}
+        <div class="fr-mb-7w fr-col-12 fr-col-lg-9">
+          <p aria-live="polite" class="fr-sr-only" id="ad-search-page--results-live"></p>
 
-      <p>{{ movies.pageSize }} résultats par page - {{ movies.pagesCount }} pages</p>
+          <div id="liste">
+            <div id="ajax">
+              {% if filters.search is not empty %}
+                <h2 id="ad-search-page--results">{{ movies.total }} films trouvés pour "{{ filters.search }}"</h2>
+              {% else %}
+                <h2 id="ad-search-page--results">{{ movies.total }} films trouvés</h2>
+              {% endif %}
 
-      {{ movies.items }}
-      {% if movies.pagination is not null %}
-        {{ pattern('pagination', {
-          first: movies.pagination.first,
-          prev: movies.pagination.prev,
-          pages: movies.pagination.pages,
-          next: movies.pagination.next,
-          last: movies.pagination.last,
-        }) }}
-      {% endif %}
+              <div class="fr-mb-1w fr-mt-1w">
+                {% set f = [] %}
+                {% for key, filter in filters %}
+                  {% if key != "search" %}
+                    {% if filter is not null %}
+                      {% set f = f|merge({(key): filter}) %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if f|length > 0 %}
+                  <p class="ad-filters-list__text">Les filtres appliqués sont : </p>
+                  <ul class="ad-filters-list">
+                    {% for key, filter in f %}
+                      {% if key == 'films gratuit uniquement' %}
+                        <li class="ad-filters-list__item"><button class="fr-tag fr-tag--dismiss" type="button" aria-label="Retirer Films gratuits uniquement">Films gratuits uniquement</button></li>
+                      {% else %}
+                        {% for item in filter %}
+                          <li class="ad-filters-list__item"><button class="fr-tag fr-tag--dismiss" type="button" aria-label="Retirer {{ item}}">{{ item }}</button></li>
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+
+              {{ movies.items }}
+              {% if movies.pagination is not null %}
+                {{ pattern('pagination', {
+                  first: movies.pagination.first,
+                  prev: movies.pagination.prev,
+                  pages: movies.pagination.pages,
+                  next: movies.pagination.next,
+                  last: movies.pagination.last,
+                }) }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

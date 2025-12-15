@@ -1,9 +1,9 @@
-<div class="fr-mb-7w" id="liste">
+<div id="liste">
   <div id="ajax">
     {% if filters.search is not empty %}
-      <h2 aria-live="polite">{{ movies.total }} films trouvés pour "{{ filters.search }}"</h2>
+      <h2 id="ad-search-page--results">{{ movies.total }} films trouvés pour "{{ filters.search }}"</h2>
     {% else %}
-      <h2 aria-live="polite">{{ movies.total }} films trouvés</h2>
+      <h2 id="ad-search-page--results">{{ movies.total }} films trouvés</h2>
     {% endif %}
 
     <p>{{ movies.pageSize }} résultats par page - {{ movies.pagesCount }} pages</p>
