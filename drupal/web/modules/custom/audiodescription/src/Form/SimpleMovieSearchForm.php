@@ -45,7 +45,7 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, string $format = 'lg', string $label = "Rechercher un film") {
+  public function buildForm(array $form, FormStateInterface $form_state, string $format = 'lg', string $label = "Titre du film") {
     $request = $this->requestStack->getCurrentRequest();
     $search = $request->query->get('search');
 
