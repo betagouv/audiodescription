@@ -21,3 +21,13 @@ services:
             - '../src/Kernel.php'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\BrevoCampaignService:
+      arguments:
+        $brevoApiKey: '%env(BREVO_API_KEY)%'
+        $senderEmail: 'contact@audiodescription.beta.gouv.fr'
+        $senderName: 'Portail de l''audiodescription'
+
+    App\Command\SendWeeklyNewsletterCommand:
+      arguments:
+        $brevoListId: '%env(int:BREVO_LIST_ID)%'

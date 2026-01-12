@@ -33,9 +33,6 @@ class MovieAutoMerger
       $selectedMovie = $movies[0];
     }
 
-    //dump("Auto Merger");
-    //dump($selectedMovie->getTitle());
-
     // allocineId
     $this->updateXId($selectedMovie, $movies, $sourceMovie, $ids, 'allocineId');
 

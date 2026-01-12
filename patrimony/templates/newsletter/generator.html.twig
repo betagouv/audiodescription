@@ -15,7 +15,6 @@
                fr-original-style=""
                style="min-width: 5px; user-select: text; border: 0px solid transparent; background: unset;"
             >
-                <!--image-->
                 <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="600" align="center"
                        style="table-layout: fixed; width: 600px; border: none; border-collapse: collapse; empty-cells: show; max-width: 100%; font-size: 16px; font-family: Arial;"
                        fr-original-style="table-layout: fixed; width: 600px;" fr-original-class="r3-o">
@@ -96,7 +95,6 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <!--contenu-->
 
                                         <table cellspacing="0" cellpadding="0" border="0" role="presentation" width="100%"
                                                align="center"
@@ -118,7 +116,6 @@
                                                                 style="font-weight: normal; background: unset; user-select: text; border: 1px solid transparent;"
                                                                 fr-original-style="font-weight: normal;"
                                                                 fr-original-class="r5-c">
-                                                                <!--H1-->
 
                                                                 <table cellspacing="0" cellpadding="0" border="0"
                                                                        role="presentation" width="100%" align="left"
@@ -144,7 +141,6 @@
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <!--sommaire-->
 
                                                                 <table cellspacing="0" cellpadding="0" border="0"
                                                                        role="presentation" width="100%" align="left"
@@ -168,25 +164,40 @@
                                                                                     style="font-size: 16px; font-family: Arial;">
                                                                                     <li><a href="#nouveaux-films"
                                                                                            fr-original-style=""
-                                                                                           style="user-select: auto;">Les {{ newMovies|length }}
-                                                                                            nouveaux films gratuits de la
-                                                                                            semaine</a></li>
+                                                                                           style="user-select: auto;">
+                                                                                            {% if newMovies|length > 1 %}
+                                                                                                Les {{ newMovies|length }} nouveaux films gratuits de la semaine
+                                                                                            {% else %}
+                                                                                                Le nouveau film gratuit de la semaine
+                                                                                            {% endif %}
+                                                                                        </a></li>
                                                                                     <li><a href="#toujours-dispo"
                                                                                            fr-original-style=""
-                                                                                           style="user-select: auto;">{{ randomMovies|length }}
-                                                                                            autres films toujours
-                                                                                            disponibles</a></li>
+                                                                                           style="user-select: auto;">
+                                                                                            {% if randomMovies|length > 1 %}
+                                                                                                {{ randomMovies|length }} autres films toujours disponibles
+                                                                                            {% else %}
+                                                                                                Un autre film toujours disponible
+                                                                                            {% endif %}
+                                                                                        </a></li>
                                                                                     <li><a href="#expirent-bientot"
                                                                                            fr-original-style=""
-                                                                                           style="user-select: auto;">Les {{ nearEndMovies|length }}
-                                                                                            films gratuits qui expirent
-                                                                                            bientôt</a></li>
+                                                                                           style="user-select: auto;">
+                                                                                            {% if nearEndMovies|length > 1 %}
+                                                                                                Les {{ nearEndMovies|length }} films gratuits qui expirent bientôt
+                                                                                            {% else %}
+                                                                                                Le film gratuit qui expire bientôt
+                                                                                            {% endif %}
+                                                                                        </a></li>
                                                                                     <li><a href="#portail"
                                                                                            fr-original-style=""
-                                                                                           style="user-select: auto;">La
-                                                                                            liste complète des {{ freeMoviesCount }} films
-                                                                                            gratuits sur le Portail de
-                                                                                            l’audiodescription</a></li>
+                                                                                           style="user-select: auto;">
+                                                                                            {% if freeMoviesCount > 1 %}
+                                                                                                La liste complète des {{ freeMoviesCount }} films gratuits sur le Portail de l’audiodescription
+                                                                                            {% else %}
+                                                                                                Le film gratuit sur le Portail de l'audiodescription
+                                                                                            {% endif %}
+                                                                                        </a></li>
                                                                                 </ul>
 
                                                                                 <p style="margin: 0px; font-size: 16px; font-family: Arial;"
@@ -197,7 +208,6 @@
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <!--Nouveaux films-->
 
                                                                 <table cellspacing="0" cellpadding="0" border="0"
                                                                        role="presentation" width="100%" align="left"
@@ -218,7 +228,13 @@
                                                                                     style="margin: 0; color: #1f2d3d; font-family: Arial; font-size: 24px; word-break: break-word; --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-shadow: 0 0 #0000; font-style: normal; font-weight: 700; text-decoration-style: initial; text-decoration-thickness: initial; padding-bottom: 8px;">
                                                                                     <span style="font-family: Arial; font-size: 32px;"><strong
                                                                                                 fr-original-style=""
-                                                                                                style="font-weight: 700;">Les {{ newMovies|length }} nouveaux films gratuits de la semaine</strong></span>
+                                                                                                style="font-weight: 700;">
+                                                                                            {% if newMovies|length > 1 %}
+                                                                                                Les {{ newMovies|length }} nouveaux films gratuits de la semaine
+                                                                                            {% else %}
+                                                                                                Le nouveau film gratuit de la semaine
+                                                                                            {% endif %}
+                                                                                        </strong></span>
                                                                                 </h2>
 
                                                                                 {% for movie in newMovies %}
@@ -323,7 +339,6 @@
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <!--Films toujours disponibles-->
 
                                                                 <table cellspacing="0" cellpadding="0" border="0"
                                                                        role="presentation" width="100%" align="left"
@@ -344,7 +359,13 @@
                                                                                     style="margin: 0; color: #1f2d3d; font-family: Arial; font-size: 24px; word-break: break-word; --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-shadow: 0 0 #0000; font-style: normal; font-weight: 700; text-decoration-style: initial; text-decoration-thickness: initial; padding-bottom: 15px;">
                                                                                     <span style="font-family: Arial; font-size: 32px;"><strong
                                                                                                 fr-original-style=""
-                                                                                                style="font-weight: 700;">{{ randomMovies|length }} autres films toujours disponibles</strong></span>
+                                                                                                style="font-weight: 700;">
+                                                                                            {% if randomMovies|length > 1 %}
+                                                                                                {{ randomMovies|length }} autres films toujours disponibles
+                                                                                            {% else %}
+                                                                                                Un autre film toujours disponible
+                                                                                            {% endif %}
+                                                                                        </strong></span>
                                                                                 </h2>
 
                                                                                 {% for movie in randomMovies %}
@@ -444,7 +465,6 @@
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <!--Films qui expirent bientôt-->
 
                                                                 <table cellspacing="0" cellpadding="0" border="0"
                                                                        role="presentation" width="100%" align="left"
@@ -464,7 +484,13 @@
                                                                                     class="default-heading2"
                                                                                     style="margin: 0; color: #1f2d3d; font-family: Arial; font-size: 24px; word-break: break-word; --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-shadow: 0 0 #0000; font-style: normal; font-weight: 700; text-decoration-style: initial; text-decoration-thickness: initial; padding-bottom: 15px;">
     <span style="font-family: Arial; font-size: 32px;">
-     <strong fr-original-style="" style="font-weight: 700;">Les {{ nearEndMovies|length }} films gratuits qui expirent bientôt</strong>
+     <strong fr-original-style="" style="font-weight: 700;">
+         {% if nearEndMovies|length > 1 %}
+             Les {{ nearEndMovies|length }} films gratuits qui expirent bientôt
+         {% else %}
+             Le film gratuit qui expire bientôt
+         {% endif %}
+     </strong>
      &nbsp;</span></h2>
                                                                                 <br>
 
@@ -564,7 +590,6 @@
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <!--Plus de films sur le portail-->
 
                                                                 <p style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;"
                                                                    fr-original-style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;">
@@ -589,7 +614,13 @@
                                                                                     style="margin: 0; color: #1f2d3d; font-family: Arial; font-size: 24px; word-break: break-word; --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-shadow: 0 0 #0000; font-style: normal; font-weight: 700; text-decoration-style: initial; text-decoration-thickness: initial; padding-bottom: 8px;">
                                                                                     <span style="font-family: Arial; font-size: 32px;"><strong
                                                                                                 fr-original-style=""
-                                                                                                style="font-weight: 700;">La liste complète des {{ freeMoviesCount }} films gratuits du moment sur le Portail de l’audiodescription</strong></span>
+                                                                                                style="font-weight: 700;">
+                                                                                            {% if freeMoviesCount > 1 %}
+                                                                                                La liste complète des {{ freeMoviesCount }} films gratuits du moment sur le Portail de l’audiodescription
+                                                                                            {% else %}
+                                                                                                Le film gratuit du moment sur le Portail de l'audiodescription
+                                                                                            {% endif %}
+                                                                                        </strong></span>
                                                                                 </h2>
 
                                                                                 <p style="font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px;"
@@ -835,8 +866,6 @@
                                                                                         </table>
                                                                                     </td>
                                                                                 </tr>
-
-                                                                                <!--Portail AD-->
                                                                                 <tr>
                                                                                     <td align="left" fr-original-style=""
                                                                                         fr-original-class="r23-c"
