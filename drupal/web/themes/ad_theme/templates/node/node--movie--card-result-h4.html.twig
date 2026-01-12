@@ -1,0 +1,115 @@
+{% set directors = node.field_directors.entity %}
+
+{% set has_ad = node.field_has_ad.value %}
+{% set has_ad_label = 'Audiodescription introuvable' %}
+
+{% if has_ad %}
+  {% set has_ad_label = 'Audiodescription disponible' %}
+{% endif %}
+
+{% set title = node.title.value %}
+
+<div class="fr-mt-3w fr-mb-3w">
+  {% set synopsis = node.field_synopsis.value|render|striptags %}
+
+  {% set poster = file_url(node.field_poster.entity.field_media_image.entity.uri.value) %}
+  {% set poster = node.field_poster_external.value %}
+
+  {% set sentence = [] %}
+  {% set directors = [] %}
+  {% for director in node.field_directors %}
+    {% set directors = directors|merge([director.entity.name.value]) %}
+  {% endfor %}
+
+  {% if directors is not empty %}
+    {% set sentence = sentence|merge(['de <strong>' ~ directors|join(', ') ~ '</strong>']) %}
+  {% endif %}
+
+  {% if node.field_production_year.value is not empty %}
+    {% set sentence = sentence|merge(['sorti en <strong>' ~ node.field_production_year.value ~ '</strong>']) %}
+  {% endif %}
+
+  {% if not has_ad or node.field_offers|length < 1 %}
+    <div class="fr-card--no-hover">
+  {% endif%}
+      <div class="fr-card fr-card--horizontal fr-enlarge-link fr-card--horizontal-tier">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h4 class="fr-card__title">
+              {% if has_ad and node.field_offers|length > 0 %}
+                <a href="{{ url }}">{{ title }}</a>
+              {% else %}
+                {{ title }}
+              {% endif %}
+            </h4>
+            <div class="fr-card__start">
+              <p class="fr-badge fr-badge--purple-glycine">{{ has_ad_label }}</p>
+            </div>
+            {% if synopsis is not empty %}
+              <p class="fr-card__desc">{{ sentence|join(', ')|raw }}</p>
+              <p class="fr-card__desc">
+                {% if synopsis|length > 315 %}
+                  {{ synopsis|slice(0, 315) ~ '...' }}
+                {% else %}
+                  {{ synopsis }}
+                {% endif %}
+              </p>
+            {% else %}
+              {% for s in sentence %}
+                <p class="fr-card__desc">{{ s|raw }}</p>
+              {% endfor %}
+            {% endif %}
+            {% if node.field_genres|length > 1 %}
+              <ul class="fr-card__tags fr-tags-group fr-mt-3v">
+                {% for genre in node.field_genres %}
+                  {% set term = genre.entity %}
+                  {# % set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %} #}
+                  {% set term_path = '/recherche?genre[0]=' ~ term.id() %}
+                  <li>
+                    {% if has_ad %}
+                      {{ pattern('tag', {
+                        label: term.name.value
+                      }) }}
+                    {% else %}
+                      {{ pattern('tag', {
+                        label: term.name.value
+                      }) }}
+                    {% endif %}
+                  </li>
+                {% endfor %}
+
+              </ul>
+            {% elseif node.field_genres|length == 1%}
+              <div class="fr-card__tags fr-tags-group fr-mt-3v">
+                {% for genre in node.field_genres %}
+                  {% set term = genre.entity %}
+
+                  {# % set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %} #}
+                  {% set term_path = '/recherche?genre[0]=' ~ term.id() %}
+                  {% if has_ad %}
+                    {{ pattern('tag', {
+                      label: term.name.value
+                    }) }}
+                  {% else %}
+                    {{ pattern('tag', {
+                      label: term.name.value
+                    }) }}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% if poster is not empty %}
+          <div class="fr-card__header">
+            <div class="fr-card__img">
+              <img class="fr-responsive-img" src="{{ poster }}" alt="" />
+            </div>
+          </div>
+        {% endif %}
+      </div>
+  {% if not has_ad or node.field_offers|length < 1 %}
+    </div>
+  {% endif %}
+
+</div>

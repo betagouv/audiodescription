@@ -23,7 +23,7 @@
 
 @media (min-width: 768px) {
   .ad-movie-card {
-    height: 271px !important;
+    min-height: 271px !important;
 
     .fr-card__header {
       flex: 0 0 200px;

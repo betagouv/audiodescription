@@ -4,9 +4,8 @@
   }
 
   .fr-btn {
-    display: block;
+    justify-content: center;
     width: 100%;
-    text-align: center;
 
     @media (min-width: 576px) {
       width: fit-content;
