@@ -1,11 +1,11 @@
-uuid: 7e1017ea-6b5c-4ebf-8f06-606e6b4eb813
+uuid: fef94414-a7c9-413f-a93f-9a6876a2b400
 langcode: fr
 status: true
 dependencies:
   module:
     - node
-id: node.card_result
-label: 'Carte de résultat'
+id: node.card_result_h4
+label: 'Carte de résultat h4'
 description: null
 targetEntityType: node
 cache: true

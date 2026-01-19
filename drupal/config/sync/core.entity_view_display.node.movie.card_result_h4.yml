@@ -1,0 +1,205 @@
+uuid: 20cb462c-abd8-4af7-b058-f3fc2c10f31a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.card_result_h4
+    - field.field.node.movie.field_actors
+    - field.field.node.movie.field_allocine_id
+    - field.field.node.movie.field_arte_id
+    - field.field.node.movie.field_canal_vod_id
+    - field.field.node.movie.field_code
+    - field.field.node.movie.field_directors
+    - field.field.node.movie.field_duration
+    - field.field.node.movie.field_france_tv_id
+    - field.field.node.movie.field_genres
+    - field.field.node.movie.field_has_ad
+    - field.field.node.movie.field_lacinetek_id
+    - field.field.node.movie.field_nationalities
+    - field.field.node.movie.field_offers
+    - field.field.node.movie.field_orange_vod_id
+    - field.field.node.movie.field_poster
+    - field.field.node.movie.field_poster_external
+    - field.field.node.movie.field_production_year
+    - field.field.node.movie.field_public
+    - field.field.node.movie.field_synopsis
+    - node.type.movie
+  module:
+    - entity_reference_revisions
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.movie.card_result_h4
+targetEntityType: node
+bundle: movie
+mode: card_result_h4
+content:
+  field_actors:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_allocine_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 119
+    region: content
+  field_arte_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 118
+    region: content
+  field_canal_vod_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 120
+    region: content
+  field_code:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 125
+    region: content
+  field_directors:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_duration:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_france_tv_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 124
+    region: content
+  field_genres:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_has_ad:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_lacinetek_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 123
+    region: content
+  field_nationalities:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 111
+    region: content
+  field_offers:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 117
+    region: content
+  field_orange_vod_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 122
+    region: content
+  field_poster:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 114
+    region: content
+  field_poster_external:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 121
+    region: content
+  field_production_year:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 115
+    region: content
+  field_public:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_synopsis:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

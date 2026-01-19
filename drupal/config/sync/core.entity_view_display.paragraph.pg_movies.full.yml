@@ -19,9 +19,9 @@ mode: full
 content:
   field_pg_movies:
     type: entity_reference_entity_view
-    label: visually_hidden
+    label: hidden
     settings:
-      view_mode: card_result
+      view_mode: card_result_h4
       link: false
     third_party_settings: {  }
     weight: 0
