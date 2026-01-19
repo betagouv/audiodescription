@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand(
   name: 'app:send-weekly-newsletter',
@@ -22,6 +23,8 @@ class SendWeeklyNewsletterCommand extends Command
   public function __construct(
     private readonly BrevoCampaignService $brevoService,
     private readonly NewsletterContentGenerator $contentGenerator,
+
+    #[Autowire('%newsletter.brevo_api.list_id%')]
     private readonly int $brevoListId
   ) {
     parent::__construct();

@@ -24,3 +24,7 @@ parameters:
   tf1.api.url: '%env(TF1_API_URL)%'
   france_tv_100_num.api.url: '%env(FRANCE_TV_API_URL_100_NUM)%'
   france_tv_premium.api.url: '%env(FRANCE_TV_API_URL_PREMIUM)%'
+  newsletter.brevo_api.key: '%env(BREVO_API_KEY)%'
+  newsletter.brevo_api.list_id: '%env(int:BREVO_LIST_ID)%'
+  newsletter.sender.email: 'contact@audiodescription.beta.gouv.fr'
+  newsletter.sender.name: 'Portail de l''audiodescription'

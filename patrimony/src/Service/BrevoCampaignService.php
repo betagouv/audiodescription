@@ -10,6 +10,7 @@ use Brevo\Client\Model\CreateEmailCampaignRecipients;
 use Brevo\Client\Model\SendTestEmail;
 use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class BrevoCampaignService
 {
@@ -17,8 +18,13 @@ class BrevoCampaignService
   private EmailCampaignsApi $apiInstance;
 
   public function __construct(
+    #[Autowire('%newsletter.brevo_api.key%')]
     private string $brevoApiKey,
+
+    #[Autowire('%newsletter.sender.email%')]
     private string $senderEmail,
+
+    #[Autowire('%newsletter.sender.name%')]
     private string $senderName,
     private LoggerInterface $logger
   ) {
