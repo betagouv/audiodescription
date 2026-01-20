@@ -13,6 +13,7 @@ dependencies:
     - field.field.paragraph.pg_card.field_pg_link
     - field.field.paragraph.pg_card.field_pg_text_area
     - field.field.paragraph.pg_card.field_pg_title
+    - field.field.paragraph.pg_card.field_pg_title_level
     - paragraphs.paragraphs_type.pg_card
 id: paragraph.pg_card.full
 targetEntityType: paragraph
@@ -29,4 +30,5 @@ hidden:
   field_pg_link: true
   field_pg_text_area: true
   field_pg_title: true
+  field_pg_title_level: true
   search_api_excerpt: true

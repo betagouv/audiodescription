@@ -1,0 +1,23 @@
+uuid: 64c943b4-bfc0-4d48-9692-f98f8d2d6302
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pg_title_level
+    - paragraphs.paragraphs_type.pg_card
+  module:
+    - options
+id: paragraph.pg_card.field_pg_title_level
+field_name: field_pg_title_level
+entity_type: paragraph
+bundle: pg_card
+label: 'Niveau du titre'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: h4
+default_value_callback: ''
+settings: {  }
+field_type: list_string

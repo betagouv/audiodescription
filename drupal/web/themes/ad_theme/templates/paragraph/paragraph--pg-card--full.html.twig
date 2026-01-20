@@ -49,6 +49,8 @@
   'pg-card'
 ]
 %}
+
+{% set title_level = paragraph.field_pg_title_level.value ?? 'h4' %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
@@ -60,7 +62,7 @@
 
         <div class="fr-card__body">
           <div class="fr-card__content">
-            <h4 class="fr-card__title">
+            <{{ title_level }} class="fr-card__title">
               {% if paragraph.field_pg_click_area.value == 'card' %}
                 <a
                   href="{{ link.url }}"
@@ -74,7 +76,7 @@
               {% if paragraph.field_pg_click_area.value == 'card' %}
                 </a>
               {% endif %}
-            </h4>
+            </{{ title_level }} >
             {% if paragraph.field_pg_text_area.value is not empty %}
               <p class="fr-card__desc">{{ paragraph.field_pg_text_area.value }}</p>
             {% endif %}

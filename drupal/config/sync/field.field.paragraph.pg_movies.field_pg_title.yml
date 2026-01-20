@@ -11,7 +11,7 @@ entity_type: paragraph
 bundle: pg_movies
 label: 'Titre du paragraphe'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

@@ -12,6 +12,7 @@ dependencies:
     - field.field.paragraph.pg_card.field_pg_link
     - field.field.paragraph.pg_card.field_pg_text_area
     - field.field.paragraph.pg_card.field_pg_title
+    - field.field.paragraph.pg_card.field_pg_title_level
     - paragraphs.paragraphs_type.pg_card
   module:
     - field_group
@@ -27,7 +28,7 @@ third_party_settings:
       label: Lien
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -49,7 +50,7 @@ content:
     third_party_settings: {  }
   field_pg_content_types:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 4
     region: content
     settings:
       match_operator: CONTAINS
@@ -59,7 +60,7 @@ content:
     third_party_settings: {  }
   field_pg_detail_area:
     type: string_textfield
-    weight: 6
+    weight: 5
     region: content
     settings:
       size: 60
@@ -74,7 +75,7 @@ content:
     third_party_settings: {  }
   field_pg_image_is_decorative:
     type: boolean_checkbox
-    weight: 4
+    weight: 3
     region: content
     settings:
       display_label: true
@@ -96,7 +97,7 @@ content:
     third_party_settings: {  }
   field_pg_text_area:
     type: string_textfield
-    weight: 7
+    weight: 6
     region: content
     settings:
       size: 60
@@ -109,6 +110,12 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_pg_title_level:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
