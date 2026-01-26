@@ -134,6 +134,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                 }
 
                 dump($title);
+                dump($movie["origin"]);
 
                 $internalPartnerId = $movie['id'];
                 $ids = [];
@@ -179,6 +180,9 @@ class LaCinetekApiImporter implements MovieImporterInterface
                     ];
                 }
 
+                // Nationalities.
+                $nationalities = array_map('trim', explode(',', $movie['origin']));
+
                 $isTvod = $movie['availability']['tvod']['fr'];
                 $isSvod = $movie['availability']['svod']['fr'];
 
@@ -200,6 +204,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                       $duration,
                       $synopsis,
                       $directors,
+                      $nationalities,
                       $partnerTvod,
                       $offerTvod,
                       self::LACINETEK_ROOT_PATH . $movie['urls']['film']['fr'],
@@ -221,6 +226,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                         $duration,
                         $synopsis,
                         $directors,
+                        $nationalities,
                         $partnerSvod,
                         $offerSvod,
                         self::LACINETEK_ROOT_PATH . $movie['urls']['svod']['fr'],
@@ -283,6 +289,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
         $duration,
         $synopsis,
         $directors,
+        $nationalities,
         $partner,
         $offer,
         $url
@@ -313,6 +320,8 @@ class LaCinetekApiImporter implements MovieImporterInterface
         $sourceMovie->setExternalIds($externalIds);
 
         $sourceMovie->setDirectors($directors);
+
+        $sourceMovie->setNationalities($nationalities);
 
         $this->entityManager->persist($sourceMovie);
 

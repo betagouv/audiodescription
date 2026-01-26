@@ -233,6 +233,16 @@ class CanalVodApiImporter implements MovieImporterInterface
                         }
                     }
 
+                    // Nationalities.
+                    $programNationalities = $program['productionNationalities'];
+                    $nationalities = [];
+
+                    foreach($programNationalities as $nationality) {
+                      $nationalities[] = $nationality['name'];
+                    }
+
+                    $sourceMovie->setNationalities($nationalities);
+
                     $this->entityManager->persist($sourceMovie);
 
                     $solution = $this->solutionManager->createOrUpdate(

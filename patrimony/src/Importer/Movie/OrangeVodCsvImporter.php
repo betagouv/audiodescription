@@ -200,6 +200,10 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                 $synopsis = $line['Default punchline 3'];
                 $sourceMovie->setSynopsis($synopsis);
 
+                // Nationalities.
+                $nationalities = array_map('trim', explode(',', $line['Production regions']));
+                $sourceMovie->setNationalities($nationalities);
+
                 $this->entityManager->persist($sourceMovie);
 
                 $solution = $this->solutionManager->createOrUpdate(

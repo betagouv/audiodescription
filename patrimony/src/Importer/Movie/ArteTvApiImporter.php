@@ -131,6 +131,16 @@ class ArteTvApiImporter implements MovieImporterInterface
                 $duration = intdiv($program['durationSeconds'], 60);;
                 $sourceMovie->setDuration($duration);
 
+                // Nationalities.
+                $programNationalities = $program['productionCountries'];
+                $nationalities = [];
+
+                foreach($programNationalities as $nationality) {
+                  $nationalities[] = $nationality['label'];
+                }
+
+                $sourceMovie->setNationalities($nationalities);
+
                 $this->entityManager->persist($sourceMovie);
 
                 $solution = $this->solutionManager->createOrUpdate(

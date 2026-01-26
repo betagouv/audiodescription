@@ -232,10 +232,19 @@ class FranceTvApiImporter implements MovieImporterInterface
 
         $sourceMovie->setGenres($genres);
 
+        // Nationalities.
+        $programNationalities = $program['production_countries'];
+        $nationalities = [];
+
+        foreach($programNationalities as $nationality) {
+          $nationalities[] = $nationality['label'];
+        }
+
+        $sourceMovie->setNationalities($nationalities);
+
         $this->entityManager->persist($sourceMovie);
 
         // ExternalIds
-
         $ids = [];
         $ids['franceTvId'] = $internalPartnerId;
 
