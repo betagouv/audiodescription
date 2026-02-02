@@ -54,7 +54,7 @@ class SendWeeklyNewsletterCommand extends Command
       return Command::FAILURE;
     }
 
-    // 3. Création de la campagne
+    // 2. Création de la campagne
     $formatter = new IntlDateFormatter(
       'fr_FR',
       IntlDateFormatter::LONG,
@@ -79,7 +79,7 @@ class SendWeeklyNewsletterCommand extends Command
       $campaignId = $result['campaignId'];
       $io->success("Campagne créée avec l'ID : $campaignId");
 
-      // 4. Mode test
+      // 3. Mode test
       if ($input->getOption('test')) {
         $testEmail = $input->getOption('test-email') ?: 'ton-email@test.fr';
         $io->section("Envoi d'un test à : $testEmail");
@@ -101,7 +101,17 @@ class SendWeeklyNewsletterCommand extends Command
 
         $this->brevoService->scheduleCampaign($campaignId, $scheduledAt);
         $io->success("Campagne programmée pour le : " . $scheduledAt->format('d/m/Y à H:i'));
+        return Command::SUCCESS;
+      }
+
+      // 5. Envoi immédiat
+      if ($input->getOption('no-interaction')) {
+        // Mode automatique : envoi direct sans confirmation
+        $io->section('Envoi de la campagne...');
+        $this->brevoService->sendCampaignNow($campaignId);
+        $io->success('Campagne envoyée automatiquement (mode cron)');
       } else {
+        // Mode interactif : demander confirmation
         if ($io->confirm('Envoyer la campagne maintenant ?', false)) {
           $this->brevoService->sendCampaignNow($campaignId);
           $io->success('Campagne envoyée avec succès !');
