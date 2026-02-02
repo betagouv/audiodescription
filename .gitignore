@@ -6,5 +6,6 @@ node_modules
 .env
 .env.prod
 .env.staging
+logs/*
 
 jmeter.log

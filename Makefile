@@ -277,6 +277,11 @@ pt-tests-run:
 	make tests-setup
 	docker compose exec patrimony php vendor/bin/codecept run $(filter-out $@,$(MAKECMDGOALS))
 
+.PHONE: pt-send-newsletter
+pt-send-newsletter:
+	docker compose exec patrimony php bin/console app:send-weekly-newsletter --no-interaction
+
+
 .PHONY:cron-import
 cron-import:
 	docker compose exec -T patrimony php bin/console ad:import:canalvod-api --create-movies=true || true
