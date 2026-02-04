@@ -122,14 +122,14 @@ class MovieSearchController extends ControllerBase {
         'pagesCount' => $pagesCount,
         'items' => $renderedEntities,
         'pagination' => $pagination,
-        'page' => $params->page,
+        'page' => $params->page, // current page number.
         'pageSize' => $pageSize,
         'totalWithAd' => $totalWithAd,
       ],
       '#form' => $form,
       '#filtersForm' => $filtersForm,
       '#filters' => [
-        'search' => $params->search,
+        'search' => $params->search, // keyword.
         'genres' => $this->getCurrentFilters($params->genre),
         'plateformes' => $this->getCurrentFilters($params->partner),
         'films gratuit uniquement' => $params->isFree ? 'oui' : null,
@@ -152,5 +152,22 @@ class MovieSearchController extends ControllerBase {
     }
 
     return $values ?? NULL;
+  }
+
+  public function getTitle() {
+    $request = \Drupal::request();
+    $params = MovieSearchParametersBag::createFromRequest($request);
+
+    $title = "Résultats de la recherche";
+
+    if ($params->search) {
+      $title .= " pour \"" . $params->search . "\"";
+    }
+
+    if ($params->page !== 1) {
+      $title .= ", page " . $params->page;
+    }
+
+    return $this->t($title);
   }
 }

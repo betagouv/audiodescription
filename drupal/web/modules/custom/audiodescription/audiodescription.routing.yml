@@ -17,8 +17,8 @@ audiodescription.genres.list:
 audiodescription.movie_search:
   path: '/recherche'
   defaults:
-    _controller: '\Drupal\audiodescription\Controller\MovieSearchController:search'
-    _title: 'Résultats de recherche'
+    _controller: '\Drupal\audiodescription\Controller\MovieSearchController::search'
+    _title_callback: '\Drupal\audiodescription\Controller\MovieSearchController::getTitle'
   requirements:
     _permission: 'access content'
 
