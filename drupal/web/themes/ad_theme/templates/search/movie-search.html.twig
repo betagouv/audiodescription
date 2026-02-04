@@ -58,7 +58,11 @@
                 {% endif %}
               </div>
 
-              {{ movies.items }}
+              <ol class="ad-search-page__list">
+                {{ movies.items }}
+              </ol>
+
+
               {% if movies.pagination is not null %}
                 {{ pattern('pagination', {
                   first: movies.pagination.first,

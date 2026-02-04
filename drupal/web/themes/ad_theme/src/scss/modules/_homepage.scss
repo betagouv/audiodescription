@@ -45,6 +45,12 @@
       }
     }
   }
+
+  ol {
+    > li::marker {
+      content: none !important;
+    }
+  }
 }
 
 @media (min-width: 992px) {

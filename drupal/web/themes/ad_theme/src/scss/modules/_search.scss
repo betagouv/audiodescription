@@ -17,6 +17,15 @@
       margin: 0 .5rem 0 0;
     }
   }
+
+  &__list {
+    list-style-type: none;
+    padding-inline-start: 0;
+
+    li::marker {
+      content: none;
+    }
+  }
 }
 
 .ad-search__block-contact {

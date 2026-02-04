@@ -50,9 +50,9 @@
 ]
 %}
 
-{% set title_level = paragraph.field_pg_title_level.value ?? 'h4' %}
+{% set title_level = paragraph.field_pg_title_level.value ? paragraph.field_pg_title.value : 'h4' %}
 {% block paragraph %}
-  <div{{ attributes.addClass(classes) }}>
+  <li{{ attributes.addClass(classes) }}>
     {% block content %}
       {% if paragraph.field_pg_click_area.value == 'card' %}
         <div class="fr-card fr-enlarge-link">
@@ -133,5 +133,5 @@
         {% endif %}
       </div>
     {% endblock %}
-  </div>
+  </li>
 {% endblock paragraph %}

@@ -9,7 +9,7 @@
 
 {% set title = node.title.value %}
 
-<div class="fr-mt-3w fr-mb-3w">
+<li class="fr-mt-3w fr-mb-3w">
   {% set synopsis = node.field_synopsis.value|render|striptags %}
 
   {% set poster = file_url(node.field_poster.entity.field_media_image.entity.uri.value) %}
@@ -112,4 +112,4 @@
     </div>
   {% endif %}
 
-</div>
+</li>
