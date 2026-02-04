@@ -90,12 +90,12 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
 
     $form['infos']['fields']['reset'] = [
       '#type' => 'html_tag',
-      '#tag' => 'button',
+      '#tag' => 'a',
       '#value' => "Réinitialiser les filtres",
       '#prefix' => '<div class="fr-btns-group fr-btns-group--icon-left fr-col-12 fr-mb-2w">',
       '#suffix' => '</div>',
       '#attributes' => [
-        'type' => 'reset',
+        'href' => '/recherche',
         'class' => [
           'fr-btn',
           'fr-btn--secondary',

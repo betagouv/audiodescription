@@ -32,7 +32,7 @@
                 <h2 id="ad-search-page--results">{{ movies.total }} films trouvés</h2>
               {% endif %}
 
-              <div class="fr-mb-1w fr-mt-1w">
+              {# <div class="fr-mb-1w fr-mt-1w">
                 {% set f = [] %}
                 {% for key, filter in filters %}
                   {% if key != "search" %}
@@ -56,7 +56,7 @@
                     {% endfor %}
                   </ul>
                 {% endif %}
-              </div>
+              </div> #}
 
               <ol class="ad-search-page__list">
                 {{ movies.items }}
