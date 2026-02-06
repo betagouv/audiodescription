@@ -1,3 +1,9 @@
 .ad-genres-page {
   padding: 5px !important;
+
+  li {
+    &::marker {
+      content: none !important;
+    }
+  }
 }
