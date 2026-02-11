@@ -3,8 +3,8 @@
 ## Informations générales
 * **Format :** API
 * **URLs :** 
-  * https://gatewayvf.webservices.francetelevisions.fr/v1/videos?category.id=films&audio_tracks.id=audiodescription&platforms.ftv.status=available&per_page=100&created_by=france.tv@francetv.fr
-  * https://gatewayvf.webservices.francetelevisions.fr/v1/videos?category.id=films&audio_tracks.id=audiodescription&platforms.ftv.status=available&per_page=100&channel.tags[in]=premium
+  * Variable d'environnement `FRANCE_TV_API_URL_100_NUM`
+  * Variable d'environnement `FRANCE_TV_API_URL_PREMIUM`
 * **Authentification :** Aucune
 * **Fréquence d'appel :** Quotidienne
 
@@ -42,4 +42,18 @@
 | ID Plurimedia                          | `['plurimedia_broadcast_id']`                              | string            |                                                                                                                         |
 | ID Allociné                            | `['allocine']['movie_id']`                                 | string            |                                                                                                                         |
 
-// @TODO : ajouter le lien de FranceTVApiImporter
+## Commande d'import
+
+```bash
+bin/console ad:import:francetv-api
+bin/console ad:import:francetv-api --create-movies=true
+```
+
+### Options
+| Option            | Valeur par défaut | Description                                      |
+|-------------------|-------------------|--------------------------------------------------|
+| `--create-movies` | `false`           | Si `true`, crée les films dans la table Movie    |
+
+## Fichier source
+
+`patrimony/src/Importer/Movie/FranceTvApiImporter.php`
