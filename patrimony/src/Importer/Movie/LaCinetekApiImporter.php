@@ -134,7 +134,6 @@ class LaCinetekApiImporter implements MovieImporterInterface
                 }
 
                 dump($title);
-                dump($movie["origin"]);
 
                 $internalPartnerId = $movie['id'];
                 $ids = [];

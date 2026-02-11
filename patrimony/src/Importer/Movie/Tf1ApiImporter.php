@@ -158,6 +158,7 @@ class Tf1ApiImporter implements MovieImporterInterface
                 }
             }
 
+            // @TODO : check how genres is used.
             if (!empty($genres)) {
                 $sourceMovie->setGenres($program['genres']);
             }
