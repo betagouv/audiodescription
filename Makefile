@@ -232,10 +232,10 @@ pt-phpcbf:
 
 .PHONY: pt-quality
 pt-quality:
-	make phpcbf || true
-	make phpcs || true
-	make phpstan || true
-	make phpmd || true
+	make pt-phpcbf || true
+	make pt-phpcs || true
+	make pt-phpstan || true
+	make pt-phpmd || true
 
 .PHONY: pt-grumphp
 pt-grumphp:

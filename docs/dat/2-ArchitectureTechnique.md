@@ -196,7 +196,7 @@ L'ensemble du paramétrage se fait par variables d'environnement et fichiers de 
 
 Format du fichier .env :
 
-```
+```bash
 APP_ENV=prod
 APP_DEBUG=0
 APP_SECRET=
