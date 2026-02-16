@@ -174,6 +174,7 @@ Le portail public ne nécessite pas d'authentification pour la consultation du c
 
 #### Administration Patrimony
 L'authentification à l'interface d'administration Patrimony est réalisée via le protocole **OIDC** (OpenID Connect).
+Le fournisseur est l'application Drupal.
 
 Une fois authentifiés, les utilisateurs peuvent avoir les rôles suivants :
 
