@@ -12,6 +12,10 @@
     column-gap: 1rem;
     list-style-type: none;
     padding-inline-start: 0;
+
+    &::marker {
+      content: none;
+    }
   }
 
   &__title {
