@@ -1,1 +1,2 @@
 5 1 * * * cd /opt/audiodescription && make cron-import >> /opt/audiodescription/logs/cron-import.log
+0 10 * * 1 cd /opt/audiodescription && make pt-send-newsletter >> /opt/audiodescription/logs/cron-newsletter.log
