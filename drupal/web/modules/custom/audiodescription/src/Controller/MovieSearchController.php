@@ -148,7 +148,10 @@ class MovieSearchController extends ControllerBase {
         ->getStorage('taxonomy_term')
         ->load($id);
 
-      $values[] = $entity->getName();
+      if (!is_null($entity)) {
+        $values[] = $entity->getName();
+      }
+
     }
 
     return $values ?? NULL;
