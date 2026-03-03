@@ -3,7 +3,7 @@
 ## Informations générales
 * **Format :** API
 * **URL :** Variable d'environnement `CANAL_REPLAY_API_URL`
-* **Authentification :** Basic Auth (`CANAL_VOD_API_AUTH_TOKEN`)
+* **Authentification :** Basic Auth (`CANAL_VOD_API_AUTH_TOKEN` - pas d'expiration)
 * **Fréquence d'appel :** Quotidienne
 * **Type d'offre :** SVOD (abonnement)
 
