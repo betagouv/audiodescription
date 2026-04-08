@@ -1,0 +1,31 @@
+uuid: 6ad308e2-c3bf-488b-9140-c2a9e8e5130a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_pending_expire_sent
+  module:
+    - user
+  enforced:
+    module:
+      - password_policy
+_core:
+  default_config_hash: oYe3JWMO6vLsJ9iypb1Bg9YQcT3TGqGtKwzHc3jcTXg
+id: user.user.field_pending_expire_sent
+field_name: field_pending_expire_sent
+entity_type: user
+bundle: user
+label: "Nombre de courriels en attente d'expiration"
+description: "Indique si un courriel notifiant l'expiration imminente du mot de passe a été envoyé"
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

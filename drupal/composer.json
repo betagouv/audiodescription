@@ -43,6 +43,7 @@
         "drupal/layout_paragraphs": "^2.0",
         "drupal/linkit": "^7.0-alpha2 ",
         "drupal/metatag": "^2.0",
+        "drupal/password_policy": "^4.0",
         "drupal/pathauto": "^1.13",
         "drupal/search_api": "^1.35",
         "drupal/search_api_elasticsearch": "dev-7.x-1.x",
