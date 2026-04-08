@@ -39,7 +39,7 @@
           {% endif %}
 
           {% if (node.field_genres|length > 0) %}
-            <p class="ad-movies-infos-title">
+            <p class="audiodesc-movies-infos-title">
               <strong>Genres : </strong>
               {% for genre in node.field_genres %}
 
@@ -72,7 +72,7 @@
               {% set directors = directors|merge([entity.name.value]) %}
             {% endfor %}
 
-            <p class="ad-movies-infos-title">
+            <p class="audiodesc-movies-infos-title">
               <strong>Réalisation : </strong> {{ directors|join(', ')|raw }}
             </p>
           {% endif %}
@@ -90,7 +90,7 @@
             {% set synopsis_plain_text = node.field_synopsis.value|render|striptags %}
 
             {% if synopsis_plain_text is not empty %}
-              <p class="ad-movies-infos-title">
+              <p class="audiodesc-movies-infos-title">
                 <strong>Synopsis : </strong>
               </p>
               {{ node.field_synopsis.value|raw }}
@@ -103,14 +103,14 @@
       {% if node.field_has_ad.value %}
         <div>
           <h2>{{ config.block_ad.title }}</h2>
-          <div class="ad-movie-info-ad">
+          <div class="audiodesc-movie-info-ad">
             {% set logo = '/themes/ad_theme/images/ad_icon.png' %}
             <img src="{{ logo }}" alt=""/>
 
             <p>Film audiodécrit en Français</p>
           </div>
           {% for collection in collections %}
-            <div class="ad-movie-info-ad">
+            <div class="audiodesc-movie-info-ad">
               {% set icon = file_url(collection.icon) %}
               {% if collection.icon is null %}
                 {% set icon = '/themes/ad_theme/images/star_icon.png' %}
@@ -126,14 +126,14 @@
   </div>
 
   {% if  block_platforms.offers|length > 0 %}
-  <div class="block ad-movie-offers">
+  <div class="block audiodesc-movie-offers">
     <div class="fr-container fr-mb-3w fr-mb-md-7w fr-mt-3w fr-mt-md-7w">
       <h2>{{ block_platforms.title }}</h2>
       {% for item in block_platforms.offers %}
       <h3 class="fr-mt-2w">{{ item.offer.field_pg_offer.entity.name.value }}</h3>
 
 
-      <ul class="ad-partner-card__container">
+      <ul class="audiodesc-partner-card__container">
         {% for partner in item.partners %}
           {% set condition = partner.field_pg_override_condition.value %}
           {% if condition is empty %}
@@ -143,17 +143,17 @@
           {% set title = partner.field_pg_partner.entity.name.value %}
           {% set pronunciation = partner.field_pg_partner.entity.field_taxo_pronunciation.value %}
 
-          <li class="fr-grid-row ad-partner-card fr-enlarge-link">
+          <li class="fr-grid-row audiodesc-partner-card fr-enlarge-link">
             {% if logo is not empty %}
               <div class="fr-col-12 fr-col-sm-3 fr-col-md-4 fr-col-xl-3">
                 <img src="{{ file_url(logo) }}" alt=""/>
               </div>
-              <div class="fr-col-12 fr-col-sm-9 fr-col-md-8 fr-col-xl-8 ad-partner-card__content">
+              <div class="fr-col-12 fr-col-sm-9 fr-col-md-8 fr-col-xl-8 audiodesc-partner-card__content">
             {% else %}
-              <div class="fr-col-12 ad-partner-card__content">
+              <div class="fr-col-12 audiodesc-partner-card__content">
             {% endif %}
                 <div>
-                  <p class="fr-text--lg ad-partner-card__title">
+                  <p class="fr-text--lg audiodesc-partner-card__title">
                     {% if pronunciation is not empty %}
                       <span aria-label="{{ pronunciation }}">
                         <a
@@ -175,13 +175,13 @@
                     {% endif %}
                   </p>
                   {% if condition is not empty %}
-                    <div class="ad-partner-card__condition">
+                    <div class="audiodesc-partner-card__condition">
                       {{ condition|raw }}
                     </div>
                   {% endif %}
 
                   {% if partner.field_pg_end_rights is not empty %}
-                    <div class="ad-partner-card__availability">
+                    <div class="audiodesc-partner-card__availability">
                       <p>Disponible jusqu'au {{ partner.field_pg_end_rights.value|date('d/m/Y') }}</p>
                     </div>
                   {% endif %}
@@ -194,7 +194,7 @@
       </div>
     </div>
     {% else %}
-      <div class="block ad-movie-offers">
+      <div class="block audiodesc-movie-offers">
         <div class="fr-container fr-mb-3w fr-mb-md-7w fr-mt-3w fr-mt-md-7w">
           <h2>{{ block_platforms.title }}</h2>
           {{ block_platforms.no_result|class2wysiwygP('fr-text--lead')|raw }}

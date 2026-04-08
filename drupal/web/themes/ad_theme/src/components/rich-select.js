@@ -218,30 +218,30 @@ export class RichSelect extends LitElement {
 
   render() {
     const classes = {
-      'ad-dropdown': true,
-      'ad-dropdown--visible': this.visible,
-      'ad-rich-select__dropdown': true,
+      'audiodesc-dropdown': true,
+      'audiodesc-dropdown--visible': this.visible,
+      'audiodesc-rich-select__dropdown': true,
     };
 
     return html`
       <div
-        class="ad-rich-select"
+        class="audiodesc-rich-select"
         data-drupal-selector="edit-${this.plural_title}"
         data-once="drupal-ajax"
         id="edit-partner"
       >
         <button
           type="button"
-          class="ad-rich-select__btn-control-dropdown fr-btn--icon-right ${this.icon}"
+          class="audiodesc-rich-select__btn-control-dropdown fr-btn--icon-right ${this.icon}"
           data-fr-opened="false"
-          aria-controls="ad-${this.plural_title}"
+          aria-controls="audiodesc-${this.plural_title}"
           aria-expanded="${this.visible}"
           @click="${this._toggleDropdown}">
           ${this.btnLabel}
         </button>
 
         <div
-          id="ad-${this.plural_title}"
+          id="audiodesc-${this.plural_title}"
           class=${classMap(classes)}
           aria-hidden="${!this.visible}"
         >
@@ -251,7 +251,7 @@ export class RichSelect extends LitElement {
               Liste des ${this.plural_title}
             </legend>
 
-            <div class="ad-rich-select__dropdown-options">
+            <div class="audiodesc-rich-select__dropdown-options">
               ${this.currentOptions.map(
       (item) => html`
               <div class="fr-fieldset__element">

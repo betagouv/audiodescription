@@ -1,9 +1,9 @@
-.ad-search-page .fr-pagination__list {
+.audiodesc-search-page .fr-pagination__list {
   justify-content: center;
 }
 
-.ad-search-page {
-  .ad-filters-list {
+.audiodesc-search-page {
+  .audiodesc-filters-list {
     list-style-type: none;
     display: inline-block;
     padding: 0;
@@ -28,17 +28,17 @@
   }
 }
 
-.ad-search__block-contact {
+.audiodesc-search__block-contact {
   background: var(--background-alt-blue-france);
 }
 
-.ad-legend {
+.audiodesc-legend {
   font-size: 1.125rem !important;
   font-weight: 700 !important;
   line-height: 1.5rem !important;
 }
 
-.ad-search__reset-btn {
+.audiodesc-search__reset-btn {
   align-self: end;
 
   button {
@@ -47,7 +47,7 @@
 }
 
 @media (min-width: 768px) {
-  .ad-legend {
+  .audiodesc-legend {
     font-size: 1.25rem !important;
   }
 }

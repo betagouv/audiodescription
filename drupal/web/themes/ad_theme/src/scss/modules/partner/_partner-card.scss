@@ -1,4 +1,4 @@
-.ad-partner-card {
+.audiodesc-partner-card {
   &.fr-grid-row {
     border: 2px solid #DDD;
     padding: 1rem;
@@ -67,7 +67,7 @@
 }
 
 @media (min-width: 992px) {
-  .ad-partner-card {
+  .audiodesc-partner-card {
     &__container {
       grid-template-columns: 1fr 1fr 1fr;
     }

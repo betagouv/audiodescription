@@ -1,4 +1,4 @@
-.ad-movie-card {
+.audiodesc-movie-card {
   .fr-card__img {
     img {
       aspect-ratio: initial;
@@ -22,7 +22,7 @@
 }
 
 @media (min-width: 768px) {
-  .ad-movie-card {
+  .audiodesc-movie-card {
     min-height: 271px !important;
 
     .fr-card__header {
