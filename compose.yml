@@ -24,8 +24,8 @@ services:
     ports:
       - 8083:80
     environment:
-      GRUMPHP_PROJECT_DIR: '/app/public/symfony'
-      GRUMPHP_COMPOSER_DIR: '/app/public/symfony'
+      GRUMPHP_PROJECT_DIR: '/app/public/patrimony'
+      GRUMPHP_COMPOSER_DIR: '/app/public/patrimony'
       GRUMPHP_GIT_REPOSITORY_DIR: '/app/public/.git'
       GRUMPHP_GIT_WORKING_DIR: '/app/public'
     volumes:
