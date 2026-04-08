@@ -4,9 +4,9 @@
 {% set url = '/recherche?search=&genre[0]=' ~ term.tid.value %}
 
 <li class="fr-col-12 fr-col-md-6 fr-col-lg-3">
-  {{ pattern('tile', {
+  {{ include('ui_suite_dsfr:tile', {
     title_tag: 'p',
-    'title': {
+    title: {
       '#type': 'html_tag',
       '#tag': 'a',
       '#value': term.name.value,
@@ -21,6 +21,6 @@
     },
     enlarge_link: true,
     icon: true,
-  }) }}
+  }, with_context = false) }}
 
 </li>

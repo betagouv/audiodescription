@@ -82,12 +82,13 @@
                   <p class="fr-hidden fr-unhidden-lg">{{ parent.content.extra_description }}</p>
                 {% endif %}
                 {% if parent.content.extra_link %}
-                  {{ pattern('link', {
-                    settings: {icon: 'fr-fi-arrow-right-line', icon_position: 'right'},
+                  {{ include('ui_suite_dsfr:link', {
+                    icon: {icon_id: 'fr-fi-arrow-right-line'},
+                    icon_position: 'right',
                     label: parent.content.extra_link.label,
                     url: parent.content.extra_link.url,
                     attributes: {class: 'fr-link--align-on-content'}
-                  }) }}
+                  }, with_context = false) }}
                 {% endif %}
               </div>
             </div>

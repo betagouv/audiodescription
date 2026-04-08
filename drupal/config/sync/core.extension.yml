@@ -32,7 +32,6 @@ module:
   language: 0
   layout_builder: 0
   layout_discovery: 0
-  layout_options: 0
   link: 0
   locale: 0
   media: 0
@@ -58,9 +57,9 @@ module:
   taxonomy: 0
   text: 0
   token: 0
+  ui_icons: 0
+  ui_icons_patterns: 0
   ui_patterns: 0
-  ui_patterns_library: 0
-  ui_patterns_settings: 0
   ui_skins: 0
   ui_styles: 0
   update: 0

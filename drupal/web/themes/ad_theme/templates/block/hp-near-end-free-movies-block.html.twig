@@ -11,12 +11,15 @@
     </ul>
 
     <div class="fr-grid-row fr-grid-row--center fr-mt-3w fr-mb-5w">
-      {% set button = pattern('button', {
-        label: cta.text,
-        url: cta.url,
-        target: cta.target,
-        external: cta.external
-      }, cta.style) %}
+      {% set button %}
+        {{ include('ui_suite_dsfr:button', {
+          label: cta.text,
+          url: cta.url,
+          target: cta.target,
+          external: cta.external,
+          variant: cta.style
+        }, with_context = false) }}
+      {% endset %}
       {{ button }}
     </div>
   </div>

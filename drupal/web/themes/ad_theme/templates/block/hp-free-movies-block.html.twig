@@ -14,10 +14,10 @@
     <div class="fr-mb-3w">
       <div class="fr-btns-group--inline-md fr-btns-group--center fr-btns-group">
         {% set label = 'Découvrir ' ~ number ~ ' films gratuits' %}
-        {{ pattern('button', {
+        {{ include('ui_suite_dsfr:button', {
           label: label,
           url: '/recherche?is_free=1#liste',
-        }) }}
+        }, with_context = false) }}
       </div>
     </div>
   </div>

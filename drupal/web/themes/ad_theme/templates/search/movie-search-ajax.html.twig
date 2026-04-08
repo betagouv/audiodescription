@@ -13,13 +13,13 @@
     </ol>
 
     {% if movies.pagination is not null %}
-      {{ pattern('pagination', {
+      {{ include('ui_suite_dsfr:pagination', {
         first: movies.pagination.first,
         prev: movies.pagination.prev,
         pages: movies.pagination.pages,
         next: movies.pagination.next,
         last: movies.pagination.last,
-      }) }}
+      }, with_context = false) }}
     {% endif %}
   </div>
 </div>

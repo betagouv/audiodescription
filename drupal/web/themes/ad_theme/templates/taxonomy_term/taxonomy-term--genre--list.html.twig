@@ -26,9 +26,9 @@
  */
 #}
 
-  {{ pattern('tile', {
+  {{ include('ui_suite_dsfr:tile', {
     title_tag: 'p',
-    'title': {
+    title: {
       '#type': 'html_tag',
       '#tag': 'a',
       '#value': term.name.value,
@@ -36,6 +36,7 @@
         'href': url,
       }
     },
-    enlarge_link: true
-  }, 'horizontal') }}
+    enlarge_link: true,
+    variant: 'horizontal'
+  }, with_context = false) }}
 

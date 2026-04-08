@@ -50,11 +50,11 @@
 
                 {% set term_path = '/recherche?genre[0]=' ~ term.id() %}
 
-                {{ pattern('tag', {
+                {{ include('ui_suite_dsfr:tag', {
                   label: term.name.value,
                   url: term_path,
                   color_schema: 'blue-ecume'
-                }) }}
+                }, with_context = false) }}
               {% endfor %}
             </p>
           {% endif %}

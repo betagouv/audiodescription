@@ -47,13 +47,14 @@
         } %}
 
         <div class="fr-mt-3w fr-mb-3w">
-          {{ pattern('card', {
+          {{ include('ui_suite_dsfr:card', {
             horizontal_ratio: 'tier',
             enlarge_link: true,
             title_tag: 'p',
             title: title,
             description: synopsis,
-          }, 'horizontal') }}
+            variant: 'horizontal'
+          }, with_context = false) }}
         </div>
       {% endfor %}
     </div>

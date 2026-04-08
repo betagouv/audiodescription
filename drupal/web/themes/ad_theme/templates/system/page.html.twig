@@ -41,30 +41,17 @@
  */
 #}
 <div class="layout-container" id="top">
-  {{ pattern('skiplinks', {
+  {% set _skip_contenu %}{{ include('ui_suite_dsfr:link', {label: 'Content'|t, url: '#contenu'}, with_context = false) }}{% endset %}
+  {% set _skip_search %}{{ include('ui_suite_dsfr:link', {label: 'Recherche'|t, url: '#search'}, with_context = false) }}{% endset %}
+  {% set _skip_menu %}{{ include('ui_suite_dsfr:link', {label: 'Menu'|t, url: '#navigation-main'}, with_context = false) }}{% endset %}
+  {% set _skip_footer %}{{ include('ui_suite_dsfr:link', {label: 'Footer'|t, url: '#footer'}, with_context = false) }}{% endset %}
+  {{ include('ui_suite_dsfr:skiplinks', {
     label: 'Accès rapides',
-    items: [
-      pattern('link', {
-        label: 'Content'|t,
-        url: '#contenu'
-      }),
-      pattern('link', {
-        label: 'Recherche'|t,
-        url: '#search'
-      }),
-      pattern('link', {
-        label: 'Menu'|t,
-        url: '#navigation-main'
-      }),
-      pattern('link', {
-        label: 'Footer'|t,
-        url: '#footer'
-      })
-    ],
-  }) }}
+    items: [_skip_contenu, _skip_search, _skip_menu, _skip_footer],
+  }, with_context = false) }}
   {{ page.top }}
 
-  {{ pattern('header', {
+  {{ include('ui_suite_dsfr:header', {
     logo_text: logo_text,
     home_url: path('<front>'),
     operator_logo: page.header_operator_logo,
@@ -73,7 +60,7 @@
     tools_links: page.header_tools_links,
     tools_search: page.header_tools_search,
     navbar: page.header_navbar,
-  }) }}
+  }, with_context = false) }}
 
   <main role="main" class="{{ container }}" id="contenu"  tabindex="-1">
     <div class="fr-grid-row fr-grid-row--gutters">
@@ -96,7 +83,7 @@
 
   </main>
   {{ page.bottom }}
-  {{ pattern('footer', {
+  {{ include('ui_suite_dsfr:footer', {
     logo_text: logo_text,
     home_url: path('<front>'),
     top: footer_top,
@@ -107,5 +94,5 @@
     bottom: page.footer_bottom,
     bottom_copy: page.footer_bottom_copy,
     service_title: site_name
-  }) }}
+  }, with_context = false) }}
 </div>

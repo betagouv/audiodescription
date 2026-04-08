@@ -22,9 +22,9 @@
 #}
 
 {% if items %}
-  {{ pattern('nav_menu', {
+  {{ include('ui_suite_dsfr:nav_menu', {
     menu_name: "Navigation principale",
     html_id: 'navigation-main',
     items: items
-  }) }}
+  }, with_context = false) }}
 {% endif %}

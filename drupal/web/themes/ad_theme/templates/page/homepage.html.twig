@@ -36,12 +36,15 @@
               <div class="fr-col-12 fr-col-lg-10">
                 <h2>{{ newsletter.title }}</h2>
                 {{ newsletter.description|class2wysiwygP('fr-text--lead')|raw }}
-                {% set button = pattern('button', {
-                  label: newsletter.cta.text,
-                  url: newsletter.cta.url,
-                  target: newsletter.cta.target,
-                  external: newsletter.cta.external
-                }, newsletter.cta.style) %}
+                {% set button %}
+                  {{ include('ui_suite_dsfr:button', {
+                    label: newsletter.cta.text,
+                    url: newsletter.cta.url,
+                    target: newsletter.cta.target,
+                    external: newsletter.cta.external,
+                    variant: newsletter.cta.style
+                  }, with_context = false) }}
+                {% endset %}
                 {{ button }}
               </div>
               <div class="fr-col-12 fr-col-lg-2">
@@ -65,21 +68,25 @@
             {% set buttons = [] %}
 
             {% for cta in infos.ctas %}
-              {% set button = pattern('button', {
-                label: cta.text,
-                url: cta.url,
-                target: cta.target,
-                external: cta.external
-              }, cta.style) %}
+              {% set button %}
+                {{ include('ui_suite_dsfr:button', {
+                  label: cta.text,
+                  url: cta.url,
+                  target: cta.target,
+                  external: cta.external,
+                  variant: cta.style
+                }, with_context = false) }}
+              {% endset %}
 
               {% set buttons = buttons | merge([button]) %}
             {% endfor %}
 
             <div class="fr-grid-row">
               <div>
-                {{ pattern('button_group', {
+                {{ include('ui_suite_dsfr:button_group', {
                   buttons: buttons,
-                }, 'default') }}
+                  variant: 'default'
+                }, with_context = false) }}
               </div>
             </div>
           </div>

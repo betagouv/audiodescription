@@ -15,11 +15,12 @@
 
     <div class="fr-mb-3w">
       <div class="fr-btns-group--inline-md fr-btns-group--center fr-btns-group">
-        {{ pattern('button', {
+        {{ include('ui_suite_dsfr:button', {
           label: term.field_taxo_label_button_see_all.value,
           url: url,
           target: 'self',
-        }, 'primary') }}
+          variant: 'primary'
+        }, with_context = false) }}
       </div>
 
     </div>

@@ -81,20 +81,26 @@
 
       {% if paragraph.field_pg_cta.entity.field_pg_link.title is not empty %}
         {% if cta.title %}
-          {% set pg_cta = pattern('button', {
-            label: cta.text,
-            title: cta.title,
-            url: cta.url,
-            target: cta.target,
-            external: cta.external
-          }, cta.style) %}
+          {% set pg_cta %}
+            {{ include('ui_suite_dsfr:button', {
+              label: cta.text,
+              title: cta.title,
+              url: cta.url,
+              target: cta.target,
+              external: cta.external,
+              variant: cta.style
+            }, with_context = false) }}
+          {% endset %}
         {% else %}
-          {% set pg_cta = pattern('button', {
-            label: cta.text,
-            url: cta.url,
-            target: cta.target,
-            external: cta.external
-          }, cta.style) %}
+          {% set pg_cta %}
+            {{ include('ui_suite_dsfr:button', {
+              label: cta.text,
+              url: cta.url,
+              target: cta.target,
+              external: cta.external,
+              variant: cta.style
+            }, with_context = false) }}
+          {% endset %}
         {% endif %}
 
         {{ pg_cta }}

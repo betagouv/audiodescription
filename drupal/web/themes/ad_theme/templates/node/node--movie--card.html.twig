@@ -44,9 +44,9 @@
             {% set term_path = path('entity.taxonomy_term.canonical', {'taxonomy_term': term.id()}) %}
 
             <li>
-              {{ pattern('tag', {
+              {{ include('ui_suite_dsfr:tag', {
                 label: term.name.value
-              }) }}
+              }, with_context = false) }}
             </li>
           {% endfor %}
 
@@ -55,9 +55,9 @@
         <div class="fr-card__tags fr-tags-group fr-mb-3v">
           {% for genre in node.field_genres %}
             {% set term = genre.entity %}
-            {{ pattern('tag', {
+            {{ include('ui_suite_dsfr:tag', {
               label: term.name.value
-            }) }}
+            }, with_context = false) }}
           {% endfor %}
         </div>
       {% endif %}
