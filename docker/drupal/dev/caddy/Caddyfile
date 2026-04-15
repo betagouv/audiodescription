@@ -1,6 +1,8 @@
 {
 	{$CADDY_GLOBAL_OPTIONS}
 
+	auto_https off
+
 	frankenphp {
 		{$FRANKENPHP_CONFIG}
 	}

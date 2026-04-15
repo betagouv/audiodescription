@@ -1,7 +1,7 @@
 # Dockerfile
-FROM dunglas/frankenphp:1.4-php8.3-bookworm
+FROM dunglas/frankenphp:1.12-php8.5-bookworm
 
-COPY --from=composer:2.7 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.9 /usr/bin/composer /usr/local/bin/composer
 
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
