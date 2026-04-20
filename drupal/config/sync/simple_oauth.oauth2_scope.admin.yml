@@ -17,5 +17,6 @@ grant_types:
     description: ''
 umbrella: false
 parent: _none
-granularity_id: null
-granularity_configuration: null
+granularity_id: permission
+granularity_configuration:
+  permission: 'access administration pages'

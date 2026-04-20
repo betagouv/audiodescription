@@ -9,7 +9,7 @@ services:
       - 8100:80
     volumes:
       - .:/app/public
-      - ./docker/patrimony/prod/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/patrimony/prod/caddy/Caddyfile:/etc/frankenphp/Caddyfile
       - ./docker/patrimony/prod/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - ad-network
@@ -30,7 +30,7 @@ services:
     working_dir: /app/public/drupal
     volumes:
       - .:/app/public
-      - ./docker/drupal/prod/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/drupal/prod/caddy/Caddyfile:/etc/frankenphp/Caddyfile
       - ./docker/drupal/prod/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
