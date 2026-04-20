@@ -1,0 +1,12 @@
+# Matrice des partenaires
+Les partenaires suivants ont intégré le catalogue.
+
+| # | Nom du flux | Type        | URL                                                                                 | À quoi sert ce flux ?                                   | Authentification             | Fréquence d'appel | Détails                                        |
+|---|-------------|-------------|-------------------------------------------------------------------------------------|---------------------------------------------------------|------------------------------|-------------------|------------------------------------------------|
+| 1 | France TV   | API         | Variables d'environnement `FRANCE_TV_API_URL_100_NUM` & `FRANCE_TV_API_URL_PREMIUM` | Ajout du catalogue France.tv au portail                 | Aucune                       | Quotidienne       | [France.tv](1-Partenaires/01_france-tv.md)  |
+| 2 | Arte.tv     | API         | Variable d'environnement `ARTE_TV_API_URL`                                          | Ajout du catalogue Arte.tv au portail                   | Aucune                       | Quotidienne       | [Arte.tv](1-Partenaires/02_arte-tv.md)      |
+| 3 | TF1+        | API         | Variable d'environnement `TF1_API_URL`                                              | Ajout du catalogue TF1+ au portail                      | Basic Auth (user / password) | Quotidienne       | [TF1+](1-Partenaires/03_tf1.md)             |
+| 4 | LaCinetek   | API         | Variable d'environnement `LACINETEK_API_URL`                                        | Ajout du catalogue LaCinetek (y compris VOD) au portail | Bearer Token Auth            | Quotidienne       | [LaCinetek](1-Partenaires/04_lacinetek.md)  |
+| 5 | myCanal     | API         | Variable d'environnement `CANAL_REPLAY_API_URL`                                     | Ajout du catalogue myCanal au portail                   | Basic Auth                   | Quotidienne       | [Canal](1-Partenaires/05_mycanal.md)        |
+| 5 | CANALVOD    | API         | Variable d'environnement `CANAL_VOD_API_URL`                                        | Ajout du catalogue CANALVOD au portail                  | Basic Auth                   | Quotidienne       | [Canal](1-Partenaires/06_canalvod.md)       |
+| 6 | VOD Orange  | Fichier CSV | orange_vod.csv                                                                      | Ajout du catalogue Orange VOD au portail                | N/A                          | Annuelle          | [VOD Orange](1-Partenaires/07_vodorange.md) |
