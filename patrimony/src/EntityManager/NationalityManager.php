@@ -14,13 +14,10 @@ use Drupal\taxonomy\Entity\Term;
  */
 class NationalityManager
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private EntityCodeService      $entityCodeService,
-    )
-    {
-
+        private EntityCodeService $entityCodeService,
+    ) {
     }
 
     /**

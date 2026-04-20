@@ -6,6 +6,7 @@ use App\Entity\Patrimony\Movie;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/** @extends AbstractCrudController<Movie> */
 class MovieCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

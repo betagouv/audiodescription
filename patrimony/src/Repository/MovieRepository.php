@@ -24,7 +24,14 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
-    public function findByIds($ids, $code): array {
+    /**
+     * @param array<string, mixed> $ids
+     * @return array<Movie>
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
+    public function findByIds(array $ids, ?string $code): array
+    {
         $qb = $this->createQueryBuilder('m')
             ->select();
 
@@ -49,17 +56,17 @@ class MovieRepository extends ServiceEntityRepository
         }
 
         if (isset($ids['laCinetekId']) && !empty($ids['laCinetekId'])) {
-          $qb = $qb->orWhere('m.laCinetekId = :laCinetekId')
+            $qb = $qb->orWhere('m.laCinetekId = :laCinetekId')
             ->setParameter('laCinetekId', $ids['laCinetekId']);
         }
 
         if (isset($ids['arteId']) && !empty($ids['arteId'])) {
-          $qb = $qb->orWhere('m.arteId = :arteId')
+            $qb = $qb->orWhere('m.arteId = :arteId')
             ->setParameter('arteId', $ids['arteId']);
         }
 
         if (isset($ids['franceTvId']) && !empty($ids['franceTvId'])) {
-          $qb = $qb->orWhere('m.franceTvId = :franceTvId')
+            $qb = $qb->orWhere('m.franceTvId = :franceTvId')
             ->setParameter('franceTvId', $ids['franceTvId']);
         }
 
@@ -101,7 +108,8 @@ class MovieRepository extends ServiceEntityRepository
         throw new ImportException('Find more than one result');**/
     }
 
-    public function updatedAllMovieWithPartner(Partner $partner) {
+    public function updatedAllMovieWithPartner(Partner $partner): void
+    {
         $qb = $this->createQueryBuilder('a');
 
         $qb->update(Movie::class, 'm')
@@ -123,127 +131,135 @@ class MovieRepository extends ServiceEntityRepository
             ->execute();
     }
 
-  public function findNewFreeMovies($platformCode = null): array
-  {
-    $qb = $this->createQueryBuilder('m');
+    /** @return array<Movie> */
+    public function findNewFreeMovies(?string $platformCode = null): array
+    {
+        $qb = $this->createQueryBuilder('m');
 
-    $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
-      ->addSelect('s')
-      ->addSelect('o')
-      ->addSelect('p')
-      ->leftJoin('m.solutions', 's')
-      ->leftJoin('s.offer', 'o')
-      ->leftJoin('s.partner', 'p')
-      ->where('o.code = :freeAccess')
-      ->andWhere('s.endRights >= :minEndDate')
-      ->andWhere('s.startRights <= :now')
-      ->andWhere($qb->expr()->andX(
-        's.startRights IS NOT NULL',
-        's.startRights >= :recentDate'
-      ))
-      ->andWhere('s.link IS NOT NULL')
-      ->andWhere('m.hasAd = true')
-      ->setParameter('freeAccess', 'FREE_ACCESS')
-      ->setParameter('now', new \DateTime())
-      ->setParameter('minEndDate', new \DateTime('+7 days'))
-      ->setParameter('recentDate', new \DateTime('-7 days'));
+        $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
+        ->addSelect('s')
+        ->addSelect('o')
+        ->addSelect('p')
+        ->leftJoin('m.solutions', 's')
+        ->leftJoin('s.offer', 'o')
+        ->leftJoin('s.partner', 'p')
+        ->where('o.code = :freeAccess')
+        ->andWhere('s.endRights >= :minEndDate')
+        ->andWhere('s.startRights <= :now')
+        ->andWhere($qb->expr()->andX(
+            's.startRights IS NOT NULL',
+            's.startRights >= :recentDate'
+        ))
+        ->andWhere('s.link IS NOT NULL')
+        ->andWhere('m.hasAd = true')
+        ->setParameter('freeAccess', 'FREE_ACCESS')
+        ->setParameter('now', new \DateTime())
+        ->setParameter('minEndDate', new \DateTime('+7 days'))
+        ->setParameter('recentDate', new \DateTime('-7 days'));
 
-    if (!is_null($platformCode)) {
-      $qb->andWhere('p.code = :platform')
-        ->setParameter('platform', $platformCode);
+        if (!is_null($platformCode)) {
+            $qb->andWhere('p.code = :platform')
+            ->setParameter('platform', $platformCode);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
-    return $qb->getQuery()->getResult();
-  }
+    /**
+     * @param array<Movie> $alreadySelected
+     * @return array<Movie>
+     */
+    public function findNearEndFreeMovies(array $alreadySelected, int $maxResult): array
+    {
+        $qb = $this->createQueryBuilder('m');
 
-  public function findNearEndFreeMovies(array $alreadySelected, int $maxResult): array
-  {
-    $qb = $this->createQueryBuilder('m');
+        $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
+        ->addSelect('s')
+        ->addSelect('o')
+        ->addSelect('p')
+        ->leftJoin('m.solutions', 's')
+        ->leftJoin('s.offer', 'o')
+        ->leftJoin('s.partner', 'p')
+        ->where('o.code = :freeAccess')
+        ->andWhere('s.endRights IS NOT NULL')
+        ->andWhere('s.endRights <= :nearEndDate')
+        ->andWhere('s.endRights >= :nearNowDate')
+        ->andWhere('s.link IS NOT NULL')
+        ->andWhere('m.hasAd = true')
 
-    $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
-    ->addSelect('s')
-      ->addSelect('o')
-      ->addSelect('p')
-      ->leftJoin('m.solutions', 's')
-      ->leftJoin('s.offer', 'o')
-      ->leftJoin('s.partner', 'p')
-      ->where('o.code = :freeAccess')
-      ->andWhere('s.endRights IS NOT NULL')
-      ->andWhere('s.endRights <= :nearEndDate')
-      ->andWhere('s.endRights >= :nearNowDate')
-      ->andWhere('s.link IS NOT NULL')
-      ->andWhere('m.hasAd = true')
-      
-      ->orderBy('s.endRights', 'ASC')
-      ->setParameter('freeAccess', 'FREE_ACCESS')
-      ->setParameter('nearEndDate', new \DateTime('+15 days'))
-      ->setParameter('nearNowDate', new \DateTime('+3 days'))
-      ->setMaxResults($maxResult)
-    ;
-    
-    if(!empty($alreadySelected)) {
-      $qb->andWhere($qb->expr()->notIn('m', ':excluded'))
-        ->setParameter('excluded', $alreadySelected);
+        ->orderBy('s.endRights', 'ASC')
+        ->setParameter('freeAccess', 'FREE_ACCESS')
+        ->setParameter('nearEndDate', new \DateTime('+15 days'))
+        ->setParameter('nearNowDate', new \DateTime('+3 days'))
+        ->setMaxResults($maxResult)
+        ;
+
+        if (!empty($alreadySelected)) {
+            $qb->andWhere($qb->expr()->notIn('m', ':excluded'))
+            ->setParameter('excluded', $alreadySelected);
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    
-    return $qb->getQuery()->getResult();
-  }
 
-  public function findNotSelectedFreeMovies(array $alreadySelected): array
-  {
-    $qb = $this->createQueryBuilder('m');
+    /**
+     * @param array<Movie> $alreadySelected
+     * @return array<Movie>
+     */
+    public function findNotSelectedFreeMovies(array $alreadySelected): array
+    {
+        $qb = $this->createQueryBuilder('m');
 
-    $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
-    ->addSelect('s')
-      ->addSelect('o')
-      ->addSelect('p')
-      ->leftJoin('m.solutions', 's')
-      ->leftJoin('s.offer', 'o')
-      ->leftJoin('s.partner', 'p')
-      ->where('o.code = :freeAccess')
-      /**->andWhere($qb->expr()->orX(
-        's.endRights >= :now',
-        's.endRights IS NULL'
-      ))
-      ->andWhere($qb->expr()->orX(
-        's.startRights <= :now',
-        's.startRights IS NULL'
-      ))**/
-      ->andWhere('s.endRights >= :now')
-      ->andWhere('s.startRights <= :now')
-      ->andWhere('s.link IS NOT NULL')
-      ->andWhere($qb->expr()->notIn('m', ':excluded'))
-      ->setParameter('excluded', $alreadySelected)
-      ->setParameter('freeAccess', 'FREE_ACCESS')
-      ->setParameter('now', new \DateTime());
+        $qb->select('m') // HIDDEN pour pouvoir trier sans le retourner directement
+        ->addSelect('s')
+        ->addSelect('o')
+        ->addSelect('p')
+        ->leftJoin('m.solutions', 's')
+        ->leftJoin('s.offer', 'o')
+        ->leftJoin('s.partner', 'p')
+        ->where('o.code = :freeAccess')
+        /**->andWhere($qb->expr()->orX(
+          's.endRights >= :now',
+          's.endRights IS NULL'
+        ))
+        ->andWhere($qb->expr()->orX(
+          's.startRights <= :now',
+          's.startRights IS NULL'
+        ))**/
+        ->andWhere('s.endRights >= :now')
+        ->andWhere('s.startRights <= :now')
+        ->andWhere('s.link IS NOT NULL')
+        ->andWhere($qb->expr()->notIn('m', ':excluded'))
+        ->setParameter('excluded', $alreadySelected)
+        ->setParameter('freeAccess', 'FREE_ACCESS')
+        ->setParameter('now', new \DateTime());
 
-    return $qb->getQuery()->getResult();
-  }
+        return $qb->getQuery()->getResult();
+    }
 
-  public function countFreeMovies(): int {
-    $qb = $this->createQueryBuilder('m');
+    public function countFreeMovies(): int
+    {
+        $qb = $this->createQueryBuilder('m');
 
-    $qb->select('COUNT(DISTINCT m.id)') // HIDDEN pour pouvoir trier sans le retourner directement
-      ->leftJoin('m.solutions', 's')
-      ->leftJoin('s.offer', 'o')
-      ->leftJoin('s.partner', 'p')
-      ->where('o.code = :freeAccess')
-      /**->andWhere($qb->expr()->orX(
-        's.endRights >= :now',
-        's.endRights IS NULL'
-      ))
-      ->andWhere($qb->expr()->orX(
-        's.startRights <= :now',
-        's.startRights IS NULL'
-      ))**/
-      ->andWhere('s.endRights >= :now')
-      ->andWhere('s.startRights <= :now')
-      ->andWhere('m.hasAd = true')
-      ->setParameter('freeAccess', 'FREE_ACCESS')
-      ->setParameter('now', new \DateTime());
+        $qb->select('COUNT(DISTINCT m.id)') // HIDDEN pour pouvoir trier sans le retourner directement
+        ->leftJoin('m.solutions', 's')
+        ->leftJoin('s.offer', 'o')
+        ->leftJoin('s.partner', 'p')
+        ->where('o.code = :freeAccess')
+        /**->andWhere($qb->expr()->orX(
+          's.endRights >= :now',
+          's.endRights IS NULL'
+        ))
+        ->andWhere($qb->expr()->orX(
+          's.startRights <= :now',
+          's.startRights IS NULL'
+        ))**/
+        ->andWhere('s.endRights >= :now')
+        ->andWhere('s.startRights <= :now')
+        ->andWhere('m.hasAd = true')
+        ->setParameter('freeAccess', 'FREE_ACCESS')
+        ->setParameter('now', new \DateTime());
 
-    $count = $qb->getQuery()->getSingleScalarResult();
-
-    return $count;
-  }
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
 }

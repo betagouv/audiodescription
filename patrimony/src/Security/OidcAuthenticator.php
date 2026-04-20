@@ -2,14 +2,11 @@
 
 namespace App\Security;
 
-
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Firebase\JWT\JWT;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,15 +25,14 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/** @SuppressWarnings(PHPMD.CouplingBetweenObjects) */
 class OidcAuthenticator extends AbstractAuthenticator
 {
     public function __construct(
         private OidcService $oidcService,
         private RouterInterface $router,
-        private ParameterBagInterface $params,
         private EntityManagerInterface $entityManager,
         private LoggerInterface $logger,
-        private Security $security,
         private UserRepository $userRepository,
     ) {
     }
@@ -52,20 +48,25 @@ class OidcAuthenticator extends AbstractAuthenticator
         $sessionState = $request->getSession()->get(OidcService::OIDC_AD_STATE);
 
         if ($state !== $sessionState) {
-            throw new UnauthorizedHttpException();
+            throw new UnauthorizedHttpException('Bearer');
         }
 
         $code = $request->get('code');
 
+        $tokens = [];
         try {
             $tokens = $this->oidcService->getTokens($code);
-        } catch (ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
-            $this->logger->error($e->getResponse()->getContent(throw: false));
+        } catch (
+            ClientExceptionInterface |
+            DecodingExceptionInterface |
+            RedirectionExceptionInterface |
+            ServerExceptionInterface |
+            TransportExceptionInterface $e
+        ) {
+            $this->logger->error($e->getMessage());
         }
 
         $accessToken = $tokens['access_token'];
-
-        $payload = $this->oidcService->decodeToken($accessToken);
 
         $userInfo = $this->oidcService->getUserInfo($accessToken);
 

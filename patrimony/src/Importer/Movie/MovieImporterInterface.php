@@ -5,11 +5,11 @@ namespace App\Importer\Movie;
 /**
  * Interface for importing movies from various sources.
  */
-interface MovieImporterInterface {
-
+interface MovieImporterInterface
+{
   /**
    * Imports movie data from a specified source.
    */
-  public function import(?array $options = []);
-
+    /** @param array<string, mixed>|null $options */
+    public function import(?array $options = []): void;
 }

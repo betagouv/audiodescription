@@ -6,11 +6,11 @@ grumphp:
         phpmd: {
             report_format: ansi,
             ruleset: [
-                '/app/public/symfony/phpmd.xml'
+                '/app/public/patrimony/phpmd.xml'
             ]
         },
         phpstan: {
-            configuration: /app/public/symfony/phpstan.neon
+            configuration: /app/public/patrimony/phpstan.neon
         }
     }
     git_hook_variables:

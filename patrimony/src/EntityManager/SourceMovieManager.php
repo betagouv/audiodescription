@@ -12,13 +12,10 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class SourceMovieManager
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private EntityCodeService      $entityCodeService,
-    )
-    {
-
+        private EntityCodeService $entityCodeService,
+    ) {
     }
 
     /**
@@ -30,11 +27,10 @@ class SourceMovieManager
     public function findOrcreate(
         string $title,
         string $internalPartnerId,
-        ?string $productionYear,
+        int|string|null $productionYear,
         Partner $partner,
         bool $hasAd
-    ): SourceMovie
-    {
+    ): SourceMovie {
         $repository = $this->entityManager->getRepository(SourceMovie::class);
         $sourceMovie = $repository->findOneBy([
             'partner' => $partner,
@@ -45,16 +41,16 @@ class SourceMovieManager
             $sourceMovie = new SourceMovie();
 
             $sourceMovie->setTitle($title);
-            $code = $this->entityCodeService->computeCode($title . '__' . $productionYear);
+            $code = $this->entityCodeService->computeCode($title . '__' . (string) $productionYear);
             $sourceMovie->setCode($code);
 
             $sourceMovie->setInternalPartnerId($internalPartnerId);
             $sourceMovie->setPartner($partner);
 
             if (!is_null($productionYear)) {
-                preg_match('/^(\d{4})/', $productionYear, $matches);
+                preg_match('/^(\d{4})/', (string) $productionYear, $matches);
                 if (isset($matches[1])) {
-                    $sourceMovie->setProductionYear($matches[1]);
+                    $sourceMovie->setProductionYear((int) $matches[1]);
                 }
             }
 

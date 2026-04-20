@@ -32,6 +32,9 @@ class CncCsvImporter implements MovieImporterInterface, LoggerAwareInterface {
 
   /**
    * Imports movie data from a source.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings(PHPMD.NPathComplexity)
    */
   public function import(): void {
     // Import movies.

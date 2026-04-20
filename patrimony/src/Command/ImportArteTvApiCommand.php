@@ -9,20 +9,18 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 // the name of the command is what users type after "php bin/console"
 #[AsCommand(name: 'ad:import:artetv-api')]
 class ImportArteTvApiCommand extends Command
 {
     public function __construct(
-        private ParameterBagInterface $parameterBag,
         private ImporterFactory $importerFactory,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $options = [
@@ -52,4 +50,3 @@ class ImportArteTvApiCommand extends Command
         ;
     }
 }
-

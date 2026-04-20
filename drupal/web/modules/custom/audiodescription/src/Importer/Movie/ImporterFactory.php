@@ -30,7 +30,7 @@ class ImporterFactory {
    */
   public function createImporter(ImportSourceType $importSourceType): MovieImporterInterface|Boolean {
     switch ($importSourceType) {
-      case ImportSourceType::CNC_CSV:
+      case ImportSourceType::CncCsv:
         return $this->cncCsvImporter;
 
       default:

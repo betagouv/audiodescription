@@ -36,7 +36,7 @@ class CollectionBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     $breadcrumb->addLink(Link::createFromRoute($taxonomy_term->getName(), 'entity.taxonomy_term.canonical', ['taxonomy_term' => $tid]));
 
-    // Désactiver totalement le cache en supprimant toutes les métadonnées
+    // Désactiver totalement le cache en supprimant toutes les métadonnées.
     $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
 
     return $breadcrumb;

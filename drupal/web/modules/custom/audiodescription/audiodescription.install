@@ -6,14 +6,11 @@
  */
 
 use Drupal\Core\Batch\BatchBuilder;
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
+use Drupal\Core\File\FileExists;
 use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\User;
 use Drupal\file\Entity\File;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * Create test users.
@@ -100,7 +97,7 @@ function audiodescription_update_10016() {
       'format' => 'full_html',
     ]);
     $config_page->set('field_header_with_search_bar', FALSE);
-    $cta = audiodescription_create_pg_cta('internal:/recherche', 'Parcourir le catalogue de films',FALSE, 'primary');
+    $cta = audiodescription_create_pg_cta('internal:/recherche', 'Parcourir le catalogue de films', FALSE, 'primary');
     $config_page->set('field_header_cta', [
       'target_id' => $cta->id(),
       'target_revision_id' => $cta->getRevisionId(),
@@ -108,14 +105,13 @@ function audiodescription_update_10016() {
     $config_page->set('field_header_stats', 'films disponibles sur');
     $config_page->set('field_header_image', audiodescription_create_media_image('hero.png', ''));
 
-
     $config_page->set('field_last_movies_title', 'Disponibles actuellement');
     $config_page->set('field_last_movies_description', [
       'value' => '<p>Retrouvez ci-dessous les derniers films audiodécrits ajoutés à notre catalogue.</p>',
       'format' => 'basic_html',
     ]);
 
-    $cta = audiodescription_create_pg_cta('internal:/recherche', 'Découvrir les films audiodécrits',FALSE, 'primary');
+    $cta = audiodescription_create_pg_cta('internal:/recherche', 'Découvrir les films audiodécrits', FALSE, 'primary');
     $config_page->set('field_last_movies_cta', [
       'target_id' => $cta->id(),
       'target_revision_id' => $cta->getRevisionId(),
@@ -130,7 +126,7 @@ function audiodescription_update_10016() {
       'format' => 'basic_html',
     ]);
 
-    $cta = audiodescription_create_pg_cta('internal:/', "S'informer sur l'audiodescription",FALSE, 'primary');
+    $cta = audiodescription_create_pg_cta('internal:/', "S'informer sur l'audiodescription", FALSE, 'primary');
     $config_page->set('field_infos_ctas', [
       [
         'target_id' => $cta->id(),
@@ -216,8 +212,8 @@ function audiodescription_batch_finished($success, $results, $operations) {
 /**
  * Crée une entité média de type image.
  *
- * @param string $uri
- *   L'URI du fichier image (ex. : public://example.jpg).
+ * @param string $filename
+ *   Le nom du fichier image (ex. : example.jpg).
  * @param string $alt
  *   Le texte alternatif pour l'image.
  *
@@ -230,7 +226,7 @@ function audiodescription_create_media_image($filename, $alt) {
 
   if (file_exists($source_path)) {
     $destination_uri = 'public://' . $filename;
-    $copied = $file_system->copy($source_path, $destination_uri, FileSystemInterface::EXISTS_REPLACE);
+    $copied = $file_system->copy($source_path, $destination_uri, FileExists::Replace);
 
     if ($copied) {
       $file = File::create([

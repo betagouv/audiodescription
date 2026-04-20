@@ -22,7 +22,8 @@ class SourceMovieRepository extends ServiceEntityRepository
         parent::__construct($registry, SourceMovie::class);
     }
 
-    public function deleteAllByPartner(Partner $partner) {
+    public function deleteAllByPartner(Partner $partner): void
+    {
         $qb = $this->createQueryBuilder('s')
             ->delete()
             ->where('s.partner = :partner')

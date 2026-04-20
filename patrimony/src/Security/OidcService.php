@@ -15,6 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/** @SuppressWarnings(PHPMD.LongVariable) */
 class OidcService
 {
     public const string OIDC_AD_STATE = 'oidc_ad_state';
@@ -24,6 +25,7 @@ class OidcService
     private string $oidcAdClientId;
     private string $oidcAdRedirectBaseUrl;
     private string $oidcAdClientSecret;
+    private string $oidcAdPublicKey;
 
     public function __construct(
         private HttpClientInterface $client,

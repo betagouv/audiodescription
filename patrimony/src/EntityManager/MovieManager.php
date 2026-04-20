@@ -15,7 +15,6 @@ use Psr\Log\LoggerInterface;
  */
 class MovieManager
 {
-
     public function __construct(
         private LoggerInterface $logger,
         private EntityManagerInterface $entityManager,
@@ -24,17 +23,22 @@ class MovieManager
         private DirectorManager $directorManager,
         private PublicManager $publicManager,
         private ActorManager $actorManager,
-    )
-    {
-
+    ) {
     }
 
-    public function create(SourceMovie $sourceMovie) : Movie {
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     */
+    public function create(SourceMovie $sourceMovie): Movie
+    {
         $this->logger->info('Create movie : ' . $sourceMovie->getTitle());
 
-        $partner = $sourceMovie->getPartner()->getCode();
+        $partnerEntity = $sourceMovie->getPartner();
+        $partner = $partnerEntity !== null ? $partnerEntity->getCode() : null;
 
-        switch($partner) {
+        switch ($partner) {
             case PartnerCode::ARTE->value:
                 $idName = 'arteId';
                 break;
@@ -47,8 +51,8 @@ class MovieManager
                 break;
             case PartnerCode::LACINETEK_SVOD->value:
             case PartnerCode::LACINETEK_TVOD->value:
-              $idName = 'laCinetekId';
-              break;
+                $idName = 'laCinetekId';
+                break;
             case PartnerCode::FRANCE_TV->value:
                 $idName = 'franceTvId';
                 break;
@@ -69,7 +73,7 @@ class MovieManager
             $movie->setTitle($sourceMovie->getTitle());
             $movie->setCode($sourceMovie->getCode());
 
-            switch($partner) {
+            switch ($partner) {
                 case PartnerCode::CNC->value:
                     $movie->setCncId($sourceMovie->getInternalPartnerId());
                     break;
@@ -85,8 +89,8 @@ class MovieManager
                     break;
                 case PartnerCode::LACINETEK_TVOD->value:
                 case PartnerCode::LACINETEK_SVOD->value:
-                  $movie->setLaCinetekId($sourceMovie->getInternalPartnerId());
-                  break;
+                    $movie->setLaCinetekId($sourceMovie->getInternalPartnerId());
+                    break;
                 case PartnerCode::FRANCE_TV->value:
                     $movie->setFranceTvId($sourceMovie->getInternalPartnerId());
                     break;
@@ -131,7 +135,10 @@ class MovieManager
         $nationalities = [];
 
         foreach ($sourceNationalities as $sourceNationality) {
-            $nationalities[] = $this->nationalityManager->provide($sourceNationality);
+            $nationality = $this->nationalityManager->provide($sourceNationality);
+            if ($nationality !== null) {
+                $nationalities[] = $nationality;
+            }
         }
 
         $movie->setNationalities(new ArrayCollection($nationalities));
@@ -141,7 +148,10 @@ class MovieManager
         $genres = [];
 
         foreach ($sourceGenres as $sourceGenre) {
-            $genres[] = $this->genreManager->provide($sourceGenre);
+            $genre = $this->genreManager->provide($sourceGenre);
+            if ($genre !== null) {
+                $genres[] = $genre;
+            }
         }
         $movie->setGenres(new ArrayCollection($genres));
 
@@ -150,7 +160,10 @@ class MovieManager
         $directors = [];
 
         foreach ($sourceDirectors as $sourceDirector) {
-            $directors[] = $this->directorManager->findOrCreate($sourceDirector);
+            $director = $this->directorManager->findOrCreate($sourceDirector);
+            if ($director !== null) {
+                $directors[] = $director;
+            }
         }
         $movie->setDirectors(new ArrayCollection($directors));
 
@@ -159,6 +172,9 @@ class MovieManager
 
         foreach ($sourceActors as $sourceActor) {
             $actor = $this->actorManager->findOrCreate($sourceActor);
+            if ($actor === null) {
+                continue;
+            }
             $this->entityManager->persist($actor);
 
             $this->entityManager->flush();

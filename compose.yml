@@ -8,7 +8,7 @@ services:
     working_dir: /app/public/drupal
     volumes:
       - .:/app/public
-      - ./docker/drupal/dev/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/drupal/dev/caddy/Caddyfile:/etc/frankenphp/Caddyfile
       - ./docker/drupal/dev/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
@@ -30,7 +30,7 @@ services:
       GRUMPHP_GIT_WORKING_DIR: '/app/public'
     volumes:
       - .:/app/public
-      - ./docker/patrimony/dev/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/patrimony/dev/caddy/Caddyfile:/etc/frankenphp/Caddyfile
       - ./docker/patrimony/dev/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - ad-network

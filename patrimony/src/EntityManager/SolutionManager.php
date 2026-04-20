@@ -15,12 +15,9 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class SolutionManager
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
-    )
-    {
-
+    ) {
     }
 
     /**
@@ -37,8 +34,7 @@ class SolutionManager
         string $link,
         ?string $startRights,
         ?string $endRights
-    ): Solution
-    {
+    ): Solution {
         $repository = $this->entityManager->getRepository(Solution::class);
         $solution = $repository->findOneBy([
             'partner' => $partner,

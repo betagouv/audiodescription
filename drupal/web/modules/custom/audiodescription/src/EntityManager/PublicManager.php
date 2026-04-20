@@ -21,7 +21,7 @@ class PublicManager {
   public function createOrUpdate(string $publicCode, ?string $publicName = NULL): ?Term {
     $properties = [
       'field_taxo_code' => $publicCode,
-      'vid' => Taxonomy::PUBLIC->value,
+      'vid' => Taxonomy::Public->value,
     ];
 
     $publics = $this->entityTypeManager
@@ -35,14 +35,15 @@ class PublicManager {
 
     if (is_null($public)) {
       $public = Term::create($properties);
-      if (is_null($publicName)) $publicName = $publicCode;
+      if (is_null($publicName)) {
+        $publicName = $publicCode;
+      }
       $public->setName($publicName);
 
       $public->save();
     }
 
-
-
     return $public;
   }
+
 }

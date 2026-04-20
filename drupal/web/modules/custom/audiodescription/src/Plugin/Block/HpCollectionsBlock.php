@@ -7,9 +7,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\views\Entity\View;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -75,50 +73,43 @@ class HpCollectionsBlock extends BlockBase implements ContainerFactoryPluginInte
 
     $field_collections_with_genres = $homepage->get('field_collections_with_genres')->value;
 
-    /**
-    // @TODO : If one tile for all genres.
-    $collection_genres = [
-      'is_displayed' => FALSE,
-      'data' => [],
-      'icon' => '',
-    ];
-
-    if ($field_collections_with_genres) {
-      // @var \Drupal\config_pages\Entity\ConfigPages $homepage
-      $wordings = $config_pages->load('wordings');
-
-      $collection_genres['is_displayed'] = TRUE;
-
-      $collection_genres['icon'] = $wordings->field_taxo_genres_icon->entity->field_media_image->entity->uri->value;
-
-      $view = View::load('genres');
-      if ($view) {
-        $view_display = $view->getDisplay('page');
-
-        // Get view title.
-        $title = $view_display['display_title'];
-        $collection_genres['data']['title'] = $title;
-
-        // Get view url.
-        if (!empty($view_display['display_options']['path'])) {
-          $path = $view_display['display_options']['path'];
-
-          $url = Url::fromUserInput('/' . $path)->toString();
-          $collection_genres['data']['url'] = $url;
-        }
-      }
-    }**/
+    /*
+     * @todo If one tile for all genres.
+     * $collection_genres = [
+     *   'is_displayed' => FALSE,
+     *   'data' => [],
+     *   'icon' => '',
+     * ];
+     *
+     * if ($field_collections_with_genres) {
+     *   $wordings = $config_pages->load('wordings');
+     *   $collection_genres['is_displayed'] = TRUE;
+     *   $collection_genres['icon'] = ...;
+     *
+     *   $view = View::load('genres');
+     *   if ($view) {
+     *     $view_display = $view->getDisplay('page');
+     *     $title = $view_display['display_title'];
+     *     $collection_genres['data']['title'] = $title;
+     *     if (!empty($view_display['display_options']['path'])) {
+     *       $path = $view_display['display_options']['path'];
+     *       $url = Url::fromUserInput('/' . $path)->toString();
+     *       $collection_genres['data']['url'] = $url;
+     *     }
+     *   }
+     * }
+     */
 
     $collection_genres = [];
 
     if ($field_collections_with_genres) {
-      $term_ids = \Drupal::entityQuery('taxonomy_term')
+      $term_ids = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
         ->condition('vid', 'genre')
         ->sort('name', 'ASC')
         ->accessCheck(FALSE)
         ->execute();
 
-      $terms = \Drupal::entityTypeManager()
+      $terms = $this->entityTypeManager
         ->getStorage('taxonomy_term')
         ->loadMultiple($term_ids);
 

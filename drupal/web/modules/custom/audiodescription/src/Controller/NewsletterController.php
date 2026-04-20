@@ -3,7 +3,6 @@
 namespace Drupal\audiodescription\Controller;
 
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,10 +29,10 @@ class NewsletterController extends ControllerBase {
   /**
    * Constructs a new NewsletterController.
    *
-   * @param \Drupal\config_pages\ConfigPagesLoaderServiceInterface $configPagesLoader
-   *   The config pages loader service.
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The form builder service.
+   * @param \Drupal\config_pages\ConfigPagesLoaderServiceInterface $configPagesLoader
+   *   The config pages loader service.
    */
   public function __construct(
     FormBuilderInterface $form_builder,
@@ -57,7 +56,8 @@ class NewsletterController extends ControllerBase {
    * Provides the render array for the newsletter subscription page.
    *
    * @return array
-   *   A render array representing the content of the newsletter subscription page.
+   *   A render array representing the content of the newsletter
+   *   subscription page.
    */
   public function subscription() {
     $config_pages = $this->configPagesLoader;
@@ -83,7 +83,8 @@ class NewsletterController extends ControllerBase {
    * Provides the render array for the newsletter subscription page.
    *
    * @return array
-   *   A render array representing the content of the newsletter subscription page.
+   *   A render array representing the content of the newsletter
+   *   subscription page.
    */
   public function confirmation() {
     $config_pages = $this->configPagesLoader;
@@ -118,7 +119,8 @@ class NewsletterController extends ControllerBase {
    * Provides the render array for the newsletter subscription page.
    *
    * @return array
-   *   A render array representing the content of the newsletter subscription page.
+   *   A render array representing the content of the newsletter
+   *   subscription page.
    */
   public function unsubscription() {
     $config_pages = $this->configPagesLoader;
@@ -138,6 +140,9 @@ class NewsletterController extends ControllerBase {
     return $build;
   }
 
+  /**
+   * Renders the newsletter unsubscription confirmation page.
+   */
   public function unsubscriptionConfirmation() {
     $config_pages = $this->configPagesLoader;
     $newsletter = $config_pages->load('newsletter');

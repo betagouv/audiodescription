@@ -9,9 +9,7 @@ use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\views\Entity\View;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -94,15 +92,17 @@ class HpFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
     ];
   }
 
+  /**
+   * Returns the total count of movies with a free access solution.
+   */
   private function countMoviesWithFreeSolution():int {
     $term = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
       'field_taxo_code' => 'FREE_ACCESS',
-      'vid' => Taxonomy::OFFER->value,
+      'vid' => Taxonomy::Offer->value,
     ]);
 
     $tid = array_shift($term)->id();
 
-    die($tid);
     $connection = Database::getConnection();
 
     $sql = "
@@ -119,7 +119,7 @@ class HpFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
       LEFT JOIN paragraph__field_pg_start_rights sr ON s.id = sr.entity_id
       LEFT JOIN paragraph__field_pg_end_rights er ON s.id = er.entity_id
       WHERE m.type = 'movie'
-      AND taxo_ref.field_pg_offer_target_id = " . $tid ."
+      AND taxo_ref.field_pg_offer_target_id = " . $tid . "
       AND m.status = 1
       AND (
         to_date(sr.field_pg_start_rights_value, 'YYYY-MM-DD') < NOW()

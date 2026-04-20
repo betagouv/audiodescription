@@ -58,7 +58,7 @@ class SearchBlock extends BlockBase implements ContainerFactoryPluginInterface {
     return [
       '#theme' => 'search_block',
       '#title' => $searchCp->get('field_search_title')->value,
-      '#form' => $form
+      '#form' => $form,
     ];
   }
 

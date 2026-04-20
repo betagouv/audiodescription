@@ -10,12 +10,9 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class LanguageManager
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
-    )
-    {
-
+    ) {
     }
 
     /**

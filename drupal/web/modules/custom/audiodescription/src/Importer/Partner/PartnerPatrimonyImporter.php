@@ -5,6 +5,7 @@ namespace Drupal\audiodescription\Importer\Partner;
 use Drupal\audiodescription\EntityManager\PartnerManager;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -19,6 +20,7 @@ class PartnerPatrimonyImporter implements LoggerAwareInterface {
     private EntityTypeManager $entityTypeManager,
     private PartnerManager $partnerManager,
     private ConfigPagesLoaderServiceInterface $configPagesLoader,
+    private ClientInterface $httpClient,
   ) {
   }
 
@@ -27,7 +29,7 @@ class PartnerPatrimonyImporter implements LoggerAwareInterface {
    */
   public function import(): void {
     // Import genres.
-    $client = \Drupal::httpClient();
+    $client = $this->httpClient;
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
@@ -48,7 +50,8 @@ class PartnerPatrimonyImporter implements LoggerAwareInterface {
       foreach ($data['hydra:member'] as $partner) {
         $this->partnerManager->createOrUpdate($partner);
       }
-    } catch( RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->info('Error fetching partners');
       dump($e->getMessage());
     }

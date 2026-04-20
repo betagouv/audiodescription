@@ -5,6 +5,9 @@ namespace Drupal\audiodescription\TwigExtension;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
+/**
+ * Provides a Twig filter to add a class to WYSIWYG paragraph elements.
+ */
 class WysiwygChapoTwigFilter extends AbstractExtension {
 
   /**

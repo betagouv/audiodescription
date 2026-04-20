@@ -6,6 +6,7 @@ use App\Entity\Patrimony\PublicRestriction;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/** @extends AbstractCrudController<PublicRestriction> */
 class PublicRestrictionCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

@@ -6,6 +6,7 @@ use App\Entity\Patrimony\Partner;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/** @extends AbstractCrudController<Partner> */
 class PartnerCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

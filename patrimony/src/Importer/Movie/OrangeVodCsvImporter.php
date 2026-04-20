@@ -21,10 +21,11 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * Imports movies from Orange VOD File.
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  */
 class OrangeVodCsvImporter implements MovieImporterInterface
 {
-
     private string $dataDir;
 
     public function __construct(
@@ -39,19 +40,21 @@ class OrangeVodCsvImporter implements MovieImporterInterface
         private MovieManager $movieManager,
         private EntityCodeService $entityCodeService,
         private MovieFetcher $movieFetcher,
-
-    )
-    {
+    ) {
         $this->dataDir = sprintf('%s/data/', $this->parameterBag->get('kernel.project_dir'));
     }
 
     /**
      * Imports movie data from a source.
+     * @param array<string, mixed>|null $options
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function import(?array $options = []): void
     {
         // Manage options.
-        $createMoviesOption = $options['create-movies'];
+        $createMoviesOption = $options['create-movies'] ?? false;
 
         $file = sprintf(
             '%s/%s',
@@ -97,6 +100,10 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                 $partner = $partnerRepository->findOneBy(['code' => PartnerCode::ORANGE_VOD->value]);
                 $offer = $offerRepository->findOneBy(['code' => OfferCode::TVOD->value]);
 
+                if ($partner === null || $offer === null) {
+                    continue;
+                }
+
                 $repository = $this->entityManager->getRepository(SourceMovie::class);
                 $sourceMovie = $repository->findOneBy([
                     'internalPartnerId' => $internalPartnerId,
@@ -106,7 +113,7 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                 $title = $line['Title'];
                 dump($title);
 
-                $productionYear = $line['Production year'];
+                $productionYear = (int) $line['Production year'];
 
                 if (is_null($sourceMovie)) {
                     $sourceMovie = $this->sourceMovieManager->findOrcreate(
@@ -114,7 +121,7 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                         $internalPartnerId,
                         $productionYear,
                         $partner,
-                        TRUE
+                        true
                     );
                 }
 
@@ -220,21 +227,20 @@ class OrangeVodCsvImporter implements MovieImporterInterface
 
                 $movie = null;
                 if ($createMoviesOption) {
-                  //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
-                  $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
+                    $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
-                  if (is_null($movie)) {
+                    if (is_null($movie)) {
                         $yearAfter = $productionYear + 1;
                         $codeAfter = $this->entityCodeService->computeCode($title . '__' . $yearAfter);
-
-                        $movie = $this->movieRepository->findByIds($ids, $codeAfter);
+                        $moviesAfter = $this->movieRepository->findByIds($ids, $codeAfter);
+                        $movie = !empty($moviesAfter) ? $moviesAfter[0] : null;
                     }
 
                     if (is_null($movie)) {
                         $yearBefore = $productionYear - 1;
                         $codeBefore = $this->entityCodeService->computeCode($title . '__' . $yearBefore);
-
-                        $movie = $this->movieRepository->findByIds($ids, $codeBefore);
+                        $moviesBefore = $this->movieRepository->findByIds($ids, $codeBefore);
+                        $movie = !empty($moviesBefore) ? $moviesBefore[0] : null;
                     }
 
                     if (is_null($movie)) {
@@ -242,16 +248,8 @@ class OrangeVodCsvImporter implements MovieImporterInterface
                         $this->entityManager->persist($movie);
                     }
 
-                    if (!is_null($movie)) {
-                      if (is_array($movie) && !empty($movie)) {
-                        $movie = $movie[0];
-                      }
-
-                      if (gettype($movie) === 'object') {
-                        $sourceMovie->setMovie($movie);
-                        $solution->setMovie($movie);
-                      }
-                    }
+                    $sourceMovie->setMovie($movie);
+                    $solution->setMovie($movie);
                 }
 
                 $this->entityManager->flush();

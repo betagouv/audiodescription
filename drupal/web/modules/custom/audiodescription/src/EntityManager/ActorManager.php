@@ -26,7 +26,7 @@ class ActorManager {
 
     $actors = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
       'field_taxo_code' => $actorCode,
-      'vid' => Taxonomy::ACTOR->value,
+      'vid' => Taxonomy::Actor->value,
     ]);
 
     $actor = NULL;
@@ -39,7 +39,7 @@ class ActorManager {
         'name' => $name,
         'field_taxo_code' => $actorCode,
         'field_taxo_role' => $role,
-        'vid' => Taxonomy::ACTOR->value,
+        'vid' => Taxonomy::Actor->value,
       ]);
 
       $actor->save();

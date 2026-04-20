@@ -13,8 +13,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+/**
+ * @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ * @SuppressWarnings(PHPMD.TooManyFields)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
         Genre::SCOPE_SUBLIST,
@@ -36,8 +41,8 @@ class Movie
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'movie:list';
-    const SCOPE_SUBLIST = 'movie:sublist';
+    public const SCOPE_LIST = 'movie:list';
+    public const SCOPE_SUBLIST = 'movie:sublist';
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
@@ -54,50 +59,50 @@ class Movie
     private string $code;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    private ?string $cncId = NULL;
+    private ?string $cncId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $arteId = NULL;
+    private ?string $arteId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $canalVodId = NULL;
+    private ?string $canalVodId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $orangeVodId = NULL;
+    private ?string $orangeVodId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $allocineId = NULL;
+    private ?string $allocineId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $laCinetekId = NULL;
+    private ?string $laCinetekId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $franceTvId = NULL;
+    private ?string $franceTvId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $tf1Id = NULL;
+    private ?string $tf1Id = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $imdbId = NULL;
+    private ?string $imdbId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $plurimediaId = NULL;
+    private ?string $plurimediaId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?string $isanId = NULL;
+    private ?string $isanId = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    private ?string $visa = NULL;
+    private ?string $visa = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
@@ -119,15 +124,18 @@ class Movie
     #[Groups([self::SCOPE_LIST])]
     private ?int $productionYear;
 
+    /** @var Collection<int, Nationality> */
     #[ORM\ManyToMany(targetEntity: Nationality::class, inversedBy: 'movies', cascade: ['detach'])]
     #[ORM\JoinTable(name: 'patrimony.movie_nationality')]
     private Collection $nationalities;
 
+    /** @var Collection<int, Genre> */
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'movies', cascade: ['detach'])]
     #[ORM\JoinTable(name: 'patrimony.movie_genre')]
     #[Groups([self::SCOPE_LIST])]
     private Collection $genres;
 
+    /** @var Collection<int, Director> */
     #[ORM\ManyToMany(targetEntity: Director::class, inversedBy: 'movies', cascade: ['detach'])]
     #[ORM\JoinTable(name: 'patrimony.movie_director')]
     #[Groups([self::SCOPE_LIST])]
@@ -135,20 +143,24 @@ class Movie
 
     #[ORM\ManyToOne(targetEntity: PublicRestriction::class, inversedBy: 'movies', cascade: ['detach'])]
     #[Groups([self::SCOPE_LIST])]
-    private ?PublicRestriction $public = NULL;
+    private ?PublicRestriction $public = null;
 
+    /** @var Collection<int, ActorMovie> */
     #[ORM\OneToMany(targetEntity: ActorMovie::class, mappedBy: 'movie', cascade: ['detach'])]
     #[Groups([self::SCOPE_LIST])]
     private Collection $actorMovies;
 
+    /** @var Collection<int, Solution> */
     #[ORM\OneToMany(targetEntity: Solution::class, mappedBy: 'movie')]
     #[Groups([self::SCOPE_LIST])]
     private Collection $solutions;
 
+    /** @var Collection<int, SourceMovie> */
     #[ORM\OneToMany(targetEntity: SourceMovie::class, mappedBy: 'movie')]
     private Collection $sourceMovies;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->nationalities = new ArrayCollection();
         $this->directors = new ArrayCollection();
         $this->genres = new ArrayCollection();
@@ -157,235 +169,245 @@ class Movie
         $this->sourceMovies = new ArrayCollection();
     }
 
-  public function getId(): ?int
-  {
-    return $this->id;
-  }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-  public function setId(?int $id): void
-  {
-    $this->id = $id;
-  }
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
 
-  public function getTitle(): string
-  {
-    return $this->title;
-  }
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
 
-  public function setTitle(string $title): void
-  {
-    $this->title = $title;
-  }
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
 
-  public function getCode(): string
-  {
-    return $this->code;
-  }
+    public function getCode(): string
+    {
+        return $this->code;
+    }
 
-  public function setCode(string $code): void
-  {
-    $this->code = $code;
-  }
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
 
-  public function getCncId(): string|null
-  {
-    return $this->cncId;
-  }
+    public function getCncId(): string|null
+    {
+        return $this->cncId;
+    }
 
-  public function setCncId(?string $cncId): void
-  {
-    $this->cncId = $cncId;
-  }
+    public function setCncId(?string $cncId): void
+    {
+        $this->cncId = $cncId;
+    }
 
-  public function getArteId(): string|null
-  {
-    return $this->arteId;
-  }
+    public function getArteId(): string|null
+    {
+        return $this->arteId;
+    }
 
-  public function setArteId(?string $arteId): void
-  {
-    $this->arteId = $arteId;
-  }
+    public function setArteId(?string $arteId): void
+    {
+        $this->arteId = $arteId;
+    }
 
-  public function getCanalVodId(): string|null
-  {
-    return $this->canalVodId;
-  }
+    public function getCanalVodId(): string|null
+    {
+        return $this->canalVodId;
+    }
 
-  public function setCanalVodId(?string $canalVodId): void
-  {
-    $this->canalVodId = $canalVodId;
-  }
+    public function setCanalVodId(?string $canalVodId): void
+    {
+        $this->canalVodId = $canalVodId;
+    }
 
-  public function getOrangeVodId(): string|null
-  {
-    return $this->orangeVodId;
-  }
+    public function getOrangeVodId(): string|null
+    {
+        return $this->orangeVodId;
+    }
 
-  public function setOrangeVodId(?string $orangeVodId): void
-  {
-    $this->orangeVodId = $orangeVodId;
-  }
+    public function setOrangeVodId(?string $orangeVodId): void
+    {
+        $this->orangeVodId = $orangeVodId;
+    }
 
-  public function getAllocineId(): string|null
-  {
-    return $this->allocineId;
-  }
+    public function getAllocineId(): string|null
+    {
+        return $this->allocineId;
+    }
 
-  public function setAllocineId(?string $allocineId): void
-  {
-    $this->allocineId = $allocineId;
-  }
+    public function setAllocineId(?string $allocineId): void
+    {
+        $this->allocineId = $allocineId;
+    }
 
-  public function getLaCinetekId(): string|null
-  {
-    return $this->laCinetekId;
-  }
+    public function getLaCinetekId(): string|null
+    {
+        return $this->laCinetekId;
+    }
 
-  public function setLaCinetekId(?string $laCinetekId): void
-  {
-    $this->laCinetekId = $laCinetekId;
-  }
+    public function setLaCinetekId(?string $laCinetekId): void
+    {
+        $this->laCinetekId = $laCinetekId;
+    }
 
-  public function getFranceTvId(): string|null
-  {
-    return $this->franceTvId;
-  }
+    public function getFranceTvId(): string|null
+    {
+        return $this->franceTvId;
+    }
 
-  public function setFranceTvId(?string $franceTvId): void
-  {
-    $this->franceTvId = $franceTvId;
-  }
+    public function setFranceTvId(?string $franceTvId): void
+    {
+        $this->franceTvId = $franceTvId;
+    }
 
-  public function getIsanId(): string|null
-  {
-    return $this->isanId;
-  }
+    public function getIsanId(): string|null
+    {
+        return $this->isanId;
+    }
 
-  public function setIsanId(?string $isanId): void
-  {
-    $this->isanId = $isanId;
-  }
+    public function setIsanId(?string $isanId): void
+    {
+        $this->isanId = $isanId;
+    }
 
-  public function getVisa(): ?string
-  {
-    return $this->visa;
-  }
+    public function getVisa(): ?string
+    {
+        return $this->visa;
+    }
 
-  public function setVisa(?string $visa): void
-  {
-    $this->visa = $visa;
-  }
+    public function setVisa(?string $visa): void
+    {
+        $this->visa = $visa;
+    }
 
-  public function isHasAd(): bool
-  {
-    return $this->hasAd;
-  }
+    public function isHasAd(): bool
+    {
+        return $this->hasAd;
+    }
 
-  public function setHasAd(bool $hasAd): void
-  {
-    $this->hasAd = $hasAd;
-  }
+    public function setHasAd(bool $hasAd): void
+    {
+        $this->hasAd = $hasAd;
+    }
 
-  public function getPoster(): ?string
-  {
-    return $this->poster;
-  }
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
 
-  public function setPoster(?string $poster): void
-  {
-    $this->poster = $poster;
-  }
+    public function setPoster(?string $poster): void
+    {
+        $this->poster = $poster;
+    }
 
-  public function getSynopsis(): ?string
-  {
-    return $this->synopsis;
-  }
+    public function getSynopsis(): ?string
+    {
+        return $this->synopsis;
+    }
 
-  public function setSynopsis(?string $synopsis): void
-  {
-    $this->synopsis = $synopsis;
-  }
+    public function setSynopsis(?string $synopsis): void
+    {
+        $this->synopsis = $synopsis;
+    }
 
-  public function getDuration(): ?int
-  {
-    return $this->duration;
-  }
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
 
-  public function setDuration(?int $duration): void
-  {
-    $this->duration = $duration;
-  }
+    public function setDuration(?int $duration): void
+    {
+        $this->duration = $duration;
+    }
 
-  public function getProductionYear(): ?int
-  {
-    return $this->productionYear;
-  }
+    public function getProductionYear(): ?int
+    {
+        return $this->productionYear;
+    }
 
-  public function setProductionYear(?int $productionYear): void
-  {
-    $this->productionYear = $productionYear;
-  }
+    public function setProductionYear(?int $productionYear): void
+    {
+        $this->productionYear = $productionYear;
+    }
 
-  public function getNationalities(): Collection
-  {
-    return $this->nationalities;
-  }
+    /** @return Collection<int, Nationality> */
+    public function getNationalities(): Collection
+    {
+        return $this->nationalities;
+    }
 
-  public function setNationalities(Collection $nationalities): void
-  {
-    $this->nationalities = $nationalities;
-  }
+    /** @param Collection<int, Nationality> $nationalities */
+    public function setNationalities(Collection $nationalities): void
+    {
+        $this->nationalities = $nationalities;
+    }
 
-  public function getGenres(): Collection
-  {
-    return $this->genres;
-  }
+    /** @return Collection<int, Genre> */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
 
-  public function setGenres(Collection $genres): void
-  {
-    $this->genres = $genres;
-  }
+    /** @param Collection<int, Genre> $genres */
+    public function setGenres(Collection $genres): void
+    {
+        $this->genres = $genres;
+    }
 
-  public function getPublic(): ?PublicRestriction
-  {
-    return $this->public;
-  }
+    public function getPublic(): ?PublicRestriction
+    {
+        return $this->public;
+    }
 
-  public function setPublic(PublicRestriction $public): void
-  {
-    $this->public = $public;
-  }
+    public function setPublic(?PublicRestriction $public): void
+    {
+        $this->public = $public;
+    }
 
-  public function getActorMovies(): Collection
-  {
-    return $this->actorMovies;
-  }
+    /** @return Collection<int, ActorMovie> */
+    public function getActorMovies(): Collection
+    {
+        return $this->actorMovies;
+    }
 
-  public function setActorMovies(Collection $actorMovies): void
-  {
-    $this->actorMovies = $actorMovies;
-  }
+    /** @param Collection<int, ActorMovie> $actorMovies */
+    public function setActorMovies(Collection $actorMovies): void
+    {
+        $this->actorMovies = $actorMovies;
+    }
 
-  public function getSolutions(): Collection
-  {
-    return $this->solutions;
-  }
+    /** @return Collection<int, Solution> */
+    public function getSolutions(): Collection
+    {
+        return $this->solutions;
+    }
 
-  public function setSolutions(Collection $solutions): void
-  {
-    $this->solutions = $solutions;
-  }
+    /** @param Collection<int, Solution> $solutions */
+    public function setSolutions(Collection $solutions): void
+    {
+        $this->solutions = $solutions;
+    }
 
-  public function getSourceMovies(): Collection
-  {
-    return $this->sourceMovies;
-  }
+    /** @return Collection<int, SourceMovie> */
+    public function getSourceMovies(): Collection
+    {
+        return $this->sourceMovies;
+    }
 
-  public function setSourceMovies(Collection $sourceMovies): void
-  {
-    $this->sourceMovies = $sourceMovies;
-  }
+    /** @param Collection<int, SourceMovie> $sourceMovies */
+    public function setSourceMovies(Collection $sourceMovies): void
+    {
+        $this->sourceMovies = $sourceMovies;
+    }
 
     public function __toString(): string
     {
@@ -403,25 +425,27 @@ class Movie
         );
     }
 
-  public function getDirectors(): Collection
-  {
-    return $this->directors;
-  }
+    /** @return Collection<int, Director> */
+    public function getDirectors(): Collection
+    {
+        return $this->directors;
+    }
 
-  public function setDirectors(Collection $directors): void
-  {
-    $this->directors = $directors;
-  }
+    /** @param Collection<int, Director> $directors */
+    public function setDirectors(Collection $directors): void
+    {
+        $this->directors = $directors;
+    }
 
-  public function getTf1Id(): string|null
-  {
-      return $this->tf1Id;
-  }
+    public function getTf1Id(): string|null
+    {
+        return $this->tf1Id;
+    }
 
-  public function setTf1Id(string $tf1Id): void
-  {
-      $this->tf1Id = $tf1Id;
-  }
+    public function setTf1Id(string $tf1Id): void
+    {
+        $this->tf1Id = $tf1Id;
+    }
 
     public function getImdbId(): string|null
     {

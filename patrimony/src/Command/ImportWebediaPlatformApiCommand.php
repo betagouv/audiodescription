@@ -24,8 +24,7 @@ class ImportWebediaPlatformApiCommand extends Command
         private HttpClientInterface $httpClient,
         private LanguageManager $languageManager,
         private ParameterBagInterface $parameterBag,
-    )
-    {
+    ) {
         $this->authEndpoint = $this->parameterBag->get('webedia_api_platform.auth_endpoint');
         $this->clientId = $this->parameterBag->get('webedia_api_platform.client_id');
         $this->clientSecret = $this->parameterBag->get('webedia_api_platform.client_secret');
@@ -34,6 +33,7 @@ class ImportWebediaPlatformApiCommand extends Command
         parent::__construct();
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
@@ -94,18 +94,19 @@ class ImportWebediaPlatformApiCommand extends Command
         ;
     }
 
-    private function analyseMovies($movies) {
-        foreach($movies as $movie) {
+    /** @param array<mixed> $movies */
+    private function analyseMovies(array $movies): void
+    {
+        foreach ($movies as $movie) {
             $products = $movie['products'];
 
-            foreach($products as $product) {
+            foreach ($products as $product) {
                 $languages = $product['language'];
 
-                foreach($languages as $language) {
+                foreach ($languages as $language) {
                     $this->languageManager->provide($language);
                 }
             }
         }
     }
 }
-

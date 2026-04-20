@@ -5,6 +5,9 @@ namespace Drupal\audiodescription\TwigExtension;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
+/**
+ * Provides a Twig filter to remove numeric prefixes from strings.
+ */
 class RemovePrefixNumberTwigFilter extends AbstractExtension {
 
   /**
@@ -17,13 +20,13 @@ class RemovePrefixNumberTwigFilter extends AbstractExtension {
   }
 
   /**
-   * Function to add a class to <p> tags.
+   * Removes a numeric prefix from a string.
    *
-   * @param string $html
-   *   The HTML content to modify.
+   * @param string $text
+   *   The text to process.
    *
    * @return string
-   *   The modified HTML.
+   *   The text with any numeric prefix removed.
    */
   public function removePrefixNumber(string $text) {
     if (!is_null($text)) {

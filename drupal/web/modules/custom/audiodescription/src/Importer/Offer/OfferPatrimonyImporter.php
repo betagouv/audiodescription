@@ -5,6 +5,7 @@ namespace Drupal\audiodescription\Importer\Offer;
 use Drupal\audiodescription\EntityManager\OfferManager;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -19,6 +20,7 @@ class OfferPatrimonyImporter implements LoggerAwareInterface {
     private EntityTypeManager $entityTypeManager,
     private OfferManager $offerManager,
     private ConfigPagesLoaderServiceInterface $configPagesLoader,
+    private ClientInterface $httpClient,
   ) {
   }
 
@@ -27,7 +29,7 @@ class OfferPatrimonyImporter implements LoggerAwareInterface {
    */
   public function import(): void {
     // Import offers.
-    $client = \Drupal::httpClient();
+    $client = $this->httpClient;
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
@@ -50,12 +52,13 @@ class OfferPatrimonyImporter implements LoggerAwareInterface {
         $data = [
           'name' => $offer['name'],
           'code' => $offer['code'],
-          'order' => $offer['displayOrder']
+          'order' => $offer['displayOrder'],
         ];
 
         $this->offerManager->createOrUpdate($data);
       }
-    } catch( RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->info('Error fetching partners');
       dump($e->getMessage());
     }

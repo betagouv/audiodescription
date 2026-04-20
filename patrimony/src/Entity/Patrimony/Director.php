@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
     ]],
@@ -30,8 +30,8 @@ class Director
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'nationality:list';
-    const SCOPE_SUBLIST = 'nationality:sublist';
+    public const SCOPE_LIST = 'nationality:list';
+    public const SCOPE_SUBLIST = 'nationality:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -63,10 +63,12 @@ class Director
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private ?string $biography;
 
+    /** @var Collection<int, Movie> */
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'directors')]
     private Collection $movies;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->movies = new ArrayCollection();
     }
 
@@ -140,18 +142,21 @@ class Director
         $this->biography = $biography;
     }
 
+    /** @return Collection<int, Movie> */
     public function getMovies(): Collection
     {
         return $this->movies;
     }
 
+    /** @param Collection<int, Movie> $movies */
     public function setMovies(Collection $movies): void
     {
         $this->movies = $movies;
     }
 
     #[Groups([self::SCOPE_LIST])]
-    public function getUpdatedAt() {
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
         return $this->updatedAt;
     }
 }

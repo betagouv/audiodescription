@@ -20,13 +20,13 @@ class ImportCncPublicCommand extends Command
     public function __construct(
         private ParameterBagInterface $parameterBag,
         private PublicCsvImporter $publicCsvImporter,
-    )
-    {
+    ) {
         $this->dataDir = sprintf('%s/data/', $this->parameterBag->get('kernel.project_dir'));
 
         parent::__construct();
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $file = sprintf('%s/%s', $this->dataDir, 'publics.csv');
@@ -45,4 +45,3 @@ class ImportCncPublicCommand extends Command
         ;
     }
 }
-

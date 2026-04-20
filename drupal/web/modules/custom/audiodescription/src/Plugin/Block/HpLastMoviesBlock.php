@@ -7,9 +7,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\views\Entity\View;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -94,24 +92,23 @@ class HpLastMoviesBlock extends BlockBase implements ContainerFactoryPluginInter
         ->view($movie, 'card');
     }
 
-    /**$entityQuery = $this->entityTypeManager->getStorage('node')->getQuery();
-    $query = $entityQuery
-      ->condition('type', 'movie')
-      ->condition('field_has_ad', TRUE)
-      ->range(0, 3)
-      ->sort('created', 'DESC')
-      ->accessCheck(TRUE);
-
-    $nids = $query->execute();
-
-    $movies = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-
-    $moviesRendered = [];
-    foreach($movies as $movie) {
-      $moviesRendered[] = $this->entityTypeManager
-        ->getViewBuilder('node')
-        ->view($movie, 'card');
-    }**/
+    /*
+     * $entityQuery = $this->entityTypeManager->getStorage('node')->getQuery();
+     * $query = $entityQuery
+     *   ->condition('type', 'movie')
+     *   ->condition('field_has_ad', TRUE)
+     *   ->range(0, 3)
+     *   ->sort('created', 'DESC')
+     *   ->accessCheck(TRUE);
+     * $nids = $query->execute();
+     * $movies = $this->entityTypeManager->getStorage('node')
+     *   ->loadMultiple($nids);
+     * $moviesRendered = [];
+     * foreach ($movies as $movie) {
+     *   $moviesRendered[] = $this->entityTypeManager
+     *     ->getViewBuilder('node')->view($movie, 'card');
+     * }
+     */
 
     return [
       '#theme' => 'hp_last_movies_block',

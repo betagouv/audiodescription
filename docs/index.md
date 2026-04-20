@@ -13,12 +13,14 @@ Ce projet, en cours de construction, est porté par l'Atelier Numérique du mini
  * [Architecture physique](./dat/3-ArchitecturePhysique.md)
  * [Annexes](./dat/4-Annexes.md)
 
+### Documentation d'installation
+ * [Environnement de développement](./01_installation/01_dev.md)
+ * [Environnement de développement](./01_installation/02_prod.md)
 ### Documentation technique
- * [Matrice des partenaires](./02_technique/1-MatricePartenaires.md)
-   * [France TV](02_technique/1-Partenaires/1-FranceTv.md)
-   * [Arte.tv](02_technique/1-Partenaires/2-ArteTv.md)
-   * [TF1+](02_technique/1-Partenaires/3-Tf1.md)
-   * [LaCinetek](02_technique/1-Partenaires/4-LaCinetek.md)
-   * [myCanal](02_technique/1-Partenaires/5-myCanal.md)
-   * [CANALVOD](02_technique/1-Partenaires/6-CanalVod.md)
-   * [VOD Orange](02_technique/1-Partenaires/7-VodOrange.md)
+ * [Matrice des partenaires](6.1.1-Partners/01_matrice-partenaires.md)
+   * France TV
+   * Arte.tv
+   * TF1+
+   * LaCinetek
+   * CANALVOD
+   * VOD Orange

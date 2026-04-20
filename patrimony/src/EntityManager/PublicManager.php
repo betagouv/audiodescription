@@ -10,25 +10,24 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class PublicManager
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
-    )
-    {
-
+    ) {
     }
 
     /**
      * Create or update public taxonomy term.
      */
-    public function createOrUpdate(string $publicCode, ?string $publicName = NULL): ?PublicRestriction
+    public function createOrUpdate(string $publicCode, ?string $publicName = null): ?PublicRestriction
     {
         $repository = $this->entityManager->getRepository(PublicRestriction::class);
         $public = $repository->findOneBy(['code' => $publicCode]);
 
         if (is_null($public)) {
             $public = new PublicRestriction();
-            if (is_null($publicName)) $publicName = $publicCode;
+            if (is_null($publicName)) {
+                $publicName = $publicCode;
+            }
             $public->setName($publicName);
             $public->setCode($publicCode);
 

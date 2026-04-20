@@ -11,13 +11,10 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class DirectorManager
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private EntityCodeService      $codeService,
-    )
-    {
-
+        private EntityCodeService $codeService,
+    ) {
     }
 
     /**
@@ -26,7 +23,9 @@ class DirectorManager
      * @return Director
      *   Director created or updated.
      */
-    public function findOrCreate(array $directorData): ?Director {
+    /** @param array<string, mixed> $directorData */
+    public function findOrCreate(array $directorData): ?Director
+    {
         $directorCode = $this->codeService->computeCode($directorData['fullname']);
 
         $repository = $this->entityManager->getRepository(Director::class);
@@ -51,5 +50,4 @@ class DirectorManager
 
         return $director;
     }
-
 }

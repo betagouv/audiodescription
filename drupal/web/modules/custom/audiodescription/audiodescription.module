@@ -7,7 +7,6 @@
 
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_theme().
@@ -203,8 +202,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
       'render element' => 'children',
       'template' => 'back-button-block',
       'path' => $path . '/templates',
-      'variables' => [
-      ],
+      'variables' => [],
     ],
   ];
 }
@@ -238,6 +236,9 @@ function audiodescription_block_view_alter(array &$build, BlockPluginInterface $
   }
 }
 
+/**
+ * Implements hook_node_update().
+ */
 function audiodescription_node_update(EntityInterface $entity) {
   // Invalidate taxonmy terms Collection with movie $entity.
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'movie') {
@@ -255,17 +256,21 @@ function audiodescription_node_update(EntityInterface $entity) {
         $cache_tags[] = "taxonomy_term:{$term_id}";
       }
 
-      if (!empty($cache_tags)) {
-        \Drupal::service('cache_tags.invalidator')->invalidateTags($cache_tags);
-      }
+      \Drupal::service('cache_tags.invalidator')->invalidateTags($cache_tags);
     }
   }
 }
 
+/**
+ * Implements hook_preprocess_breadcrumb().
+ */
 function audiodescription_preprocess_breadcrumb(array &$variables) {
   $variables['#cache']['max-age'] = 0;
 }
 
+/**
+ * Implements hook_preprocess_node__page().
+ */
 function audiodescription_preprocess_node__page(array &$variables) {
   $variables['#attached']['library'][] = 'audiodescription/iframe_responsive';
 }

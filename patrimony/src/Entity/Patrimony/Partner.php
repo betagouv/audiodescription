@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
     ]],
@@ -27,8 +27,8 @@ class Partner
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'partner:list';
-    const SCOPE_SUBLIST = 'partner:sublist';
+    public const SCOPE_LIST = 'partner:list';
+    public const SCOPE_SUBLIST = 'partner:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -57,13 +57,16 @@ class Partner
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private ?string $condition;
 
+    /** @var Collection<int, Solution> */
     #[ORM\OneToMany(targetEntity: Solution::class, mappedBy: 'partner')]
     private Collection $solutions;
 
+    /** @var Collection<int, SourceMovie> */
     #[ORM\OneToMany(targetEntity: SourceMovie::class, mappedBy: 'partner')]
     private Collection $sourceMovies;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->solutions = new ArrayCollection();
         $this->sourceMovies = new ArrayCollection();
     }
@@ -128,21 +131,25 @@ class Partner
         $this->condition = $condition;
     }
 
+    /** @return Collection<int, Solution> */
     public function getSolutions(): Collection
     {
         return $this->solutions;
     }
 
+    /** @param Collection<int, Solution> $solutions */
     public function setSolutions(Collection $solutions): void
     {
         $this->solutions = $solutions;
     }
 
+    /** @return Collection<int, SourceMovie> */
     public function getSourceMovies(): Collection
     {
         return $this->sourceMovies;
     }
 
+    /** @param Collection<int, SourceMovie> $sourceMovies */
     public function setSourceMovies(Collection $sourceMovies): void
     {
         $this->sourceMovies = $sourceMovies;

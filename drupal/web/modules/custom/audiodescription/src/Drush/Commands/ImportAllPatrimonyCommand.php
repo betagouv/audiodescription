@@ -56,24 +56,18 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
   #[CLI\Usage(name: 'ad:import:all', description: 'Import all from patrimony.')]
   public function import(): void {
     try {
-      //$this->genrePatrimonyImporter->import();
-      //$this->logger()->success('Import des genres terminé');
-
-      //$this->publicPatrimonyImporter->import();
-      //$this->logger()->success('Import des publics terminé');
-
-      //$this->nationalityPatrimonyImporter->import();
-      //$this->logger()->success('Import des nationalités terminé');
-
-      //$this->directorPatrimonyImporter->import();
-      //$this->logger()->success('Import des réalisateurs terminé');
-
-      //$this->partnerPatrimonyImporter->import();
-      //$this->logger()->success('Import des partenaires terminé');
-
-      //$this->offerPatrimonyImporter->import();
-      //$this->logger()->success('Import des offres terminé');
-
+      // $this->genrePatrimonyImporter->import();
+      // $this->logger()->success('Import des genres terminé');
+      // $this->publicPatrimonyImporter->import();
+      // $this->logger()->success('Import des publics terminé');
+      // $this->nationalityPatrimonyImporter->import();
+      // $this->logger()->success('Import des nationalités terminé');
+      // $this->directorPatrimonyImporter->import();
+      // $this->logger()->success('Import des réalisateurs terminé');
+      // $this->partnerPatrimonyImporter->import();
+      // $this->logger()->success('Import des partenaires terminé');
+      // $this->offerPatrimonyImporter->import();
+      // $this->logger()->success('Import des offres terminé');
       $this->moviePatrimonyImporter->import();
       $this->logger()->success('Import des films terminé');
 
@@ -81,13 +75,14 @@ final class ImportAllPatrimonyCommand extends DrushCommands {
       if ($index) {
         $this->output()->writeln('Indexation des films en cours...');
         $index->indexItems();
-      } else {
+      }
+      else {
         $this->output()->writeln('Index non trouvé.');
       }
     }
     catch (\Throwable $t) {
       $this->logger()->error('Erreur fatale : ' . $t->getMessage());
-    };
+    }
 
     $this->logger()->success(dt('Achievement unlocked.'));
   }

@@ -51,7 +51,7 @@ final class ImportMoviesCommand extends DrushCommands {
     }
     catch (\Throwable $t) {
       $this->logger()->error('Erreur fatale : ' . $t->getMessage());
-    };
+    }
 
     $this->logger()->success(dt('Achievement unlocked.'));
   }

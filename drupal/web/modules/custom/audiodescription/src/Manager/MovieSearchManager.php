@@ -37,19 +37,25 @@ class MovieSearchManager {
 
   /**
    * Query movies.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings(PHPMD.NPathComplexity)
+   * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
    */
   public function queryMovies(int $offset, int $pageSize, ?MovieSearchParametersBag $params) :array {
     $query = $this->moviesIndex->query();
 
-    $search = !empty($params->search) ? $params->search : null;
+    $search = !empty($params->search) ? $params->search : NULL;
 
     if (!is_null($search)) {
       $query->keys($search);
     }
 
-    /**if (!is_null($params->withAd) && $params->withAd) {
-      $query->addCondition('field_has_ad', 1);
-    }**/
+    /*
+     * if (!is_null($params->withAd) && $params->withAd) {
+     *   $query->addCondition('field_has_ad', 1);
+     * }
+     */
 
     if (!empty($params->genre)) {
       $andGroup = $query->createConditionGroup('OR');
@@ -74,7 +80,7 @@ class MovieSearchManager {
     if (!is_null($params->isFree) && $params->isFree) {
       $offers = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
         'field_taxo_code' => "FREE_ACCESS",
-        'vid' => Taxonomy::OFFER->value,
+        'vid' => Taxonomy::Offer->value,
       ]);
 
       $offer = reset($offers)->tid->value;
@@ -92,7 +98,7 @@ class MovieSearchManager {
         LEFT JOIN paragraphs_item s ON s.id = pg_partners.field_pg_partners_target_id
         LEFT JOIN paragraph__field_pg_start_rights sr ON s.id = sr.entity_id
         LEFT JOIN paragraph__field_pg_end_rights er ON s.id = er.entity_id
-        WHERE taxo_ref.field_pg_offer_target_id = ". $offer ."
+        WHERE taxo_ref.field_pg_offer_target_id = " . $offer . "
         AND (
           to_date(sr.field_pg_start_rights_value, 'YYYY-MM-DD') < NOW()
           OR sr.field_pg_start_rights_value IS NULL
@@ -166,6 +172,9 @@ class MovieSearchManager {
 
   /**
    * Build pagination.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings(PHPMD.NPathComplexity)
    */
   public function buildPagination(MovieSearchParametersBag $params, int $pagesCount) {
     $parameters = $params->filtersToArray();
@@ -242,4 +251,5 @@ class MovieSearchManager {
 
     return $url->toString();
   }
+
 }

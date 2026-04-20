@@ -6,6 +6,7 @@ use App\Entity\Patrimony\Offer;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/** @extends AbstractCrudController<Offer> */
 class OfferCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

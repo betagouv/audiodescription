@@ -24,7 +24,7 @@ class GenreManager {
   public function createOrUpdate(string $name, string $code): ?Term {
     $genres = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
       'field_taxo_code' => $code,
-      'vid' => Taxonomy::GENRE->value,
+      'vid' => Taxonomy::Genre->value,
     ]);
 
     $genre = NULL;
@@ -37,7 +37,7 @@ class GenreManager {
       $genre = Term::create([
         'name' => $name,
         'field_taxo_code' => $code,
-        'vid' => Taxonomy::GENRE->value,
+        'vid' => Taxonomy::Genre->value,
       ]);
     }
 

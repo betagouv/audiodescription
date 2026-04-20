@@ -23,11 +23,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Imports movies from LaCinetek API.
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  */
 class LaCinetekApiImporter implements MovieImporterInterface
 {
-    const NB_PER_PAGE = 200;
-    const LACINETEK_ROOT_PATH = 'https://www.lacinetek.com';
+    public const NB_PER_PAGE = 200;
+    public const LACINETEK_ROOT_PATH = 'https://www.lacinetek.com';
 
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -41,17 +43,20 @@ class LaCinetekApiImporter implements MovieImporterInterface
         private MovieRepository $movieRepository,
         private DirectorManager $directorManager,
         private MovieFetcher $movieFetcher,
-    )
-    {
+    ) {
     }
 
     /**
      * Imports movie data from a source.
+     * @param array<string, mixed>|null $options
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function import(?array $options = []): void
     {
         // Manage options.
-        $createMoviesOption = $options['create-movies'];
+        $createMoviesOption = $options['create-movies'] ?? false;
 
         $url = $this->parameterBag->get('lacinetek.api.url');
         $urlWithParams = $url . '?size=' . self::NB_PER_PAGE;
@@ -120,179 +125,191 @@ class LaCinetekApiImporter implements MovieImporterInterface
 
         $this->entityManager->flush();
 
-        for ($i = 1; $i <= $totalPage ; $i++) {
-          $response = $this->httpClient->request('GET', $urlWithParams . '&page='. $i, $headers);
-          $data = $response->toArray();
-          $movies = $data['data'];
+        for ($i = 1; $i <= $totalPage; $i++) {
+            $response = $this->httpClient->request('GET', $urlWithParams . '&page=' . $i, $headers);
+            $data = $response->toArray();
+            $movies = $data['data'];
 
-          foreach ($movies as $movie) {
-            if ($movie['audioDescription']['fr']) {
-                foreach ($movie['localizedTitle'] as $localizedTitle) {
-                    if ($localizedTitle['language'] == 'fr') {
-                        $title = $localizedTitle['value'];
+            foreach ($movies as $movie) {
+                if ($movie['audioDescription']['fr']) {
+                    $title = '';
+                    foreach ($movie['localizedTitle'] as $localizedTitle) {
+                        if ($localizedTitle['language'] == 'fr') {
+                            $title = $localizedTitle['value'];
+                        }
                     }
-                }
 
-                dump($title);
+                    dump($title);
+                    dump($movie["origin"]);
 
-                $internalPartnerId = $movie['id'];
-                $ids = [];
-                $ids['laCinetekId'] = $internalPartnerId;
-                $ids['allocineId'] = $movie['ids']['alloCine'] ?? null;
+                    $internalPartnerId = $movie['id'];
+                    $ids = [];
+                    $ids['laCinetekId'] = $internalPartnerId;
+                    $ids['allocineId'] = $movie['ids']['alloCine'] ?? null;
 
-                $externalIds = [];
-                if (!is_null($ids['allocineId'])) {
-                    $externalIds = [
+                    $externalIds = [];
+                    if (!is_null($ids['allocineId'])) {
+                        $externalIds = [
                         'allocine' => $ids['allocineId'],
-                    ];
-                }
+                        ];
+                    }
 
-                $productionYear = $movie['year'];
+                    $productionYear = $movie['year'];
 
-                $actors = $movie['actors'];
-                $casting = [];
-                foreach ($actors as $actor) {
-                    $casting[] = [
+                    $actors = $movie['actors'];
+                    $casting = [];
+                    foreach ($actors as $actor) {
+                        $casting[] = [
                         'fullname' => $actor['name'],
                         'role' => $actor['role'],
-                    ];
-                }
-
-                $synopsis = '';
-                foreach ($movie['description'] as $description) {
-                    if ($description['language'] == 'fr') {
-                        $synopsis = html_entity_decode(strip_tags($description['value']));
-                    }
-                }
-
-                $durationValue = $movie['duration'];
-                $duration = null;
-                if ($durationValue != 'no-duration') {
-                    list($hours, $minutes) = explode('h', $durationValue);
-                    $duration = ((int)$hours * 60) + (int)$minutes;
-                }
-
-                $directors = [];
-                foreach ($movie['directors'] as $director) {
-                    $directors[] = [
-                        'fullname' => $director
-                    ];
-                }
-
-                // Nationalities.
-                $nationalities = array_map('trim', explode(',', $movie['origin']));
-
-                $isTvod = $movie['availability']['tvod']['fr'];
-                $isSvod = $movie['availability']['svod']['fr'];
-
-
-              $partnerTvod = $partnerRepository->findOneBy(['code' => PartnerCode::LACINETEK_TVOD->value]);
-              $partnerSvod = $partnerRepository->findOneBy(['code' => PartnerCode::LACINETEK_SVOD->value]);
-              $offerTvod = $offerRepository->findOneBy(['code' => OfferCode::TVOD->value]);
-              $offerSvod = $offerRepository->findOneBy(['code' => OfferCode::SVOD->value]);
-
-              $sourceMovieTvod = null;
-              $solutionTvod = null;
-              if ($isTvod) {
-                  $entitiesTvod = $this->createOffer(
-                      $internalPartnerId,
-                      $externalIds,
-                      $title,
-                      $productionYear,
-                      $casting,
-                      $duration,
-                      $synopsis,
-                      $directors,
-                      $nationalities,
-                      $partnerTvod,
-                      $offerTvod,
-                      self::LACINETEK_ROOT_PATH . $movie['urls']['film']['fr'],
-                  );
-
-                  $sourceMovieTvod = $entitiesTvod['sourceMovie'];
-                  $solutionTvod = $entitiesTvod['solution'];
-              }
-
-              $sourceMovieSvod = null;
-              $solutionSvod = null;
-                if ($isSvod) {
-                    $entitiesSvod = $this->createOffer(
-                        $internalPartnerId,
-                        $externalIds,
-                        $title,
-                        $productionYear,
-                        $casting,
-                        $duration,
-                        $synopsis,
-                        $directors,
-                        $nationalities,
-                        $partnerSvod,
-                        $offerSvod,
-                        self::LACINETEK_ROOT_PATH . $movie['urls']['svod']['fr'],
-                    );
-
-                    $sourceMovieSvod = $entitiesSvod['sourceMovie'];
-                    $solutionSvod = $entitiesSvod['solution'];
-                }
-
-                $movie = null;
-
-                if ($createMoviesOption && ($isSvod || $isTvod)) {
-                    if (!is_null($sourceMovieSvod)) {
-                        $sourceMovie = $sourceMovieSvod;
-                    } else {
-                        $sourceMovie = $sourceMovieTvod;
+                        ];
                     }
 
-                    //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
-                    $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
-
-                  if (is_null($movie)) {
-                        $movie = $this->movieManager->create($sourceMovie);
-                        $this->entityManager->persist($movie);
-                    } else {
-                        $sourceDirectors = $sourceMovie->getDirectors();
-                        $directors = [];
-
-                        foreach ($sourceDirectors as $sourceDirector) {
-                            $directors[] = $this->directorManager->findOrCreate($sourceDirector);
+                    $synopsis = '';
+                    foreach ($movie['description'] as $description) {
+                        if ($description['language'] == 'fr') {
+                            $synopsis = html_entity_decode(strip_tags($description['value']));
                         }
-                        $movie->setDirectors(new ArrayCollection($directors));
                     }
 
-                    if ($isSvod) {
-                        $sourceMovieSvod->setMovie($movie);
-                        $solutionSvod->setMovie($movie);
+                    $durationValue = $movie['duration'];
+                    $duration = null;
+                    if ($durationValue != 'no-duration') {
+                        list($hours, $minutes) = explode('h', $durationValue);
+                        $duration = ((int)$hours * 60) + (int)$minutes;
                     }
 
-                    if ($isTvod) {
-                        $sourceMovieTvod->setMovie($movie);
-                        $solutionTvod->setMovie($movie);
+                    $directors = [];
+                    foreach ($movie['directors'] as $director) {
+                        $directors[] = [
+                        'fullname' => $director
+                        ];
                     }
+
+                    // Nationalities.
+                    $nationalities = array_map('trim', explode(',', $movie['origin']));
+
+                    $isTvod = $movie['availability']['tvod']['fr'];
+                    $isSvod = $movie['availability']['svod']['fr'];
+
+
+                    $partnerTvod = $partnerRepository->findOneBy(['code' => PartnerCode::LACINETEK_TVOD->value]);
+                    $partnerSvod = $partnerRepository->findOneBy(['code' => PartnerCode::LACINETEK_SVOD->value]);
+                    $offerTvod = $offerRepository->findOneBy(['code' => OfferCode::TVOD->value]);
+                    $offerSvod = $offerRepository->findOneBy(['code' => OfferCode::SVOD->value]);
+
+                    $sourceMovieTvod = null;
+                    $solutionTvod = null;
+                    if ($isTvod && $partnerTvod !== null && $offerTvod !== null) {
+                        $entitiesTvod = $this->createOffer(
+                            $internalPartnerId,
+                            $externalIds,
+                            $title,
+                            $productionYear,
+                            $casting,
+                            $duration,
+                            $synopsis,
+                            $directors,
+                            $nationalities,
+                            $partnerTvod,
+                            $offerTvod,
+                            self::LACINETEK_ROOT_PATH . $movie['urls']['film']['fr'],
+                        );
+
+                        $sourceMovieTvod = $entitiesTvod['sourceMovie'];
+                        $solutionTvod = $entitiesTvod['solution'];
+                    }
+
+                    $sourceMovieSvod = null;
+                    $solutionSvod = null;
+                    if ($isSvod && $partnerSvod !== null && $offerSvod !== null) {
+                        $entitiesSvod = $this->createOffer(
+                            $internalPartnerId,
+                            $externalIds,
+                            $title,
+                            $productionYear,
+                            $casting,
+                            $duration,
+                            $synopsis,
+                            $directors,
+                            $nationalities,
+                            $partnerSvod,
+                            $offerSvod,
+                            self::LACINETEK_ROOT_PATH . $movie['urls']['svod']['fr'],
+                        );
+
+                        $sourceMovieSvod = $entitiesSvod['sourceMovie'];
+                        $solutionSvod = $entitiesSvod['solution'];
+                    }
+
+                    $movie = null;
+
+                    if ($createMoviesOption && ($isSvod || $isTvod)) {
+                        if (!is_null($sourceMovieSvod)) {
+                            $sourceMovie = $sourceMovieSvod;
+                        } else {
+                            $sourceMovie = $sourceMovieTvod;
+                        }
+
+                        //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
+                        $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
+
+                        if (is_null($movie)) {
+                            $movie = $this->movieManager->create($sourceMovie);
+                            $this->entityManager->persist($movie);
+                        } else {
+                            $sourceDirectors = $sourceMovie->getDirectors();
+                            $directors = [];
+
+                            foreach ($sourceDirectors as $sourceDirector) {
+                                $director = $this->directorManager->findOrCreate($sourceDirector);
+                                if ($director !== null) {
+                                    $directors[] = $director;
+                                }
+                            }
+                            $movie->setDirectors(new ArrayCollection($directors));
+                        }
+
+                        if ($isSvod) {
+                            $sourceMovieSvod->setMovie($movie);
+                            $solutionSvod->setMovie($movie);
+                        }
+
+                        if ($isTvod) {
+                            $sourceMovieTvod->setMovie($movie);
+                            $solutionTvod->setMovie($movie);
+                        }
+                    }
+
+                    $this->entityManager->flush();
+                    $this->entityManager->clear();
                 }
-
-              $this->entityManager->flush();
-              $this->entityManager->clear();
-
             }
-          }
         }
     }
 
+    /**
+     * @param array<mixed> $externalIds
+     * @param array<mixed> $casting
+     * @param array<mixed> $directors
+     * @param array<mixed> $nationalities
+     * @return array<string, mixed>
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
     public function createOffer(
-        $internalPartnerId,
-        $externalIds,
-        $title,
-        $productionYear,
-        $casting,
-        $duration,
-        $synopsis,
-        $directors,
-        $nationalities,
-        $partner,
-        $offer,
-        $url
-    ) {
+        string $internalPartnerId,
+        array $externalIds,
+        string $title,
+        int $productionYear,
+        array $casting,
+        ?int $duration,
+        string $synopsis,
+        array $directors,
+        array $nationalities,
+        Partner $partner,
+        Offer $offer,
+        string $url
+    ): array {
         $sourceMovieRepository = $this->entityManager->getRepository(SourceMovie::class);
 
         $sourceMovie = $sourceMovieRepository->findOneBy([
@@ -306,7 +323,7 @@ class LaCinetekApiImporter implements MovieImporterInterface
                 $internalPartnerId,
                 $productionYear,
                 $partner,
-                TRUE
+                true
             );
         }
 

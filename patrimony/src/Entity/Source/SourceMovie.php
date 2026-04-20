@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ORM\Table(name: 'source_movie', schema: 'patrimony')]
 #[ORM\HasLifecycleCallbacks]
+/** @SuppressWarnings(PHPMD.TooManyFields) */
 class SourceMovie
 {
     use Timestampable;
@@ -33,10 +34,10 @@ class SourceMovie
     private string $internalPartnerId;
 
     #[ORM\ManyToOne(targetEntity: Partner::class, inversedBy: 'sourceMovies')]
-    private Partner $partner;
+    private ?Partner $partner = null;
 
     #[ORM\ManyToOne(targetEntity: Movie::class, inversedBy: 'sourceMovies')]
-    private Movie $movie;
+    private ?Movie $movie = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $hasAd;
@@ -53,28 +54,35 @@ class SourceMovie
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $productionYear = null;
 
+    /** @var array<mixed> */
     #[ORM\Column(type: Types::JSON)]
     private array $nationalities = [];
 
+    /** @var array<mixed> */
     #[ORM\Column(type: Types::JSON)]
     private array $genres = [];
 
+    /** @var array<mixed> */
     #[ORM\Column(type: Types::JSON)]
     private array $directors = [];
 
+    /** @var array<mixed> */
     #[ORM\Column(type: Types::JSON)]
     private array $casting = [];
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $public = null;
 
+    /** @var array<mixed>|null */
     #[ORM\Column(type: Types::JSON)]
     private ?array $externalIds = [];
 
+    /** @var Collection<int, Solution> */
     #[ORM\OneToMany(targetEntity: Solution::class, mappedBy: 'sourceMovie')]
     private Collection $solutions;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->solutions = new ArrayCollection();
     }
 
@@ -118,7 +126,7 @@ class SourceMovie
         $this->internalPartnerId = $internalPartnerId;
     }
 
-    public function getPartner(): Partner
+    public function getPartner(): ?Partner
     {
         return $this->partner;
     }
@@ -128,12 +136,12 @@ class SourceMovie
         $this->partner = $partner;
     }
 
-    public function getMovie(): Movie
+    public function getMovie(): ?Movie
     {
         return $this->movie;
     }
 
-    public function setMovie(Movie $movie): void
+    public function setMovie(?Movie $movie): void
     {
         $this->movie = $movie;
     }
@@ -188,41 +196,49 @@ class SourceMovie
         $this->productionYear = $productionYear;
     }
 
+    /** @return array<mixed> */
     public function getNationalities(): array
     {
         return $this->nationalities;
     }
 
+    /** @param array<mixed> $nationalities */
     public function setNationalities(array $nationalities): void
     {
         $this->nationalities = $nationalities;
     }
 
+    /** @return array<mixed> */
     public function getGenres(): array
     {
         return $this->genres;
     }
 
+    /** @param array<mixed> $genres */
     public function setGenres(array $genres): void
     {
         $this->genres = $genres;
     }
 
+    /** @return array<mixed> */
     public function getDirectors(): array
     {
         return $this->directors;
     }
 
+    /** @param array<mixed> $directors */
     public function setDirectors(array $directors): void
     {
         $this->directors = $directors;
     }
 
+    /** @return array<mixed> */
     public function getCasting(): array
     {
         return $this->casting;
     }
 
+    /** @param array<mixed> $casting */
     public function setCasting(array $casting): void
     {
         $this->casting = $casting;
@@ -238,21 +254,25 @@ class SourceMovie
         $this->public = $public;
     }
 
+    /** @return array<mixed>|null */
     public function getExternalIds(): ?array
     {
         return $this->externalIds;
     }
 
+    /** @param array<mixed>|null $externalIds */
     public function setExternalIds(?array $externalIds): void
     {
         $this->externalIds = $externalIds;
     }
 
+    /** @return Collection<int, Solution> */
     public function getSolutions(): Collection
     {
         return $this->solutions;
     }
 
+    /** @param Collection<int, Solution> $solutions */
     public function setSolutions(Collection $solutions): void
     {
         $this->solutions = $solutions;

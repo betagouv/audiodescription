@@ -7,6 +7,7 @@ use App\Entity\Patrimony\Solution;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/** @extends AbstractCrudController<Solution> */
 class SolutionCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

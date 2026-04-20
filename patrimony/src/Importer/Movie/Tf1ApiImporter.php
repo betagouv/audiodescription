@@ -20,10 +20,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Imports movies from TF1 API.
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  */
 class Tf1ApiImporter implements MovieImporterInterface
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
         private SourceMovieManager $sourceMovieManager,
@@ -35,17 +36,20 @@ class Tf1ApiImporter implements MovieImporterInterface
         private SolutionRepository $solutionRepository,
         private SourceMovieRepository $sourceMovieRepository,
         private MovieFetcher $movieFetcher,
-    )
-    {
+    ) {
     }
 
     /**
      * Imports movie data from a source.
+     * @param array<string, mixed>|null $options
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function import(?array $options = []): void
     {
         // Manage options.
-        $createMoviesOption = $options['create-movies'];
+        $createMoviesOption = $options['create-movies'] ?? false;
 
         $url = $this->parameterBag->get('tf1.api.url');
         $user = $this->parameterBag->get('tf1.api.user');
@@ -90,6 +94,10 @@ class Tf1ApiImporter implements MovieImporterInterface
             $partner = $partnerRepository->findOneBy(['code' => PartnerCode::TF1->value]);
             $offer = $offerRepository->findOneBy(['code' => OfferCode::FREE_ACCESS->value]);
 
+            if ($partner === null || $offer === null) {
+                continue;
+            }
+
             $repository = $this->entityManager->getRepository(SourceMovie::class);
             $sourceMovie = $repository->findOneBy([
                 'internalPartnerId' => $program['id'],
@@ -105,7 +113,7 @@ class Tf1ApiImporter implements MovieImporterInterface
                     $program['id'],
                     $program['productionYear'],
                     $partner,
-                    TRUE
+                    true
                 );
             }
 
@@ -130,7 +138,6 @@ class Tf1ApiImporter implements MovieImporterInterface
                             break;
                         case 'Acteur':
                             foreach ($artwork['persons'] as $person) {
-
                                 if (isset($person['firstName']) && !empty($person['firstName'])) {
                                     $casting[] = [
                                         'fullname' => $person['firstName'] . ' ' . $person['lastName'],
@@ -158,8 +165,7 @@ class Tf1ApiImporter implements MovieImporterInterface
                 }
             }
 
-            // @TODO : check how genres is used.
-            if (!empty($genres)) {
+            if (!empty($program['genres'])) {
                 $sourceMovie->setGenres($program['genres']);
             }
 
@@ -202,7 +208,7 @@ class Tf1ApiImporter implements MovieImporterInterface
                 //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
                 $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
-              if (is_null($movie)) {
+                if (is_null($movie)) {
                     $movie = $this->movieManager->create($sourceMovie);
                     $this->entityManager->persist($movie);
                 }

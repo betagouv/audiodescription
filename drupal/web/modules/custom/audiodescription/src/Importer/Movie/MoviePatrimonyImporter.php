@@ -11,12 +11,15 @@ use Drupal\audiodescription\EntityManager\PartnerManager;
 use Drupal\audiodescription\EntityManager\PublicManager;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
 /**
  * Import movies from patrimony.
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  */
 class MoviePatrimonyImporter implements LoggerAwareInterface {
   use LoggerAwareTrait;
@@ -32,16 +35,21 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
     private PublicManager $publicManager,
     private PartnerManager $partnerManager,
     private OfferManager $offerManager,
-    private ConfigPagesLoaderServiceInterface $configPagesLoader
+    private ConfigPagesLoaderServiceInterface $configPagesLoader,
+    private ClientInterface $httpClient,
   ) {
   }
 
   /**
    * Import genres data from patrimony.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings(PHPMD.NPathComplexity)
+   * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
    */
   public function import(): void {
     // Import movies.
-    $client = \Drupal::httpClient();
+    $client = $this->httpClient;
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
@@ -67,37 +75,40 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           dump($title);
 
           $code = $movie['code'];
-          $arteId = $movie['arteId'] ?? null;
-          $canalVodId = $movie['canalVodId'] ?? null;
-          $allocineId = $movie['allocineId'] ?? null;
-          $orangeVodId = $movie['orangeVodId'] ?? null;
-          $laCinetekId = $movie['laCinetekId'] ?? null;
-          $franceTvId = $movie['franceTvId'] ?? null;
+          $arteId = $movie['arteId'] ?? NULL;
+          $canalVodId = $movie['canalVodId'] ?? NULL;
+          $allocineId = $movie['allocineId'] ?? NULL;
+          $orangeVodId = $movie['orangeVodId'] ?? NULL;
+          $laCinetekId = $movie['laCinetekId'] ?? NULL;
+          $franceTvId = $movie['franceTvId'] ?? NULL;
 
           $hasAd = $movie['hasAd'];
-          $productionYear = $movie['productionYear'] ?? null;
-          $synopsis = html_entity_decode(strip_tags($movie['synopsis'])) ?? null;
-          //$nationalities = [];
+          $productionYear = $movie['productionYear'] ?? NULL;
+          $synopsis = html_entity_decode(strip_tags($movie['synopsis'])) ?? NULL;
+          // $nationalities = [];
           $genres = [];
           $directors = [];
           $solutions = [];
-          $public = null;
-          $poster = $movie['poster'] ?? null;
+          $public = NULL;
+          $poster = $movie['poster'] ?? NULL;
 
           if (!empty($movie['public']['code'])) {
             $public = $this->publicManager->createOrUpdate($movie['public']['code']);
           }
 
-          /**foreach ($movie['nationalities'] as $nationality) {
-            $nationalities[] = $this->nationalityManager->createOrUpdate($nationality['name']);
-          }**/
-
+          /*
+           * foreach ($movie['nationalities'] as $nationality) {
+           *   $nationalities[] = $this->nationalityManager
+           *     ->createOrUpdate($nationality['name']);
+           * }
+           */
 
           foreach ($movie['genres'] as $genre) {
             if (isset($genre['mainGenre'])) {
               if (is_array($genre['mainGenre'])) {
                 $genres[] = $this->genreManager->createOrUpdate($genre['mainGenre']['name'], $genre['mainGenre']['code']);
-              } else {
+              }
+              else {
                 if ($genre['@id'] == $genre['mainGenre']) {
                   $genres[] = $this->genreManager->createOrUpdate($genre['name'], $genre['code']);
                 }
@@ -109,24 +120,27 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             $directors[] = $this->directorManager->createOrUpdate($director);
           }
 
-          foreach($movie['solutions'] as $solution) {
+          foreach ($movie['solutions'] as $solution) {
             $partner = $this->partnerManager->createOrUpdate(
               [
-                'code' => $solution['partner']['code']
+                'code' => $solution['partner']['code'],
               ]
             );
 
+            $offerCode = NULL;
             switch ($solution['partner']['code']) {
               case 'ARTE':
               case 'FRANCE_TV':
               case 'TF1':
                 $offerCode = 'FREE_ACCESS';
                 break;
+
               case 'ORANGE_VOD':
               case 'LACINETEK_TVOD':
               case 'CANAL_VOD':
                 $offerCode = 'TVOD';
                 break;
+
               case 'LACINETEK_SVOD':
               case 'CANAL_REPLAY':
                 $offerCode = 'SVOD';
@@ -134,14 +148,14 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             }
 
             $link = $solution['link'];
-            $startRights = $solution['startRights'] ?? null;
-            $endRights = $solution['endRights'] ?? null;
+            $startRights = $solution['startRights'] ?? NULL;
+            $endRights = $solution['endRights'] ?? NULL;
 
             $solutions[$offerCode][] = [
               'partner' => $partner,
               'link' => $link,
               'startRights' => $startRights,
-              'endRights' => $endRights
+              'endRights' => $endRights,
             ];
           }
 
@@ -167,14 +181,15 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
         $next++;
         if (!isset($data['hydra:view']['hydra:next'])) {
-          $next = null;
+          $next = NULL;
         }
 
         // Clear entities cache.
         $this->entityTypeManager->clearCachedDefinitions();
-      //} while (false);
+        // } while (false);
       } while (!is_null($next));
-    } catch( RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->info('Error fetching movies');
       dump($e->getMessage());
     }
@@ -183,6 +198,9 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
     $this->entityTypeManager->clearCachedDefinitions();
   }
 
+  /**
+   * Builds the API URL for a given page.
+   */
   private function buildUrl($configPage, $page) {
     $url = $configPage->get('field_patrimony_url')->value;
 

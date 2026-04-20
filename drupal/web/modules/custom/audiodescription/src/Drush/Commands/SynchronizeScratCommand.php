@@ -12,7 +12,6 @@ use Drupal\pathauto\AliasCleanerInterface;
 use Drush\Attributes as CLI;
 use Drush\Commands\DrushCommands;
 use GuzzleHttp\ClientInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,7 +28,7 @@ final class SynchronizeScratCommand extends DrushCommands {
     private GenreManager $genreManager,
     private ActorManager $actorManager,
     private FileRepositoryInterface $fileRepository,
-    private AliasCleanerInterface $aliasCleaner
+    private AliasCleanerInterface $aliasCleaner,
   ) {
     parent::__construct();
   }
@@ -50,6 +49,9 @@ final class SynchronizeScratCommand extends DrushCommands {
 
   /**
    * Synchronize AD database with Scrat database.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
    */
   #[CLI\Command(name: 'ad:synchronize:scrat', aliases: ['adss'])]
   #[CLI\Usage(name: 'ad:synchronize:scrat', description: 'Synchronize AD database with Scrat database.')]
@@ -181,7 +183,7 @@ final class SynchronizeScratCommand extends DrushCommands {
       // $this->logger()->error('Erreur fatale : ' . $t->getMessage());
       dump("Erreur fatale");
       dump("Erreur fatale" . $t->getMessage());
-    };
+    }
   }
 
   /**

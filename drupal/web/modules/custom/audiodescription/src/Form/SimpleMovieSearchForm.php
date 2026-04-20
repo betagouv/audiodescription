@@ -2,7 +2,6 @@
 
 namespace Drupal\audiodescription\Form;
 
-use Drupal\audiodescription\Popo\MovieSearchParametersBag;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -56,11 +55,12 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
 
     $form['search'] = [
       '#type' => 'textfield',
+      // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
       '#title' => $this->t($label),
       '#size' => 30,
       '#maxlength' => 128,
       '#value' => $search,
-      '#prefix' => '<div class="'. $prefixClasses .'" role="search">'
+      '#prefix' => '<div class="' . $prefixClasses . '" role="search">',
     ];
 
     $form['submit'] = [
@@ -72,13 +72,12 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
           'fr-btn--secondary',
         ],
       ],
-      '#suffix' => '</div>'
+      '#suffix' => '</div>',
     ];
 
     if ($format == 'md') {
       $form['submit']['#attributes']['title'] = $this->t('Search');
     }
-
 
     $form['#action'] = '/recherche?partner[305]=305#liste';
 
@@ -90,9 +89,8 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $parameters = $this->getBaseParameters($form_state);
-    //$request = $this->requestStack->getCurrentRequest();
-    //$params = MovieSearchParametersBag::createFromRequest($request);
-
+    // $request = $this->requestStack->getCurrentRequest();
+    // $params = MovieSearchParametersBag::createFromRequest($request);
     $form_state->setRedirect(
       'audiodescription.movie_search',
       [],

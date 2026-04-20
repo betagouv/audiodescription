@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     paginationEnabled: false,
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
@@ -40,8 +40,8 @@ class Genre
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'genre:list';
-    const SCOPE_SUBLIST = 'genre:sublist';
+    public const SCOPE_LIST = 'genre:list';
+    public const SCOPE_SUBLIST = 'genre:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -58,6 +58,7 @@ class Genre
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $code;
 
+    /** @var Collection<int, Movie> */
     #[ORM\ManyToMany(targetEntity: Movie::class, mappedBy: 'genres')]
     private Collection $movies;
 
@@ -66,10 +67,12 @@ class Genre
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private ?Genre $mainGenre = null;
 
+    /** @var Collection<int, Genre> */
     #[ORM\OneToMany(targetEntity: Genre::class, mappedBy: 'mainGenre')]
     private Collection $secondaryGenres;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->movies = new ArrayCollection();
         $this->secondaryGenres = new ArrayCollection();
     }
@@ -104,11 +107,13 @@ class Genre
         $this->code = $code;
     }
 
+    /** @return Collection<int, Movie> */
     public function getMovies(): Collection
     {
         return $this->movies;
     }
 
+    /** @param Collection<int, Movie> $movies */
     public function setMovies(Collection $movies): void
     {
         $this->movies = $movies;
@@ -124,18 +129,21 @@ class Genre
         $this->mainGenre = $mainGenre;
     }
 
+    /** @return Collection<int, Genre> */
     public function getSecondaryGenres(): Collection
     {
         return $this->secondaryGenres;
     }
 
+    /** @param Collection<int, Genre> $secondaryGenres */
     public function setSecondaryGenres(Collection $secondaryGenres): void
     {
         $this->secondaryGenres = $secondaryGenres;
     }
 
     #[Groups([self::SCOPE_LIST])]
-    public function getUpdatedAt() {
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
         return $this->updatedAt;
     }
 

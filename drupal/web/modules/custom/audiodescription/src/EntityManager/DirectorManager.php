@@ -27,7 +27,7 @@ class DirectorManager {
 
     $directors = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
       'field_taxo_code' => $directorCode,
-      'vid' => Taxonomy::DIRECTOR->value,
+      'vid' => Taxonomy::Director->value,
     ]);
 
     $director = NULL;
@@ -38,7 +38,7 @@ class DirectorManager {
     if (is_null($director)) {
       $director = Term::create([
         'field_taxo_code' => $directorCode,
-        'vid' => Taxonomy::DIRECTOR->value,
+        'vid' => Taxonomy::Director->value,
       ]);
     }
 

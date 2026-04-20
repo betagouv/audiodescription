@@ -77,7 +77,8 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
     if ($index) {
       $this->output()->writeln('Indexation des films en cours...');
       $index->indexItems();
-    } else {
+    }
+    else {
       $this->output()->writeln('Index non trouvé.');
     }
 
@@ -94,6 +95,8 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
    *
    * @return bool
    *   TRUE si une solution est active, FALSE sinon.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
   protected function hasActiveSolution(Node $movie, int $current_timestamp): bool {
 
@@ -132,6 +135,11 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
     return FALSE;
   }
 
+  /**
+   * Deletes obsolete paragraph partner entities.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   */
   private function deleteObsoletePgPartners() {
     $paragraph_storage = $this->entityTypeManager->getStorage('paragraph');
     $query = $paragraph_storage->getQuery()
@@ -149,7 +157,8 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
 
     if (empty($ids)) {
       $this->logger()->notice('Aucun paragraphe pg_partner obsolète trouvé.');
-    } else {
+    }
+    else {
       $paragraphs = $paragraph_storage->loadMultiple($ids);
       $paragraph_storage->delete($paragraphs);
 
@@ -165,7 +174,8 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
 
     if (empty($pg_offer_ids)) {
       $this->logger()->notice('Aucun paragraphe pg_offer trouvé.');
-    } else {
+    }
+    else {
       $pg_offers = $paragraph_storage->loadMultiple($pg_offer_ids);
 
       $ids_to_delete = [];
@@ -176,11 +186,11 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
           continue;
         }
 
-        $valid = false;
+        $valid = FALSE;
         foreach ($pg_offer->get('field_pg_partners')->referencedEntities() as $partner) {
           // Si au moins un partenaire référencé existe, on garde le pg_offer.
           if ($partner && $partner->bundle() === 'pg_partner') {
-            $valid = true;
+            $valid = TRUE;
             break;
           }
         }
@@ -201,6 +211,6 @@ final class ImportUnpublishMoviesCommand extends DrushCommands {
       $this->logger()->success(count($to_delete) . ' paragraphes pg_offer supprimés car référence(s) vers pg_partner invalide(s).');
     }
 
-
   }
+
 }

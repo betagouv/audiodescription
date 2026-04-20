@@ -8,7 +8,6 @@
 declare(strict_types=1);
 
 use Drupal\block\Entity\Block;
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
@@ -64,7 +63,7 @@ function ad_theme_theme_suggestions_page_title_alter(array &$suggestions, array 
     }
   }
 
-  if  (\Drupal::routeMatch()->getRouteName() === 'entity.taxonomy_term.canonical') {
+  if (\Drupal::routeMatch()->getRouteName() === 'entity.taxonomy_term.canonical') {
     $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
     $vid = $term->bundle();
     $suggestions[] = 'page_title__' . $vid;
@@ -104,14 +103,17 @@ function ad_theme_theme_suggestions_views_view_unformatted_alter(array &$suggest
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function ad_theme_theme_suggestions_form_element_alter(array &$suggestions, array &$variables) {
-if (
+  if (
   (array_key_exists('#name', $variables['element'])) &&
   ($variables['element']['#name'] === 'search')
-) {
+  ) {
     $suggestions[] = 'form_element__search';
   }
 }
 
+/**
+ * Implements hook_theme_suggestions_input_alter().
+ */
 function ad_theme_theme_suggestions_input_alter(array &$suggestions, array &$variables) {
   if (array_key_exists('#name', $variables['element']) && $variables['element']['#name'] === 'search') {
     $suggestions[] = 'input__search';
@@ -126,8 +128,7 @@ function ad_theme_theme_suggestions_input_alter(array &$suggestions, array &$var
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
-function ad_theme_theme_suggestions_fieldset_alter(array &$suggestions, array &$variables)
-{
+function ad_theme_theme_suggestions_fieldset_alter(array &$suggestions, array &$variables) {
   if (isset($variables['element']['#is_rich_select'])) {
     $suggestions[] = 'fieldset__rich_select';
   }
@@ -160,7 +161,7 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
   $collections = [];
   $terms = \Drupal::entityTypeManager()
     ->getStorage('taxonomy_term')
-    ->loadByProperties(['vid' => 'collection', 'field_display_on_movie_page' => true]);
+    ->loadByProperties(['vid' => 'collection', 'field_display_on_movie_page' => TRUE]);
 
   foreach ($terms as $term) {
     if ($term->hasField('field_taxo_movies') && !$term->get('field_taxo_movies')->isEmpty()) {
@@ -180,7 +181,7 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
   $offers = [];
   $node = $variables['node'];
   $pg_offers = $node->get('field_offers')->referencedEntities();
-  usort($pg_offers, function($a, $b) {
+  usort($pg_offers, function ($a, $b) {
     $a = intval($a->get('field_pg_offer')->entity->get('field_taxo_order')->value);
     $b = intval($b->get('field_pg_offer')->entity->get('field_taxo_order')->value);
 
@@ -190,11 +191,10 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
     return ($a < $b) ? -1 : 1;
   });
 
-
-  foreach($pg_offers as $pg_offer) {
+  foreach ($pg_offers as $pg_offer) {
     $pg_partners = $pg_offer->get('field_pg_partners')->referencedEntities();
 
-    usort($pg_partners, function($a, $b) {
+    usort($pg_partners, function ($a, $b) {
       $a = intval($a->get('field_pg_partner')->entity->get('field_taxo_order')->value);
       $b = intval($b->get('field_pg_partner')->entity->get('field_taxo_order')->value);
 
@@ -204,10 +204,10 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
       return ($a < $b) ? -1 : 1;
     });
 
-    foreach($pg_partners as $key => $partner) {
+    foreach ($pg_partners as $key => $partner) {
       $today = (new DateTime())->format('Y-m-d');
-      $startDate = $partner->get('field_pg_start_rights')->value ?? null;
-      $endDate = $partner->get('field_pg_end_rights')->value ?? null;
+      $startDate = $partner->get('field_pg_start_rights')->value ?? NULL;
+      $endDate = $partner->get('field_pg_end_rights')->value ?? NULL;
 
       if ((!is_null($startDate) && $today < $startDate) || (!is_null($endDate) && $endDate < $today)) {
         unset($pg_partners[$key]);
@@ -217,7 +217,7 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
     if (!empty($pg_partners)) {
       $offers[] = [
         'offer' => $pg_offer,
-        'partners' => $pg_partners
+        'partners' => $pg_partners,
       ];
     }
   }
@@ -230,14 +230,13 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
 
   $variables['collections'] = $collections;
 
-
   $cache_tags = [];
   $offers = $variables['elements']['#node']->get('field_offers')->referencedEntities();
 
-  foreach($offers as $offer) {
+  foreach ($offers as $offer) {
     $partners = $offer->get('field_pg_partners')->referencedEntities();
 
-    foreach($partners as $partner) {
+    foreach ($partners as $partner) {
       $term = $partner->get('field_pg_partner')->referencedEntities()[0];
       $cache_tags = array_merge($cache_tags, $term->getCacheTags());
     }
@@ -264,8 +263,7 @@ function ad_theme_preprocess_views_view__search__search_page(&$variables) {
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_taxonomy_term__director__full(&$variables)
-{
+function ad_theme_preprocess_taxonomy_term__director__full(&$variables) {
   $term = $variables['term'];
 
   $term_id = $term->id();
@@ -286,8 +284,7 @@ function ad_theme_preprocess_taxonomy_term__director__full(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_form_element__select(&$variables)
-{
+function ad_theme_preprocess_form_element__select(&$variables) {
   $variables['title'] = $variables['element']['#title']->getUntranslatedString();
 
   if (isset($variables['element']['#singular_title'])) {
@@ -311,8 +308,10 @@ function ad_theme_preprocess_form_element__select(&$variables)
   }
 }
 
-function ad_theme_preprocess_checkboxes(&$variables)
-{
+/**
+ * Implements hook_preprocess_checkboxes().
+ */
+function ad_theme_preprocess_checkboxes(&$variables) {
   $variables['title'] = $variables['element']['#title']->getUntranslatedString();
   $variables['name'] = $variables['element']['#name'];
   $variables['id'] = $variables['element']['#id'];
@@ -345,8 +344,7 @@ function ad_theme_preprocess_checkboxes(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_taxonomy_term__collection__highlighted(&$variables)
-{
+function ad_theme_preprocess_taxonomy_term__collection__highlighted(&$variables) {
   $movies = $variables['elements']['#taxonomy_term']->field_taxo_movies;
   $variables['urls'] = [];
 
@@ -361,8 +359,7 @@ function ad_theme_preprocess_taxonomy_term__collection__highlighted(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_paragraph__pg_paragraph__full(&$variables)
-{
+function ad_theme_preprocess_paragraph__pg_paragraph__full(&$variables) {
   $cta = $variables['paragraph']->get('field_pg_cta')->referencedEntities();
   if (!empty($cta) && !is_null($cta[0]->get('field_pg_link')->first())) {
     $variables['cta'] = [
@@ -382,8 +379,7 @@ function ad_theme_preprocess_paragraph__pg_paragraph__full(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_paragraph__pg_movies__full(&$variables)
-{
+function ad_theme_preprocess_paragraph__pg_movies__full(&$variables) {
   $cta = $variables['paragraph']->get('field_pg_cta')->referencedEntities();
   if (!empty($cta) && !is_null($cta[0]->get('field_pg_link')->first())) {
     $variables['cta'] = [
@@ -403,8 +399,7 @@ function ad_theme_preprocess_paragraph__pg_movies__full(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_paragraph__pg_card__full(&$variables)
-{
+function ad_theme_preprocess_paragraph__pg_card__full(&$variables) {
   $paragraph = $variables['paragraph'];
 
   $variables['link'] = [
@@ -423,8 +418,7 @@ function ad_theme_preprocess_paragraph__pg_card__full(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_paragraph__pg_horizontal_card__full(&$variables)
-{
+function ad_theme_preprocess_paragraph__pg_horizontal_card__full(&$variables) {
   $paragraph = $variables['paragraph'];
 
   $variables['link'] = [
@@ -443,8 +437,7 @@ function ad_theme_preprocess_paragraph__pg_horizontal_card__full(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_paragraph__pg_video_iframe__full(&$variables)
-{
+function ad_theme_preprocess_paragraph__pg_video_iframe__full(&$variables) {
   $cta = $variables['paragraph']->get('field_pg_cta')->referencedEntities();
   if (!empty($cta) && !is_null($cta[0]->get('field_pg_link')->first())) {
     $variables['cta'] = [
@@ -464,13 +457,12 @@ function ad_theme_preprocess_paragraph__pg_video_iframe__full(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_html(&$variables)
-{
+function ad_theme_preprocess_html(&$variables) {
   $config_pages = \Drupal::service('config_pages.loader');
   $config = $config_pages->load('patrimony');
 
   if (!is_null($config)) {
-    $isEnabled = $config->get('field_enable_matomo')->value ?? null;
+    $isEnabled = $config->get('field_enable_matomo')->value ?? NULL;
 
     if ($isEnabled) {
       $variables['matomo'] = [
@@ -483,13 +475,12 @@ function ad_theme_preprocess_html(&$variables)
 /**
  * Implements hook_preprocess_HOOK().
  */
-function ad_theme_preprocess_node__movie__card(&$variables)
-{
+function ad_theme_preprocess_node__movie__card(&$variables) {
   // Order solutions.
   $offers = [];
   $node = $variables['node'];
   $pg_offers = $node->get('field_offers')->referencedEntities();
-  usort($pg_offers, function($a, $b) {
+  usort($pg_offers, function ($a, $b) {
     $a = intval($a->get('field_pg_offer')->entity->get('field_taxo_order')->value);
     $b = intval($b->get('field_pg_offer')->entity->get('field_taxo_order')->value);
 
@@ -502,7 +493,7 @@ function ad_theme_preprocess_node__movie__card(&$variables)
   if (!empty($pg_offers)) {
     $pg_partners = $pg_offers[0]->get('field_pg_partners')->referencedEntities();
 
-    usort($pg_partners, function($a, $b) {
+    usort($pg_partners, function ($a, $b) {
       $a = intval($a->get('field_pg_partner')->entity->get('field_taxo_order')->value);
       $b = intval($b->get('field_pg_partner')->entity->get('field_taxo_order')->value);
 
@@ -512,7 +503,7 @@ function ad_theme_preprocess_node__movie__card(&$variables)
       return ($a < $b) ? -1 : 1;
     });
 
-    if (!empty($pg_partners) && !is_null($pg_partners[0])){
+    if (!empty($pg_partners) && !is_null($pg_partners[0])) {
       $pg = $pg_partners[0];
       $endDate = $pg->get('field_pg_end_rights') ?? NULL;
 

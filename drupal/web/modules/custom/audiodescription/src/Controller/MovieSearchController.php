@@ -6,11 +6,11 @@ use Drupal\block\Entity\Block;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\Core\Url;
 use Drupal\audiodescription\Manager\MovieSearchManager;
 use Drupal\audiodescription\Popo\MovieSearchParametersBag;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Controller for building the search page V2 content.
@@ -43,6 +43,13 @@ class MovieSearchController extends ControllerBase {
   protected $movieSearchManager;
 
   /**
+   * The request stack service.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a new MovieSearchController.
    *
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
@@ -51,15 +58,19 @@ class MovieSearchController extends ControllerBase {
    *   The entity type manager service.
    * @param Drupal\audiodescription\Manager\MovieSearchManager $movieSearchManager
    *   The movie search manager service.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack service.
    */
   public function __construct(
     FormBuilderInterface $form_builder,
     EntityTypeManagerInterface $entityTypeManager,
     MovieSearchManager $movieSearchManager,
+    RequestStack $requestStack,
   ) {
     $this->formBuilder = $form_builder;
     $this->entityTypeManager = $entityTypeManager;
     $this->movieSearchManager = $movieSearchManager;
+    $this->requestStack = $requestStack;
   }
 
   /**
@@ -70,6 +81,7 @@ class MovieSearchController extends ControllerBase {
       $container->get('form_builder'),
       $container->get('entity_type.manager'),
       $container->get('audiodescription.manager.movie_search'),
+      $container->get('request_stack'),
     );
   }
 
@@ -122,17 +134,19 @@ class MovieSearchController extends ControllerBase {
         'pagesCount' => $pagesCount,
         'items' => $renderedEntities,
         'pagination' => $pagination,
-        'page' => $params->page, // current page number.
+    // Current page number.
+        'page' => $params->page,
         'pageSize' => $pageSize,
         'totalWithAd' => $totalWithAd,
       ],
       '#form' => $form,
       '#filtersForm' => $filtersForm,
       '#filters' => [
-        'search' => $params->search, // keyword.
+      // keyword.
+        'search' => $params->search,
         'genres' => $this->getCurrentFilters($params->genre),
         'plateformes' => $this->getCurrentFilters($params->partner),
-        'films gratuit uniquement' => $params->isFree ? 'oui' : null,
+        'films gratuit uniquement' => $params->isFree ? 'oui' : NULL,
       ],
       '#blockContact' => $blockContact,
       '#cache' => [
@@ -141,7 +155,11 @@ class MovieSearchController extends ControllerBase {
     ];
   }
 
+  /**
+   * Returns the display names of currently selected filter entities.
+   */
   private function getCurrentFilters(array $ids) {
+    $values = [];
     foreach ($ids as $id) {
       $entity = $this
         ->entityTypeManager
@@ -154,23 +172,33 @@ class MovieSearchController extends ControllerBase {
 
     }
 
-    return $values ?? NULL;
+    return !empty($values) ? $values : NULL;
   }
 
+  /**
+   * Returns the page title for the movie search results page.
+   */
   public function getTitle() {
-    $request = \Drupal::request();
+    $request = $this->requestStack->getCurrentRequest();
     $params = MovieSearchParametersBag::createFromRequest($request);
 
-    $title = "Résultats de la recherche";
-
+    if ($params->search && $params->page !== 1) {
+      return $this->t('Résultats de la recherche pour "@search", page @page', [
+        '@search' => $params->search,
+        '@page' => $params->page,
+      ]);
+    }
     if ($params->search) {
-      $title .= " pour \"" . $params->search . "\"";
+      return $this->t('Résultats de la recherche pour "@search"', [
+        '@search' => $params->search,
+      ]);
     }
-
     if ($params->page !== 1) {
-      $title .= ", page " . $params->page;
+      return $this->t('Résultats de la recherche, page @page', [
+        '@page' => $params->page,
+      ]);
     }
-
-    return $this->t($title);
+    return $this->t('Résultats de la recherche');
   }
+
 }

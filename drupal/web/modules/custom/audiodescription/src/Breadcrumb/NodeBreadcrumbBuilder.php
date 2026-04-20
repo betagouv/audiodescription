@@ -99,7 +99,7 @@ class NodeBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       );
     }
 
-    // Désactiver totalement le cache en supprimant toutes les métadonnées
+    // Désactiver totalement le cache en supprimant toutes les métadonnées.
     $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
 
     return $breadcrumb;

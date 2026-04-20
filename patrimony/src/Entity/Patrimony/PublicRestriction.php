@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
     ]],
@@ -30,8 +30,8 @@ class PublicRestriction
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'public-restriction:list';
-    const SCOPE_SUBLIST = 'public-restriction:sublist';
+    public const SCOPE_LIST = 'public-restriction:list';
+    public const SCOPE_SUBLIST = 'public-restriction:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -48,10 +48,12 @@ class PublicRestriction
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $code;
 
+    /** @var Collection<int, Movie> */
     #[ORM\OneToMany(targetEntity: Movie::class, mappedBy: 'public')]
     private Collection $movies;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->movies = new ArrayCollection();
     }
 
@@ -85,18 +87,21 @@ class PublicRestriction
         $this->code = $code;
     }
 
+    /** @return Collection<int, Movie> */
     public function getMovies(): Collection
     {
         return $this->movies;
     }
 
+    /** @param Collection<int, Movie> $movies */
     public function setMovies(Collection $movies): void
     {
         $this->movies = $movies;
     }
 
     #[Groups([self::SCOPE_LIST])]
-    public function getUpdatedAt() {
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
         return $this->updatedAt;
     }
 }

@@ -5,21 +5,16 @@ namespace App\EntityManager;
 use App\Entity\Patrimony\Genre;
 use App\Util\EntityCodeService;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class responsible for managing genre-related operations.
  */
 class GenreManager
 {
-
     public function __construct(
-        private LoggerInterface $logger,
         private EntityManagerInterface $entityManager,
-        private EntityCodeService      $entityCodeService,
-    )
-    {
-
+        private EntityCodeService $entityCodeService,
+    ) {
     }
 
     /**
@@ -43,7 +38,7 @@ class GenreManager
             $this->entityManager->persist($genre);
             $this->entityManager->flush();
         }
-        
+
         return $genre;
     }
 }

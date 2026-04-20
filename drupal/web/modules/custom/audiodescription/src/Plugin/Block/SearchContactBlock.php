@@ -23,7 +23,7 @@ class SearchContactBlock extends BlockBase implements ContainerFactoryPluginInte
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    private ConfigPagesLoaderServiceInterface $configPagesLoader
+    private ConfigPagesLoaderServiceInterface $configPagesLoader,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }

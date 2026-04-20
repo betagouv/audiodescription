@@ -6,10 +6,8 @@ use Drupal\audiodescription\Command\SearchAjaxUrlUpdateCommand;
 use Drupal\audiodescription\Manager\MovieSearchManager;
 use Drupal\audiodescription\Popo\MovieSearchParametersBag;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -37,6 +35,11 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
    */
   protected $entityTypeManager;
 
+  /**
+   * The movie search manager service.
+   *
+   * @var \Drupal\audiodescription\Manager\MovieSearchManager
+   */
   protected MovieSearchManager $movieSearchManager;
 
   /**
@@ -72,13 +75,13 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
 
   /**
    * {@inheritdoc}
+   *
+   * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $request = $this->requestStack->getCurrentRequest();
-    $parametersBag = MovieSearchParametersBag::createFromRequest($request);
-    $isEmptyParametersBag = $parametersBag->isEmptyParametersBag();
 
-    //$selectedWithAd = $request->query->get('with_ad');
+    // $selectedWithAd = $request->query->get('with_ad');
     $selectedGenres = $request->query->getIterator()['genre'] ?? [];
     $selectedPartners = $request->query->getIterator()['partner'] ?? [];
     $selectedIsFree = $request->query->get('is_free');
@@ -115,9 +118,10 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
         'callback' => '::searchMovies',
         'disable-refocus' => FALSE,
         'event' => 'change',
-        'wrapper' => 'ajax', // This element is updated with this AJAX callback.
+    // This element is updated with this AJAX callback.
+        'wrapper' => 'ajax',
         'progress' => [],
-      ]
+      ],
     ];
 
     if (!is_null($this->entityTypeManager)) {
@@ -128,29 +132,30 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
         $options[$term->tid] = $term->name;
       }
 
-      /**$form['infos']['fields']['partner'] = [
-        '#type' => 'checkboxes',
-        '#title' => $this->t('Mes abonnements'),
-        '#options' => $options,
-        // Mettre à TRUE si vous voulez un select multiple.
-        '#multiple' => TRUE,
-        '#required' => FALSE,
-        '#prefix' => '<div class="fr-col-12 fr-mb-3w">',
-        '#suffix' => '</div>',
-        '#default_value' => $selectedPartners,
-        '#singular_title' => 'plateforme',
-        '#plural_title' => 'plateformes',
-        '#ad_plugin_type' => 'partners-select',
-        '#is_female' => TRUE,
-        '#is_rich_select' => TRUE,
-        '#ajax' => [
-          'callback' => '::searchMovies',
-          'disable-refocus' => FALSE,
-          'event' => 'change',
-          'wrapper' => 'ajax', // This element is updated with this AJAX callback.
-          'progress' => [],
-        ]
-      ];**/
+      /*
+       * $form['infos']['fields']['partner'] = [
+       *   '#type' => 'checkboxes',
+       *   '#title' => $this->t('Mes abonnements'),
+       *   '#options' => $options,
+       *   '#multiple' => TRUE,
+       *   '#required' => FALSE,
+       *   '#prefix' => '<div class="fr-col-12 fr-mb-3w">',
+       *   '#suffix' => '</div>',
+       *   '#default_value' => $selectedPartners,
+       *   '#singular_title' => 'plateforme',
+       *   '#plural_title' => 'plateformes',
+       *   '#ad_plugin_type' => 'partners-select',
+       *   '#is_female' => TRUE,
+       *   '#is_rich_select' => TRUE,
+       *   '#ajax' => [
+       *     'callback' => '::searchMovies',
+       *     'disable-refocus' => FALSE,
+       *     'event' => 'change',
+       *     'wrapper' => 'ajax',
+       *     'progress' => [],
+       *   ]
+       * ];
+       */
 
       $form['infos']['fields']['partner'] = [
         '#type' => 'checkboxes',
@@ -170,9 +175,10 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
           'callback' => '::searchMovies',
           'disable-refocus' => FALSE,
           'event' => 'change',
-          'wrapper' => 'ajax', // This element is updated with this AJAX callback.
+      // This element is updated with this AJAX callback.
+          'wrapper' => 'ajax',
           'progress' => [],
-        ]
+        ],
       ];
 
       $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('genre');
@@ -200,9 +206,10 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
           'callback' => '::searchMovies',
           'disable-refocus' => FALSE,
           'event' => 'change',
-          'wrapper' => 'ajax', // This element is updated with this AJAX callback.
+      // This element is updated with this AJAX callback.
+          'wrapper' => 'ajax',
           'progress' => [],
-        ]
+        ],
       ];
     }
 
@@ -226,10 +233,17 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
     );
   }
 
+  /**
+   * Resets the search filters by redirecting to the current page.
+   */
   public function resetForm(array &$form, FormStateInterface $form_state) {
-    $form_state->setRedirect('<current>'); // recharge la page sans les valeurs
+    // Recharge la page sans les valeurs.
+    $form_state->setRedirect('<current>');
   }
 
+  /**
+   * Handles form submission and redirects with updated search parameters.
+   */
   public function searchMovies(array &$form, FormStateInterface $form_state) {
     $request = $this->requestStack->getCurrentRequest();
 
@@ -281,4 +295,5 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
 
     return $response;
   }
+
 }

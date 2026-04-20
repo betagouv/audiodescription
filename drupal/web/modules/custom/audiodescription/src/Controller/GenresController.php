@@ -4,14 +4,7 @@ namespace Drupal\audiodescription\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Database\Database;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\block\Entity\Block;
-use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\node\Entity\Node;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -72,7 +65,6 @@ class GenresController extends ControllerBase {
       $genres[] = $render_array;
     }
 
-
     $build = [
       '#theme' => 'genres_list',
       '#genres' => $genres,
@@ -88,4 +80,5 @@ class GenresController extends ControllerBase {
 
     return $build;
   }
+
 }

@@ -17,11 +17,11 @@ class ImportTf1ApiCommand extends Command
 {
     public function __construct(
         private ImporterFactory $importerFactory,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $options = [
@@ -51,4 +51,3 @@ class ImportTf1ApiCommand extends Command
         ;
     }
 }
-

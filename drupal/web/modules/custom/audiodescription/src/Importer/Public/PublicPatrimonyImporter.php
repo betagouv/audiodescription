@@ -5,6 +5,7 @@ namespace Drupal\audiodescription\Importer\Public;
 use Drupal\audiodescription\EntityManager\PublicManager;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -18,7 +19,8 @@ class PublicPatrimonyImporter implements LoggerAwareInterface {
   public function __construct(
     private EntityTypeManager $entityTypeManager,
     private PublicManager $publicManager,
-    private ConfigPagesLoaderServiceInterface $configPagesLoader
+    private ConfigPagesLoaderServiceInterface $configPagesLoader,
+    private ClientInterface $httpClient,
   ) {
   }
 
@@ -27,7 +29,7 @@ class PublicPatrimonyImporter implements LoggerAwareInterface {
    */
   public function import(): void {
     // Import genres.
-    $client = \Drupal::httpClient();
+    $client = $this->httpClient;
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
@@ -54,7 +56,8 @@ class PublicPatrimonyImporter implements LoggerAwareInterface {
         }
 
       }
-    } catch( RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->info('Error fetching publics');
       dump($e->getMessage());
     }

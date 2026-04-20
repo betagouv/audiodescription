@@ -13,13 +13,10 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class ActorManager
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private EntityCodeService      $codeService,
-    )
-    {
-
+        private EntityCodeService $codeService,
+    ) {
     }
 
     /**
@@ -28,7 +25,9 @@ class ActorManager
      * @return Actor
      *   Actor created or updated.
      */
-    public function findOrCreate(array $actorData): ?Actor {
+    /** @param array<string, mixed> $actorData */
+    public function findOrCreate(array $actorData): ?Actor
+    {
         $actorCode = $this->codeService->computeCode($actorData['fullname']);
 
         $repository = $this->entityManager->getRepository(Actor::class);
@@ -49,5 +48,4 @@ class ActorManager
 
         return $actor;
     }
-
 }

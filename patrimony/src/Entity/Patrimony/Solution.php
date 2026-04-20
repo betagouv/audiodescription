@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     normalizationContext: ['groups' => [
         self::SCOPE_LIST
     ]],
@@ -26,8 +26,8 @@ class Solution
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'solution:list';
-    const SCOPE_SUBLIST = 'solution:sublist';
+    public const SCOPE_LIST = 'solution:list';
+    public const SCOPE_SUBLIST = 'solution:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -38,7 +38,7 @@ class Solution
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private string $internalPartnerId;
+    private ?string $internalPartnerId = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
@@ -50,25 +50,25 @@ class Solution
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?DateTimeInterface $startRights = NULL;
+    private ?DateTimeInterface $startRights = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private ?DateTimeInterface $endRights = NULL;
+    private ?DateTimeInterface $endRights = null;
 
     #[ORM\ManyToOne(targetEntity: SourceMovie::class, inversedBy: 'solutions')]
-    private SourceMovie $sourceMovie;
+    private ?SourceMovie $sourceMovie = null;
 
     #[ORM\ManyToOne(targetEntity: Partner::class, inversedBy: 'solutions')]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private Partner $partner;
+    private ?Partner $partner = null;
 
     #[ORM\ManyToOne(targetEntity: Offer::class, inversedBy: 'solutions')]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private Offer $offer;
+    private ?Offer $offer = null;
 
     #[ORM\ManyToOne(targetEntity: Movie::class, inversedBy: 'solutions')]
-    private  $movie;
+    private ?Movie $movie = null;
 
     public function getId(): Uuid
     {
@@ -80,7 +80,7 @@ class Solution
         $this->id = $id;
     }
 
-    public function getInternalPartnerId(): string
+    public function getInternalPartnerId(): ?string
     {
         return $this->internalPartnerId;
     }
@@ -130,7 +130,7 @@ class Solution
         $this->endRights = $endRights;
     }
 
-    public function getSourceMovie(): SourceMovie
+    public function getSourceMovie(): ?SourceMovie
     {
         return $this->sourceMovie;
     }
@@ -140,7 +140,7 @@ class Solution
         $this->sourceMovie = $sourceMovie;
     }
 
-    public function getPartner(): Partner
+    public function getPartner(): ?Partner
     {
         return $this->partner;
     }
@@ -150,7 +150,7 @@ class Solution
         $this->partner = $partner;
     }
 
-    public function getOffer(): Offer
+    public function getOffer(): ?Offer
     {
         return $this->offer;
     }
@@ -160,18 +160,12 @@ class Solution
         $this->offer = $offer;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMovie()
+    public function getMovie(): ?Movie
     {
         return $this->movie;
     }
 
-    /**
-     * @param mixed $movie
-     */
-    public function setMovie($movie): void
+    public function setMovie(?Movie $movie): void
     {
         $this->movie = $movie;
     }

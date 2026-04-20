@@ -21,10 +21,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Imports movies from a Canal VOD API.
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  */
 class CanalReplayApiImporter implements MovieImporterInterface
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
         private SourceMovieManager $sourceMovieManager,
@@ -36,17 +37,20 @@ class CanalReplayApiImporter implements MovieImporterInterface
         private SourceMovieRepository $sourceMovieRepository,
         private MovieRepository $movieRepository,
         private MovieFetcher $movieFetcher,
-    )
-    {
+    ) {
     }
 
     /**
      * Imports movie data from a source.
+     * @param array<string, mixed>|null $options
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function import(?array $options = []): void
     {
         // Manage options.
-        $createMoviesOption = $options['create-movies'];
+        $createMoviesOption = $options['create-movies'] ?? false;
 
         $url = $this->parameterBag->get('canal_replay.api.url');
         $authToken = $this->parameterBag->get('canal_vod.api.auth_token');
@@ -91,12 +95,15 @@ class CanalReplayApiImporter implements MovieImporterInterface
             $partner = $partnerRepository->findOneBy(['code' => PartnerCode::CANAL_REPLAY->value]);
             $offer = $offerRepository->findOneBy(['code' => OfferCode::SVOD->value]);
 
+            if ($partner === null || $offer === null) {
+                continue;
+            }
+
             $response = $this->httpClient->request('GET', $programUrl, $headers);
             $program = $response->toArray();
 
             if ($program['contentType'] == 'film') {
                 if (in_array('fr', $program['language']['qad'])) {
-
                     $repository = $this->entityManager->getRepository(SourceMovie::class);
                     $sourceMovie = $repository->findOneBy([
                         'internalPartnerId' => $program['id'],
@@ -112,7 +119,7 @@ class CanalReplayApiImporter implements MovieImporterInterface
                             $program['id'],
                             $program['productionYear'],
                             $partner,
-                            TRUE
+                            true
                         );
                     }
 
@@ -123,15 +130,14 @@ class CanalReplayApiImporter implements MovieImporterInterface
                         foreach ($program['castings'] as $programCasting) {
                             if ($programCasting['job']['type'] == 'Réalisateur') {
                                 foreach ($programCasting['persons'] as $person) {
-
                                     $firstname = $person['firstName'] ?? '';
                                     $lastname = $person['lastName'] ?? '';
 
                                     if (!empty($firstname) && !empty($lastname)) {
                                         $fullname = $firstname . ' ' . $lastname;
-                                    } else if (!empty($firstname)) {
+                                    } elseif (!empty($firstname)) {
                                         $fullname = $firstname;
-                                    } else if (!empty($lastname)) {
+                                    } elseif (!empty($lastname)) {
                                         $fullname = $lastname;
                                     } else {
                                         $fullname = '';
@@ -154,9 +160,9 @@ class CanalReplayApiImporter implements MovieImporterInterface
 
                                     if (!empty($firstname) && !empty($lastname)) {
                                         $fullname = $firstname . ' ' . $lastname;
-                                    } else if (!empty($firstname)) {
+                                    } elseif (!empty($firstname)) {
                                         $fullname = $firstname;
-                                    } else if (!empty($lastname)) {
+                                    } elseif (!empty($lastname)) {
                                         $fullname = $lastname;
                                     } else {
                                         $fullname = '';
@@ -237,8 +243,8 @@ class CanalReplayApiImporter implements MovieImporterInterface
                     $programNationalities = $program['productionNationalities'];
                     $nationalities = [];
 
-                    foreach($programNationalities as $nationality) {
-                      $nationalities[] = $nationality['name'];
+                    foreach ($programNationalities as $nationality) {
+                        $nationalities[] = $nationality['name'];
                     }
 
                     $sourceMovie->setNationalities($nationalities);
@@ -260,10 +266,10 @@ class CanalReplayApiImporter implements MovieImporterInterface
                     $movie = null;
                     if ($createMoviesOption) {
                       //$movie = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
-                      $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
+                        $movie = $this->movieFetcher->fetchByIds($ids, $sourceMovie);
 
 
-                      if (is_null($movie)) {
+                        if (is_null($movie)) {
                             $movie = $this->movieManager->create($sourceMovie);
                             $this->entityManager->persist($movie);
                         }

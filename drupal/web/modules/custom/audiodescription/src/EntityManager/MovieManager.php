@@ -2,7 +2,6 @@
 
 namespace Drupal\audiodescription\EntityManager;
 
-use DateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\node\Entity\Node;
@@ -29,6 +28,9 @@ class MovieManager {
    *
    * @return \Drupal\node\Entity\Node
    *   Movie created or updated.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings(PHPMD.NPathComplexity)
    */
   public function provide(array $data): Node {
     $cncNumber = $data['cnc_number'];
@@ -116,6 +118,14 @@ class MovieManager {
     return $movie;
   }
 
+  /**
+   * Creates a movie node or updates it if it already exists.
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+   * @SuppressWarnings(PHPMD.NPathComplexity)
+   * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+   * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+   */
   public function createOrUpdate(
     string $title,
     ?string $allocineId,
@@ -136,22 +146,21 @@ class MovieManager {
   ): Node {
     $movies = $this->findExistingMovies($code);
 
-    // BUG.
-    if (count($movies) > 1) {
-      foreach ($movies as $movie) {
-        dump($movie->nid->value);
-      }
-      dump("----");
-    }
-
     if (count($movies) == 0) {
       $movie = Node::create([
         'title' => $title,
         'type' => 'movie',
       ]);
     }
+    else {
+      // BUG: more than one movie found with the same code.
+      if (count($movies) > 1) {
+        foreach ($movies as $m) {
+          dump($m->nid->value);
+        }
+        dump("----");
+      }
 
-    if (count($movies) == 1) {
       $movie = array_shift($movies);
       $movie->set('title', $title);
 
@@ -176,13 +185,27 @@ class MovieManager {
     $movie->set('field_has_ad', $hasAd);
     $movie->set('field_production_year', $productionYear);
 
-    if (!is_null($allocineId)) $movie->set('field_allocine_id', $allocineId);
-    if (!is_null($arteId)) $movie->set('field_arte_id', $arteId);
-    if (!is_null($canalVodId)) $movie->set('field_canal_vod_id', $canalVodId);
-    if (!is_null($franceTvId)) $movie->set('field_france_tv_id', $franceTvId);
-    if (!is_null($laCinetekId)) $movie->set('field_lacinetek_id', $laCinetekId);
-    if (!is_null($orangeVodId)) $movie->set('field_orange_vod_id', $orangeVodId);
-    if (!is_null($code)) $movie->set('field_code', $code);
+    if (!is_null($allocineId)) {
+      $movie->set('field_allocine_id', $allocineId);
+    }
+    if (!is_null($arteId)) {
+      $movie->set('field_arte_id', $arteId);
+    }
+    if (!is_null($canalVodId)) {
+      $movie->set('field_canal_vod_id', $canalVodId);
+    }
+    if (!is_null($franceTvId)) {
+      $movie->set('field_france_tv_id', $franceTvId);
+    }
+    if (!is_null($laCinetekId)) {
+      $movie->set('field_lacinetek_id', $laCinetekId);
+    }
+    if (!is_null($orangeVodId)) {
+      $movie->set('field_orange_vod_id', $orangeVodId);
+    }
+    if (!is_null($code)) {
+      $movie->set('field_code', $code);
+    }
 
     if (!is_null($public)) {
       $movie->set('field_public', $public->tid->value);
@@ -195,11 +218,13 @@ class MovieManager {
       ]);
     }
 
-    /**$ids = [];
-    foreach ($nationalities as $nationality) {
-      $ids[] = $nationality->tid->value;
-    }
-    $movie->set('field_nationalities', $ids);**/
+    /*
+     * $ids = [];
+     * foreach ($nationalities as $nationality) {
+     *   $ids[] = $nationality->tid->value;
+     * }
+     * $movie->set('field_nationalities', $ids);
+     */
 
     $ids = [];
     foreach ($genres as $genre) {
@@ -220,9 +245,9 @@ class MovieManager {
 
     $pg_offers = [];
 
-    foreach($solutions as $offerCode => $data) {
+    foreach ($solutions as $offerCode => $data) {
       $pg_partners = [];
-      foreach ($data as $solution)  {
+      foreach ($data as $solution) {
         $pg_partner = Paragraph::create([
           'type' => 'pg_partner',
           'field_pg_link' => [
@@ -230,16 +255,16 @@ class MovieManager {
           ],
           'field_pg_partner' => [
             'target_id' => $solution['partner']->id(),
-          ]
+          ],
         ]);
 
         if (!is_null($solution['startRights'])) {
-          $start_rights = (new DateTime($solution['startRights']))->format('Y-m-d');
+          $start_rights = (new \DateTime($solution['startRights']))->format('Y-m-d');
           $pg_partner->set('field_pg_start_rights', $start_rights);
         }
 
         if (!is_null($solution['endRights'])) {
-          $end_rights = (new DateTime($solution['endRights']))->format('Y-m-d');
+          $end_rights = (new \DateTime($solution['endRights']))->format('Y-m-d');
           $pg_partner->set('field_pg_end_rights', $end_rights);
         }
 
@@ -276,10 +301,13 @@ class MovieManager {
     return $movie;
   }
 
+  /**
+   * Finds existing movie nodes matching the given code.
+   */
   private function findExistingMovies(
-    $code
+    $code,
   ) : array {
-    $query = \Drupal::entityQuery('node')
+    $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'movie')
       ->condition('field_code', $code)
       ->accessCheck(TRUE);
@@ -288,7 +316,7 @@ class MovieManager {
     $nids = $query->execute();
 
     // Charge les entités correspondantes.
-    $movies = \Drupal::entityTypeManager()
+    $movies = $this->entityTypeManager
       ->getStorage('node')
       ->loadMultiple($nids);
 

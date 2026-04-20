@@ -5,14 +5,10 @@ namespace Drupal\audiodescription\Controller;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\block\Entity\Block;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\node\Entity\Node;
-use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -73,6 +69,8 @@ class HomepageController extends ControllerBase {
    *
    * @return array
    *   A render array representing the content of the homepage.
+   *
+   * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
    */
   public function build() {
     $config_pages = $this->configPagesLoader;
@@ -92,7 +90,7 @@ class HomepageController extends ControllerBase {
       'chapo' => $homepage->get('field_header_chapo')->value,
       'has_search_bar' => $homepage->get('field_header_with_search_bar')->value,
       'cta' => $cta,
-      'image' => $homepage->get('field_header_image')->entity->field_media_image->entity->uri->value
+      'image' => $homepage->get('field_header_image')->entity->field_media_image->entity->uri->value,
     ];
 
     $ctas = [];
@@ -143,7 +141,6 @@ class HomepageController extends ControllerBase {
         ->view($block);
     }
 
-
     $entity = $homepage->get('field_newsletter_cta')->referencedEntities()[0];
     $newsletter = [
       'title' => $homepage->get('field_newsletter_title')->value,
@@ -181,7 +178,10 @@ class HomepageController extends ControllerBase {
     return $build;
   }
 
-  private function countMoviesWithAtLeastOneSolution():int {
+  /**
+   * Returns the count of movies that have at least one active solution.
+   */
+  protected function countMoviesWithAtLeastOneSolution():int {
     $connection = Database::getConnection();
 
     $sql = "
@@ -209,4 +209,5 @@ class HomepageController extends ControllerBase {
 
     return $result;
   }
+
 }

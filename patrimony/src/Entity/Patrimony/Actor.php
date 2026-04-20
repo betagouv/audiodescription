@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
     ]],
@@ -27,8 +27,8 @@ class Actor
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'actor:list';
-    const SCOPE_SUBLIST = 'actor:sublist';
+    public const SCOPE_LIST = 'actor:list';
+    public const SCOPE_SUBLIST = 'actor:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -53,10 +53,12 @@ class Actor
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private string $code;
 
+    /** @var Collection<int, ActorMovie> */
     #[ORM\OneToMany(targetEntity: ActorMovie::class, mappedBy: 'actor')]
     private Collection $actorMovies;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->actorMovies = new ArrayCollection();
     }
 
@@ -110,11 +112,13 @@ class Actor
         $this->code = $code;
     }
 
+    /** @return Collection<int, ActorMovie> */
     public function getActorMovies(): Collection
     {
         return $this->actorMovies;
     }
 
+    /** @param Collection<int, ActorMovie> $actorMovies */
     public function setActorMovies(Collection $actorMovies): void
     {
         $this->actorMovies = $actorMovies;

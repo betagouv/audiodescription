@@ -21,10 +21,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * Imports movies from a CNC CSV file.
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  */
 class ArteTvApiImporter implements MovieImporterInterface
 {
-
     public function __construct(
         private EntityManagerInterface $entityManager,
         private SourceMovieManager $sourceMovieManager,
@@ -36,17 +37,20 @@ class ArteTvApiImporter implements MovieImporterInterface
         private SolutionRepository $solutionRepository,
         private SourceMovieRepository $sourceMovieRepository,
         private MovieFetcher $movieFetcher,
-    )
-    {
+    ) {
     }
 
     /**
      * Imports movie data from a source.
+     * @param array<string, mixed>|null $options
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function import(?array $options = []): void
     {
         // Manage options.
-        $createMoviesOption = $options['create-movies'];
+        $createMoviesOption = $options['create-movies'] ?? false;
 
         $url = $this->parameterBag->get('arte_tv.api.url');
         $response = $this->httpClient->request('GET', $url);
@@ -86,6 +90,10 @@ class ArteTvApiImporter implements MovieImporterInterface
                 $partner = $partnerRepository->findOneBy(['code' => PartnerCode::ARTE->value]);
                 $offer = $offerRepository->findOneBy(['code' => OfferCode::FREE_ACCESS->value]);
 
+                if ($partner === null || $offer === null) {
+                    continue;
+                }
+
                 $repository = $this->entityManager->getRepository(SourceMovie::class);
                 $sourceMovie = $repository->findOneBy([
                     'internalPartnerId' => $program['programId'],
@@ -101,7 +109,7 @@ class ArteTvApiImporter implements MovieImporterInterface
                         $program['programId'],
                         $program['productionYear'],
                         $partner,
-                        TRUE
+                        true
                     );
                 }
 
@@ -113,7 +121,7 @@ class ArteTvApiImporter implements MovieImporterInterface
                 $sourceMovie->setDirectors($directors);
 
                 $casting = [];
-                foreach($program['casting'] as $member) {
+                foreach ($program['casting'] as $member) {
                     $casting[] = [
                         'fullname' => $member['name'],
                         'role' => $member['characterName'],
@@ -128,15 +136,16 @@ class ArteTvApiImporter implements MovieImporterInterface
                 $synopsis = $program['shortDescription'];
                 $sourceMovie->setSynopsis($synopsis);
 
-                $duration = intdiv($program['durationSeconds'], 60);;
+                $duration = intdiv($program['durationSeconds'], 60);
+                ;
                 $sourceMovie->setDuration($duration);
 
                 // Nationalities.
                 $programNationalities = $program['productionCountries'];
                 $nationalities = [];
 
-                foreach($programNationalities as $nationality) {
-                  $nationalities[] = $nationality['label'];
+                foreach ($programNationalities as $nationality) {
+                    $nationalities[] = $nationality['label'];
                 }
 
                 $sourceMovie->setNationalities($nationalities);

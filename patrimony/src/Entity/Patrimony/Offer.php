@@ -26,8 +26,8 @@ class Offer
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'offer:list';
-    const SCOPE_SUBLIST = 'offer:sublist';
+    public const SCOPE_LIST = 'offer:list';
+    public const SCOPE_SUBLIST = 'offer:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -47,10 +47,12 @@ class Offer
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
     private ?int $displayOrder;
 
+    /** @var Collection<int, Solution> */
     #[ORM\OneToMany(targetEntity: Solution::class, mappedBy: 'offer')]
     private Collection $solutions;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->solutions = new ArrayCollection();
     }
 
@@ -94,11 +96,13 @@ class Offer
         $this->displayOrder = $displayOrder;
     }
 
+    /** @return Collection<int, Solution> */
     public function getSolutions(): Collection
     {
         return $this->solutions;
     }
 
+    /** @param Collection<int, Solution> $solutions */
     public function setSolutions(Collection $solutions): void
     {
         $this->solutions = $solutions;

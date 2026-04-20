@@ -5,6 +5,7 @@ namespace Drupal\audiodescription\Importer\Director;
 use Drupal\audiodescription\EntityManager\DirectorManager;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -18,7 +19,8 @@ class DirectorPatrimonyImporter implements LoggerAwareInterface {
   public function __construct(
     private EntityTypeManager $entityTypeManager,
     private DirectorManager $directorManager,
-    private ConfigPagesLoaderServiceInterface $configPagesLoader
+    private ConfigPagesLoaderServiceInterface $configPagesLoader,
+    private ClientInterface $httpClient,
   ) {
   }
 
@@ -27,7 +29,7 @@ class DirectorPatrimonyImporter implements LoggerAwareInterface {
    */
   public function import(): void {
     // Import genres.
-    $client = \Drupal::httpClient();
+    $client = $this->httpClient;
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
@@ -51,7 +53,8 @@ class DirectorPatrimonyImporter implements LoggerAwareInterface {
         $this->entityTypeManager->clearCachedDefinitions();
         dump(sprintf("Created / Updated %s director.", $name));
       }
-    } catch( RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->info('Error fetching genres');
       dump($e->getMessage());
     }

@@ -22,7 +22,8 @@ class SolutionRepository extends ServiceEntityRepository
         parent::__construct($registry, Solution::class);
     }
 
-    public function deleteAllByPartner(Partner $partner) {
+    public function deleteAllByPartner(Partner $partner): void
+    {
         $qb = $this->createQueryBuilder('s')
             ->delete()
             ->where('s.partner = :partner')

@@ -26,7 +26,7 @@ class NationalityManager {
 
     $nationalities = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
       'field_taxo_code' => $nationalityCode,
-      'vid' => Taxonomy::NATIONALITY->value,
+      'vid' => Taxonomy::Nationality->value,
     ]);
 
     $nationality = NULL;
@@ -37,7 +37,7 @@ class NationalityManager {
     if (is_null($nationality)) {
       $nationality = Term::create([
         'field_taxo_code' => $nationalityCode,
-        'vid' => Taxonomy::NATIONALITY->value,
+        'vid' => Taxonomy::Nationality->value,
       ]);
     }
 

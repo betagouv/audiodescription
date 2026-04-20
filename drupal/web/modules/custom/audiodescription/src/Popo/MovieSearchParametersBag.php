@@ -38,21 +38,23 @@ class MovieSearchParametersBag {
     return new self($search, $page, $withAD, $genre, $partner, $isFree);
   }
 
-  public function filtersToArray()
-  {
+  /**
+   * Converts the parameters bag to an array for use in query strings.
+   */
+  public function filtersToArray() {
     $array = [];
 
     $array['search'] = $this->search;
 
-    if ($this->withAd == true) {
+    if ($this->withAd == TRUE) {
       $array['with_ad'] = $this->withAd;
     }
 
-    if (!empty($this->genre)){
+    if (!empty($this->genre)) {
       $array['genre'] = $this->genre;
     }
 
-    if (!empty($this->partner)){
+    if (!empty($this->partner)) {
       $array['partner'] = $this->partner;
     }
 
@@ -63,6 +65,9 @@ class MovieSearchParametersBag {
     return $array;
   }
 
+  /**
+   * Returns TRUE if all search parameters are empty or default.
+   */
   public function isEmptyParametersBag() {
     if (
       $this->search == '' &&

@@ -6,7 +6,6 @@ use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Breadcrumb\BreadcrumbBuilderInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\views\Views;
 
 /**
  * Provides a breadcrumb builder for taxonomy terms directors.

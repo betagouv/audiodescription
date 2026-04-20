@@ -23,7 +23,7 @@ class PartnerManager {
 
     $properties = [
       'field_taxo_code' => $code,
-      'vid' => Taxonomy::PARTNER->value,
+      'vid' => Taxonomy::Partner->value,
     ];
 
     $partners = $this->entityTypeManager
@@ -56,4 +56,5 @@ class PartnerManager {
 
     return $partner;
   }
+
 }

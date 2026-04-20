@@ -24,11 +24,11 @@ class GenreRepository extends ServiceEntityRepository
     /**
      * @return array<Genre>
      */
-    public function findMainGenres(): array {
+    public function findMainGenres(): array
+    {
         return $this->createQueryBuilder('g')
             ->where('g = g.mainGenre')
             ->getQuery()
             ->getResult();
     }
-
 }

@@ -2,16 +2,14 @@
 
 namespace Drupal\audiodescription\Plugin\Block;
 
-use Drupal\audiodescription\Enum\Taxonomy;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\views\Entity\View;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -38,16 +36,25 @@ class HpNewFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginIn
    */
   private $entityTypeManager;
 
+  /**
+   * The logger service.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  private $logger;
+
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
     ConfigPagesLoaderServiceInterface $configPagesLoader,
     EntityTypeManagerInterface $entityTypeManager,
+    LoggerInterface $logger,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configPagesLoader = $configPagesLoader;
     $this->entityTypeManager = $entityTypeManager;
+    $this->logger = $logger;
   }
 
   /**
@@ -59,7 +66,8 @@ class HpNewFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginIn
       $plugin_id,
       $plugin_definition,
       $container->get('config_pages.loader'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('logger.channel.audiodescription'),
     );
   }
 
@@ -75,7 +83,6 @@ class HpNewFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginIn
     /** @var \Drupal\config_pages\Entity\ConfigPages $homepage */
     $homepage = $config_pages->load('homepage');
     $title = $homepage->get('field_new_movies_title')->value;
-
 
     $moviesIds = $this->newMoviesWithFreeSolution();
     $movies = $this->entityTypeManager->getStorage('node')->loadMultiple($moviesIds);
@@ -94,6 +101,9 @@ class HpNewFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginIn
     ];
   }
 
+  /**
+   * Returns IDs of the newest movies with a free access solution.
+   */
   private function newMoviesWithFreeSolution():array {
     $connection = Database::getConnection();
     $limit = 4;
@@ -159,7 +169,6 @@ class HpNewFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginIn
       LIMIT :limit
       SQL;
 
-
     try {
       $result = $connection->query($sql, [
         ':limit' => $limit,
@@ -169,7 +178,7 @@ class HpNewFreeMoviesBlock extends BlockBase implements ContainerFactoryPluginIn
     }
     catch (\Throwable $e) {
       // En prod, logguez l’erreur et retournez un message discret.
-      \Drupal::logger('your_module')->error('HpNewFreeMoviesBlock SQL error: @msg', ['@msg' => $e->getMessage()]);
+      $this->logger->error('HpNewFreeMoviesBlock SQL error: @msg', ['@msg' => $e->getMessage()]);
       return [
         '#markup' => $this->t('Unable to load data at the moment.'),
         '#cache' => [

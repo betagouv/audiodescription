@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
+/** @extends AbstractCrudController<Genre> */
 class GenreCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -18,7 +19,7 @@ class GenreCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $baseFields = parent::configureFields($pageName);
+        $baseFields = iterator_to_array(parent::configureFields($pageName));
         $baseFields[] = AssociationField::new('mainGenre')
             ->setCrudController(GenreCrudController::class)
             ->autocomplete();

@@ -19,13 +19,13 @@ class OfferManager {
    * Create or update partner taxonomy term.
    */
   public function createOrUpdate(
-    array $data
+    array $data,
   ): ?Term {
     $code = $data['code'];
 
     $properties = [
       'field_taxo_code' => $code,
-      'vid' => Taxonomy::OFFER->value,
+      'vid' => Taxonomy::Offer->value,
     ];
 
     $offers = $this->entityTypeManager
@@ -41,7 +41,7 @@ class OfferManager {
       $offer = Term::create($properties);
     }
 
-    $name = $data['name'] ?? null;
+    $name = $data['name'] ?? NULL;
     if (is_null($name)) {
       $name = !empty($offer->getName()) ? $offer->getName() : $code;
     }
@@ -55,4 +55,5 @@ class OfferManager {
 
     return $offer;
   }
+
 }

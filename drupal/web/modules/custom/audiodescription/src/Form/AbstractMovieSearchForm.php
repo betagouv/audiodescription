@@ -20,9 +20,12 @@ abstract class AbstractMovieSearchForm extends FormBase {
       $parameters['search'] = $userInput['search'];
     }
 
-    /**if (array_key_exists('with_ad', $userInput) && !is_null($userInput['with_ad'])) {
-      $parameters['with_ad'] = $userInput['with_ad'];
-    }**/
+    /*
+     * if (array_key_exists('with_ad', $userInput) &&
+     *     !is_null($userInput['with_ad'])) {
+     *   $parameters['with_ad'] = $userInput['with_ad'];
+     * }
+     */
 
     if (array_key_exists('is_free', $userInput) && !is_null($userInput['is_free'])) {
       $parameters['is_free'] = $userInput['is_free'];

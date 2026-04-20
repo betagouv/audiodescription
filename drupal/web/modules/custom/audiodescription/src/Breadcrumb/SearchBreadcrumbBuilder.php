@@ -12,6 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
  * Provides a breadcrumb builder for page nodes.
  */
 class SearchBreadcrumbBuilder implements BreadcrumbBuilderInterface {
+
   /**
    * {@inheritdoc}
    */
@@ -34,7 +35,7 @@ class SearchBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       )
     );
 
-    // Désactiver totalement le cache en supprimant toutes les métadonnées
+    // Désactiver totalement le cache en supprimant toutes les métadonnées.
     $breadcrumb->addCacheableDependency((new CacheableMetadata())->setCacheMaxAge(0));
 
     return $breadcrumb;

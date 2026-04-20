@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
+/** @extends AbstractCrudController<SourceMovie> */
 class SourceMovieCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -25,7 +26,7 @@ class SourceMovieCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $baseFields = parent::configureFields($pageName);
+        $baseFields = iterator_to_array(parent::configureFields($pageName));
         $baseFields[] = AssociationField::new('movie')
             ->setCrudController(MovieCrudController::class)
             ->autocomplete();
@@ -33,12 +34,17 @@ class SourceMovieCrudController extends AbstractCrudController
         return $baseFields;
     }
 
+    /** @param SourceMovie $entityInstance */
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         parent::updateEntity($entityManager, $entityInstance);
 
         $movie = $entityInstance->getMovie();
         $partner = $entityInstance->getPartner();
+
+        if ($partner === null || $movie === null) {
+            return;
+        }
 
         // Synchronize partner code.
         switch ($partner->getCode()) {
@@ -50,7 +56,7 @@ class SourceMovieCrudController extends AbstractCrudController
                     $movie->setProductionYear($entityInstance->getProductionYear());
                 }
 
-                foreach($entityInstance->getSolutions() as $solution) {
+                foreach ($entityInstance->getSolutions() as $solution) {
                     $solution->setMovie($movie);
                     $entityManager->persist($solution);
                 }
@@ -58,7 +64,7 @@ class SourceMovieCrudController extends AbstractCrudController
 
         // Synchronize ad status.
         if ($entityInstance->isHasAd()) {
-            $movie->setHasAd(TRUE);
+            $movie->setHasAd(true);
         }
 
         $entityManager->persist($movie);

@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 #[GetCollection(
-  routePrefix: '/api/v1',
+    routePrefix: '/api/v1',
     normalizationContext: ['groups' => [
         self::SCOPE_LIST,
     ]],
@@ -24,8 +24,8 @@ class ActorMovie
 {
     use Timestampable;
 
-    const SCOPE_LIST = 'actormovie:list';
-    const SCOPE_SUBLIST = 'actormovie:sublist';
+    public const SCOPE_LIST = 'actormovie:list';
+    public const SCOPE_SUBLIST = 'actormovie:sublist';
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -35,11 +35,11 @@ class ActorMovie
     private Uuid $id;
 
     #[ORM\ManyToOne(targetEntity: Movie::class, inversedBy: 'actorMovies')]
-    private Movie $movie;
+    private ?Movie $movie = null;
 
     #[ORM\ManyToOne(targetEntity: Actor::class, inversedBy: 'actorMovies')]
     #[Groups([self::SCOPE_LIST, self::SCOPE_SUBLIST])]
-    private Actor $actor;
+    private ?Actor $actor = null;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $role;
@@ -54,7 +54,7 @@ class ActorMovie
         $this->id = $id;
     }
 
-    public function getMovie(): Movie
+    public function getMovie(): ?Movie
     {
         return $this->movie;
     }
@@ -64,7 +64,7 @@ class ActorMovie
         $this->movie = $movie;
     }
 
-    public function getActor(): Actor
+    public function getActor(): ?Actor
     {
         return $this->actor;
     }
@@ -74,7 +74,7 @@ class ActorMovie
         $this->actor = $actor;
     }
 
-    public function getRole(): string
+    public function getRole(): ?string
     {
         return $this->role;
     }

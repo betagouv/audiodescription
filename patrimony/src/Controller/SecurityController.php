@@ -12,12 +12,10 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/', name: 'security_')]
 class SecurityController extends AbstractController
 {
-
     #[Route('/login', name: 'login')]
     public function loginAction(
         OidcService $oidcService
-    ): Response
-    {
+    ): Response {
         $oidcUrl = $oidcService->generateLoginUrl();
         return $this->render('security/login.html.twig', ['oidcUrl' => $oidcUrl]);
     }

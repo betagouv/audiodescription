@@ -15,14 +15,13 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 #[AsCommand(name: 'ad:import:orangevod-csv')]
 class ImportOrangeVodCsvCommand extends Command
 {
-
     public function __construct(
         private ImporterFactory $importerFactory,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $options = [
@@ -52,4 +51,3 @@ class ImportOrangeVodCsvCommand extends Command
         ;
     }
 }
-

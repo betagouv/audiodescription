@@ -20,12 +20,11 @@ class NewsletterController extends AbstractController
 
     #[Route('/newsletter/generator', name: 'generator')]
     public function generator(
-      NewsletterContentGenerator $contentGenerator
-    ): Response
-    {
+        NewsletterContentGenerator $contentGenerator
+    ): Response {
       // Le service fait tout le travail
-      $data = $contentGenerator->prepareNewsletterData();
+        $data = $contentGenerator->prepareNewsletterData();
 
-      return $this->render('newsletter/generator.html.twig', $data);
+        return $this->render('newsletter/generator.html.twig', $data);
     }
 }

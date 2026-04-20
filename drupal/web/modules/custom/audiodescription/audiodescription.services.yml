@@ -33,6 +33,7 @@ services:
       - '@entity_type.manager'
       - '@audiodescription.manager.director'
       - '@config_pages.loader'
+      - '@http_client'
 
   audiodescription.genre_patrimony_importer:
     class: Drupal\audiodescription\Importer\Genre\GenrePatrimonyImporter
@@ -40,6 +41,7 @@ services:
       - '@entity_type.manager'
       - '@audiodescription.manager.genre'
       - '@config_pages.loader'
+      - '@http_client'
 
   audiodescription.movie_patrimony_importer:
     class: Drupal\audiodescription\Importer\Movie\MoviePatrimonyImporter
@@ -53,6 +55,7 @@ services:
       - '@audiodescription.manager.partner'
       - '@audiodescription.manager.offer'
       - '@config_pages.loader'
+      - '@http_client'
 
   audiodescription.nationality_patrimony_importer:
     class: Drupal\audiodescription\Importer\Nationality\NationalityPatrimonyImporter
@@ -60,6 +63,7 @@ services:
       - '@entity_type.manager'
       - '@audiodescription.manager.nationality'
       - '@config_pages.loader'
+      - '@http_client'
 
   audiodescription.offer_patrimony_importer:
     class: Drupal\audiodescription\Importer\Offer\OfferPatrimonyImporter
@@ -67,6 +71,7 @@ services:
       - '@entity_type.manager'
       - '@audiodescription.manager.offer'
       - '@config_pages.loader'
+      - '@http_client'
 
   audiodescription.public_patrimony_importer:
     class: Drupal\audiodescription\Importer\Public\PublicPatrimonyImporter
@@ -74,6 +79,7 @@ services:
       - '@entity_type.manager'
       - '@audiodescription.manager.public'
       - '@config_pages.loader'
+      - '@http_client'
 
   audiodescription.partner_patrimony_importer:
     class: Drupal\audiodescription\Importer\Partner\PartnerPatrimonyImporter
@@ -81,6 +87,7 @@ services:
       - '@entity_type.manager'
       - '@audiodescription.manager.partner'
       - '@config_pages.loader'
+      - '@http_client'
 
   audiodescription.importer_factory:
     class: Drupal\audiodescription\Importer\Movie\ImporterFactory
@@ -186,7 +193,7 @@ services:
 
   audiodescription.exception_subscriber:
     class: Drupal\audiodescription\EventSubscriber\MovieExceptionSubscriber
-    arguments: ['@current_route_match', '@renderer']
+    arguments: ['@current_route_match', '@renderer', '@main_content_renderer.html', '@entity_type.manager']
     tags:
       - { name: event_subscriber }
 

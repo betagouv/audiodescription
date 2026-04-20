@@ -2,33 +2,33 @@
 
 namespace App\Service;
 
+use App\Entity\Patrimony\Movie;
 use App\Entity\Source\SourceMovie;
 use App\Repository\MovieRepository;
 
 class MovieFetcher
 {
-  public function __construct(
-    private MovieRepository $movieRepository,
-    private MovieAutoMerger $movieAutoMerger,
-  )
-  {
-  }
-
-  public function fetchByIds($ids, SourceMovie $sourceMovie) {
-    $movies = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
-
-    if (empty($movies)) {
-      return NULL;
+    public function __construct(
+        private MovieRepository $movieRepository,
+        private MovieAutoMerger $movieAutoMerger,
+    ) {
     }
 
-    if (count($movies) == 1 ) {
-      return $movies[0];
-    }
+    /**
+     * @param array<string, mixed> $ids
+     */
+    public function fetchByIds(array $ids, SourceMovie $sourceMovie): ?Movie
+    {
+        $movies = $this->movieRepository->findByIds($ids, $sourceMovie->getCode());
 
-    // Merge movies.
-    if (count($movies) > 1) {
-      return $this->movieAutoMerger->autoMerge($ids, $movies, $sourceMovie);
-    }
-  }
+        if (empty($movies)) {
+            return null;
+        }
 
+        if (count($movies) === 1) {
+            return $movies[0];
+        }
+
+        return $this->movieAutoMerger->autoMerge($ids, $movies, $sourceMovie);
+    }
 }

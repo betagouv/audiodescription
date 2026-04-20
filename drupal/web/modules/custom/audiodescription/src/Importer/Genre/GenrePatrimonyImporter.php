@@ -5,6 +5,7 @@ namespace Drupal\audiodescription\Importer\Genre;
 use Drupal\audiodescription\EntityManager\GenreManager;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -18,7 +19,8 @@ class GenrePatrimonyImporter implements LoggerAwareInterface {
   public function __construct(
     private EntityTypeManager $entityTypeManager,
     private GenreManager $genreManager,
-    private ConfigPagesLoaderServiceInterface $configPagesLoader
+    private ConfigPagesLoaderServiceInterface $configPagesLoader,
+    private ClientInterface $httpClient,
   ) {
   }
 
@@ -27,7 +29,7 @@ class GenrePatrimonyImporter implements LoggerAwareInterface {
    */
   public function import(): void {
     // Import genres.
-    $client = \Drupal::httpClient();
+    $client = $this->httpClient;
 
     $config_pages = $this->configPagesLoader;
     $patrimony = $config_pages->load('patrimony');
@@ -50,7 +52,8 @@ class GenrePatrimonyImporter implements LoggerAwareInterface {
         $code = trim($genre['code']);
         $this->genreManager->createOrUpdate($name, $code);
       }
-    } catch( RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->info('Error fetching genres');
       dump($e->getMessage());
     }

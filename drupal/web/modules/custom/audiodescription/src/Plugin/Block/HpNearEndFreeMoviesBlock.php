@@ -9,9 +9,8 @@ use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Url;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
-use Drupal\views\Entity\View;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -38,16 +37,25 @@ class HpNearEndFreeMoviesBlock extends BlockBase implements ContainerFactoryPlug
    */
   private $entityTypeManager;
 
+  /**
+   * The logger service.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  private $logger;
+
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
     ConfigPagesLoaderServiceInterface $configPagesLoader,
     EntityTypeManagerInterface $entityTypeManager,
+    LoggerInterface $logger,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configPagesLoader = $configPagesLoader;
     $this->entityTypeManager = $entityTypeManager;
+    $this->logger = $logger;
   }
 
   /**
@@ -59,7 +67,8 @@ class HpNearEndFreeMoviesBlock extends BlockBase implements ContainerFactoryPlug
       $plugin_id,
       $plugin_definition,
       $container->get('config_pages.loader'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('logger.channel.audiodescription'),
     );
   }
 
@@ -103,6 +112,9 @@ class HpNearEndFreeMoviesBlock extends BlockBase implements ContainerFactoryPlug
     ];
   }
 
+  /**
+   * Returns IDs of movies with a free solution expiring soon.
+   */
   private function nearEndMoviesWithFreeSolution():array {
     $connection = Database::getConnection();
     $limit = 4;
@@ -169,7 +181,6 @@ class HpNearEndFreeMoviesBlock extends BlockBase implements ContainerFactoryPlug
       LIMIT :limit;
       SQL;
 
-
     try {
       $result = $connection->query($sql, [
         ':limit' => $limit,
@@ -179,7 +190,7 @@ class HpNearEndFreeMoviesBlock extends BlockBase implements ContainerFactoryPlug
     }
     catch (\Throwable $e) {
       // En prod, logguez l’erreur et retournez un message discret.
-      \Drupal::logger('your_module')->error('HpNewFreeMoviesBlock SQL error: @msg', ['@msg' => $e->getMessage()]);
+      $this->logger->error('HpNearEndFreeMoviesBlock SQL error: @msg', ['@msg' => $e->getMessage()]);
       return [
         '#markup' => $this->t('Unable to load data at the moment.'),
         '#cache' => [
@@ -191,10 +202,13 @@ class HpNearEndFreeMoviesBlock extends BlockBase implements ContainerFactoryPlug
     return $ids;
   }
 
+  /**
+   * Returns the total count of movies with a free access solution.
+   */
   private function countMoviesWithFreeSolution():int {
     $term = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties([
       'field_taxo_code' => 'FREE_ACCESS',
-      'vid' => Taxonomy::OFFER->value,
+      'vid' => Taxonomy::Offer->value,
     ]);
 
     $tid = array_shift($term)->id();
@@ -214,7 +228,7 @@ class HpNearEndFreeMoviesBlock extends BlockBase implements ContainerFactoryPlug
       LEFT JOIN paragraph__field_pg_start_rights sr ON s.id = sr.entity_id
       LEFT JOIN paragraph__field_pg_end_rights er ON s.id = er.entity_id
       WHERE m.type = 'movie'
-      AND taxo_ref.field_pg_offer_target_id = " . $tid ."
+      AND taxo_ref.field_pg_offer_target_id = " . $tid . "
       AND m.status = 1
       AND (
         to_date(sr.field_pg_start_rights_value, 'YYYY-MM-DD') < NOW()
