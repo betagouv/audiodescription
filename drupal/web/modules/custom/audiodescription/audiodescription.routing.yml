@@ -37,6 +37,7 @@ audiodescription.error.403:
     _title: 'Accès refusé'
   requirements:
     _permission: 'access content'
+
 audiodescription.newsletter.subscription:
   path: '/newsletter'
   defaults:
@@ -44,6 +45,7 @@ audiodescription.newsletter.subscription:
     _title: 'Les films gratuits de la semaine en audiodescription dans votre boîte e-mail'
   requirements:
     _permission: 'access content'
+
 audiodescription.newsletter.confirmation:
   path: '/newsletter/confirmation'
   defaults:
@@ -51,6 +53,7 @@ audiodescription.newsletter.confirmation:
     _title: 'Votre inscription a bien été prise en compte.'
   requirements:
     _permission: 'access content'
+
 audiodescription.newsletter.unsubscription:
   path: '/newsletter/desinscription'
   defaults:
@@ -58,6 +61,7 @@ audiodescription.newsletter.unsubscription:
     _title: 'Désinscription de la liste de diffusion "Les films gratuits en audiodescription"'
   requirements:
     _permission: 'access content'
+
 audiodescription.newsletter.unsubscription.confirmation:
   path: '/newsletter/desinscription/confirmation'
   defaults:

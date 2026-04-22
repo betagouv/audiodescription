@@ -17,7 +17,7 @@ Ce projet, en cours de construction, est porté par l'Atelier Numérique du mini
  * [Environnement de développement](./01_installation/01_dev.md)
  * [Environnement de développement](./01_installation/02_prod.md)
 ### Documentation technique
- * [Matrice des partenaires](6.1.1-Partners/01_matrice-partenaires.md)
+ * [Matrice des partenaires](6.1.3-Partners/01_matrice-partenaires.md)
    * France TV
    * Arte.tv
    * TF1+
