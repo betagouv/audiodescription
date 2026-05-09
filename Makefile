@@ -122,6 +122,24 @@ pt-import:
 	docker compose exec patrimony php bin/console ad:import:tf1-api --create-movies=true
 	docker compose exec patrimony php bin/console ad:import:francetv-api --create-movies=true
 
+.PHONY: d-install
+d-install:
+	docker compose exec drupal composer install
+	docker compose exec drupal vendor/bin/drush si -y
+	docker compose exec drupal vendor/bin/drush cset system.site uuid e6c1838c-d5b1-4d0c-8c20-9405ca9991f6 -y
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush entity:delete shortcut
+	docker compose exec drupal vendor/bin/drush cim -y || true
+	docker compose exec drupal vendor/bin/drush cim -y
+	docker compose exec drupal vendor/bin/drush updb -y
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush locale:check
+	docker compose exec drupal vendor/bin/drush locale:update
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush adia
+	docker compose exec drupal vendor/bin/drush adum
+	docker compose exec drupal vendor/bin/drush cr
+
 .PHONY:d-import
 d-import:
 	docker compose exec drupal vendor/bin/drush adia
