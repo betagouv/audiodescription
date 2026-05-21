@@ -140,6 +140,20 @@ d-install:
 	docker compose exec drupal vendor/bin/drush adum
 	docker compose exec drupal vendor/bin/drush cr
 
+.PHONY: d-deploy
+d-deploy:
+	docker compose exec drupal composer install
+	docker compose exec drupal vendor/bin/drush cim -y || true
+	docker compose exec drupal vendor/bin/drush cim -y
+	docker compose exec drupal vendor/bin/drush updb -y
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush locale:check
+	docker compose exec drupal vendor/bin/drush locale:update
+	docker compose exec drupal vendor/bin/drush cr
+	docker compose exec drupal vendor/bin/drush adia
+	docker compose exec drupal vendor/bin/drush adum
+	docker compose exec drupal vendor/bin/drush cr
+
 .PHONY:d-import
 d-import:
 	docker compose exec drupal vendor/bin/drush adia
@@ -212,6 +226,12 @@ pt-sh:
 pt-install:
 	docker compose exec patrimony composer install
 	make tests-setup
+
+.PHONY: pt-deploy
+pt-deploy:
+	docker compose exec patrimony composer install --optimize-autoloader
+	docker compose exec patrimony php bin/console  doctrine:migrations:migrate --no-interaction
+	docker compose exec patrimony php bin/console cache:clear
 
 .PHONY: pt-schema-reset
 pt-schema-reset:
