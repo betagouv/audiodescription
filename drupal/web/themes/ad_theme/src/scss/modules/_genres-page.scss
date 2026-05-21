@@ -1,8 +1,14 @@
-.audiodesc-genres-page {
+ol.audiodesc-genres-page {
   padding: 5px !important;
+  list-style: none !important;
+  counter-reset: none !important;
 
   li {
-    &::marker {
+    list-style: none !important;
+    counter-increment: none !important;
+
+    &::marker,
+    &::before {
       content: none !important;
     }
   }

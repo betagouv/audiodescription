@@ -1,31 +1,8 @@
-{% set variant = variant|default('content') %}
-<ul{{ attributes.addClass('fr-footer__' ~ variant ~ '-list') }}>
+<ul{{ attributes.addClass('fr-footer__bottom-list') }}>
   {% for item in items %}
-
-    {% set item_attributes = item.attributes|default({}) %}
-    {% set item_attributes = create_attribute(item_attributes) %}
-
-    <li{{ item_attributes.addClass('fr-footer__' ~ variant ~ '-item') }}>
-      {% set link_attributes = item.link_attributes|default({}) %}
-      {% set link_attributes = create_attribute(link_attributes) %}
-      {% set link_attributes = link_attributes.addClass('fr-footer__' ~ variant ~ '-link') %}
-
-      {% if item.url %}
-        {% set link_attributes = link_attributes.setAttribute('href', item.url.toString()) %}
-
-        {% if link_attributes.target == '_blank' %}
-          {% set link_attributes = link_attributes.setAttribute('title', '@title - new window'|t({'@title': link_attributes.title ?: item.title})) %}
-        {% endif %}
-
-        <a{{ link_attributes }}>
-          {{ item.title }}
-        </a>
-     {% else %}
-        <span{{ link_attributes }}>
-          {{ item.title }}
-        </span>
-     {% endif %}
-  </li>
+    <li{{ item.attributes.addClass('fr-footer__bottom-item') }}>
+      {{ link(item.title, item.url, {'class': ['fr-footer__bottom-link']}) }}
+    </li>
   {% endfor %}
   <li class="fr-footer__bottom-item">
     <button aria-controls="footer-display" data-fr-opened="false" id="footer__bottom-link-13" class="fr-icon-theme-fill fr-btn--icon-left fr-footer__bottom-link">Paramètres d'affichage</button>
@@ -41,10 +18,10 @@
             <button aria-controls="footer-display" title="Fermer" type="button" id="button-14" class="fr-btn--close fr-btn">Fermer</button>
           </div>
           <div class="fr-modal__content">
-            <h2 id="footer-display-title" class="fr-modal__title"> Paramètres d’affichage </h2>
+            <h2 id="footer-display-title" class="fr-modal__title"> Paramètres d'affichage </h2>
             <div id="fr-display" class="fr-display">
               <fieldset class="fr-fieldset" id="display-fieldset" aria-labelledby="display-fieldset-legend display-fieldset-messages">
-                <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="display-fieldset-legend"> Choisissez un thème pour personnaliser l’apparence du site. </legend>
+                <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="display-fieldset-legend"> Choisissez un thème pour personnaliser l'apparence du site. </legend>
                 <div class="fr-fieldset__element">
                   <div class="fr-radio-group fr-radio-rich">
                     <input value="light" type="radio" id="fr-radios-theme-light" name="fr-radios-theme">

@@ -12,6 +12,15 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
 /**
+ * Implements hook_theme_suggestions_menu_alter().
+ */
+function ad_theme_theme_suggestions_menu_alter(array &$suggestions, array $variables): void {
+  if ($variables['menu_name'] === 'footer') {
+    $suggestions[] = 'menu__footer_bottom';
+  }
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function ad_theme_theme_suggestions_taxonomy_term_alter(
