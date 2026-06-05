@@ -20,7 +20,7 @@ mode: full
 content:
   field_pg_cards:
     type: entity_reference_revisions_entity_view
-    label: visually_hidden
+    label: hidden
     settings:
       view_mode: full
       link: ''

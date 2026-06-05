@@ -16,7 +16,7 @@ mode: default
 content:
   field_pg_link:
     type: link
-    label: visually_hidden
+    label: hidden
     settings:
       trim_length: 80
       url_only: false

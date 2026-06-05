@@ -64,31 +64,27 @@
           <div class="fr-pt-3w fr-pt-md-7w fr-pb-3w fr-pb-md-7w">
             <h2>{{ infos.title }}</h2>
             {{ infos.description|class2wysiwygP('fr-text--lead')|raw }}
+            
 
-            {% set buttons = [] %}
-
-            {% for cta in infos.ctas %}
-              {% set button %}
-                {{ include('ui_suite_dsfr:button', {
-                  label: cta.text,
-                  url: cta.url,
-                  target: cta.target,
-                  external: cta.external,
-                  variant: cta.style
-                }, with_context = false) }}
-              {% endset %}
-
-              {% set buttons = buttons | merge([button]) %}
-            {% endfor %}
+            {% set cta = infos.ctas[0] %}
+            {% set button %}
+              {{ include('ui_suite_dsfr:button', {
+                label: cta.text,
+                url: cta.url,
+                target: cta.target,
+                external: cta.external,
+                variant: cta.style
+              }, with_context = false) }}
+            {% endset %}
 
             <div class="fr-grid-row">
               <div>
-                {{ include('ui_suite_dsfr:button_group', {
-                  buttons: buttons,
-                  variant: 'default'
-                }, with_context = false) }}
+                <div class="fr-btns-group">
+                  {{ button }}
+                </div>
               </div>
             </div>
+
           </div>
         </div>
         <div class="fr-col-12 fr-col-lg-6 audiodesc-homepage__infos-image">

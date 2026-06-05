@@ -21,10 +21,12 @@
  */
 #}
 
-{% if items %}
-  {{ include('ui_suite_dsfr:nav_menu', {
-    menu_name: "Navigation principale",
-    html_id: 'navigation-main',
-    items: items
-  }, with_context = false) }}
-{% endif %}
+<div id="navigation-main" tabindex="-1">
+  {% if items %}
+    {{ include('ui_suite_dsfr:nav_menu', {
+      menu_name: "Navigation principale",
+      html_id: 'navigation-main',
+      items: items
+    }, with_context = false) }}
+  {% endif %}
+</div>

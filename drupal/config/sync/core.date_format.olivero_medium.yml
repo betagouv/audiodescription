@@ -10,4 +10,4 @@ _core:
 id: olivero_medium
 label: 'Olivero Medium'
 locked: false
-pattern: 'j  F,  Y'
+pattern: 'j F Y'

@@ -26,14 +26,18 @@
         {% set logo_text = logo_text|default('République\nFrançaise') %}
 
         {% if not operator_logo %}
-          <a href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ service_title }} - {{ logo_text }}">
+          <a href="{{ home_url|default('/') }}" title="Retour à l'accueil du site - {{ service_title }} - {{ logo_text }}">
         {% endif %}
-        <p class="fr-logo">
-          {{ logo_text|nl2br }}
-        </p>
+
+          <p class="fr-logo">
+            {{ logo_text|nl2br }}
+          </p>
+
         {% if not operator_logo %}
           </a>
         {% endif %}
+
+
         {% if operator_logo %}
           <a class="fr-footer__brand-link" href="{{ home_url|default('/') }}" title="{{ 'Homepage'|t }} - {{ operator_logo_alt|default(service_title) }} - {{ logo_text }}">
             {{ operator_logo }}
@@ -52,6 +56,7 @@
     {{ partners }}
     <div class="fr-footer__bottom">
       {% if bottom %}
+        <h2 class="visually-hidden">Informations légales</h2>
         {{ bottom }}
       {% endif %}
 

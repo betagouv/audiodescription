@@ -137,7 +137,7 @@ class ArteTvApiImporter implements MovieImporterInterface
                 $sourceMovie->setSynopsis($synopsis);
 
                 $duration = intdiv($program['durationSeconds'], 60);
-                ;
+
                 $sourceMovie->setDuration($duration);
 
                 // Nationalities.

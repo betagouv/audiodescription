@@ -80,15 +80,13 @@
         </aside>
       {% endif %}
     </div>
-
+    {{ page.bottom }}
   </main>
-  {{ page.bottom }}
   {{ include('@ad_theme/menu/pattern-footer.html.twig', {
     attributes: create_attribute(),
     logo_text: logo_text,
     home_url: path('<front>'),
     top: footer_top,
-    operator_logo: page.footer_operator_logo,
     service_title: site_name,
     content: page.footer_content,
     content_desc: page.footer_content_desc,
