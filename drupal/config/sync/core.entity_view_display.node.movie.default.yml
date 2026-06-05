@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.movie.field_actors
     - field.field.node.movie.field_allocine_id
     - field.field.node.movie.field_arte_id
+    - field.field.node.movie.field_audiodescribed_poster
     - field.field.node.movie.field_canal_vod_id
     - field.field.node.movie.field_code
     - field.field.node.movie.field_directors
@@ -25,6 +26,7 @@ dependencies:
     - node.type.movie
   module:
     - entity_reference_revisions
+    - link
     - text
     - user
 id: node.movie.default
@@ -55,6 +57,18 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 118
+    region: content
+  field_audiodescribed_poster:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 126
     region: content
   field_canal_vod_id:
     type: string

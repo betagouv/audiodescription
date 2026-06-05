@@ -1,0 +1,23 @@
+uuid: 1f27b624-28ab-4213-ab1c-1d0fd0eb5a86
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audiodescribed_poster
+    - node.type.movie
+  module:
+    - link
+id: node.movie.field_audiodescribed_poster
+field_name: field_audiodescribed_poster
+entity_type: node
+bundle: movie
+label: 'Affiche parlante'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 0
+  link_type: 16
+field_type: link

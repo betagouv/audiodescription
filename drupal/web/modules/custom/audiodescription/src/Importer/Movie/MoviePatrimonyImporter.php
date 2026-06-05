@@ -59,7 +59,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
       $next = 1;
 
       do {
-        dump($next);
+        //dump($next);
 
         $response = $client->request('GET', $this->buildUrl($patrimony, $next), [
           'headers' => [
@@ -72,6 +72,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
 
         foreach ($data['hydra:member'] as $movie) {
           $title = $movie['title'];
+
           dump($title);
 
           $code = $movie['code'];
@@ -81,6 +82,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
           $orangeVodId = $movie['orangeVodId'] ?? NULL;
           $laCinetekId = $movie['laCinetekId'] ?? NULL;
           $franceTvId = $movie['franceTvId'] ?? NULL;
+          $audiodescribedPoster = $movie['audiodescribedPoster'] ?? NULL;
 
           $hasAd = $movie['hasAd'];
           $productionYear = $movie['productionYear'] ?? NULL;
@@ -176,6 +178,7 @@ class MoviePatrimonyImporter implements LoggerAwareInterface {
             $solutions,
             $synopsis,
             $poster,
+            $audiodescribedPoster
           );
         }
 

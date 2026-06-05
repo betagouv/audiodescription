@@ -4,11 +4,19 @@
       <div class="fr-pt-3w fr-pt-7w">
         <h1>{{ label }}</h1>
       </div>
-      <div class="fr-grid-row fr-mb-2w">
+      <div class="fr-grid-row fr-grid-row--gutters">
         {% set poster_uri = node.field_poster_external.value %}
         {% if poster_uri is not empty %}
-          <div class="fr-col-12 fr-col-xl-2 fr-mb-2w">
-            <img src="{{ poster_uri }}" alt="" width="165" height="220" loading="lazy"/>
+          <div class="fr-col-12 fr-col-xl-3 fr-mb-2w">
+            <img src="{{ poster_uri }}" alt="" loading="lazy" class="audiodesc-movie-poster"/>
+            {% set audiodescribed_poster_uri = node.field_audiodescribed_poster.uri %}
+            <p class="">
+              <a title="Écouter l'affiche audiodécrite - nouvelle fenêtre" href="{{ audiodescribed_poster_uri }}" target="_blank" rel="noopener external" class="fr-link fr-text--sm">
+                <span class="fr-icon-custom-speak-fill" aria-hidden="true"></span>
+                Écouter l'affiche audiodécrite
+              </a>
+            </p>
+
           </div>
         {% endif %}
 
@@ -24,7 +32,7 @@
           </div>
         {% endif %} #}
 
-        <div class="fr-col-12 fr-col-xl-10" id="content">
+        <div class="fr-col-12 fr-col-xl-7" id="content">
           {% if node.field_production_year.value %}
             <p><strong>Année : </strong>{{ node.field_production_year.value }}</p>
           {% endif %}
@@ -85,19 +93,21 @@
           {% endif %}
         </div>
 
-        <div class="fr-grid-row">
-          <div class="fr-col-12 fr-col-lg-8">
-            {% set synopsis_plain_text = node.field_synopsis.value|render|striptags %}
 
-            {% if synopsis_plain_text is not empty %}
-              <p class="audiodesc-movies-infos-title">
-                <strong>Synopsis : </strong>
-              </p>
-              <p>{{ node.field_synopsis.value|raw }}</p>
-            {% endif %}
-          </div>
+
+      </div>
+
+      <div class="fr-grid-row fr-mb-2w">
+        <div class="fr-col-12 fr-col-lg-8">
+          {% set synopsis_plain_text = node.field_synopsis.value|render|striptags %}
+
+          {% if synopsis_plain_text is not empty %}
+            <p class="audiodesc-movies-infos-title">
+              <strong>Synopsis : </strong>
+            </p>
+            <p>{{ node.field_synopsis.value|raw }}</p>
+          {% endif %}
         </div>
-
       </div>
 
       {% if node.field_has_ad.value %}

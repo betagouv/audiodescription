@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessivePublicCount)
@@ -111,6 +112,11 @@ class Movie
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups([self::SCOPE_LIST])]
     private ?string $poster;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups([self::SCOPE_LIST])]
+    #[Assert\Url]
+    private ?string $audiodescribedPoster = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups([self::SCOPE_LIST])]
@@ -307,6 +313,16 @@ class Movie
     public function setPoster(?string $poster): void
     {
         $this->poster = $poster;
+    }
+
+    public function getAudiodescribedPoster(): ?string
+    {
+        return $this->audiodescribedPoster;
+    }
+
+    public function setAudiodescribedPoster(?string $audiodescribedPoster): void
+    {
+        $this->audiodescribedPoster = $audiodescribedPoster;
     }
 
     public function getSynopsis(): ?string

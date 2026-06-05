@@ -143,6 +143,7 @@ class MovieManager {
     array $solutions,
     ?string $synopsis,
     ?string $poster,
+    ?string $audiodescribedPoster,
   ): Node {
     $movies = $this->findExistingMovies($code);
 
@@ -241,6 +242,11 @@ class MovieManager {
     // Poster.
     if (!is_null($poster)) {
       $movie->set('field_poster_external', $poster);
+    }
+
+    // Audiodescribed poster.
+    if (!is_null($audiodescribedPoster)) {
+      $movie->set('field_audiodescribed_poster', $audiodescribedPoster);
     }
 
     $pg_offers = [];

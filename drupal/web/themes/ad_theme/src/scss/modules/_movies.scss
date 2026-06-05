@@ -31,6 +31,11 @@
   }
 }
 
+.audiodesc-movie-poster {
+  width: 100%;
+  max-width: 300px;
+}
+
 @media (min-width: 768px) {
   .fr-card.fr-card--horizontal-fifth {
     min-height: 330px;

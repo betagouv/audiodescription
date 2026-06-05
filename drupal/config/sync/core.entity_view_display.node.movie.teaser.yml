@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.movie.field_actors
     - field.field.node.movie.field_allocine_id
     - field.field.node.movie.field_arte_id
+    - field.field.node.movie.field_audiodescribed_poster
     - field.field.node.movie.field_canal_vod_id
     - field.field.node.movie.field_code
     - field.field.node.movie.field_directors
@@ -35,6 +36,7 @@ hidden:
   field_actors: true
   field_allocine_id: true
   field_arte_id: true
+  field_audiodescribed_poster: true
   field_canal_vod_id: true
   field_code: true
   field_directors: true
