@@ -60,7 +60,7 @@ class SimpleMovieSearchForm extends AbstractMovieSearchForm {
       '#size' => 30,
       '#maxlength' => 128,
       '#value' => $search,
-      '#prefix' => '<div class="' . $prefixClasses . '" role="search">',
+      '#prefix' => '<div class="' . $prefixClasses . '">',
     ];
 
     $form['submit'] = [

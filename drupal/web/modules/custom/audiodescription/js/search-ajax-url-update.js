@@ -22,4 +22,7 @@
       window.history.pushState({}, '', newUrl);
     }
   };
+  Drupal.AjaxCommands.prototype.searchAjaxUpdateTitle = function (ajax, response) {
+    document.title = response.title;
+  };
 })(jQuery, Drupal);

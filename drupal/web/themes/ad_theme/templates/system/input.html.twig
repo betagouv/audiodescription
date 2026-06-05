@@ -1,0 +1,8 @@
+<input{{ attributes.removeAttribute('size') }} />{{ children }}
+{% if errors %}
+  <div id="{{ error_id }}" class="fr-message--group">
+    <p class="fr-message fr-message--error">
+      {{ errors }}
+    </p>
+  </div>
+{% endif %}

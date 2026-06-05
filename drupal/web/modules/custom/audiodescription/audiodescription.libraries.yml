@@ -20,3 +20,9 @@ iframe_responsive:
   dependencies:
     - core/drupal
     - core/once
+newsletter_form:
+  js:
+    js/newsletter-form.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

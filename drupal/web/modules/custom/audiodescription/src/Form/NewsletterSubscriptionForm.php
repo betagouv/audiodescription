@@ -8,6 +8,7 @@ use Brevo\Client\Model\CreateContact;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Security\TrustedCallbackInterface;
 use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
@@ -15,7 +16,7 @@ use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 /**
  * Provides a form for searching movies.
  */
-class NewsletterSubscriptionForm extends FormBase {
+class NewsletterSubscriptionForm extends FormBase implements TrustedCallbackInterface {
 
   /**
    * The config pages loader service.
@@ -48,11 +49,15 @@ class NewsletterSubscriptionForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['#attributes']['novalidate'] = 'novalidate';
+
     $config_pages = $this->configPagesLoader;
     $newsletter = $config_pages->load('newsletter');
 
+    $form['#attached']['library'][] = 'audiodescription/newsletter_form';
+
     $form['email'] = [
-      '#type' => 'textfield',
+      '#type' => 'email',
       '#title' => $this->t('Adresse e-mail (champ obligatoire)'),
       '#size' => 30,
       '#maxlength' => 128,
@@ -64,6 +69,11 @@ class NewsletterSubscriptionForm extends FormBase {
         ],
         'autocomplete' => 'email',
       ],
+      '#element_validate' => [],
+      '#pre_render' => array_merge(
+        \Drupal::service('element_info')->getInfoProperty('email', '#pre_render', []),
+        [[static::class, 'removeAriaDescribedBy']],
+      ),
     ];
 
     if ($newsletter && !$newsletter->get('field_newsletter_infos_rgpd')->isEmpty()) {
@@ -88,6 +98,42 @@ class NewsletterSubscriptionForm extends FormBase {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function trustedCallbacks() {
+    return ['removeAriaDescribedBy'];
+  }
+
+  /**
+   * Removes aria-describedby from the element's attributes.
+   */
+  public static function removeAriaDescribedBy(array $element): array {
+    unset($element['#attributes']['aria-describedby']);
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $email = $form_state->getValue('email');
+    if (empty($email)) {
+      // Let Drupal's #required validation set the form error and inline message.
+      // Add the same standard message to the messenger for the global block.
+      $this->messenger()->addError(
+        $this->t('@name field is required.', ['@name' => $form['email']['#title']])
+      );
+    }
+    elseif (!\Drupal::service('email.validator')->isValid($email)) {
+      $message = $this->t('@name n\'est pas valide. Saisir une adresse e-mail, par exemple : prenom.nom@gmail.com', [
+        '@name' => $form['email']['#title'],
+      ]);
+      $form_state->setErrorByName('email', $message);
+      $this->messenger()->addError($message);
+    }
   }
 
   /**

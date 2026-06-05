@@ -1,0 +1,13 @@
+<div data-drupal-messages>
+  {% for type, messages in message_list %}
+    {% set variant = '' %}
+    {% set variant = (type == 'status') ? 'success__sm' : variant %}
+    {% set variant = (type == 'warning') ? 'warning__sm' : variant %}
+    {% set variant = (type == 'error') ? 'error__sm' : variant %}
+
+
+    {% for message in messages %}
+      {{ include('ui_suite_dsfr:alert', {message: message, dismissible: false, variant: variant}, with_context: false) }}
+    {% endfor %}
+  {% endfor %}
+</div>
