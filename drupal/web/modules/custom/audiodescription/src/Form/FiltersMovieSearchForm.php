@@ -2,6 +2,7 @@
 
 namespace Drupal\audiodescription\Form;
 
+use Drupal\audiodescription\Command\SearchAjaxResetFiltersCommand;
 use Drupal\audiodescription\Command\SearchAjaxUpdateTitleCommand;
 use Drupal\audiodescription\Command\SearchAjaxUrlUpdateCommand;
 use Drupal\audiodescription\Manager\MovieSearchManager;
@@ -93,19 +94,25 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
     ];
 
     $form['infos']['fields']['reset'] = [
-      '#type' => 'html_tag',
-      '#tag' => 'a',
-      '#value' => "Réinitialiser les filtres",
+      '#type' => 'submit',
+      '#value' => $this->t('Réinitialiser les filtres'),
       '#prefix' => '<div class="fr-btns-group fr-btns-group--icon-left fr-col-12 fr-mb-2w">',
       '#suffix' => '</div>',
       '#attributes' => [
-        'href' => '/recherche',
+        'type' => 'reset',
         'class' => [
           'fr-btn',
           'fr-btn--secondary',
           'fr-btn--icon-left',
           'fr-icon-close-circle-line',
         ],
+      ],
+      '#submit' => ['::resetFilters'],
+      '#limit_validation_errors' => [],
+      '#ajax' => [
+        'callback' => '::resetFilters',
+        'wrapper' => 'ajax',
+        'progress' => [],
       ],
     ];
 
@@ -292,6 +299,50 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
       ]
     ));
 
+    $response->addCommand(new SearchAjaxUrlUpdateCommand());
+    $response->addCommand(new SearchAjaxUpdateTitleCommand($this->buildPageTitle($params)));
+
+    return $response;
+  }
+
+  /**
+   * Resets all filters via AJAX, keeping only the search keyword.
+   */
+  public function resetFilters(array &$form, FormStateInterface $form_state) {
+    $request = $this->requestStack->getCurrentRequest();
+
+    $request->query->set('is_free', 0);
+    $request->query->set('genre', []);
+    $request->query->set('partner', []);
+
+    $params = MovieSearchParametersBag::createFromRequest($request);
+
+    $offset = ($params->page - 1) * self::PAGE_SIZE;
+    [$total, $pagesCount, $entities] = $this->movieSearchManager->queryMovies($offset, self::PAGE_SIZE, $params);
+    $totalWithAd = $this->movieSearchManager->countAdMovies($params);
+
+    $renderedEntities = [];
+    foreach ($entities as $entity) {
+      $renderedEntities[] = $this->entityTypeManager->getViewBuilder('node')->view($entity, 'card_result');
+    }
+
+    $pagination = $this->movieSearchManager->buildPagination($params, $pagesCount);
+
+    $response = new AjaxResponse();
+    $response->addCommand(new ReplaceCommand('#ajax', [
+      '#theme' => 'movie_search_ajax',
+      '#movies' => [
+        'total' => $total,
+        'pagesCount' => $pagesCount,
+        'items' => $renderedEntities,
+        'pagination' => $pagination,
+        'page' => $params->page,
+        'pageSize' => self::PAGE_SIZE,
+        'totalWithAd' => $totalWithAd,
+      ],
+      '#cache' => ['max-age' => 0],
+    ]));
+    $response->addCommand(new SearchAjaxResetFiltersCommand());
     $response->addCommand(new SearchAjaxUrlUpdateCommand());
     $response->addCommand(new SearchAjaxUpdateTitleCommand($this->buildPageTitle($params)));
 

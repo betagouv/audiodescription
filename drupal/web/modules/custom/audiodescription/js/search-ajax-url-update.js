@@ -28,6 +28,26 @@
       window.history.pushState({}, '', newUrl);
     }
   };
+  Drupal.AjaxCommands.prototype.searchAjaxResetFilters = function () {
+    // Reset the "Films gratuits" checkbox.
+    const form = document.getElementById('filter-movie-search-form');
+    if (form) {
+      form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+      });
+    }
+
+    // Reset Lit rich-select components via their reactive properties.
+    document.querySelectorAll('rich-select').forEach(el => {
+      el.selectedOptions = [];
+      el.btnSelectAll = {
+        icon: 'fr-icon-check-line',
+        text: 'Tout sélectionner',
+      };
+      el.requestUpdate();
+    });
+  };
+
   Drupal.AjaxCommands.prototype.searchAjaxUpdateTitle = function (ajax, response) {
     document.title = response.title;
   };
