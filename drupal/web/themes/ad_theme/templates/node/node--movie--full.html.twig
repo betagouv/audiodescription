@@ -10,12 +10,15 @@
           <div class="fr-col-12 fr-col-xl-3 fr-mb-2w">
             <img src="{{ poster_uri }}" alt="" loading="lazy" class="audiodesc-movie-poster"/>
             {% set audiodescribed_poster_uri = node.field_audiodescribed_poster.uri %}
-            <p class="">
-              <a title="Écouter l'affiche audiodécrite - nouvelle fenêtre" href="{{ audiodescribed_poster_uri }}" target="_blank" rel="noopener external" class="fr-link fr-text--sm">
-                <span class="fr-icon-custom-speak-fill" aria-hidden="true"></span>
-                Écouter l'affiche audiodécrite
-              </a>
-            </p>
+
+            {% if audiodescribed_poster_uri is not empty %}
+              <p>
+                <a title="Écouter l'affiche audiodécrite - nouvelle fenêtre" href="{{ audiodescribed_poster_uri }}" target="_blank" rel="noopener external" class="fr-link fr-text--sm">
+                  <span class="fr-icon-custom-speak-fill" aria-hidden="true"></span>
+                  Écouter l'affiche audiodécrite
+                </a>
+              </p>
+            {% endif %}
 
           </div>
         {% endif %}
