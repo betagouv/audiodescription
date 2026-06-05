@@ -9,6 +9,12 @@
       formData.delete('form_id');
       const params = new URLSearchParams();
 
+      // Preserve the validated search keyword from the current URL (before pushState).
+      const currentSearch = new URLSearchParams(window.location.search).get('search');
+      if (currentSearch) {
+        params.append('search', currentSearch);
+      }
+
       for (const [name, value] of formData.entries()) {
         params.append(name, value);
       }

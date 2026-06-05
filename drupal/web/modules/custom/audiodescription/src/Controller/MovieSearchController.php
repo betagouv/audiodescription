@@ -182,15 +182,28 @@ class MovieSearchController extends ControllerBase {
     $request = $this->requestStack->getCurrentRequest();
     $params = MovieSearchParametersBag::createFromRequest($request);
 
-    if ($params->search && $params->page !== 1) {
-      return $this->t('Résultats de la recherche pour "@search", page @page', [
-        '@search' => $params->search,
+    $terms = array_merge(
+      $this->getCurrentFilters($params->genre) ?? [],
+      $this->getCurrentFilters($params->partner) ?? [],
+    );
+
+    $qualifiers = [];
+    if ($params->search) {
+      $qualifiers[] = '"' . strip_tags($params->search) . '"';
+    }
+    foreach ($terms as $term) {
+      $qualifiers[] = '"' . $term . '"';
+    }
+
+    if (!empty($qualifiers) && $params->page !== 1) {
+      return $this->t('Résultats de la recherche pour @qualifiers, page @page', [
+        '@qualifiers' => implode(', ', $qualifiers),
         '@page' => $params->page,
       ]);
     }
-    if ($params->search) {
-      return $this->t('Résultats de la recherche pour "@search"', [
-        '@search' => $params->search,
+    if (!empty($qualifiers)) {
+      return $this->t('Résultats de la recherche pour @qualifiers', [
+        '@qualifiers' => implode(', ', $qualifiers),
       ]);
     }
     if ($params->page !== 1) {

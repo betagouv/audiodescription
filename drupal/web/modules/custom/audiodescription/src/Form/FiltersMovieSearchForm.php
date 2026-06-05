@@ -2,6 +2,7 @@
 
 namespace Drupal\audiodescription\Form;
 
+use Drupal\audiodescription\Command\SearchAjaxUpdateTitleCommand;
 use Drupal\audiodescription\Command\SearchAjaxUrlUpdateCommand;
 use Drupal\audiodescription\Manager\MovieSearchManager;
 use Drupal\audiodescription\Popo\MovieSearchParametersBag;
@@ -292,8 +293,70 @@ class FiltersMovieSearchForm extends AbstractMovieSearchForm {
     ));
 
     $response->addCommand(new SearchAjaxUrlUpdateCommand());
+    $response->addCommand(new SearchAjaxUpdateTitleCommand($this->buildPageTitle($params)));
 
     return $response;
+  }
+
+  /**
+   * Builds the page title string from search params (mirrors MovieSearchController::getTitle).
+   */
+  private function buildPageTitle(MovieSearchParametersBag $params): string {
+    $terms = array_merge(
+      $this->getTermNames($params->genre),
+      $this->getTermNames($params->partner),
+    );
+
+    $qualifiers = [];
+    if ($params->search) {
+      $qualifiers[] = '"' . strip_tags($params->search) . '"';
+    }
+    foreach ($terms as $term) {
+      $qualifiers[] = '"' . $term . '"';
+    }
+
+    $siteName = \Drupal::config('system.site')->get('name');
+
+    if (!empty($qualifiers) && $params->page !== 1) {
+      $title = $this->t('Résultats de la recherche pour @qualifiers, page @page', [
+        '@qualifiers' => implode(', ', $qualifiers),
+        '@page' => $params->page,
+      ]);
+    }
+    elseif (!empty($qualifiers)) {
+      $title = $this->t('Résultats de la recherche pour @qualifiers', [
+        '@qualifiers' => implode(', ', $qualifiers),
+      ]);
+    }
+    elseif ($params->page !== 1) {
+      $title = $this->t('Résultats de la recherche, page @page', [
+        '@page' => $params->page,
+      ]);
+    }
+    else {
+      $title = $this->t('Résultats de la recherche');
+    }
+
+    $fullTitle = html_entity_decode((string) $title . ' | ' . $siteName, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    if (mb_strlen($fullTitle) > 90) {
+      return mb_substr($fullTitle, 0, 87) . '...';
+    }
+    return $fullTitle;
+  }
+
+  /**
+   * Returns taxonomy term names for a list of IDs.
+   */
+  private function getTermNames(array $ids): array {
+    $names = [];
+    foreach ($ids as $id) {
+      $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($id);
+      if ($term) {
+        $names[] = $term->getName();
+      }
+    }
+    return $names;
   }
 
 }

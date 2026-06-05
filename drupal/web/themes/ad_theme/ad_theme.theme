@@ -555,6 +555,12 @@ function ad_theme_preprocess_block__system_messages_block(&$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function ad_theme_preprocess_html(&$variables) {
+  // Truncate <title> to 120 chars.
+  $full = implode(' | ', array_values($variables['head_title']));
+  if (mb_strlen($full) > 90) {
+    $variables['head_title'] = [mb_substr($full, 0, 87) . '...'];
+  }
+
   $config_pages = \Drupal::service('config_pages.loader');
   $config = $config_pages->load('patrimony');
 
