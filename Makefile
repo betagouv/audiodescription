@@ -331,3 +331,18 @@ cron-import:
 	docker compose exec -T drupal vendor/bin/drush adia || true
 	docker compose exec -T drupal vendor/bin/drush adum || true
 	docker compose exec -T drupal vendor/bin/drush cr
+
+.PHONY:pt-cron-import
+pt-cron-import:
+	docker compose exec -T patrimony php bin/console ad:import:canalvod-api --create-movies=true || true
+	docker compose exec -T patrimony php bin/console ad:import:canalreplay-api --create-movies=true || true
+	docker compose exec -T patrimony php bin/console ad:import:lacinetek-api --create-movies=true || true
+	docker compose exec -T patrimony php bin/console ad:import:artetv-api --create-movies=true || true
+	docker compose exec -T patrimony php bin/console ad:import:tf1-api --create-movies=true || true
+	docker compose exec -T patrimony php bin/console ad:import:francetv-api --create-movies=true || true
+
+.PHONY:d-cron-import
+d-cron-import:
+	docker compose exec -T drupal vendor/bin/drush adia || true
+	docker compose exec -T drupal vendor/bin/drush adum || true
+	docker compose exec -T drupal vendor/bin/drush cr

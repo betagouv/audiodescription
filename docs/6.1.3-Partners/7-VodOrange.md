@@ -1,9 +1,7 @@
 # Orange VOD
 
 ## Informations générales
-* **Format :** API
-* **URLs :**
-    *
+* **Format :** Fichiers
 * **Authentification :**
 * **Fréquence d'appel :** Quotidienne
 
