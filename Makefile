@@ -195,11 +195,6 @@ reset-db:
 	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=public
 	docker compose exec drupal vendor/bin/drush entity:delete taxonomy_term --bundle=director
 
-.PHONY:drush-import
-drush-import:
-	docker compose exec drupal vendor/bin/drush ad:import:publics
-	docker compose exec drupal vendor/bin/drush ad:import:movies CNC_CSV
-
 .PHONY:drush-cr
 drush-cr:
 	docker compose exec drupal vendor/bin/drush cr
