@@ -14,7 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
         "easycorp/easyadmin-bundle": "^4.20",
-        "firebase/php-jwt": "^6.10",
+        "firebase/php-jwt": "^7.0",
         "getbrevo/brevo-php": "^2.0",
         "nelmio/cors-bundle": "^2.5",
         "phpdocumentor/reflection-docblock": "^5.4",

@@ -14,9 +14,9 @@
     "livereload": "^0.9.3",
     "sass": "^1.80.3",
     "sass-embedded": "^1.82.0",
-    "vite": "^6.0.2",
+    "vite": "^8.0.16",
     "vite-plugin-live-reload": "^3.0.4",
     "vite-plugin-sass": "^0.1.0",
-    "vite-plugin-static-copy": "^2.2.0"
+    "vite-plugin-static-copy": "^4.1.1"
   }
 }
