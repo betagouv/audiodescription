@@ -52,7 +52,7 @@
         "drupal/ui_patterns": "^2.0",
         "drupal/ui_suite_dsfr": "^1.14",
         "drush/drush": "^13.3",
-        "getbrevo/brevo-php": "^2.0",
+        "getbrevo/brevo-php": "^4.0",
         "gouv/dsfr": "^1.11"
     },
     "conflict": {

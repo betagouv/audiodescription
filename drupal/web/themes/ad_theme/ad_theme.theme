@@ -528,27 +528,54 @@ function ad_theme_preprocess_status_messages(&$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function ad_theme_preprocess_newsletter_subscription(&$variables) {
-  $variables['messages'] = ['#type' => 'status_messages'];
+  $messenger = \Drupal::messenger();
+  $raw_messages = $messenger->all();
+  $messenger->deleteAll();
+
+  $variables['message_list'] = _ad_theme_merge_newsletter_messages($raw_messages);
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function ad_theme_preprocess_newsletter_unsubscription(&$variables) {
-  $variables['messages'] = ['#type' => 'status_messages'];
+  $messenger = \Drupal::messenger();
+  $raw_messages = $messenger->all();
+  $messenger->deleteAll();
+
+  $variables['message_list'] = _ad_theme_merge_newsletter_messages($raw_messages);
 }
 
 /**
- * Implements hook_preprocess_HOOK().
+ * Merges Drupal's "N errors found" summary with individual error texts into
+ * a single message per type: "N erreur(s) trouvée(s) : [error text]".
  */
-function ad_theme_preprocess_block__system_messages_block(&$variables) {
-  $newsletter_routes = [
-    'audiodescription.newsletter.subscription',
-    'audiodescription.newsletter.unsubscription',
-  ];
-  if (in_array(\Drupal::routeMatch()->getRouteName(), $newsletter_routes)) {
-    $variables['content'] = [];
+function _ad_theme_merge_newsletter_messages(array $raw_messages): array {
+  $processed = [];
+  $renderer = \Drupal::service('renderer');
+
+  foreach ($raw_messages as $type => $messages) {
+    $text_messages = [];
+
+    foreach ($messages as $message) {
+      $rendered = is_array($message)
+        ? (string) $renderer->renderPlain($message)
+        : (string) $message;
+
+      // Skip Drupal's auto-generated summary message (contains a <ul>).
+      if (str_contains($rendered, '<ul')) {
+        continue;
+      }
+
+      $text_messages[] = \Drupal\Core\Render\Markup::create(trim(strip_tags($rendered)));
+    }
+
+    if (!empty($text_messages)) {
+      $processed[$type] = $text_messages;
+    }
   }
+
+  return $processed;
 }
 
 /**

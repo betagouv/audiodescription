@@ -2,12 +2,11 @@
 
 namespace Drupal\audiodescription\Form;
 
-use Brevo\Client\Api\ContactsApi;
-use Brevo\Client\Configuration;
+use Brevo\Brevo;
+use Brevo\Contacts\Requests\DeleteContactRequest;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Security\TrustedCallbackInterface;
-use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 
@@ -106,7 +105,7 @@ class NewsletterUnsubscriptionForm extends FormBase implements TrustedCallbackIn
     $email = $form_state->getValue('email');
     if (empty($email)) {
       $this->messenger()->addError(
-        $this->t('@name field is required.', ['@name' => $form['email']['#title']])
+        $this->t('Le champ @name est requis.', ['@name' => $form['email']['#title']])
       );
     }
     elseif (!\Drupal::service('email.validator')->isValid($email)) {
@@ -128,22 +127,16 @@ class NewsletterUnsubscriptionForm extends FormBase implements TrustedCallbackIn
 
     $apiKey = $newsletter->get('field_news_api_key')->value;
 
-    $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $apiKey);
-
-    $apiInstance = new ContactsApi(
-      new Client(),
-      $config
-    );
+    $brevo = new Brevo($apiKey);
 
     $email = $form_state->getUserInput()['email'];
-    $identifierType = "email_id";
 
     try {
-      $apiInstance->deleteContact($email, $identifierType);
+      $brevo->contacts->deleteContact($email, new DeleteContactRequest(['identifierType' => 'email_id']));
       $form_state->setRedirect('audiodescription.newsletter.unsubscription.confirmation');
     }
     catch (\Exception $e) {
-      echo 'Exception when calling ContactsApi->createContact: ', $e->getMessage(), PHP_EOL;
+      echo 'Exception when calling ContactsApi->deleteContact: ', $e->getMessage(), PHP_EOL;
     }
   }
 

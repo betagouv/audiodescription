@@ -2,14 +2,12 @@
 
 namespace Drupal\audiodescription\Form;
 
-use Brevo\Client\Api\ContactsApi;
-use Brevo\Client\Configuration;
-use Brevo\Client\Model\CreateContact;
+use Brevo\Brevo;
+use Brevo\Contacts\Requests\CreateContactRequest;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Security\TrustedCallbackInterface;
-use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
 
@@ -121,10 +119,8 @@ class NewsletterSubscriptionForm extends FormBase implements TrustedCallbackInte
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $email = $form_state->getValue('email');
     if (empty($email)) {
-      // Let Drupal's #required validation set the form error and inline message.
-      // Add the same standard message to the messenger for the global block.
       $this->messenger()->addError(
-        $this->t('@name field is required.', ['@name' => $form['email']['#title']])
+        $this->t('Le champ @name est requis.', ['@name' => $form['email']['#title']])
       );
     }
     elseif (!\Drupal::service('email.validator')->isValid($email)) {
@@ -140,37 +136,33 @@ class NewsletterSubscriptionForm extends FormBase implements TrustedCallbackInte
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
     $config_pages = $this->configPagesLoader;
     $newsletter = $config_pages->load('newsletter');
 
     $apiKey = $newsletter->get('field_news_api_key')->value;
 
-    // Configure API key authorization: api-key.
-    $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $apiKey);
-
-    // Pass a custom http client implementing GuzzleHttp\ClientInterface,
-    // or use the default GuzzleHttp\Client.
-    $apiInstance = new ContactsApi(
-      new Client(),
-      $config
-    );
+    $brevo = new Brevo($apiKey);
 
     $email = $form_state->getUserInput()['email'];
     $list = (int) $newsletter->get('field_news_list')->value;
 
-    $createContact = new CreateContact([
+    $createContact = new CreateContactRequest([
       'email' => $email,
       'updateEnabled' => TRUE,
       'listIds' => [$list],
     ]);
 
     try {
-      $apiInstance->createContact($createContact);
+      $brevo->contacts->createContact($createContact);
       $form_state->setRedirect('audiodescription.newsletter.confirmation');
     }
+    catch (\Brevo\Exceptions\BrevoApiException $e) {
+      echo 'BrevoApiException: ', $e->getMessage(), ' | Status: ', $e->getCode(), ' | Body: ', print_r($e->getBody(), TRUE), PHP_EOL;
+      die();
+    }
     catch (\Exception $e) {
-      echo 'Exception when calling ContactsApi->createContact: ', $e->getMessage(), PHP_EOL;
+      echo 'Exception: ', $e->getMessage(), PHP_EOL;
+      die();
     }
   }
 

@@ -5,8 +5,10 @@
  * Contains audiodescription module-related hooks.
  */
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
 
 /**
  * Implements hook_theme().
@@ -159,6 +161,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'introduction' => NULL,
         'rgpd' => NULL,
         'unsubscribe' => NULL,
+        'message_list' => [],
       ],
     ],
     'newsletter_confirmation' => [
@@ -180,6 +183,7 @@ function audiodescription_theme($existing, $type, $theme, $path) {
         'title' => NULL,
         'text' => NULL,
         'form' => NULL,
+        'message_list' => [],
       ],
     ],
     'newsletter_unsubscription_confirmation' => [
@@ -259,6 +263,25 @@ function audiodescription_node_update(EntityInterface $entity) {
       \Drupal::service('cache_tags.invalidator')->invalidateTags($cache_tags);
     }
   }
+}
+
+/**
+ * Implements hook_block_access().
+ *
+ * Hides the system messages block on newsletter pages so messages appear only
+ * inside the newsletter form template (via the #newsletter-messages container).
+ */
+function audiodescription_block_access(\Drupal\block\Entity\Block $block, string $operation, AccountInterface $account): AccessResult {
+  if ($block->id() === 'ad_theme_messages' && $operation === 'view') {
+    $newsletter_routes = [
+      'audiodescription.newsletter.subscription',
+      'audiodescription.newsletter.unsubscription',
+    ];
+    if (in_array(\Drupal::routeMatch()->getRouteName(), $newsletter_routes)) {
+      return AccessResult::forbidden()->addCacheContexts(['route']);
+    }
+  }
+  return AccessResult::neutral();
 }
 
 /**
