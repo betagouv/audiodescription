@@ -4,11 +4,9 @@ status: true
 dependencies:
   config:
     - config_pages.type.newsletter
-    - field.field.config_pages.newsletter.field_news_api_key
     - field.field.config_pages.newsletter.field_news_confirm_cta
     - field.field.config_pages.newsletter.field_news_confirm_text
     - field.field.config_pages.newsletter.field_news_confirm_under_cta
-    - field.field.config_pages.newsletter.field_news_list
     - field.field.config_pages.newsletter.field_news_unsub_confirm_cta
     - field.field.config_pages.newsletter.field_news_unsub_confirm_text
     - field.field.config_pages.newsletter.field_news_unsub_text
@@ -55,22 +53,6 @@ third_party_settings:
         label_as_html: false
         description: ''
         required_fields: true
-    group_newsletter_configuration:
-      children:
-        - field_news_api_key
-        - field_news_list
-      label: Configuration
-      region: content
-      parent_name: ''
-      weight: 4
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        label_as_html: false
-        description: ''
-        required_fields: true
     group_newsletter_unsubscription:
       children:
         - field_news_unsub_text
@@ -107,14 +89,6 @@ targetEntityType: config_pages
 bundle: newsletter
 mode: default
 content:
-  field_news_api_key:
-    type: string_textfield
-    weight: 3
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_news_confirm_cta:
     type: paragraphs
     weight: 3
@@ -147,13 +121,6 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_news_list:
-    type: number
-    weight: 4
-    region: content
-    settings:
       placeholder: ''
     third_party_settings: {  }
   field_news_unsub_confirm_cta:
