@@ -102,26 +102,26 @@ Services externes des plateformes de diffusion fournissant les données de catal
 
 ## Socle technique
 
-| Produit        | Version | Commentaires                              |
-|----------------|---------|-------------------------------------------|
-| PHP            | 8.3     | Drupal et Patrimony                       |
-| Drupal         | 11      | Portail public                            |
-| Symfony        | 7.1     | Backend Patrimony                         |
-| API Platform   | 3.3     | API REST Patrimony                        |
-| EasyAdmin      | 4.20    | Interface d'administration Patrimony      |
-| PostgreSQL     | 17      | Base de données                           |
-| ElasticSearch  | 8.14    | Moteur de recherche                       |
-| FrankenPHP     | 1.4     | Serveur d'application (PHP + Caddy)       |
-| Traefik        | 3.x     | Reverse proxy / Load balancer             |
-| Node.js        | 20      | Build des assets frontend (Vite)          |
-| DSFR           | 1.11    | Design System de l'État Français          |
+| Produit        | Version     | Commentaires                              |
+|----------------|-------------|-------------------------------------------|
+| PHP            | 8.5         | Drupal et Patrimony                       |
+| Drupal         | 11          | Portail public                            |
+| Symfony        | 7.4         | Backend Patrimony                         |
+| API Platform   | 3.3         | API REST Patrimony                        |
+| EasyAdmin      | 4.20        | Interface d'administration Patrimony      |
+| PostgreSQL     | 17          | Base de données                           |
+| ElasticSearch  | 8.14        | Moteur de recherche                       |
+| FrankenPHP     | 1.12        | Serveur d'application (PHP + Caddy)       |
+| Traefik        | 3.x         | Reverse proxy / Load balancer             |
+| Node.js        | pas en prod | Build des assets frontend (Vite)          |
+| DSFR           | 1.11        | Design System de l'État Français          |
 
 ### Images Docker
 
 | Composant     | Image                                                   |
 |---------------|---------------------------------------------------------|
-| Drupal        | dunglas/frankenphp:1.4-php8.3-bookworm                  |
-| Patrimony     | dunglas/frankenphp:1.4-php8.3-bookworm                  |
+| Drupal        | dunglas/frankenphp:1.12-php8.5-bookworm                  |
+| Patrimony     | dunglas/frankenphp:1.12-php8.5-bookworm                  |
 | PostgreSQL    | postgres:17-bookworm                                    |
 | ElasticSearch | docker.elastic.co/elasticsearch/elasticsearch:8.14.3   |
 
