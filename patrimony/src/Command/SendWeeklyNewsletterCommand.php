@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\BrevoCampaignService;
+use App\Service\SendethicCampaignService;
 use App\Service\NewsletterContentGenerator;
 use DateTime;
 use IntlDateFormatter;
@@ -16,25 +16,20 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand(
     name: 'app:send-weekly-newsletter',
-    description: 'Crée et envoie la newsletter hebdomadaire via Brevo'
+    description: 'Crée et envoie la newsletter hebdomadaire via Sendethic'
 )]
 class SendWeeklyNewsletterCommand extends Command
 {
     public function __construct(
-        private readonly BrevoCampaignService $brevoService,
+        private readonly SendethicCampaignService $sendethicService,
         private readonly NewsletterContentGenerator $contentGenerator,
-        #[Autowire('%newsletter.brevo_api.list_id%')]
-        private readonly int $brevoListId
     ) {
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this
-        ->addOption('test', 't', InputOption::VALUE_NONE, 'Envoyer en test uniquement')
-        ->addOption('schedule', 's', InputOption::VALUE_OPTIONAL, 'Programmer l\'envoi (format: Y-m-d H:i)')
-        ->addOption('test-email', null, InputOption::VALUE_OPTIONAL, 'Email pour le test');
+        $this->addOption('no-interaction', 'n', InputOption::VALUE_NONE, 'Envoyer sans confirmation (mode cron)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -67,9 +62,8 @@ class SendWeeklyNewsletterCommand extends Command
         $io->section("Création de la campagne : $campaignName");
 
         try {
-            $result = $this->brevoService->createAndSendCampaign(
+            $result = $this->sendethicService->createAndSendCampaign(
                 htmlContent: $htmlContent,
-                listId: $this->brevoListId,
                 subject: $subject,
                 campaignName: $campaignName,
                 sendImmediately: false
@@ -78,45 +72,20 @@ class SendWeeklyNewsletterCommand extends Command
             $campaignId = $result['campaignId'];
             $io->success("Campagne créée avec l'ID : $campaignId");
 
-          // 3. Mode test
-            if ($input->getOption('test')) {
-                  $testEmail = $input->getOption('test-email') ?: 'ton-email@test.fr';
-                  $io->section("Envoi d'un test à : $testEmail");
-
-                  $this->brevoService->sendTestCampaign($campaignId, [$testEmail]);
-                  $io->success('Test envoyé ! Vérifie ta boîte mail.');
-
-                  return Command::SUCCESS;
-            }
-
-          // 5. Programmation ou envoi immédiat
-            if ($scheduleDate = $input->getOption('schedule')) {
-                $scheduledAt = \DateTime::createFromFormat('Y-m-d H:i', $scheduleDate);
-
-                if (!$scheduledAt) {
-                    $io->error('Format de date invalide. Utilisez : Y-m-d H:i');
-                    return Command::FAILURE;
-                }
-
-                $this->brevoService->scheduleCampaign($campaignId, $scheduledAt);
-                $io->success("Campagne programmée pour le : " . $scheduledAt->format('d/m/Y à H:i'));
-                return Command::SUCCESS;
-            }
-
-          // 5. Envoi immédiat
+          // 3. Envoi immédiat
             if ($input->getOption('no-interaction')) {
               // Mode automatique : envoi direct sans confirmation
                 $io->section('Envoi de la campagne...');
-                $this->brevoService->sendCampaignNow($campaignId);
+                $this->sendethicService->sendCampaignNow($campaignId);
                 $io->success('Campagne envoyée automatiquement (mode cron)');
             } else {
               // Mode interactif : demander confirmation
                 if ($io->confirm('Envoyer la campagne maintenant ?', false)) {
-                    $this->brevoService->sendCampaignNow($campaignId);
+                    $this->sendethicService->sendCampaignNow($campaignId);
                     $io->success('Campagne envoyée avec succès !');
                 } else {
                     $io->note("Campagne créée mais non envoyée. ID : $campaignId");
-                    $io->note("Tu peux l'envoyer manuellement depuis ton compte Brevo.");
+                    $io->note("Tu peux l'envoyer manuellement depuis ton compte Sendethic.");
                 }
             }
 

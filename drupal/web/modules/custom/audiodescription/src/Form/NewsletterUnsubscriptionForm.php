@@ -2,13 +2,13 @@
 
 namespace Drupal\audiodescription\Form;
 
-use Brevo\Brevo;
-use Brevo\Contacts\Requests\DeleteContactRequest;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Security\TrustedCallbackInterface;
+use Drupal\Core\Site\Settings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Provides a form for unsubscribing from the newsletter.
@@ -22,8 +22,16 @@ class NewsletterUnsubscriptionForm extends FormBase implements TrustedCallbackIn
    */
   protected $configPagesLoader;
 
-  public function __construct(ConfigPagesLoaderServiceInterface $configPagesLoader) {
+  /**
+   * The HTTP client.
+   *
+   * @var \GuzzleHttp\ClientInterface
+   */
+  protected $httpClient;
+
+  public function __construct(ConfigPagesLoaderServiceInterface $configPagesLoader, ClientInterface $httpClient) {
     $this->configPagesLoader = $configPagesLoader;
+    $this->httpClient = $httpClient;
   }
 
   /**
@@ -32,6 +40,7 @@ class NewsletterUnsubscriptionForm extends FormBase implements TrustedCallbackIn
   public static function create(ContainerInterface $container) {
     return new self(
       $container->get('config_pages.loader'),
+      $container->get('http_client'),
     );
   }
 
@@ -121,22 +130,22 @@ class NewsletterUnsubscriptionForm extends FormBase implements TrustedCallbackIn
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
-    $config_pages = $this->configPagesLoader;
-    $newsletter = $config_pages->load('newsletter');
-
-    $apiKey = $newsletter->get('field_news_api_key')->value;
-
-    $brevo = new Brevo($apiKey);
-
+    $accountId = Settings::get('sendethic_account_id');
+    $apiKey = Settings::get('sendethic_api_key');
     $email = $form_state->getUserInput()['email'];
 
     try {
-      $brevo->contacts->deleteContact($email, new DeleteContactRequest(['identifierType' => 'email_id']));
+      $this->httpClient->delete('https://services.message-business.com/api/rest/v4/contact/attribute/' . urlencode($email), [
+        'auth' => [$accountId, $apiKey],
+        'headers' => [
+          'Content-Type' => 'application/json',
+        ],
+      ]);
       $form_state->setRedirect('audiodescription.newsletter.unsubscription.confirmation');
     }
     catch (\Exception $e) {
-      echo 'Exception when calling ContactsApi->deleteContact: ', $e->getMessage(), PHP_EOL;
+      \Drupal::logger('audiodescription')->error('Sendethic API error: @message', ['@message' => $e->getMessage()]);
+      $this->messenger()->addError($this->t('Une erreur est survenue lors de votre désinscription. Veuillez réessayer.'));
     }
   }
 

@@ -2,14 +2,14 @@
 
 namespace Drupal\audiodescription\Form;
 
-use Brevo\Brevo;
-use Brevo\Contacts\Requests\CreateContactRequest;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\config_pages\ConfigPagesLoaderServiceInterface;
+use Drupal\Core\Site\Settings;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Provides a form for searching movies.
@@ -23,8 +23,16 @@ class NewsletterSubscriptionForm extends FormBase implements TrustedCallbackInte
    */
   protected $configPagesLoader;
 
-  public function __construct(ConfigPagesLoaderServiceInterface $configPagesLoader) {
+  /**
+   * The HTTP client.
+   *
+   * @var \GuzzleHttp\ClientInterface
+   */
+  protected $httpClient;
+
+  public function __construct(ConfigPagesLoaderServiceInterface $configPagesLoader, ClientInterface $httpClient) {
     $this->configPagesLoader = $configPagesLoader;
+    $this->httpClient = $httpClient;
   }
 
   /**
@@ -33,6 +41,7 @@ class NewsletterSubscriptionForm extends FormBase implements TrustedCallbackInte
   public static function create(ContainerInterface $container) {
     return new self(
       $container->get('config_pages.loader'),
+      $container->get('http_client'),
     );
   }
 
@@ -136,33 +145,29 @@ class NewsletterSubscriptionForm extends FormBase implements TrustedCallbackInte
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config_pages = $this->configPagesLoader;
-    $newsletter = $config_pages->load('newsletter');
-
-    $apiKey = $newsletter->get('field_news_api_key')->value;
-
-    $brevo = new Brevo($apiKey);
-
+    $accountId = Settings::get('sendethic_account_id');
+    $apiKey = Settings::get('sendethic_api_key');
     $email = $form_state->getUserInput()['email'];
-    $list = (int) $newsletter->get('field_news_list')->value;
-
-    $createContact = new CreateContactRequest([
-      'email' => $email,
-      'updateEnabled' => TRUE,
-      'listIds' => [$list],
-    ]);
 
     try {
-      $brevo->contacts->createContact($createContact);
+      $this->httpClient->post('https://services.message-business.com/api/rest/v4/contact/attribute', [
+        'auth' => [$accountId, $apiKey],
+        'headers' => [
+          'Content-Type' => 'application/json',
+        ],
+        'json' => [
+          'id' => 0,
+          'contactKey' => $email,
+          'attributes' => [
+            ['id' => 'email', 'fieldName' => 'email', 'fieldValue' => $email],
+          ],
+        ],
+      ]);
       $form_state->setRedirect('audiodescription.newsletter.confirmation');
     }
-    catch (\Brevo\Exceptions\BrevoApiException $e) {
-      echo 'BrevoApiException: ', $e->getMessage(), ' | Status: ', $e->getCode(), ' | Body: ', print_r($e->getBody(), TRUE), PHP_EOL;
-      die();
-    }
     catch (\Exception $e) {
-      echo 'Exception: ', $e->getMessage(), PHP_EOL;
-      die();
+      \Drupal::logger('audiodescription')->error('Sendethic API error: @message', ['@message' => $e->getMessage()]);
+      $this->messenger()->addError($this->t('Une erreur est survenue lors de votre inscription. Veuillez réessayer.'));
     }
   }
 
