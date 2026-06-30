@@ -297,3 +297,23 @@ function audiodescription_preprocess_breadcrumb(array &$variables) {
 function audiodescription_preprocess_node__page(array &$variables) {
   $variables['#attached']['library'][] = 'audiodescription/iframe_responsive';
 }
+
+/**
+ * Implements hook_file_presave().
+ *
+ * Rename uploaded files with a UUID to avoid collisions on S3.
+ */
+function audiodescription_file_presave(\Drupal\file\FileInterface $file) {
+  if (!$file->isNew()) {
+    return;
+  }
+
+  $uri = $file->getFileUri();
+  $directory = \Drupal::service('file_system')->dirname($uri);
+  $extension = pathinfo($uri, PATHINFO_EXTENSION);
+  $uuid = \Drupal::service('uuid')->generate();
+  $new_uri = $directory . '/' . $uuid . ($extension ? '.' . $extension : '');
+
+  $file->setFileUri($new_uri);
+  $file->setFilename($uuid . ($extension ? '.' . $extension : ''));
+}

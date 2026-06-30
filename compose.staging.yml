@@ -29,6 +29,17 @@ services:
       - 8097:80
     working_dir: /app/public/drupal
     environment:
+      S3_ACCESS_KEY: 'S3KEY'
+      S3_SECRET_KEY: 'S3SECRET'
+      S3_ENDPOINT: 'http://s3:9000'
+      S3_BUCKET: 'audiodescription'
+      S3_REGION: 'us-east-1'
+      S3_HOSTNAME: 's3:9000'
+      S3_DOMAIN: 'localhost:9000'
+      S3_USE_FOR_MAIN_STORAGE: 'TRUE'
+      S3_USE_FOR_PUBLIC: 'TRUE'
+      S3_USE_FOR_PRIVATE: 'TRUE'
+      S3_USE_CUSTOM_HOST: 'TRUE'
       REDIS_HOST: 'redis'
       REDIS_PORT: '6379'
     volumes:
@@ -37,6 +48,7 @@ services:
       - ./docker/drupal/prod/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
+      - s3
       - redis
     networks:
       - ad-network
@@ -72,6 +84,24 @@ services:
     networks:
       - ad-network
 
+  s3:
+    build:
+      context: ./
+      dockerfile: ./docker/s3/Dockerfile
+    entrypoint: /bin/sh /usr/local/bin/entrypoint.sh
+    volumes:
+      - s3:/data
+      - ./docker/s3/entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
+    environment:
+      RUSTFS_ACCESS_KEY: 'S3KEY'
+      RUSTFS_SECRET_KEY: 'S3SECRET'
+      DEFAULT_BUCKETS: 'audiodescription:public'
+    ports:
+      - '9001:9001'
+      - '9000:9000'
+    networks:
+      - ad-network
+
   redis:
     image: redis:7-alpine
     ports:
@@ -82,6 +112,7 @@ services:
 volumes:
   db-data:
   elastic-data:
+  s3:
 
 networks:
   ad-network:

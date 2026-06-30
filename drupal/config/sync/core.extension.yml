@@ -52,6 +52,7 @@ module:
   pgsql: 0
   proconnect: 0
   redis: 0
+  s3fs: 0
   search_api: 0
   serialization: 0
   shortcut: 0
