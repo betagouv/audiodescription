@@ -1,0 +1,13 @@
+_core:
+  default_config_hash: NwwJATflq66rriZv9D0GlXcYiC-EoJc8jyPCPyDGZQM
+always_save_userinfo: true
+connect_existing_users: false
+override_registration_settings: false
+end_session_enabled: true
+user_login_display: hidden
+redirect_login: ''
+redirect_logout: ''
+userinfo_mappings:
+  timezone: zoneinfo
+role_mappings: {  }
+autostart_login: false

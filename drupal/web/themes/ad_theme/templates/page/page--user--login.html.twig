@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Template for the login page.
+ */
+#}
+<div class="layout-container" id="top">
+  {% set _skip_contenu %}{{ include('ui_suite_dsfr:link', {label: 'Content'|t, url: '#contenu'}, with_context = false) }}{% endset %}
+  {{ include('ui_suite_dsfr:skiplinks', {
+    label: 'Accès rapides',
+    items: [_skip_contenu],
+  }, with_context = false) }}
+  {{ page.top }}
+
+  {{ include('@ad_theme/pattern/pattern-header.html.twig', {
+    attributes: create_attribute(),
+    logo_text: logo_text,
+    home_url: path('<front>'),
+    operator_logo: page.header_operator_logo,
+    service_title: site_name,
+    service_tagline: site_slogan,
+    tools_links: page.header_tools_links,
+    navbar: page.header_navbar,
+  }, with_context = false) }}
+
+  <main role="main" class="{{ container }}" id="contenu" tabindex="-1">
+    <div class="fr-grid-row fr-grid-row--gutters">
+      <div class="fr-col fr-pb-0">
+        {{ page.content }}
+      </div>
+    </div>
+    {{ page.bottom }}
+  </main>
+
+  {{ include('@ad_theme/menu/pattern-footer.html.twig', {
+    attributes: create_attribute(),
+    logo_text: logo_text,
+    home_url: path('<front>'),
+    top: footer_top,
+    service_title: site_name,
+    content: page.footer_content,
+    content_desc: page.footer_content_desc,
+    partners: page.footer_partners,
+    bottom: page.footer_bottom,
+    bottom_copy: page.footer_bottom_copy,
+  }, with_context = false) }}
+</div>

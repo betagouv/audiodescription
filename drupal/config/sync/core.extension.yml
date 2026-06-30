@@ -14,6 +14,7 @@ module:
   config_split: 0
   consumers: 0
   contextual: 0
+  core_event_dispatcher: 0
   datetime: 0
   dblog: 0
   dynamic_page_cache: 0
@@ -27,6 +28,7 @@ module:
   filter: 0
   help: 0
   history: 0
+  hook_event_dispatcher: 0
   image: 0
   inline_form_errors: 0
   language: 0
@@ -40,6 +42,7 @@ module:
   menu_ui: 0
   navigation: 0
   node: 0
+  openid_connect: 0
   options: 0
   password_policy_character_types: 0
   password_policy_length: 0
@@ -47,6 +50,7 @@ module:
   path: 0
   path_alias: 0
   pgsql: 0
+  proconnect: 0
   redis: 0
   search_api: 0
   serialization: 0

@@ -1,0 +1,27 @@
+uuid: 2815d930-d3dd-4852-a11a-d7ca0465ed71
+langcode: fr
+status: true
+dependencies:
+  module:
+    - proconnect
+_core:
+  default_config_hash: 4cfabiutZOo7cdrZaHz3YACC9tUvrQY8pQLYN1tz9t8
+id: proconnect
+label: ProConnect
+plugin: proconnect
+settings:
+  iss_allowed_domains: {  }
+  prompt:
+    login: login
+  issuer_url: ''
+  issuer: ''
+  jwks_uri: ''
+  scopes:
+    - openid
+    - email
+    - given_name
+    - usual_name
+    - uid
+    - idp_id
+    - phone
+    - custom

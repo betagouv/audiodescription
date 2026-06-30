@@ -1,0 +1,27 @@
+langcode: fr
+status: true
+dependencies: { }
+
+id: proconnect
+label: ProConnect
+plugin: proconnect
+
+settings:
+  issuer_url: ''
+  issuer: ''
+  jwks_uri: ''
+
+  scopes:
+    - openid
+    - email
+    - given_name
+    - usual_name
+    - uid
+    - idp_id
+    - phone
+    - custom
+
+  iss_allowed_domains: []
+
+  prompt:
+    login: login

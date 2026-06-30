@@ -1,0 +1,10 @@
+name: ProConnect
+type: module
+description: 'Integrates ProConnect SSO authentication with Drupal.'
+package: Custom
+core_version_requirement: ^10.5 || ^11
+dependencies:
+  - hook_event_dispatcher:core_event_dispatcher
+  - drupal:openid_connect
+  - drupal:taxonomy
+  - drupal:user

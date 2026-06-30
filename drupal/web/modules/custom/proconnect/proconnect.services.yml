@@ -1,0 +1,61 @@
+services:
+  logger.channel.proconnect:
+    parent: logger.channel_base
+    arguments: ['proconnect']
+
+  proconnect.client:
+    class: Drupal\proconnect\Service\ProConnectClient
+    arguments:
+      - '@http_client'
+      - '@cache.default'
+      - '@datetime.time'
+      - '@logger.channel.proconnect'
+      - '@settings'
+
+  proconnect.state_manager:
+    class: Drupal\proconnect\Service\ProConnectStateManager
+    arguments:
+      - '@request_stack'
+      - '@datetime.time'
+      - '@private_key'
+
+  proconnect.user_manager:
+    class: Drupal\proconnect\Service\ProConnectUserManager
+    arguments:
+      - '@entity_type.manager'
+      - '@logger.channel.proconnect'
+      - '@user.name_validator'
+      - '@transliteration'
+  proconnect.access_denied_content_manager:
+    class: Drupal\proconnect\Service\ProConnectAccessDeniedContentManager
+    arguments:
+      - '@state'
+      - '@entity_type.manager'
+      - '@cache_tags.invalidator'
+      - '@logger.channel.proconnect'
+
+  proconnect.hook_handler:
+    class: Drupal\proconnect\Service\ProConnectHookHandler
+    arguments:
+      - '@current_user'
+      - '@openid_connect.session'
+      - '@logger.channel.proconnect'
+      - '@proconnect.state_manager'
+
+  proconnect.pre_authorize_handler:
+    class: Drupal\proconnect\Service\ProConnectPreAuthorizeHandler
+    arguments:
+      - '@state'
+      - '@openid_connect.session'
+      - '@messenger'
+      - '@logger.channel.proconnect'
+      - '@proconnect.user_manager'
+  proconnect.form_alter_subscriber:
+    class: Drupal\proconnect\EventSubscriber\ProConnectFormAlterSubscriber
+    arguments:
+      - '@request_stack'
+      - '@string_translation'
+      - '@state'
+    tags:
+      - { name: event_subscriber }
+

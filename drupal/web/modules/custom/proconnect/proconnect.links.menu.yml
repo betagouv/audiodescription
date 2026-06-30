@@ -1,0 +1,5 @@
+proconnect.access_domains:
+  title: "ProConnect"
+  description: "Configurer les domaines d'email autorisés pour ProConnect"
+  route_name: proconnect.access_domains
+  parent: system.admin_config

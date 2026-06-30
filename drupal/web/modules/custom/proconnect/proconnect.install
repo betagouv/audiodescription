@@ -1,0 +1,96 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install and update hooks for the ProConnect module.
+ */
+
+use Drupal\openid_connect\OpenIDConnectClientEntityInterface;
+
+
+/**
+ * Implements hook_install().
+ */
+function proconnect_install(): void {
+  proconnect_ensure_client();
+}
+
+/**
+ * Ensures the OpenID Connect client exists on already-enabled sites.
+ */
+function proconnect_update_11001(): void {
+  proconnect_ensure_client();
+}
+
+/**
+ * Removes runtime-only ProConnect credentials from stored OIDC client config.
+ */
+function proconnect_update_11002(): void {
+  proconnect_ensure_client();
+}
+
+/**
+ * Normalizes ProConnect client settings after schema updates.
+ */
+function proconnect_update_11003(): void {
+  proconnect_ensure_client();
+}
+
+/**
+ * Removes obsolete SIRET-based ProConnect access settings.
+ */
+function proconnect_update_11004(): void {
+  proconnect_ensure_client();
+}
+
+/**
+ * Creates the domain access config and re-cleans legacy client settings.
+ */
+function proconnect_update_11005(): void {
+  $config = \Drupal::configFactory()->getEditable('proconnect.settings');
+  $allowedDomains = $config->get('allowed_domains');
+  if (!is_array($allowedDomains)) {
+    $config->set('allowed_domains', proconnect_parse_domains($allowedDomains))->save();
+  }
+
+  proconnect_ensure_client();
+}
+
+/**
+ * Removes the last legacy SIRET values from the active OIDC client config.
+ */
+function proconnect_update_11006(): void {
+  $config = \Drupal::configFactory()->getEditable('openid_connect.client.proconnect');
+  $settings = $config->get('settings');
+  if (!is_array($settings)) {
+    return;
+  }
+
+  unset($settings['allowed_sirets']);
+
+  $scopes = $settings['scopes'] ?? [];
+  if (is_array($scopes)) {
+    $settings['scopes'] = array_values(array_diff($scopes, ['siret']));
+  }
+
+  $config->set('settings', $settings)->save();
+}
+
+/**
+ * Removes the obsolete ISS redirect-domain setting from the active client.
+ */
+function proconnect_update_11007(): void {
+  proconnect_ensure_client();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function proconnect_uninstall(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('openid_connect_client');
+  $client = $storage->load('proconnect');
+  if ($client instanceof OpenIDConnectClientEntityInterface) {
+    $client->delete();
+  }
+}

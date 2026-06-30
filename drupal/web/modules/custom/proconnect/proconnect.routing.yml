@@ -1,0 +1,71 @@
+proconnect.login:
+  path: '/proconnect/login'
+  defaults:
+    _controller: '\Drupal\proconnect\Controller\ProConnectController::login'
+  requirements:
+    _user_is_logged_in: 'FALSE'
+  methods: [GET]
+  options:
+    _maintenance_access: TRUE
+    no_cache: TRUE
+
+proconnect.check:
+  path: '/proconnect/check'
+  defaults:
+    _controller: '\Drupal\proconnect\Controller\ProConnectController::callback'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    _maintenance_access: TRUE
+    no_cache: TRUE
+
+proconnect.logout:
+  path: '/proconnect/logout'
+  defaults:
+    _controller: '\Drupal\proconnect\Controller\ProConnectController::logout'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    _maintenance_access: TRUE
+    no_cache: TRUE
+
+proconnect.post_logout_redirect:
+  path: '/proconnect/post_logout_redirect'
+  defaults:
+    _controller: '\Drupal\proconnect\Controller\ProConnectController::postLogoutRedirect'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    _maintenance_access: TRUE
+    no_cache: TRUE
+
+proconnect.metadata:
+  path: '/proconnect/metadata'
+  defaults:
+    _controller: '\Drupal\proconnect\Controller\ProConnectController::metadata'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    _maintenance_access: TRUE
+    no_cache: TRUE
+
+proconnect.access_denied:
+  path: '/proconnect/access-refuse'
+  defaults:
+    _controller: '\Drupal\proconnect\Controller\AccessDeniedController::display'
+    _title: 'Accès refusé'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+
+proconnect.access_domains:
+  path: '/admin/config/access-domains'
+  defaults:
+    _form: '\Drupal\proconnect\Form\AccessDomainsForm'
+    _title: 'Paramètres ProConnect'
+  requirements:
+    _permission: 'administer site configuration'

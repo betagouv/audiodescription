@@ -1,0 +1,15 @@
+/*
+ * Contrecarre les styles DSFR sur la navigation admin quand le CSS DSFR
+ * est chargé via ckeditor5-stylesheets (pages avec un éditeur de texte riche).
+ *
+ * Le DSFR applique text-decoration:underline et des couleurs sur tous les [href],
+ * ce qui affecte le module Navigation (#admin-toolbar) même sur les pages admin.
+ */
+#admin-toolbar a,
+#admin-toolbar [href],
+.admin-toolbar-control-bar a,
+.admin-toolbar-control-bar [href] {
+  text-decoration: none;
+  background-image: none;
+  color: inherit;
+}

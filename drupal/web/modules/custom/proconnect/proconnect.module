@@ -1,0 +1,354 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\openid_connect\OpenIDConnectClientEntityInterface;
+use Drupal\proconnect\Service\ProConnectHookHandler;
+use Drupal\proconnect\Service\ProConnectPreAuthorizeHandler;
+use Drupal\user\UserInterface;
+
+/**
+ * Returns the required ProConnect scopes.
+ *
+ * @return string[]
+ *   Required scopes.
+ */
+function proconnect_required_scopes(): array {
+  return [
+    'openid',
+    'email',
+    'given_name',
+    'usual_name',
+    'uid',
+    'idp_id',
+    'phone',
+    'custom',
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function proconnect_menu_local_tasks_alter(array &$data, string $route_name): void {
+  if ($route_name !== 'user.login') {
+    return;
+  }
+
+  $data['tabs'] = [];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function proconnect_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  if ($form_id !== 'user_login_form') {
+    return;
+  }
+
+  $showProconnect = (bool) \Drupal::state()->get('proconnect.show_proconnect_button', TRUE);
+
+  $query = [];
+  $destination = \Drupal::request()->query->get('destination');
+  if (is_string($destination) && $destination !== '') {
+    $query['destination'] = $destination;
+  }
+
+  $form['#attributes']['class'][] = 'fr-container';
+  $form['#attributes']['class'][] = 'fr-pb-8w';
+
+  if ($showProconnect) {
+    $form['name']['#access'] = FALSE;
+    $form['pass']['#access'] = FALSE;
+    $form['actions']['#access'] = FALSE;
+
+    $form['proconnect'] = [
+      '#type' => 'link',
+      '#title' => Markup::create('<span class="fr-connect__login">' . t("S'identifier avec") . '</span><span class="fr-connect__brand">ProConnect</span>'),
+      '#url' => Url::fromRoute('proconnect.login', [], ['query' => $query]),
+      '#attributes' => ['class' => ['fr-connect']],
+      '#weight' => 0,
+    ];
+  }
+}
+
+/**
+ * Ensures the ProConnect OpenID Connect client entity exists.
+ */
+function proconnect_ensure_client(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('openid_connect_client');
+  $client = $storage->load('proconnect');
+  if ($client instanceof OpenIDConnectClientEntityInterface) {
+    $settings = $client->get('settings') ?? [];
+    if (!is_array($settings)) {
+      $settings = [];
+    }
+    $originalSettings = $settings;
+
+    foreach ([
+      'client_id',
+      'client_secret',
+      'domain',
+      'algorithm',
+      'authorization_endpoint',
+      'token_endpoint',
+      'userinfo_endpoint',
+      'end_session_endpoint',
+      'post_logout_redirect_uri',
+    ] as $runtimeKey) {
+      unset($settings[$runtimeKey]);
+    }
+
+    $existingScopes = $settings['scopes'] ?? [];
+    if (!is_array($existingScopes)) {
+      $existingScopes = [];
+    }
+
+    $requiredScopes = proconnect_required_scopes();
+    $normalizedScopes = array_values(array_unique(array_merge(
+      array_values(array_diff($existingScopes, ['siret'])),
+      $requiredScopes,
+    )));
+
+    if (($settings['scopes'] ?? []) !== $normalizedScopes) {
+      $settings['scopes'] = $normalizedScopes;
+    }
+
+    unset($settings['allowed_sirets'], $settings['iss_allowed_domains']);
+
+    if ($settings !== $originalSettings) {
+      $client->set('settings', $settings);
+      $client->save();
+    }
+
+    return;
+  }
+
+  $client = $storage->create([
+    'id' => 'proconnect',
+    'label' => 'ProConnect',
+    'plugin' => 'proconnect',
+    'status' => TRUE,
+    'settings' => [
+      'scopes' => proconnect_required_scopes(),
+      'prompt' => [
+        'login' => 'login',
+      ],
+    ],
+  ]);
+  $client->save();
+}
+
+/**
+ * Implements hook_openid_connect_userinfo_alter().
+ */
+function proconnect_openid_connect_userinfo_alter(array &$userinfo, array $context): void {
+  if (($context['plugin_id'] ?? null) !== 'proconnect') {
+    return;
+  }
+
+  if (isset($userinfo['email']) && is_string($userinfo['email'])) {
+    $userinfo['email'] = mb_strtolower(trim($userinfo['email']));
+  }
+
+  if (!empty($userinfo['preferred_username']) || !empty($userinfo['name'])) {
+    return;
+  }
+
+  $parts = [];
+  foreach (['given_name', 'usual_name'] as $claim) {
+    if (isset($userinfo[$claim]) && is_string($userinfo[$claim])) {
+      $value = trim($userinfo[$claim]);
+      if ($value !== '') {
+        $parts[] = $value;
+      }
+    }
+  }
+
+  if ($parts !== []) {
+    $preferredUsername = implode('.', $parts);
+    $userinfo['preferred_username'] = $preferredUsername;
+    $userinfo['name'] = $preferredUsername;
+  }
+}
+
+/**
+ * Implements hook_openid_connect_pre_authorize().
+ */
+function proconnect_openid_connect_pre_authorize($account, array $context): UserInterface|bool {
+  return proconnect_pre_authorize_handler()->preAuthorize($account, $context);
+}
+
+/**
+ * Implements hook_openid_connect_post_authorize().
+ */
+function proconnect_openid_connect_post_authorize(UserInterface $account, array $context): void {
+  if (($context['plugin_id'] ?? null) !== 'proconnect') {
+    return;
+  }
+
+  \Drupal::service('proconnect.state_manager')->markAuthenticatedViaProConnect();
+  \Drupal::logger('proconnect')->notice('ProConnect user logged in successfully for uid {uid}.', [
+    'uid' => $account->id(),
+  ]);
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function proconnect_preprocess_page(array &$variables): void {
+  $variables['show_proconnect_button'] = (bool) \Drupal::state()->get('proconnect.show_proconnect_button', TRUE);
+
+  $variables['proconnect_authenticated'] = \Drupal::currentUser()->isAuthenticated()
+    && \Drupal::service('proconnect.state_manager')->isAuthenticatedViaProConnect();
+
+  if (\Drupal::routeMatch()->getRouteName() === 'proconnect.access_denied') {
+    $variables['header_dynamic_class'] = 'header-actu';
+    $variables['page']['breadcrumb'] = [];
+unset($variables['page']['navigation_search']);
+    unset($variables['page']['navigation']);
+  }
+}
+
+/**
+ * Implements hook_user_logout().
+ */
+function proconnect_user_logout(AccountInterface $account): void {
+  $stateManager = \Drupal::service('proconnect.state_manager');
+  $stateManager->clearNonce();
+  $stateManager->clearLogoutContext();
+  $stateManager->clearAuthenticatedViaProConnect();
+
+  $session = \Drupal::service('openid_connect.session');
+  $session->retrieveIdToken(TRUE);
+  $session->retrieveAccessToken(TRUE);
+  $session->retrieveRefreshToken(TRUE);
+  $session->retrieveExpireToken(TRUE);
+  $session->retrieveStateToken(TRUE);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function proconnect_theme(array $existing, string $type, string $theme, string $path): array {
+  return [
+    'proconnect_access_denied' => [
+      'variables' => [
+        'page_title' => NULL,
+        'body' => NULL,
+        'image_src' => NULL,
+        'image_alt' => '',
+      ],
+      'template' => 'proconnect-access-denied',
+    ],
+  ];
+}
+
+/**
+ * Returns the ProConnect pre-authorization handler service.
+ */
+function proconnect_pre_authorize_handler(): ProConnectPreAuthorizeHandler {
+  /** @var \Drupal\proconnect\Service\ProConnectPreAuthorizeHandler $handler */
+  $handler = \Drupal::service('proconnect.pre_authorize_handler');
+  return $handler;
+}
+
+/**
+ * Returns the ProConnect hook handler service.
+ */
+function proconnect_hook_handler(): ProConnectHookHandler {
+  /** @var \Drupal\proconnect\Service\ProConnectHookHandler $handler */
+  $handler = \Drupal::service('proconnect.hook_handler');
+  return $handler;
+}
+
+/**
+ * Normalizes an email returned by ProConnect.
+ */
+function proconnect_normalize_email(mixed $email): ?string {
+  if (!is_string($email)) {
+    return NULL;
+  }
+
+  $email = mb_strtolower(trim($email));
+  return $email !== '' ? $email : NULL;
+}
+
+/**
+ * Extracts the domain part from a validated email address.
+ */
+function proconnect_extract_domain(?string $email): ?string {
+  if ($email === NULL || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    return NULL;
+  }
+
+  $domain = strrchr($email, '@');
+  if ($domain === FALSE) {
+    return NULL;
+  }
+
+  $domain = mb_strtolower(substr($domain, 1));
+  return proconnect_is_valid_domain($domain) ? $domain : NULL;
+}
+
+/**
+ * Normalizes a raw domain list into unique allowed domains.
+ *
+ * @return string[]
+ *   A normalized domain whitelist.
+ */
+function proconnect_parse_domains(string|array|null $domains): array {
+  if (is_string($domains)) {
+    $domains = preg_split('/[\s,;]+/', $domains) ?: [];
+  }
+  elseif (!is_array($domains)) {
+    return [];
+  }
+
+  $normalizedDomains = [];
+  foreach ($domains as $domain) {
+    if (!is_string($domain)) {
+      continue;
+    }
+
+    $domain = mb_strtolower(trim($domain));
+    if ($domain === '' || !proconnect_is_valid_domain($domain)) {
+      continue;
+    }
+
+    $normalizedDomains[$domain] = $domain;
+  }
+
+  return array_values($normalizedDomains);
+}
+
+/**
+ * Returns whether a domain is syntactically valid.
+ */
+function proconnect_is_valid_domain(string $domain): bool {
+  return str_contains($domain, '.')
+    && filter_var($domain, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME) !== FALSE;
+}
+
+/**
+ * Returns whether a normalized domain is allowed.
+ *
+ * Exact domains and subdomains are allowed.
+ */
+function proconnect_is_domain_allowed(?string $domain, array $allowedDomains): bool {
+  if ($domain === NULL || $allowedDomains === []) {
+    return FALSE;
+  }
+  foreach ($allowedDomains as $allowedDomain) {
+    if ($domain === $allowedDomain || str_ends_with($domain, '.' . $allowedDomain)) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
