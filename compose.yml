@@ -6,12 +6,16 @@ services:
     ports:
       - 8080:80
     working_dir: /app/public/drupal
+    environment:
+      REDIS_HOST: 'redis'
+      REDIS_PORT: '6379'
     volumes:
       - .:/app/public
       - ./docker/drupal/dev/caddy/Caddyfile:/etc/frankenphp/Caddyfile
       - ./docker/drupal/dev/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
+      - redis
     networks:
       - ad-network
 
@@ -60,6 +64,13 @@ services:
       - "9300:9300"
     volumes:
       - ./drupal/elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - ad-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
     networks:
       - ad-network
 

@@ -9,3 +9,5 @@ node_modules
 logs/*
 
 jmeter.log
+
+transfert/*
