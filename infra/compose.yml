@@ -15,10 +15,14 @@ services:
       - --accesslog=true   # Activer les logs d'accès
       - --accesslog.bufferingsize=0  # Écrire immédiatement chaque ligne de log d'accès dans stdout
       - --accesslog.format=json      # Format des logs d'accès
+      - --entrypoints.s3.address=:9000
+      - --entrypoints.s3console.address=:9001
     container_name: traefik
     ports:
       - "80:80"
       - "443:443"
+      - "9000:9000"
+      - "9001:9001"
       #- "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

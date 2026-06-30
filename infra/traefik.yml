@@ -15,6 +15,10 @@ entryPoints:
     http:
       tls:
         certResolver: default
+  s3:
+    address: ':9000'
+  s3console:
+    address: ':9001'
 providers:
   docker:
     watch: true
