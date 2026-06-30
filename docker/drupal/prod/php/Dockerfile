@@ -3,8 +3,8 @@ FROM dunglas/frankenphp:1.12-php8.5-bookworm
 
 COPY --from=composer:2.9 /usr/bin/composer /usr/local/bin/composer
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+RUN pecl install xdebug redis \
+    && docker-php-ext-enable xdebug redis
 
 # Installer les dépendances nécessaires
 RUN install-php-extensions \
