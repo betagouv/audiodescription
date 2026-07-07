@@ -17,7 +17,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '<p>Vous pouvez vous désinscrire à tout moment en écrivant à contact@audiodescription.beta.gouv.fr ou en cliquant sur “se désinscrire” en bas de l’infolettre.&nbsp;</p>'
+    value: '<p>Vous pouvez vous désinscrire à tout moment en écrivant à audiodescription@cnc.fr ou en cliquant sur “se désinscrire” en bas de l’infolettre.&nbsp;</p>'
     format: basic_html
 default_value_callback: ''
 settings:

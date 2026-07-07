@@ -156,8 +156,8 @@ Services externes des plateformes de diffusion fournissant les données de catal
 
 | Application | URL Production                              | Description              |
 |-------------|---------------------------------------------|--------------------------|
-| Drupal      | https://audiodescription.beta.gouv.fr       | Portail public           |
-| Patrimony   | https://patrimony.audiodescription.beta.gouv.fr | API et administration |
+| Drupal      | https://audiodescription.culture.gouv.fr       | Portail public           |
+| Patrimony   | https://patrimony.audiodescription.culture.gouv.fr | API et administration |
 
 ## Sécurité
 

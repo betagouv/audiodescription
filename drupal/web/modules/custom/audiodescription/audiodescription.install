@@ -144,7 +144,7 @@ function audiodescription_update_10016() {
 
     $config_page->set('field_about_icon', audiodescription_create_media_image('information.svg', ''));
     $config_page->set('field_about_pre_contact', 'Envoyez-nous toute suggestion ou retour à notre adresse mail :');
-    $config_page->set('field_about_email', 'contact@audiodescription.beta.gouv.fr');
+    $config_page->set('field_about_email', 'audiodescription@cnc.fr');
 
     $config_page->save();
   }

@@ -17,7 +17,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: '<p>N’hésitez pas à nous partager vos retours en nous écrivant à contact@audiodescription.beta.gouv.fr.<br>En espérant vous revoir bientôt !</p>'
+    value: '<p>N’hésitez pas à nous partager vos retours en nous écrivant à audiodescription@cnc.fr.<br>En espérant vous revoir bientôt !</p>'
     format: basic_html
 default_value_callback: ''
 settings:

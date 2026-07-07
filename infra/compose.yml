@@ -9,7 +9,7 @@ services:
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
-      - --certificatesresolvers.letsencrypt.acme.email=contact@audiodescription.beta.gouv.fr
+      - --certificatesresolvers.letsencrypt.acme.email=audiodescription@cnc.fr
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
       - --log.format=json  # Format des logs (par exemple, JSON pour une meilleure lisibilité dans les systèmes de monitoring)
       - --accesslog=true   # Activer les logs d'accès

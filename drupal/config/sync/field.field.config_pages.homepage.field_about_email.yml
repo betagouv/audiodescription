@@ -15,7 +15,7 @@ required: true
 translatable: false
 default_value:
   -
-    value: contact@audiodescription.beta.gouv.fr
+    value: audiodescription@cnc.fr
 default_value_callback: ''
 settings: {  }
 field_type: email

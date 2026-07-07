@@ -23,7 +23,7 @@ providers:
 certificatesResolvers:
   default:
     acme:
-      email: contact@audiodescription.beta.gouv.fr
+      email: audiodescription@cnc.fr
       storage: acme.json
       caServer: 'https://acme-v02.api.letsencrypt.org/directory'
       tlsChallenge: {}

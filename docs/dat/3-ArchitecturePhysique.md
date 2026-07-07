@@ -54,10 +54,10 @@ Configuration des entrypoints :
 
 | Domaine                                     | Service   | Description              |
 |---------------------------------------------|-----------|--------------------------|
-| audiodescription.beta.gouv.fr               | Drupal    | Portail public           |
-| www.audiodescription.beta.gouv.fr           | Drupal    | Redirection vers non-www |
-| patrimony.audiodescription.beta.gouv.fr     | Patrimony | API et administration    |
-| www.patrimony.audiodescription.beta.gouv.fr | Patrimony | Redirection vers non-www    |
+| audiodescription.culture.gouv.fr               | Drupal    | Portail public           |
+| www.audiodescription.culture.gouv.fr           | Drupal    | Redirection vers non-www |
+| patrimony.audiodescription.culture.gouv.fr     | Patrimony | API et administration    |
+| www.patrimony.audiodescription.culture.gouv.fr | Patrimony | Redirection vers non-www    |
 
 ---
 

@@ -178,7 +178,7 @@ audiodescription/
 ## Contacts
 
 | Rôle            | Contact |
-|-----------------|---------|
-| Contact produit | contact@audiodescription.beta.gouv.fr |
+|-----------------|--------|
+| Contact produit | audiodescription@cnc.fr |
 
 [<< Page précédente - Architecture physique](3-ArchitecturePhysique.md)
