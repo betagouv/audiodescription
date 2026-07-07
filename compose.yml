@@ -20,6 +20,10 @@ services:
       S3_USE_CUSTOM_HOST: 'TRUE'
       REDIS_HOST: 'redis'
       REDIS_PORT: '6379'
+      PROCONNECT_CLIENT_ID: 'c2b622eefbc424308a2b901025f91efe119cf952966c2f9dacd2215eb5e3e56f'
+      PROCONNECT_CLIENT_SECRET: 'eeb9a39f069441a03f8dc53f04abaf75019fbab2ff9be17c3a2b90ebef5c288b'
+      PROCONNECT_DOMAIN: 'fca.integ01.dev-agentconnect.fr'
+      PROCONNECT_ALGORITHM: 'RS256'
     volumes:
       - .:/app/public
       - ./docker/drupal/dev/caddy/Caddyfile:/etc/frankenphp/Caddyfile
