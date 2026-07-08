@@ -53,9 +53,7 @@ services:
   proconnect.form_alter_subscriber:
     class: Drupal\proconnect\EventSubscriber\ProConnectFormAlterSubscriber
     arguments:
-      - '@request_stack'
       - '@string_translation'
-      - '@state'
     tags:
       - { name: event_subscriber }
 

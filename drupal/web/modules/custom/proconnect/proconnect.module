@@ -64,16 +64,12 @@ function proconnect_form_alter(array &$form, FormStateInterface $form_state, str
   $form['#attributes']['class'][] = 'fr-pb-8w';
 
   if ($showProconnect) {
-    $form['name']['#access'] = FALSE;
-    $form['pass']['#access'] = FALSE;
-    $form['actions']['#access'] = FALSE;
-
     $form['proconnect'] = [
       '#type' => 'link',
       '#title' => Markup::create('<span class="fr-connect__login">' . t("S'identifier avec") . '</span><span class="fr-connect__brand">ProConnect</span>'),
       '#url' => Url::fromRoute('proconnect.login', [], ['query' => $query]),
       '#attributes' => ['class' => ['fr-connect']],
-      '#weight' => 0,
+      '#weight' => 150,
     ];
   }
 }
