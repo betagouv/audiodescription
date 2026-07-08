@@ -244,6 +244,9 @@ function audiodescription_block_view_alter(array &$build, BlockPluginInterface $
  * Implements hook_node_update().
  */
 function audiodescription_node_update(EntityInterface $entity) {
+  // DEBUG TEMPORAIRE : confirmer que ce hook se declenche bien.
+  \Drupal::logger('DEBUG_CACHE_INVESTIGATION')->notice('audiodescription_node_update called for node @id', ['@id' => $entity->id()]);
+
   // Filet de securite : force l'invalidation du tag propre au node.
   // Constat en prod/preprod : les sauvegardes via le formulaire d'edition
   // ne declenchent pas systematiquement l'invalidation native de Drupal
