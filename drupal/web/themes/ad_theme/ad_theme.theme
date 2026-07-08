@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\block\Entity\Block;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Render\Markup;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
@@ -252,7 +253,7 @@ function ad_theme_preprocess_node__movie__full(&$variables) {
     }
   }
 
-  $variables['#cache']['tags'] = $cache_tags;
+  $variables['#cache']['tags'] = Cache::mergeTags($variables['#cache']['tags'] ?? [], $cache_tags);
 }
 
 /**
