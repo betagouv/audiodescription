@@ -150,27 +150,11 @@ docker compose -f compose.prod.yml exec db pg_dump -U audiodescription drupal > 
 docker compose -f compose.prod.yml exec db pg_dump -U audiodescription -n patrimony patrimony > backup_patrimony_$(date +%Y%m%d).sql
 ```
 
-### Sauvegarde des volumes
-
-*@TODO : Procédure à tester*
-
-```bash
-# Sauvegarde du volume PostgreSQL
-docker run --rm -v audiodescription_db-data:/data -v $(pwd):/backup alpine tar czf /backup/db-data-backup.tar.gz /data
-
-# Sauvegarde du volume ElasticSearch
-docker run --rm -v audiodescription_elastic-data:/data -v $(pwd):/backup alpine tar czf /backup/elastic-data-backup.tar.gz /data
-```
-
 ### Restauration
-*@TODO : Procédure à tester*
 
 ```bash
-# Restauration de la base PostgreSQL
+# Restauration de la base PostgreSQL dans une nouvelle base de données.
 cat backup_drupal_YYYYMMDD.sql | docker compose -f compose.prod.yml exec -T db psql -U audiodescription drupal
-
-# Restauration d'un volume
-docker run --rm -v audiodescription_db-data:/data -v $(pwd):/backup alpine tar xzf /backup/db-data-backup.tar.gz -C /
 ```
 
 ### Fréquence recommandée
