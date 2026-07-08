@@ -244,6 +244,13 @@ function audiodescription_block_view_alter(array &$build, BlockPluginInterface $
  * Implements hook_node_update().
  */
 function audiodescription_node_update(EntityInterface $entity) {
+  // Filet de securite : force l'invalidation du tag propre au node.
+  // Constat en prod/preprod : les sauvegardes via le formulaire d'edition
+  // ne declenchent pas systematiquement l'invalidation native de Drupal
+  // (le node est bien mis a jour en base, mais le cache de rendu reste
+  // perime indefiniment sans cet appel explicite).
+  \Drupal::service('cache_tags.invalidator')->invalidateTags($entity->getCacheTagsToInvalidate());
+
   // Invalidate taxonmy terms Collection with movie $entity.
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'movie') {
     $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()
@@ -263,6 +270,14 @@ function audiodescription_node_update(EntityInterface $entity) {
       \Drupal::service('cache_tags.invalidator')->invalidateTags($cache_tags);
     }
   }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function audiodescription_node_insert(EntityInterface $entity) {
+  // Filet de securite : voir audiodescription_node_update().
+  \Drupal::service('cache_tags.invalidator')->invalidateTags($entity->getCacheTagsToInvalidate());
 }
 
 /**
