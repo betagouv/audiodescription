@@ -62,6 +62,7 @@ function proconnect_form_alter(array &$form, FormStateInterface $form_state, str
 
   $form['#attributes']['class'][] = 'fr-container';
   $form['#attributes']['class'][] = 'fr-pb-8w';
+  $form['#cache']['tags'][] = 'proconnect:show_proconnect_button';
 
   if ($showProconnect) {
     $form['proconnect'] = [
@@ -200,6 +201,7 @@ function proconnect_openid_connect_post_authorize(UserInterface $account, array 
  */
 function proconnect_preprocess_page(array &$variables): void {
   $variables['show_proconnect_button'] = (bool) \Drupal::state()->get('proconnect.show_proconnect_button', TRUE);
+  $variables['#cache']['tags'][] = 'proconnect:show_proconnect_button';
 
   $variables['proconnect_authenticated'] = \Drupal::currentUser()->isAuthenticated()
     && \Drupal::service('proconnect.state_manager')->isAuthenticatedViaProConnect();

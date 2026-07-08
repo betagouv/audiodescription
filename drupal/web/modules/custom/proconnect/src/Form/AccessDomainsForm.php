@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\proconnect\Form;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -132,6 +133,8 @@ final class AccessDomainsForm extends FormBase implements ContainerInjectionInte
 
     $this->state->set('proconnect.allowed_domains', $domains);
     $this->state->set('proconnect.show_proconnect_button', (bool) $form_state->getValue('show_proconnect_button'));
+
+    Cache::invalidateTags(['proconnect:show_proconnect_button']);
 
     $this->accessDeniedContentManager->saveContent(
       (string) ($accessDenied['title_proconnect_access_denied'] ?? ''),
