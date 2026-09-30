@@ -117,7 +117,7 @@ services:
     working_dir: "/usr/app"
 
   a11y:
-    image: node:20
+    image: node:22
     volumes:
       - ./:/usr/app
     restart: on-failure
