@@ -19,7 +19,6 @@ api_platform:
             rfc_7807_compliant_errors: true
         pagination_enabled: true
         pagination_client_items_per_page: true
-    keep_legacy_inflector: false
     use_symfony_listeners: true
     swagger:
         api_keys:
