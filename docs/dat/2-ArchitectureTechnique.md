@@ -26,7 +26,7 @@ Les principales fonctionnalités sont :
 |-----------|--------------|------------|------------|---------------|
 | Drupal    | 1            | 1          | 512Mo      | N/A           |
 
-Ce composant est packagé sous la forme d'une image Docker issue de **dunglas/frankenphp:1.4-php8.3-bookworm** et déployé sous la forme d'un container.
+Ce composant est packagé sous la forme d'une image Docker issue de **dunglas/frankenphp:1.13.2-php8.5.12-bookworm** et déployé sous la forme d'un container.
 
 ### Application Patrimony (Backend API)
 
@@ -45,7 +45,7 @@ Les principales fonctionnalités sont :
 |------------|--------------|------------|------------|---------------|
 | Patrimony  | 1            | 1          | 512Mo      | N/A           |
 
-Ce composant est packagé sous la forme d'une image Docker issue de **dunglas/frankenphp:1.4-php8.3-bookworm** et déployé sous la forme d'un container.
+Ce composant est packagé sous la forme d'une image Docker issue de **dunglas/frankenphp:1.13.2-php8.5.12-bookworm** et déployé sous la forme d'un container.
 
 ### Base de données PostgreSQL
 
@@ -120,8 +120,8 @@ Services externes des plateformes de diffusion fournissant les données de catal
 
 | Composant     | Image                                                   |
 |---------------|---------------------------------------------------------|
-| Drupal        | dunglas/frankenphp:1.12-php8.5-bookworm                  |
-| Patrimony     | dunglas/frankenphp:1.12-php8.5-bookworm                  |
+| Drupal        | dunglas/frankenphp:1.13.2-php8.5.12-bookworm             |
+| Patrimony     | dunglas/frankenphp:1.13.2-php8.5.12-bookworm             |
 | PostgreSQL    | postgres:17-bookworm                                    |
 | ElasticSearch | docker.elastic.co/elasticsearch/elasticsearch:8.14.3   |
 
