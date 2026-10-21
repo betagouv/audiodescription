@@ -121,5 +121,6 @@ volumes:
 
 networks:
   ad-network:
+    internal: true
   web:
     external: true
